@@ -1,4 +1,6 @@
-import "./globals.css";
+import "@/styles/globals.css";
+import cx from "classnames";
+import { vercelBold, vercelRegular } from "@/styles/fonts";
 
 export default function RootLayout({
   children,
@@ -7,7 +9,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={cx(vercelBold.variable, vercelRegular.variable)}>
+        {children}
+      </body>
     </html>
   );
 }
