@@ -24,7 +24,7 @@
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
     "eventsource-parser": "^0.1.0",
-    "next": "13.2.4",
+    "next": "^13.2.5-canary.10",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-markdown": "^8.0.5",
