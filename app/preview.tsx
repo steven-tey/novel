@@ -5,7 +5,7 @@ export default function Preview() {
   const [markdown] = useLocalStorage<string>("content", "");
 
   return (
-    <article className="max-w-screen-lg w-full border-2 border-gray-600 rounded-lg min-h-[500px] mt-10 p-10 prose-xl">
+    <article className="prose-xl mt-10 min-h-[500px] w-full max-w-screen-lg rounded-lg border-2 border-gray-600 p-10">
       <ReactMarkdown
         components={{
           a: ({ node, ...props }) => (

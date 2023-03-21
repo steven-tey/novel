@@ -11,11 +11,11 @@ export default function Editor() {
   const [content, setContent] = useLocalStorage<string | null>("content", null);
   const [contentDraft, setContentDraft] = useLocalStorage<string>(
     "content-draft",
-    ""
+    "",
   );
   const draftStatus = useMemo(
     () => (content && contentDraft === content ? "Published" : "Draft"),
-    [content, contentDraft]
+    [content, contentDraft],
   );
   const [saveStatus, setSaveStatus] = useState("Saved");
   const [editorReady, setEditorReady] = useState(false);
@@ -34,14 +34,14 @@ export default function Editor() {
   const debouncedChanges = useDebouncedCallback(
     async (editor: BlockNoteEditor) => {
       const markdown: string = await editor.blocksToMarkdown(
-        editor.topLevelBlocks
+        editor.topLevelBlocks,
       );
       if (contentDraft !== markdown) {
         setSaveStatus("Unsaved");
         debouncedSave(markdown);
       }
     },
-    100
+    100,
   );
 
   const editor: BlockNoteEditor | null = useBlockNote({
@@ -75,10 +75,10 @@ export default function Editor() {
 
   return (
     <>
-      <div className="rounded-lg bg-gray-100 px-2 py-1 text-gray-400 text-sm mb-5">
+      <div className="mb-5 rounded-lg bg-gray-100 px-2 py-1 text-sm text-gray-400">
         {saveStatus}
       </div>
-      <div className="max-w-screen-lg w-full border-2 border-gray-600 rounded-lg min-h-[500px] p-10">
+      <div className="min-h-[500px] w-full max-w-screen-lg rounded-lg border-2 border-gray-600 p-10">
         <BlockNoteView editor={editor} />
       </div>
     </>

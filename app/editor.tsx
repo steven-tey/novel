@@ -13,7 +13,7 @@ export default function Editor() {
   const [contentDraft, setContentDraft] = useLocalStorage("content-draft", []);
   const draftStatus = useMemo(
     () => (content && contentDraft === content ? "Published" : "Draft"),
-    [content, contentDraft]
+    [content, contentDraft],
   );
   const [saveStatus, setSaveStatus] = useState("Saved");
   const [hydrated, setHydrated] = useState(false);
@@ -50,20 +50,18 @@ export default function Editor() {
       const chunkValue = decoder.decode(value);
       setAutocomplete((prev) => prev + chunkValue);
     }
-    console.log(autocomplete);
   };
 
-  const debouncedUpdates = useDebouncedCallback(async ({ editor }) => {
-    setAutocomplete("");
+  const handleUpdateSideEffects = useDebouncedCallback(async ({ editor }) => {
     const [json, text] = [editor.getJSON(), editor.getText()];
-    await predict(text);
+    if (text.length > 10) await predict(text); // only predict if the text is long enough
     setSaveStatus("Saving...");
     setContentDraft(json);
     // Simulate a delay in saving.
     setTimeout(() => {
       setSaveStatus("Saved");
     }, 200);
-  }, 500);
+  }, 1000);
 
   const editor = useEditor({
     extensions: [
@@ -112,9 +110,14 @@ export default function Editor() {
           "prose-lg prose-headings:font-vercel font-default focus:outline-none",
       },
     },
-    onUpdate: debouncedUpdates,
+    onUpdate: (e) => {
+      setAutocomplete("");
+      setSaveStatus("Unsaved");
+      handleUpdateSideEffects(e);
+    },
   });
 
+  // Hydrate the editor with the content from localStorage.
   useEffect(() => {
     if (editor && contentDraft && !hydrated) {
       editor.commands.setContent(contentDraft);
@@ -122,12 +125,22 @@ export default function Editor() {
     }
   }, [editor, contentDraft, hydrated]);
 
+  // dispatch a transaction to update the placeholder extension when the autocomplete text changes
+  useEffect(() => {
+    if (editor) {
+      editor.extensionManager.extensions.filter(
+        (extension) => extension.name === "placeholder",
+      )[0].options["autocomplete"] = autocomplete;
+      editor.view.dispatch(editor.state.tr);
+    }
+  }, [editor, autocomplete]);
+
   return (
     <>
-      <div className="rounded-lg bg-gray-100 px-2 py-1 text-gray-400 text-sm mb-5">
-        {saveStatus}
-      </div>
-      <div className="max-w-screen-lg w-full border-2 border-gray-600 rounded-lg min-h-[500px] p-10">
+      <div className="relative min-h-[500px] w-full max-w-screen-lg rounded-lg border border-gray-200 p-10 shadow-lg">
+        <div className="absolute top-5 right-5 mb-5 rounded-lg bg-gray-100 px-2 py-1 text-sm text-gray-400">
+          {saveStatus}
+        </div>
         <EditorContent editor={editor} />
       </div>
     </>

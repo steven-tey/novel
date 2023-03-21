@@ -6,6 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "format:write": "prettier --write \"**/*.{css,js,json,jsx,ts,tsx}\"",
+    "format": "prettier \"**/*.{css,js,json,jsx,ts,tsx}\"",
     "lint": "next lint"
   },
   "dependencies": {
@@ -33,6 +35,8 @@
     "@tailwindcss/typography": "^0.5.9",
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.21",
+    "prettier": "^2.8.6",
+    "prettier-plugin-tailwindcss": "^0.2.5",
     "tailwindcss": "^3.2.7"
   }
 }
