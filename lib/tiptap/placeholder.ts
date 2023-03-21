@@ -66,7 +66,6 @@ const Placeholder = Extension.create<PlaceholderOptions>({
               const isEmpty = !node.isLeaf && !node.childCount;
               if (hasAnchor || !this.options.showOnlyCurrent) {
                 const classes = [this.options.emptyNodeClass];
-                console.log(node, pos, classes);
                 const decoration = Decoration.node(pos, pos + node.nodeSize, {
                   class: classes.join(" "),
                   "data-placeholder": isEditorEmpty

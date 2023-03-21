@@ -137,7 +137,7 @@ export default function Editor() {
 
   return (
     <>
-      <div className="relative min-h-[500px] w-full max-w-screen-lg rounded-lg border border-gray-200 p-10 shadow-lg">
+      <div className="relative min-h-[500px] w-full max-w-screen-lg border border-gray-200 p-10 shadow-lg sm:rounded-lg">
         <div className="absolute top-5 right-5 mb-5 rounded-lg bg-gray-100 px-2 py-1 text-sm text-gray-400">
           {saveStatus}
         </div>
