@@ -61,7 +61,7 @@ export default function Editor() {
     setTimeout(() => {
       setSaveStatus("Saved");
     }, 200);
-  }, 1000);
+  }, 750);
 
   const editor = useEditor({
     extensions: [
