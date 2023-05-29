@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
-const BlockNoteEditor = dynamic(() => import("./blocknote-editor"), {
+const Editor = dynamic(() => import("./editor"), {
   ssr: false,
 });
-import Editor from "./editor";
 
 export const metadata: Metadata = {
   title: "Novel",

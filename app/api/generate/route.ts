@@ -34,7 +34,7 @@ export async function POST(req: Request): Promise<Response> {
     top_p: 1,
     frequency_penalty: 0,
     presence_penalty: 0,
-    max_tokens: 15,
+    max_tokens: 50,
     stream: true,
     n: 1,
   };

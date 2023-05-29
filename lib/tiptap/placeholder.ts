@@ -3,11 +3,9 @@ import { Plugin, PluginKey } from "@tiptap/pm/state";
 import { Decoration, DecorationSet } from "@tiptap/pm/view";
 
 interface PlaceholderOptions {
-  emptyNodeClass: string;
   autocomplete: string | null;
   placeholder: string;
   showOnlyWhenEditable: boolean;
-  showOnlyCurrent: boolean;
   includeChildren: boolean;
 }
 
@@ -16,11 +14,9 @@ const Placeholder = Extension.create<PlaceholderOptions>({
 
   addOptions() {
     return {
-      emptyNodeClass: "is-empty",
       autocomplete: null,
       placeholder: "Write something...",
       showOnlyWhenEditable: true,
-      showOnlyCurrent: true,
       includeChildren: false,
     };
   },
@@ -50,6 +46,7 @@ const Placeholder = Extension.create<PlaceholderOptions>({
             const active =
               this.editor.isEditable || !this.options.showOnlyWhenEditable;
             const { anchor } = selection;
+            console.log("SELECTION", selection);
             const decorations: Decoration[] = [];
 
             if (!active) {
@@ -63,14 +60,14 @@ const Placeholder = Extension.create<PlaceholderOptions>({
 
             doc.descendants((node, pos) => {
               const hasAnchor = anchor >= pos && anchor <= pos + node.nodeSize;
-              const isEmpty = !node.isLeaf && !node.childCount;
-              if (hasAnchor || !this.options.showOnlyCurrent) {
-                const classes = [this.options.emptyNodeClass];
+
+              if (hasAnchor) {
                 const decoration = Decoration.node(pos, pos + node.nodeSize, {
-                  class: classes.join(" "),
-                  "data-placeholder": isEditorEmpty
-                    ? this.options.placeholder
-                    : `${node.textContent}${this.options.autocomplete || ""}`,
+                  class: "is-empty",
+                  // "data-placeholder": isEditorEmpty
+                  //   ? this.options.placeholder
+                  //   : this.options.autocomplete || "",
+                  "data-placeholder": "hello world 12345",
                 });
 
                 decorations.push(decoration);

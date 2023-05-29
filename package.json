@@ -11,8 +11,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@blocknote/core": "^0.4.6-alpha.3",
-    "@blocknote/react": "0.4.6-alpha.3",
+    "@blocknote/core": "^0.5.0",
+    "@blocknote/react": "^0.5.0",
     "@tiptap/extension-link": "^2.0.0-beta.220",
     "@tiptap/pm": "^2.0.0-beta.220",
     "@tiptap/react": "^2.0.0-beta.220",
@@ -24,6 +24,7 @@
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
     "eventsource-parser": "^0.1.0",
+    "lucide-react": "^0.127.0",
     "next": "^13.2.5-canary.10",
     "react": "18.2.0",
     "react-dom": "18.2.0",

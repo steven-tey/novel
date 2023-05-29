@@ -51,10 +51,10 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
-"@blocknote/core@^0.4.6-alpha.3":
-  version "0.4.6-alpha.3"
-  resolved "https://registry.yarnpkg.com/@blocknote/core/-/core-0.4.6-alpha.3.tgz#4066af41a539b8cd6d3af1e22b1a632ed3f3e54b"
-  integrity sha512-GeExqAHXLp8BfdY9mSLfl6facGc+KtZG196Wq5otCK81JSplQq/dv9hR9kd1jhvpP19t+zs9cUuXg5A7b7ohkQ==
+"@blocknote/core@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@blocknote/core/-/core-0.5.0.tgz#55713e61011a8e8b420058f39f0eda1a6360f253"
+  integrity sha512-OWgxkW/ls+W05kiFN7SIb+e8I4KABJDDsDI7AYmU8i2Sq28lTW+c6KcMKQmb5lXWqK0f1MX/7ai8bTww36NMLQ==
   dependencies:
     "@emotion/cache" "^11.10.5"
     "@emotion/serialize" "^1.1.1"
@@ -91,12 +91,12 @@
     y-protocols "1.0.5"
     yjs "13.5.44"
 
-"@blocknote/react@0.4.6-alpha.3":
-  version "0.4.6-alpha.3"
-  resolved "https://registry.yarnpkg.com/@blocknote/react/-/react-0.4.6-alpha.3.tgz#8b6061737ab3aa0c4ecea40e502ab715a0c7a356"
-  integrity sha512-qDNZH/qzj5We1qSzQ12/i1c+FDo2aAA+cHNS31NiteRsKd3+LNXzo+T4ngTe25vyP0XV01e3ty5str8oeWhzFQ==
+"@blocknote/react@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@blocknote/react/-/react-0.5.0.tgz#963a33cb3b2fc84b31982ee42307b417f60cec00"
+  integrity sha512-V1soixgv9JoDYBXol6UsJG00+TrqRdsUU8k6GowemEZQ0fTKgA1VLb43N2IS5rVue3jsN41p+rfnzUr+pWQojQ==
   dependencies:
-    "@blocknote/core" "^0.4.6-alpha.3"
+    "@blocknote/core" "^0.5.0"
     "@emotion/react" "^11.10.5"
     "@mantine/core" "^5.6.1"
     "@mantine/hooks" "^5.6.1"
@@ -2761,6 +2761,11 @@ lru-cache@^6.0.0:
   integrity sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==
   dependencies:
     yallist "^4.0.0"
+
+lucide-react@^0.127.0:
+  version "0.127.0"
+  resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.127.0.tgz#859d7c77cc0499abe7e0ddc934932a9520c0808d"
+  integrity sha512-9xxwl2FbdwWDjB0L6FEsOSbeOVp7Pj+L3urz+xDJNx1xggmQgGjeKDJQ28i/9ON8rV9HaqwQveBtsYnHqtWLqg==
 
 make-error@^1.3.6:
   version "1.3.6"
