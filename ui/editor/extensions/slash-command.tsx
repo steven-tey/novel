@@ -1,10 +1,7 @@
-// @ts-nocheck
-
 import React, { useState, useEffect, useCallback, ReactNode } from "react";
 import { Extension } from "@tiptap/core";
 import Suggestion from "@tiptap/suggestion";
 import { ReactRenderer } from "@tiptap/react";
-import { useCompletion } from "ai/react";
 import tippy from "tippy.js";
 import { Edit3, Bold, Heading1, Heading2, Italic } from "lucide-react";
 import LoadingCircle from "@/ui/shared/loading-circle";
@@ -108,18 +105,52 @@ const CommandList = ({
 }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const { complete, completion, isLoading } = useCompletion({
-    api: "/api/generate",
-    onResponse: () => {
+  const [generating, setGenerating] = useState(false);
+
+  const predict = useCallback(
+    async (content: string) => {
+      setGenerating(true);
+      const response = await fetch("/api/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          content,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+
+      // This data is a ReadableStream
+      const data = response.body;
+      if (!data) {
+        return;
+      }
+      let completionLength = 0;
+
       editor.chain().focus().deleteRange(range).run();
-    },
-    onFinish: (_prompt, completion) => {
+      const reader = data.getReader();
+      const decoder = new TextDecoder();
+      let done = false;
+
+      while (!done) {
+        const { value, done: doneReading } = await reader.read();
+        done = doneReading;
+        const chunkValue = decoder.decode(value);
+        console.log({ chunkValue });
+        editor.chain().focus().insertContent(chunkValue).run();
+        completionLength += chunkValue.length;
+      }
       editor.commands.setTextSelection({
         from: range.from,
-        to: range.from + completion.length,
+        to: range.from + completionLength,
       });
+      setGenerating(false);
     },
-  });
+    [editor, range],
+  );
 
   const selectItem = useCallback(
     (index: number) => {
@@ -127,18 +158,14 @@ const CommandList = ({
       if (item) {
         if (item.title === "Continue writing") {
           const text = editor.getText();
-          complete(text);
+          predict(text);
         } else {
           command(item);
         }
       }
     },
-    [complete, command, editor, items],
+    [predict, command, editor, items],
   );
-
-  useEffect(() => {
-    console.log({ completion });
-  }, [completion]);
 
   useEffect(() => {
     const navigationKeys = ["ArrowUp", "ArrowDown", "Enter"];
@@ -183,7 +210,7 @@ const CommandList = ({
             onClick={() => selectItem(index)}
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-md border border-stone-200 bg-white">
-              {item.title === "Continue writing" && isLoading ? (
+              {item.title === "Continue writing" && generating ? (
                 <LoadingCircle />
               ) : (
                 item.icon
