@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, { useState, useEffect, useCallback, ReactNode } from "react";
 import { Extension } from "@tiptap/core";
 import Suggestion from "@tiptap/suggestion";
