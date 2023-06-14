@@ -124,18 +124,18 @@ const CommandList = ({
       const reader = data.getReader();
       const decoder = new TextDecoder();
       let done = false;
+      let completionLength = 0;
 
       while (!done) {
         const { value, done: doneReading } = await reader.read();
         done = doneReading;
         const chunkValue = decoder.decode(value);
         editor.chain().focus().insertContent(chunkValue).run();
+        completionLength += chunkValue.length;
       }
-    },
-    onFinish: (_prompt, completion) => {
       editor.commands.setTextSelection({
         from: range.from,
-        to: range.from + completion.length,
+        to: range.from + completionLength,
       });
     },
   });
