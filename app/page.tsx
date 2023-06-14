@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
-const Editor = dynamic(() => import("./editor"), {
-  ssr: false,
-});
+import Editor from "@/ui/editor";
 
 export const metadata: Metadata = {
   title: "Novel",
@@ -11,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center">
+    <div className="flex min-h-screen flex-col items-center sm:justify-center">
       <Editor />
     </div>
   );

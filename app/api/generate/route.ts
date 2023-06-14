@@ -1,44 +1,48 @@
-import { OpenAIStream, OpenAIStreamPayload } from "@/lib/openai/stream";
+import { Configuration, OpenAIApi } from "openai-edge";
+import { OpenAIStream, StreamingTextResponse } from "ai";
 
-if (!process.env.OPENAI_API_KEY) {
-  throw new Error("Missing env var from OpenAI");
-}
+// Create an OpenAI API client (that's edge friendly!)
+const config = new Configuration({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+const openai = new OpenAIApi(config);
 
-export const config = {
-  runtime: "edge",
-};
+export const runtime = "edge";
 
 export async function POST(req: Request): Promise<Response> {
-  let { content } = (await req.json()) as {
-    content?: string;
-  };
+  let { prompt: content } = await req.json();
 
-  if (!content) {
-    return new Response("No prompt in the request", { status: 400 });
-  }
+  // remove line breaks,
+  // remove trailing slash
+  // limit to 500 characters
+  content = content.replace(/\n/g, " ").replace(/\/$/, "").slice(0, 500);
 
-  // truncate content to the last 500 characters
-  content = content.slice(-500);
-
-  const payload: OpenAIStreamPayload = {
+  const response = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
     messages: [
       {
         role: "system",
         content:
-          "You are an AI writing assistant that autocompletes existing text based on context from prior text. Give more weight/priority to the later characters than the beginning ones, and add leading spaces accordingly.",
+          "You are an AI writing assistant that autocompletes existing text based on context from prior text. " +
+          "Give more weight/priority to the later characters than the beginning ones.",
       },
-      { role: "user", content },
+      {
+        role: "user",
+        content,
+      },
     ],
+    max_tokens: 50,
     temperature: 0.7,
     top_p: 1,
     frequency_penalty: 0,
     presence_penalty: 0,
-    max_tokens: 50,
     stream: true,
     n: 1,
-  };
+  });
 
-  const stream = await OpenAIStream(payload);
-  return new Response(stream);
+  // Convert the response into a friendly text-stream
+  const stream = OpenAIStream(response);
+
+  // Respond with the stream
+  return new StreamingTextResponse(stream);
 }
