@@ -9,7 +9,7 @@ const openai = new OpenAIApi(config);
 export const runtime = "edge";
 
 export async function POST(req: Request): Promise<Response> {
-  let { content } = await req.json();
+  let { prompt: content } = await req.json();
 
   // remove line breaks,
   // remove trailing slash

@@ -4,9 +4,11 @@ import React, { useState, useEffect, useCallback, ReactNode } from "react";
 import { Extension } from "@tiptap/core";
 import Suggestion from "@tiptap/suggestion";
 import { ReactRenderer } from "@tiptap/react";
+import { useCompletion } from "ai/react";
 import tippy from "tippy.js";
 import { Edit3, Bold, Heading1, Heading2, Italic } from "lucide-react";
 import LoadingCircle from "@/ui/shared/loading-circle";
+import { toast } from "sonner";
 
 const Command = Extension.create({
   name: "slash-command",
@@ -107,52 +109,37 @@ const CommandList = ({
 }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const [generating, setGenerating] = useState(false);
-
-  const predict = useCallback(
-    async (content: string) => {
-      setGenerating(true);
-      const response = await fetch("/api/generate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          content,
-        }),
-      });
+  const { complete, isLoading } = useCompletion({
+    api: "/api/generate",
+    onResponse: async (response) => {
       if (!response.ok) {
-        throw new Error(response.statusText);
+        toast.error("Failed to generate text.");
       }
 
-      // This data is a ReadableStream
       const data = response.body;
-      if (!data) {
-        return;
-      }
-      let completionLength = 0;
+      if (!data) return;
 
-      editor.chain().focus().deleteRange(range).run();
+      editor.chain().focus().deleteRange(range).run(); // remove the slash command
+
       const reader = data.getReader();
       const decoder = new TextDecoder();
       let done = false;
+      let completionLength = 0; // keep track of how many characters we've inserted
 
       while (!done) {
         const { value, done: doneReading } = await reader.read();
         done = doneReading;
         const chunkValue = decoder.decode(value);
-        console.log({ chunkValue });
-        editor.chain().focus().insertContent(chunkValue).run();
+        editor.chain().focus().insertContent(chunkValue).run(); // insert the generated text
         completionLength += chunkValue.length;
       }
+      // highlight the generated text
       editor.commands.setTextSelection({
         from: range.from,
         to: range.from + completionLength,
       });
-      setGenerating(false);
     },
-    [editor, range],
-  );
+  });
 
   const selectItem = useCallback(
     (index: number) => {
@@ -160,19 +147,18 @@ const CommandList = ({
       if (item) {
         if (item.title === "Continue writing") {
           const text = editor.getText();
-          predict(text);
+          complete(text);
         } else {
           command(item);
         }
       }
     },
-    [predict, command, editor, items],
+    [complete, command, editor, items],
   );
 
   useEffect(() => {
     const navigationKeys = ["ArrowUp", "ArrowDown", "Enter"];
     const onKeyDown = (e: KeyboardEvent) => {
-      console.log({ e });
       if (navigationKeys.includes(e.key)) {
         e.preventDefault();
         if (e.key === "ArrowUp") {
@@ -212,7 +198,7 @@ const CommandList = ({
             onClick={() => selectItem(index)}
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-md border border-stone-200 bg-white">
-              {item.title === "Continue writing" && generating ? (
+              {item.title === "Continue writing" && isLoading ? (
                 <LoadingCircle />
               ) : (
                 item.icon
