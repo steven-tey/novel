@@ -124,15 +124,16 @@ const CommandList = ({
       const reader = data.getReader();
       const decoder = new TextDecoder();
       let done = false;
-      let completionLength = 0;
+      let completionLength = 0; // keep track of how many characters we've inserted
 
       while (!done) {
         const { value, done: doneReading } = await reader.read();
         done = doneReading;
         const chunkValue = decoder.decode(value);
-        editor.chain().focus().insertContent(chunkValue).run();
+        editor.chain().focus().insertContent(chunkValue).run(); // insert the generated text
         completionLength += chunkValue.length;
       }
+      // highlight the generated text
       editor.commands.setTextSelection({
         from: range.from,
         to: range.from + completionLength,
