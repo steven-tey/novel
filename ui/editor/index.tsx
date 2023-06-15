@@ -65,7 +65,7 @@ export default function Editor() {
   }, [editor, completion]);
 
   return (
-    <div className="relative min-h-[500px] w-full max-w-screen-lg border-gray-200 p-12 px-6 sm:rounded-lg sm:border sm:px-12 sm:shadow-lg">
+    <div className="relative min-h-[500px] w-full max-w-screen-lg border-gray-200 p-12 px-8 sm:rounded-lg sm:border sm:px-12 sm:shadow-lg">
       <div className="absolute right-5 top-5 mb-5 rounded-lg bg-gray-100 px-2 py-1 text-sm text-gray-400">
         {saveStatus}
       </div>
