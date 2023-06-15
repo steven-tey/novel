@@ -1,14 +1,22 @@
-// @ts-nocheck
-
 import React, { useState, useEffect, useCallback, ReactNode } from "react";
-import { Extension } from "@tiptap/core";
+import { Editor, Range, Extension } from "@tiptap/core";
 import Suggestion from "@tiptap/suggestion";
 import { ReactRenderer } from "@tiptap/react";
 import { useCompletion } from "ai/react";
 import tippy from "tippy.js";
 import { Edit3, Bold, Heading1, Heading2, Italic } from "lucide-react";
 import LoadingCircle from "@/ui/shared/loading-circle";
-import { toast } from "sonner";
+
+interface CommandItemProps {
+  title: string;
+  description: string;
+  icon: ReactNode;
+}
+
+interface Command {
+  editor: Editor;
+  range: Range;
+}
 
 const Command = Extension.create({
   name: "slash-command",
@@ -16,7 +24,15 @@ const Command = Extension.create({
     return {
       suggestion: {
         char: "/",
-        command: ({ editor, range, props }) => {
+        command: ({
+          editor,
+          range,
+          props,
+        }: {
+          editor: Editor;
+          range: Range;
+          props: any;
+        }) => {
           props.command({ editor, range });
         },
       },
@@ -32,12 +48,6 @@ const Command = Extension.create({
   },
 });
 
-interface CommandItemProps {
-  title: string;
-  description: string;
-  icon: ReactNode;
-}
-
 const getSuggestionItems = ({ query }: { query: string }) => {
   return [
     {
@@ -49,7 +59,7 @@ const getSuggestionItems = ({ query }: { query: string }) => {
       title: "Heading 1",
       description: "Big section heading.",
       icon: <Heading1 size={18} />,
-      command: ({ editor, range }) => {
+      command: ({ editor, range }: Command) => {
         editor
           .chain()
           .focus()
@@ -62,7 +72,7 @@ const getSuggestionItems = ({ query }: { query: string }) => {
       title: "Heading 2",
       description: "Medium section heading.",
       icon: <Heading2 size={18} />,
-      command: ({ editor, range }) => {
+      command: ({ editor, range }: Command) => {
         editor
           .chain()
           .focus()
@@ -75,7 +85,7 @@ const getSuggestionItems = ({ query }: { query: string }) => {
       title: "Bold",
       description: "Make text bold.",
       icon: <Bold size={18} />,
-      command: ({ editor, range }) => {
+      command: ({ editor, range }: Command) => {
         editor.chain().focus().deleteRange(range).setMark("bold").run();
       },
     },
@@ -83,7 +93,7 @@ const getSuggestionItems = ({ query }: { query: string }) => {
       title: "Italic",
       description: "Make text italic.",
       icon: <Italic size={18} />,
-      command: ({ editor, range }) => {
+      command: ({ editor, range }: Command) => {
         editor.chain().focus().deleteRange(range).setMark("italic").run();
       },
     },
@@ -110,33 +120,13 @@ const CommandList = ({
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const { complete, isLoading } = useCompletion({
+    id: "novel",
     api: "/api/generate",
-    onResponse: async (response) => {
-      if (!response.ok) {
-        toast.error("Failed to generate text.");
-      }
-
-      const data = response.body;
-      if (!data) return;
-
-      editor.chain().focus().deleteRange(range).run(); // remove the slash command
-
-      const reader = data.getReader();
-      const decoder = new TextDecoder();
-      let done = false;
-      let completionLength = 0; // keep track of how many characters we've inserted
-
-      while (!done) {
-        const { value, done: doneReading } = await reader.read();
-        done = doneReading;
-        const chunkValue = decoder.decode(value);
-        editor.chain().focus().insertContent(chunkValue).run(); // insert the generated text
-        completionLength += chunkValue.length;
-      }
+    onFinish: (_prompt, completion) => {
       // highlight the generated text
       editor.commands.setTextSelection({
         from: range.from,
-        to: range.from + completionLength,
+        to: range.from + completion.length,
       });
     },
   });
@@ -216,16 +206,17 @@ const CommandList = ({
 };
 
 const renderItems = () => {
-  let component;
-  let popup;
+  let component: ReactRenderer | null = null;
+  let popup: any | null = null;
 
   return {
-    onStart: (props) => {
+    onStart: (props: { editor: Editor; clientRect: DOMRect }) => {
       component = new ReactRenderer(CommandList, {
         props,
         editor: props.editor,
       });
 
+      // @ts-ignore
       popup = tippy("body", {
         getReferenceClientRect: props.clientRect,
         appendTo: () => document.body,
@@ -236,25 +227,26 @@ const renderItems = () => {
         placement: "bottom-start",
       });
     },
-    onUpdate(props) {
-      component.updateProps(props);
+    onUpdate: (props: { editor: Editor; clientRect: DOMRect }) => {
+      component?.updateProps(props);
 
       popup &&
         popup[0].setProps({
           getReferenceClientRect: props.clientRect,
         });
     },
-    onKeyDown(props) {
+    onKeyDown: (props: { event: KeyboardEvent }) => {
       if (props.event.key === "Escape") {
-        popup[0].hide();
+        popup?.[0].hide();
 
         return true;
       }
 
-      return component.ref?.onKeyDown(props);
+      // @ts-ignore
+      return component?.ref?.onKeyDown(props);
     },
-    onExit() {
-      popup[0].destroy();
+    onExit: () => {
+      popup?.[0].destroy();
       component?.destroy();
     },
   };

@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import { TiptapEditorProps } from "./props";
 import { TiptapExtensions } from "./extensions";
 import useLocalStorage from "@/lib/hooks/use-local-storage";
 import { useDebouncedCallback } from "use-debounce";
+import { useCompletion } from "ai/react";
 
 export default function Editor() {
   const [content, setContent] = useLocalStorage("content", []);
@@ -21,6 +22,11 @@ export default function Editor() {
       setSaveStatus("Saved");
     }, 500);
   }, 750);
+
+  const { completion } = useCompletion({
+    id: "novel",
+    api: "/api/generate",
+  });
 
   const editor = useEditor({
     extensions: TiptapExtensions,
@@ -38,6 +44,25 @@ export default function Editor() {
       setHydrated(true);
     }
   }, [editor, content, hydrated]);
+
+  const prev = useRef("");
+
+  useEffect(() => {
+    if (prev.current === "") {
+      // remove the "/" command before inserting the completion
+      editor
+        ?.chain()
+        .focus()
+        .deleteRange({
+          from: editor.state.selection.from - 1,
+          to: editor.state.selection.to,
+        })
+        .run();
+    }
+    const diff = completion.slice(prev.current.length);
+    prev.current = completion;
+    editor?.commands.insertContent(diff);
+  }, [editor, completion]);
 
   return (
     <div className="relative min-h-[500px] w-full max-w-screen-lg border-gray-200 p-12 sm:rounded-lg sm:border sm:shadow-lg">

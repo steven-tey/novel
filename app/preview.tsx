@@ -1,33 +1,40 @@
-import useLocalStorage from "@/lib/hooks/use-local-storage";
-import ReactMarkdown from "react-markdown";
+"use client";
+
+import { useCompletion } from "ai/react";
+import { useDebouncedCallback } from "use-debounce";
+import { toast } from "sonner";
+import PreviewText from "./preview-text";
 
 export default function Preview() {
-  const [markdown] = useLocalStorage<string>("content", "");
+  const { complete, isLoading } = useCompletion({
+    id: "preview",
+    api: "/api/generate",
+    onResponse: (res) => {
+      // trigger something when the response starts streaming in
+      // e.g. if the user is rate limited, you can show a toast
+      if (res.status === 429) {
+        toast.error("You are being rate limited. Please try again later.");
+      }
+    },
+    onFinish: () => {
+      // do something with the completion result
+      toast.success("Successfully generated completion!");
+    },
+  });
+
+  const handleInputChange = useDebouncedCallback((e) => {
+    complete(e.target.value);
+  }, 500);
 
   return (
-    <article className="prose-xl mt-10 min-h-[500px] w-full max-w-screen-lg rounded-lg border-2 border-gray-600 p-10">
-      <ReactMarkdown
-        components={{
-          a: ({ node, ...props }) => (
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              {...props}
-              className="font-medium text-gray-800 underline transition-colors"
-            />
-          ),
-          code: ({ node, ...props }) => (
-            <code
-              {...props}
-              // @ts-ignore (to fix "Received `true` for a non-boolean attribute `inline`." warning)
-              inline="true"
-              className="rounded-sm bg-gray-100 px-1 py-0.5 font-mono font-medium text-gray-800"
-            />
-          ),
-        }}
-      >
-        {markdown}
-      </ReactMarkdown>
-    </article>
+    <div className="mx-auto flex w-full max-w-md flex-col space-y-5 py-24">
+      <p>Current state: {isLoading ? "Generating..." : "Idle"}</p>
+      <textarea
+        className="w-full max-w-md rounded border border-gray-300 p-2 shadow-xl"
+        placeholder="Enter your prompt..."
+        onChange={handleInputChange}
+      />
+      <PreviewText />
+    </div>
   );
 }
