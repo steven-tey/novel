@@ -8,6 +8,7 @@ import { Edit3, Bold, Heading1, Heading2, Italic } from "lucide-react";
 import LoadingCircle from "@/ui/shared/loading-circle";
 import { toast } from "sonner";
 import va from "@vercel/analytics";
+import Magic from "@/ui/shared/magic";
 
 interface CommandItemProps {
   title: string;
@@ -55,7 +56,7 @@ const getSuggestionItems = ({ query }: { query: string }) => {
     {
       title: "Continue writing",
       description: "Use AI to expand your thoughts.",
-      icon: <Edit3 size={18} />,
+      icon: <Magic className="w-7 text-black" />,
     },
     {
       title: "Heading 1",

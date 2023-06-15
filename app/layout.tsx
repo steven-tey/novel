@@ -1,7 +1,14 @@
 import "@/styles/globals.css";
 import cx from "classnames";
-import { vercelBold, vercelRegular } from "@/styles/fonts";
+import { cal, inter } from "@/styles/fonts";
 import Providers from "./providers";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Novel – Notion-style WYSYWIG editor with AI-powered autocompletions",
+  description:
+    "Novel is a Notion-style WYSYWIG editor with AI-powered autocompletions. Built with Tiptap, OpenAI, and Vercel AI SDK.",
+};
 
 export default function RootLayout({
   children,
@@ -11,9 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Providers>
-        <body className={cx(vercelBold.variable, vercelRegular.variable)}>
-          {children}
-        </body>
+        <body className={cx(cal.variable, inter.variable)}>{children}</body>
       </Providers>
     </html>
   );

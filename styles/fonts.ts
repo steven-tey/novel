@@ -1,11 +1,12 @@
 import localFont from "next/font/local";
+import { Inter } from "next/font/google";
 
-export const vercelBold = localFont({
-  src: "./vercel-sans-bold.otf",
-  variable: "--font-vercel-bold",
+export const cal = localFont({
+  src: "./CalSans-SemiBold.otf",
+  variable: "--font-cal",
 });
 
-export const vercelRegular = localFont({
-  src: "./vercel-sans-regular.otf",
-  variable: "--font-vercel-regular",
+export const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
 });

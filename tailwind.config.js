@@ -8,8 +8,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        vercel: ["var(--font-vercel-bold)", "system-ui", "sans-serif"],
-        default: ["var(--font-vercel-regular)", "system-ui", "sans-serif"],
+        display: ["var(--font-cal)", "system-ui", "sans-serif"],
+        default: ["var(--font-inter)", "system-ui", "sans-serif"],
       },
     },
   },

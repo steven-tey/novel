@@ -4,7 +4,7 @@ import { toast } from "sonner";
 export const TiptapEditorProps: EditorProps = {
   attributes: {
     class:
-      "prose-lg prose-headings:font-vercel font-default focus:outline-none",
+      "prose-lg prose-headings:font-display focus:outline-none prose-img:rounded-md prose-img:border prose-img:border-stone-200",
   },
   handleDOMEvents: {
     keydown: (_view, event) => {
