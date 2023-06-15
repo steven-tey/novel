@@ -4,7 +4,14 @@ import Suggestion from "@tiptap/suggestion";
 import { ReactRenderer } from "@tiptap/react";
 import { useCompletion } from "ai/react";
 import tippy from "tippy.js";
-import { Edit3, Bold, Heading1, Heading2, Italic } from "lucide-react";
+import {
+  Bold,
+  Heading1,
+  Heading2,
+  Italic,
+  List,
+  ListOrdered,
+} from "lucide-react";
 import LoadingCircle from "@/ui/shared/loading-circle";
 import { toast } from "sonner";
 import va from "@vercel/analytics";
@@ -100,6 +107,22 @@ const getSuggestionItems = ({ query }: { query: string }) => {
         editor.chain().focus().deleteRange(range).setMark("italic").run();
       },
     },
+    {
+      title: "Bullet List",
+      description: "Create a bullet list.",
+      icon: <List size={18} />,
+      command: ({ editor, range }: Command) => {
+        editor.chain().focus().deleteRange(range).toggleBulletList().run();
+      },
+    },
+    {
+      title: "Numbered List",
+      description: "Create a numbered list.",
+      icon: <ListOrdered size={18} />,
+      command: ({ editor, range }: Command) => {
+        editor.chain().focus().deleteRange(range).toggleOrderedList().run();
+      },
+    },
   ].filter((item) => {
     if (typeof query === "string" && query.length > 0) {
       return item.title.toLowerCase().includes(query.toLowerCase());
@@ -191,7 +214,7 @@ const CommandList = ({
   }, [items]);
 
   return items.length > 0 ? (
-    <div className="z-50 h-auto max-h-[300px] w-72 overflow-auto rounded-md border border-gray-200 bg-white px-1 py-2 shadow-md transition-all">
+    <div className="z-50 h-auto max-h-[350px] w-72 overflow-y-auto rounded-md border border-gray-200 bg-white px-1 py-2 shadow-md transition-all">
       {items.map((item: CommandItemProps, index: number) => {
         return (
           <button
