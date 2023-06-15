@@ -23,7 +23,7 @@ export default function Editor() {
     }, 500);
   }, 750);
 
-  const { completion } = useCompletion({
+  const { completion, isLoading } = useCompletion({
     id: "novel",
     api: "/api/generate",
   });
@@ -47,22 +47,12 @@ export default function Editor() {
 
   const prev = useRef("");
 
+  // Insert chunks of the generated text
   useEffect(() => {
-    if (prev.current === "") {
-      // remove the "/" command before inserting the completion
-      editor
-        ?.chain()
-        .focus()
-        .deleteRange({
-          from: editor.state.selection.from - 1,
-          to: editor.state.selection.to,
-        })
-        .run();
-    }
     const diff = completion.slice(prev.current.length);
     prev.current = completion;
     editor?.commands.insertContent(diff);
-  }, [editor, completion]);
+  }, [isLoading, editor, completion]);
 
   return (
     <div className="relative min-h-[500px] w-full max-w-screen-lg border-gray-200 p-12 px-8 sm:rounded-lg sm:border sm:px-12 sm:shadow-lg">

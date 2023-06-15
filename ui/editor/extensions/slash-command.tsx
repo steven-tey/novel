@@ -6,6 +6,8 @@ import { useCompletion } from "ai/react";
 import tippy from "tippy.js";
 import { Edit3, Bold, Heading1, Heading2, Italic } from "lucide-react";
 import LoadingCircle from "@/ui/shared/loading-circle";
+import { toast } from "sonner";
+import va from "@vercel/analytics";
 
 interface CommandItemProps {
   title: string;
@@ -122,6 +124,14 @@ const CommandList = ({
   const { complete, isLoading } = useCompletion({
     id: "novel",
     api: "/api/generate",
+    onResponse: (response) => {
+      if (response.status === 429) {
+        toast.error("You have reached your request limit for the day.");
+        va.track("Rate Limit Reached");
+        return;
+      }
+      editor.chain().focus().deleteRange(range).run();
+    },
     onFinish: (_prompt, completion) => {
       // highlight the generated text
       editor.commands.setTextSelection({
@@ -134,6 +144,9 @@ const CommandList = ({
   const selectItem = useCallback(
     (index: number) => {
       const item = items[index];
+      va.track("Slash Command Used", {
+        command: item.title,
+      });
       if (item) {
         if (item.title === "Continue writing") {
           const text = editor.getText();
