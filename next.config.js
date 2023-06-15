@@ -1,7 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    appDir: true,
+  redirects: async () => {
+    return [
+      {
+        source: "/github",
+        destination: "https://github.com/steven-tey/novel",
+        permanent: true,
+      },
+    ];
   },
 };
 
