@@ -25,7 +25,7 @@
     "@upstash/ratelimit": "^0.4.3",
     "@vercel/analytics": "^1.0.1",
     "@vercel/kv": "^0.2.1",
-    "ai": "^2.0.0",
+    "ai": "^2.1.0",
     "classnames": "^2.3.2",
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",

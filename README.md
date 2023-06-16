@@ -29,7 +29,11 @@
 
 [Novel](https://novel.sh/) is a Notion-style WYSYWIG editor with AI-powered autocompletions.
 
+Here's a quick 30-second demo:
+
 https://github.com/steven-tey/novel/assets/28986134/97ac8a8c-4b73-4b23-9010-6474156fbb51
+
+<br />
 
 ## Deploy Your Own
 
