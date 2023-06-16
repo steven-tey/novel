@@ -27,7 +27,7 @@
 
 ## Introduction
 
-[Novel](https://novel.sh/) is a Notion-style WYSYWIG editor with AI-powered autocompletions. 
+[Novel](https://novel.sh/) is a Notion-style WYSYWIG editor with AI-powered autocompletions.
 
 https://github.com/steven-tey/novel/assets/28986134/97ac8a8c-4b73-4b23-9010-6474156fbb51
 
@@ -37,21 +37,21 @@ You can deploy your own version of Novel to Vercel with one click:
 
 [![Deploy with Vercel](https://vercel.com/button)](https://stey.me/novel-deploy)
 
-
 ## Tech Stack
 
 Novel is built on the following stack:
+
 - [Next.js](https://nextjs.org/) – framework
 - [Tiptap](https://tiptap.dev/) – text editor
 - [OpenAI](https://openai.com/) - AI completions
-- [Vercel AI SDK](https://sdk.vercel.ai/docs)- AI library
+- [Vercel AI SDK](https://sdk.vercel.ai/docs) – AI library
 - [Vercel](https://vercel.com) – deployments
 - [TailwindCSS](https://tailwindcss.com/) – styles
 - [Cal Sans](https://github.com/calcom/font) – font
 
 ## Contributing
 
- Here's how you can contribute:
+Here's how you can contribute:
 
 - [Open an issue](https://github.com/steven-tey/novel/issues) if you believe you've encountered a bug.
 - Make a [pull request](https://github.com/steven-tey/novel/pull) to add new features/make quality-of-life improvements/fix bugs.
