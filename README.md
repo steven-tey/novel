@@ -21,7 +21,6 @@
   <a href="#deploy-your-own"><strong>Deploy Your Own</strong></a> ·
   <a href="#tech-stack"><strong>Tech Stack</strong></a> ·
   <a href="#contributing"><strong>Contributing</strong></a> ·
-  <a href="#author"><strong>Author</strong></a> ·
   <a href="#license"><strong>License</strong></a>
 </p>
 <br/>
