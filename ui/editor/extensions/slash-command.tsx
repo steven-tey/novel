@@ -163,6 +163,9 @@ const CommandList = ({
         to: range.from + completion.length,
       });
     },
+    onError: () => {
+      toast.error("Something went wrong.");
+    },
   });
 
   const selectItem = useCallback(
