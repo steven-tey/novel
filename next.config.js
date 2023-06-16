@@ -7,6 +7,11 @@ const nextConfig = {
         destination: "https://github.com/steven-tey/novel",
         permanent: true,
       },
+      {
+        source: "/deploy",
+        destination: "https://vercel.com/templates/next.js/novel",
+        permanent: true,
+      },
     ];
   },
 };
