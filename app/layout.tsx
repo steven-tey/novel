@@ -1,7 +1,6 @@
 import "@/styles/globals.css";
 import cx from "classnames";
 import { cal, inter } from "@/styles/fonts";
-import Providers from "./providers";
 import { Analytics } from "@vercel/analytics/react";
 import { Metadata } from "next";
 import { Toaster } from "sonner";
