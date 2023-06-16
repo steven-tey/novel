@@ -76,6 +76,7 @@ export default function Editor() {
           to: selection.from,
         });
         complete(e.editor.getText());
+        va.track("Autocomplete Shortcut Used");
       } else {
         debouncedUpdates(e);
       }
