@@ -1,38 +1,68 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<a href="https://novel.sh">
+  <img alt="Novel is a Notion-style WYSYWIG editor with AI-powered autocompletions." src="/app/opengraph-image.png">
+  <h1 align="center">Novel</h1>
+</a>
 
-## Getting Started
+<p align="center">
+  An open-source Notion-style WYSYWIG editor with AI-powered autocompletions. 
+</p>
 
-First, run the development server:
+<p align="center">
+  <a href="https://twitter.com/steventey">
+    <img src="https://img.shields.io/twitter/follow/steventey?style=flat&label=%40steventey&logo=twitter&color=0bf&logoColor=fff" alt="Twitter" />
+  </a>
+  <a href="https://github.com/steven-tey/novel/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/steven-tey/novel?label=license&logo=github&color=f80&logoColor=fff" alt="License" />
+  </a>
+</p>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+<p align="center">
+  <a href="#introduction"><strong>Introduction</strong></a> ·
+  <a href="#deploy-your-own"><strong>Deploy Your Own</strong></a> ·
+  <a href="#tech-stack"><strong>Tech Stack</strong></a> ·
+  <a href="#contributing"><strong>Contributing</strong></a> ·
+  <a href="#contributing"><strong>Contributing</strong></a> 
+</p>
+<br/>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Introduction
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+[Novel](https://novel.sh/) is a Notion-style WYSYWIG editor with AI-powered autocompletions. 
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+https://github.com/steven-tey/novel/assets/28986134/97ac8a8c-4b73-4b23-9010-6474156fbb51
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Deploy Your Own
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+You can deploy your own version of Novel to Vercel with one click:
 
-## Learn More
+[![Deploy with Vercel](https://vercel.com/button)](https://stey.me/novel-deploy)
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Tech Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Novel is built on the following stack:
+- [Next.js](https://nextjs.org/) – framework
+- [Tiptap](https://tiptap.dev/) – text editor
+- [OpenAI](https://openai.com/) - AI completions
+- [Vercel AI SDK](https://sdk.vercel.ai/docs)https://sdk.vercel.ai/docs - AI library
+- [TailwindCSS](https://tailwindcss.com/) – styles
+- [Vercel](https://vercel.com) – deployments
 
-## Deploy on Vercel
+## Contributing
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+ Here's how you can contribute:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [Open an issue](https://github.com/steven-tey/novel/issues) if you believe you've encountered a bug.
+- Make a [pull request](https://github.com/steven-tey/novel/pull) to add new features/make quality-of-life improvements/fix bugs.
+
+<a href="https://github.com/steven-tey/novel/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=steven-tey/novel" />
+</a>
+
+## Author
+
+- Steven Tey ([@steventey](https://twitter.com/steventey))
+
+## License
+
+Licensed under the [MIT license](https://github.com/steven-tey/novel/blob/main/LICENSE.md).
