@@ -51,7 +51,7 @@ export async function POST(req: Request): Promise<Response> {
       {
         role: "system",
         content:
-          "You are an AI writing assistant that autocompletes existing text based on context from prior text. " +
+          "You are an AI writing assistant that continues existing text based on context from prior text. " +
           "Give more weight/priority to the later characters than the beginning ones.",
       },
       {
