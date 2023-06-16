@@ -2,7 +2,9 @@ import "@/styles/globals.css";
 import cx from "classnames";
 import { cal, inter } from "@/styles/fonts";
 import Providers from "./providers";
+import { Analytics } from "@vercel/analytics/react";
 import { Metadata } from "next";
+import { Toaster } from "sonner";
 
 const title =
   "Novel – Notion-style WYSYWIG editor with AI-powered autocompletions";
@@ -33,9 +35,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <Providers>
-        <body className={cx(cal.variable, inter.variable)}>{children}</body>
-      </Providers>
+      <Toaster />
+      <body className={cx(cal.variable, inter.variable)}>{children}</body>
+      <Analytics />
     </html>
   );
 }
