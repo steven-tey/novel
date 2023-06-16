@@ -7,6 +7,8 @@ import { TiptapExtensions } from "./extensions";
 import useLocalStorage from "@/lib/hooks/use-local-storage";
 import { useDebouncedCallback } from "use-debounce";
 import { useCompletion } from "ai/react";
+import { toast } from "sonner";
+import va from "@vercel/analytics";
 
 export default function Editor() {
   const [content, setContent] = useLocalStorage("content", {
@@ -42,9 +44,19 @@ export default function Editor() {
     }, 500);
   }, 750);
 
-  const { completion, isLoading } = useCompletion({
+  const { complete, completion, isLoading, stop } = useCompletion({
     id: "novel",
     api: "/api/generate",
+    onResponse: (response) => {
+      if (response.status === 429) {
+        toast.error("You have reached your request limit for the day.");
+        va.track("Rate Limit Reached");
+        return;
+      }
+    },
+    onError: () => {
+      toast.error("Something went wrong.");
+    },
   });
 
   const editor = useEditor({
@@ -52,10 +64,45 @@ export default function Editor() {
     editorProps: TiptapEditorProps,
     onUpdate: (e) => {
       setSaveStatus("Unsaved");
-      debouncedUpdates(e);
+      const selection = e.editor.state.selection;
+      const lastTwo = e.editor.state.doc.textBetween(
+        selection.from - 2,
+        selection.from,
+        "\n",
+      );
+      if (lastTwo === "++" && !isLoading) {
+        e.editor.commands.deleteRange({
+          from: selection.from - 2,
+          to: selection.from,
+        });
+        complete(e.editor.getText());
+      } else {
+        debouncedUpdates(e);
+      }
     },
     autofocus: "end",
   });
+
+  useEffect(() => {
+    // if user presses escape or cmd + z and it's loading,
+    // stop the request, delete the completion, and insert back the "++"
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" || (e.metaKey && e.key === "z")) {
+        stop();
+        editor?.commands.deleteRange({
+          from: editor.state.selection.from - completion.length,
+          to: editor.state.selection.from,
+        });
+        editor?.commands.insertContent("++");
+      }
+    };
+    if (isLoading) {
+      document.addEventListener("keydown", onKeyDown);
+    }
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [stop, isLoading, editor, completion.length]);
 
   // Hydrate the editor with the content from localStorage.
   useEffect(() => {
