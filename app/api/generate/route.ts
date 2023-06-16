@@ -46,7 +46,7 @@ export async function POST(req: Request): Promise<Response> {
   content = content.replace(/\n/g, " ").replace(/\/$/, "").slice(0, 500);
 
   const response = await openai.createChatCompletion({
-    model: "gpt-3.5-turbo",
+    model: "gpt-3.5-turbo-16k",
     messages: [
       {
         role: "system",

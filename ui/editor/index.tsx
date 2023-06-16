@@ -89,10 +89,12 @@ export default function Editor() {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" || (e.metaKey && e.key === "z")) {
         stop();
-        editor?.commands.deleteRange({
-          from: editor.state.selection.from - completion.length,
-          to: editor.state.selection.from,
-        });
+        if (e.key === "Escape") {
+          editor?.commands.deleteRange({
+            from: editor.state.selection.from - completion.length,
+            to: editor.state.selection.from,
+          });
+        }
         editor?.commands.insertContent("++");
       }
     };
