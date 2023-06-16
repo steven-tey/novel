@@ -31,7 +31,7 @@
 
 Here's a quick 30-second demo:
 
-https://github.com/steven-tey/novel/assets/28986134/97ac8a8c-4b73-4b23-9010-6474156fbb51
+https://github.com/steven-tey/novel/assets/28986134/2099877f-4f2b-4b1c-8782-5d803d63be5c
 
 <br />
 
