@@ -29,41 +29,94 @@ export default function Editor() {
         ],
       },
       {
-        type: "paragraph",
+        type: "heading",
+        attrs: { level: 3 },
+        content: [{ type: "text", text: "Learn more" }],
+      },
+      {
+        type: "orderedList",
+        attrs: { start: 1 },
         content: [
-          { type: "text", text: "Check out the " },
           {
-            type: "text",
-            marks: [
+            type: "listItem",
+            content: [
               {
-                type: "link",
-                attrs: {
-                  href: "https://github.com/steven-tey/novel",
-                  target: "_blank",
-                  class:
-                    "text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer",
-                },
+                type: "paragraph",
+                content: [
+                  { type: "text", text: "Check out the " },
+                  {
+                    type: "text",
+                    marks: [
+                      {
+                        type: "link",
+                        attrs: {
+                          href: "https://twitter.com/steventey/status/1669762868416512000",
+                          target: "_blank",
+                          class:
+                            "text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer",
+                        },
+                      },
+                    ],
+                    text: "launch tweet",
+                  },
+                  { type: "text", text: "." },
+                ],
               },
             ],
-            text: "launch tweet",
           },
-          { type: "text", text: " / " },
           {
-            type: "text",
-            marks: [
+            type: "listItem",
+            content: [
               {
-                type: "link",
-                attrs: {
-                  href: "https://twitter.com/steventey/status/1669762868416512000",
-                  target: "_blank",
-                  class:
-                    "text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer",
-                },
+                type: "paragraph",
+                content: [
+                  { type: "text", text: "Star us on " },
+                  {
+                    type: "text",
+                    marks: [
+                      {
+                        type: "link",
+                        attrs: {
+                          href: "https://github.com/steven-tey/novel",
+                          target: "_blank",
+                          class:
+                            "text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer",
+                        },
+                      },
+                    ],
+                    text: "GitHub",
+                  },
+                  { type: "text", text: "." },
+                ],
               },
             ],
-            text: "GitHub repo",
           },
-          { type: "text", text: "." },
+          {
+            type: "listItem",
+            content: [
+              {
+                type: "paragraph",
+                content: [
+                  {
+                    type: "text",
+                    marks: [
+                      {
+                        type: "link",
+                        attrs: {
+                          href: "https://vercel.com/templates/next.js/novel",
+                          target: "_blank",
+                          class:
+                            "text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer",
+                        },
+                      },
+                    ],
+                    text: "Deploy",
+                  },
+                  { type: "text", text: " your own." },
+                ],
+              },
+            ],
+          },
         ],
       },
       { type: "paragraph" },

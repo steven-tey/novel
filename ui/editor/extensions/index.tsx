@@ -16,6 +16,11 @@ export const TiptapExtensions = [
         class: "list-decimal list-outside leading-3",
       },
     },
+    listItem: {
+      HTMLAttributes: {
+        class: "leading-normal",
+      },
+    },
     blockquote: {
       HTMLAttributes: {
         class: "border-l-4 border-gray-300 pl-4",
