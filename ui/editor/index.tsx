@@ -28,6 +28,44 @@ export default function Editor() {
           },
         ],
       },
+      {
+        type: "paragraph",
+        content: [
+          { type: "text", text: "Check out the " },
+          {
+            type: "text",
+            marks: [
+              {
+                type: "link",
+                attrs: {
+                  href: "https://github.com/steven-tey/novel",
+                  target: "_blank",
+                  class:
+                    "text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer",
+                },
+              },
+            ],
+            text: "launch tweet",
+          },
+          { type: "text", text: " / " },
+          {
+            type: "text",
+            marks: [
+              {
+                type: "link",
+                attrs: {
+                  href: "https://twitter.com/steventey/status/1669762868416512000",
+                  target: "_blank",
+                  class:
+                    "text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer",
+                },
+              },
+            ],
+            text: "GitHub repo",
+          },
+          { type: "text", text: "." },
+        ],
+      },
       { type: "paragraph" },
     ],
   });
