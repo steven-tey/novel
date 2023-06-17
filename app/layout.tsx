@@ -6,9 +6,9 @@ import { Metadata } from "next";
 import { Toaster } from "sonner";
 
 const title =
-  "Novel – Notion-style WYSYWIG editor with AI-powered autocompletions";
+  "Novel – Notion-style WYSIWYG editor with AI-powered autocompletions";
 const description =
-  "Novel is a Notion-style WYSYWIG editor with AI-powered autocompletions. Built with Tiptap, OpenAI, and Vercel AI SDK.";
+  "Novel is a Notion-style WYSIWYG editor with AI-powered autocompletions. Built with Tiptap, OpenAI, and Vercel AI SDK.";
 
 export const metadata: Metadata = {
   title,

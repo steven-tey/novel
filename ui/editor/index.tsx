@@ -24,7 +24,7 @@ export default function Editor() {
         content: [
           {
             type: "text",
-            text: "Novel is a Notion-style WYSYWIG editor with AI-powered autocompletions. ",
+            text: "Novel is a Notion-style WYSIWYG editor with AI-powered autocompletions. ",
           },
         ],
       },

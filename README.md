@@ -1,10 +1,10 @@
 <a href="https://novel.sh">
-  <img alt="Novel is a Notion-style WYSYWIG editor with AI-powered autocompletions." src="/app/opengraph-image.png">
+  <img alt="Novel is a Notion-style WYSIWYG editor with AI-powered autocompletions." src="/app/opengraph-image.png">
   <h1 align="center">Novel</h1>
 </a>
 
 <p align="center">
-  An open-source Notion-style WYSYWIG editor with AI-powered autocompletions. 
+  An open-source Notion-style WYSIWYG editor with AI-powered autocompletions. 
 </p>
 
 <p align="center">
@@ -27,7 +27,7 @@
 
 ## Introduction
 
-[Novel](https://novel.sh/) is a Notion-style WYSYWIG editor with AI-powered autocompletions.
+[Novel](https://novel.sh/) is a Notion-style WYSIWYG editor with AI-powered autocompletions.
 
 Here's a quick 30-second demo:
 
