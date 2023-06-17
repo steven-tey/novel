@@ -57,7 +57,7 @@ export default function Editor() {
                         },
                       },
                     ],
-                    text: "launch tweet",
+                    text: "launch video",
                   },
                   { type: "text", text: "." },
                 ],
