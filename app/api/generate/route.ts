@@ -42,8 +42,8 @@ export async function POST(req: Request): Promise<Response> {
 
   // remove line breaks,
   // remove trailing slash
-  // limit to 500 characters
-  content = content.replace(/\n/g, " ").replace(/\/$/, "").slice(0, 500);
+  // limit to 5000 characters
+  content = content.replace(/\n/g, " ").replace(/\/$/, "").slice(0, 5000);
 
   const response = await openai.createChatCompletion({
     model: "gpt-3.5-turbo-16k",
