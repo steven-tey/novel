@@ -56,7 +56,7 @@ export const NodeSelector: FC<NodeSelectorProps> = ({
       >
         <span>{activeItem?.name}</span>
 
-        <ChevronDown className="w-4 h-4" />
+        <ChevronDown className="h-4 w-4" />
       </button>
 
       {isOpen ? (
@@ -76,7 +76,7 @@ export const NodeSelector: FC<NodeSelectorProps> = ({
                 "flex items-center gap-2 px-3 py-1 text-gray-600",
               ])}
             >
-              <item.icon className="w-4 h-4" />
+              <item.icon className="h-4 w-4" />
 
               <span>{item.name}</span>
             </button>
