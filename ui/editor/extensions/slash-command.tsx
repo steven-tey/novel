@@ -1,4 +1,11 @@
-import React, { useState, useEffect, useCallback, ReactNode } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  ReactNode,
+  useRef,
+  useLayoutEffect,
+} from "react";
 import { Editor, Range, Extension } from "@tiptap/core";
 import Suggestion from "@tiptap/suggestion";
 import { ReactRenderer } from "@tiptap/react";
@@ -132,6 +139,20 @@ const getSuggestionItems = ({ query }: { query: string }) => {
   // .slice(0, 10);
 };
 
+export const updateScrollView = (container: HTMLElement, item: HTMLElement) => {
+  const containerHeight = container.offsetHeight;
+  const itemHeight = item ? item.offsetHeight : 0;
+
+  const top = item.offsetTop;
+  const bottom = top + itemHeight;
+
+  if (top < container.scrollTop) {
+    container.scrollTop -= container.scrollTop - top + 5;
+  } else if (bottom > containerHeight + container.scrollTop) {
+    container.scrollTop += bottom - containerHeight - container.scrollTop + 5;
+  }
+};
+
 const CommandList = ({
   items,
   command,
@@ -216,8 +237,21 @@ const CommandList = ({
     setSelectedIndex(0);
   }, [items]);
 
+  const commandListContainer = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const container = commandListContainer?.current;
+
+    const item = container?.children[selectedIndex] as HTMLElement;
+
+    if (item && container) updateScrollView(container, item);
+  }, [selectedIndex]);
+
   return items.length > 0 ? (
-    <div className="z-50 h-auto max-h-[350px] w-72 overflow-y-auto rounded-md border border-gray-200 bg-white px-1 py-2 shadow-md transition-all">
+    <div
+      ref={commandListContainer}
+      className="z-50 h-auto max-h-[330px] w-72 overflow-y-auto scroll-smooth rounded-md border border-gray-200 bg-white px-1 py-2 shadow-md transition-all"
+    >
       {items.map((item: CommandItemProps, index: number) => {
         return (
           <button
