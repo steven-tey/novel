@@ -1,7 +1,9 @@
-import StarterKit from "@tiptap/starter-kit";
-import TiptapLink from "@tiptap/extension-link";
 import TiptapImage from "@tiptap/extension-image";
+import TiptapLink from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
+import TiptapUnderline from "@tiptap/extension-underline";
+import StarterKit from "@tiptap/starter-kit";
+
 import SlashCommand from "./slash-command";
 
 export const TiptapExtensions = [
@@ -57,4 +59,5 @@ export const TiptapExtensions = [
     includeChildren: true,
   }),
   SlashCommand,
+  TiptapUnderline,
 ];

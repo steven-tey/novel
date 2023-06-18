@@ -1,4 +1,6 @@
 import "@/styles/globals.css";
+import "@/styles/shift-toward-subtle.css";
+
 import cx from "classnames";
 import { cal, inter } from "@/styles/fonts";
 import { Analytics } from "@vercel/analytics/react";
