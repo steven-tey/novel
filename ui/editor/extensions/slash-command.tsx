@@ -1,4 +1,11 @@
-import React, { useState, useEffect, useCallback, ReactNode, useRef, useLayoutEffect } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  ReactNode,
+  useRef,
+  useLayoutEffect,
+} from "react";
 import { Editor, Range, Extension } from "@tiptap/core";
 import Suggestion from "@tiptap/suggestion";
 import { ReactRenderer } from "@tiptap/react";
@@ -63,7 +70,7 @@ const getSuggestionItems = ({ query }: { query: string }) => {
     {
       title: "Continue writing",
       description: "Use AI to expand your thoughts.",
-      icon: <Magic className="text-black w-7" />,
+      icon: <Magic className="w-7 text-black" />,
     },
     {
       title: "Heading 1",
@@ -230,20 +237,20 @@ const CommandList = ({
     setSelectedIndex(0);
   }, [items]);
 
-  const commandListContainer = useRef<HTMLDivElement>(null)
+  const commandListContainer = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    const container = commandListContainer?.current
+    const container = commandListContainer?.current;
 
-    const item = (container?.children[selectedIndex] as HTMLElement)
+    const item = container?.children[selectedIndex] as HTMLElement;
 
-    if (item && container) updateScrollView(container, item)
-  }, [selectedIndex])
+    if (item && container) updateScrollView(container, item);
+  }, [selectedIndex]);
 
   return items.length > 0 ? (
-    <div 
+    <div
       ref={commandListContainer}
-      className="z-50 h-auto max-h-[350px] w-72 overflow-y-auto rounded-md border border-gray-200 bg-white px-1 py-2 shadow-md transition-all scroll-smooth"
+      className="z-50 h-auto max-h-[330px] w-72 overflow-y-auto scroll-smooth rounded-md border border-gray-200 bg-white px-1 py-2 shadow-md transition-all"
     >
       {items.map((item: CommandItemProps, index: number) => {
         return (
@@ -254,7 +261,7 @@ const CommandList = ({
             key={index}
             onClick={() => selectItem(index)}
           >
-            <div className="flex items-center justify-center w-10 h-10 bg-white border rounded-md border-stone-200">
+            <div className="flex h-10 w-10 items-center justify-center rounded-md border border-stone-200 bg-white">
               {item.title === "Continue writing" && isLoading ? (
                 <LoadingCircle />
               ) : (
