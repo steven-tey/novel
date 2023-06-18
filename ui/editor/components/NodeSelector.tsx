@@ -1,9 +1,7 @@
 import { Editor } from "@tiptap/core";
 import cx from "classnames";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Heading1Icon, Heading2Icon, TextIcon } from "lucide-react";
 import { FC } from "react";
-
-import { RiFontSize, RiH1, RiH2 } from "../icons";
 
 import { BubbleMenuItem } from "./EditorBubbleMenu";
 
@@ -21,7 +19,7 @@ export const NodeSelector: FC<NodeSelectorProps> = ({
   const items: BubbleMenuItem[] = [
     {
       name: "Text",
-      icon: RiFontSize,
+      icon: TextIcon,
       command: () =>
         editor.chain().focus().toggleNode("paragraph", "paragraph").run(),
       canBeActive: true,
@@ -29,14 +27,14 @@ export const NodeSelector: FC<NodeSelectorProps> = ({
     },
     {
       name: "Heading 1",
-      icon: RiH1,
+      icon: Heading1Icon,
       command: () => editor.chain().focus().toggleHeading({ level: 1 }).run(),
       canBeActive: true,
       isActive: () => editor.isActive("heading", { level: 1 }),
     },
     {
       name: "Heading 2",
-      icon: RiH2,
+      icon: Heading2Icon,
       command: () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
       canBeActive: true,
       isActive: () => editor.isActive("heading", { level: 2 }),
@@ -56,7 +54,7 @@ export const NodeSelector: FC<NodeSelectorProps> = ({
       >
         <span>{activeItem?.name}</span>
 
-        <ChevronDown className="h-4 w-4" />
+        <ChevronDown className="w-4 h-4" />
       </button>
 
       {isOpen ? (
@@ -76,7 +74,7 @@ export const NodeSelector: FC<NodeSelectorProps> = ({
                 "flex items-center gap-2 px-3 py-1 text-gray-600",
               ])}
             >
-              <item.icon className="h-4 w-4" />
+              <item.icon className='w-4 h-4' />
 
               <span>{item.name}</span>
             </button>
