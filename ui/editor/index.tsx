@@ -259,7 +259,6 @@ export default function Editor() {
 
   // Insert chunks of the generated text
   useEffect(() => {
-    console.log(completion, prev.current,'completion')
     const diff = completion.slice(prev.current.length);
     prev.current = completion;
     editor?.commands.insertContent(diff);
@@ -278,14 +277,12 @@ export default function Editor() {
       <EditorContent editor={editor} />
       {editor && (
         <BubbleMenu
-          className="rounded-md border bg-stone-100 p-1 text-stone-400  grid-cols-4 mx-auto text-center divide-x "
+          className="mx-auto grid-cols-4 divide-x rounded-md border  bg-stone-100 p-1 text-center text-stone-400 "
           tippyOptions={{ duration: 100 }}
           editor={editor}
         >
-         
           <button
             onClick={() => editor.chain().focus().toggleBold().run()}
-      
             className={`p-1  ${
               editor.isActive("bold") ? "text-stone-900" : ""
             } hover:text-stone-900`}
@@ -294,7 +291,6 @@ export default function Editor() {
           </button>
           <button
             onClick={() => editor.chain().focus().toggleItalic().run()}
-         
             className={`p-1   ${
               editor.isActive("italic") ? "text-stone-900" : ""
             } hover:text-stone-900`}
@@ -303,7 +299,6 @@ export default function Editor() {
           </button>
           <button
             onClick={() => editor.chain().focus().toggleStrike().run()}
-      
             className={`p-1   ${
               editor.isActive("strike") ? "text-stone-900" : ""
             } hover:text-stone-900`}
