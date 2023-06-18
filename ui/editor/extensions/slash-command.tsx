@@ -18,6 +18,7 @@ import {
   Italic,
   List,
   ListOrdered,
+  MessageSquarePlus,
 } from "lucide-react";
 import LoadingCircle from "@/ui/shared/loading-circle";
 import { toast } from "sonner";
@@ -116,7 +117,7 @@ const getSuggestionItems = ({ query }: { query: string }) => {
     },
     {
       title: "Bullet List",
-      description: "Create a bullet list.",
+      description: "Create a simple bullet list.",
       icon: <List size={18} />,
       command: ({ editor, range }: Command) => {
         editor.chain().focus().deleteRange(range).toggleBulletList().run();
@@ -124,10 +125,19 @@ const getSuggestionItems = ({ query }: { query: string }) => {
     },
     {
       title: "Numbered List",
-      description: "Create a numbered list.",
+      description: "Create a list with numbering.",
       icon: <ListOrdered size={18} />,
       command: ({ editor, range }: Command) => {
         editor.chain().focus().deleteRange(range).toggleOrderedList().run();
+      },
+    },
+    {
+      title: "Send Feedback",
+      description: "Let us know how we can improve.",
+      icon: <MessageSquarePlus size={18} />,
+      command: ({ editor, range }: Command) => {
+        editor.chain().focus().deleteRange(range).run();
+        window.open("/feedback", "_blank");
       },
     },
   ].filter((item) => {

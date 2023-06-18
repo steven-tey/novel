@@ -8,6 +8,11 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: "/feedback",
+        destination: "https://github.com/steven-tey/novel/issues/new",
+        permanent: true,
+      },
+      {
         source: "/deploy",
         destination: "https://vercel.com/templates/next.js/novel",
         permanent: true,
