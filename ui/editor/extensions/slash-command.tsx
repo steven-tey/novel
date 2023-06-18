@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, ReactNode } from "react";
+import React, { useState, useEffect, useCallback, ReactNode, useRef, useLayoutEffect } from "react";
 import { Editor, Range, Extension } from "@tiptap/core";
 import Suggestion from "@tiptap/suggestion";
 import { ReactRenderer } from "@tiptap/react";
@@ -63,7 +63,7 @@ const getSuggestionItems = ({ query }: { query: string }) => {
     {
       title: "Continue writing",
       description: "Use AI to expand your thoughts.",
-      icon: <Magic className="w-7 text-black" />,
+      icon: <Magic className="text-black w-7" />,
     },
     {
       title: "Heading 1",
@@ -130,6 +130,20 @@ const getSuggestionItems = ({ query }: { query: string }) => {
     return true;
   });
   // .slice(0, 10);
+};
+
+export const updateScrollView = (container: HTMLElement, item: HTMLElement) => {
+  const containerHeight = container.offsetHeight;
+  const itemHeight = item ? item.offsetHeight : 0;
+
+  const top = item.offsetTop;
+  const bottom = top + itemHeight;
+
+  if (top < container.scrollTop) {
+    container.scrollTop -= container.scrollTop - top + 5;
+  } else if (bottom > containerHeight + container.scrollTop) {
+    container.scrollTop += bottom - containerHeight - container.scrollTop + 5;
+  }
 };
 
 const CommandList = ({
@@ -216,8 +230,21 @@ const CommandList = ({
     setSelectedIndex(0);
   }, [items]);
 
+  const commandListContainer = useRef<HTMLDivElement>(null)
+
+  useLayoutEffect(() => {
+    const container = commandListContainer?.current
+
+    const item = (container?.children[selectedIndex] as HTMLElement)
+
+    if (item && container) updateScrollView(container, item)
+  }, [selectedIndex])
+
   return items.length > 0 ? (
-    <div className="z-50 h-auto max-h-[350px] w-72 overflow-y-auto rounded-md border border-gray-200 bg-white px-1 py-2 shadow-md transition-all">
+    <div 
+      ref={commandListContainer}
+      className="z-50 h-auto max-h-[350px] w-72 overflow-y-auto rounded-md border border-gray-200 bg-white px-1 py-2 shadow-md transition-all scroll-smooth"
+    >
       {items.map((item: CommandItemProps, index: number) => {
         return (
           <button
@@ -227,7 +254,7 @@ const CommandList = ({
             key={index}
             onClick={() => selectItem(index)}
           >
-            <div className="flex h-10 w-10 items-center justify-center rounded-md border border-stone-200 bg-white">
+            <div className="flex items-center justify-center w-10 h-10 bg-white border rounded-md border-stone-200">
               {item.title === "Continue writing" && isLoading ? (
                 <LoadingCircle />
               ) : (
