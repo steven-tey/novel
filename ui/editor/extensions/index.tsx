@@ -6,12 +6,14 @@ import Placeholder from "@tiptap/extension-placeholder";
 import TiptapUnderline from "@tiptap/extension-underline";
 import TextStyle from "@tiptap/extension-text-style";
 import { Color } from "@tiptap/extension-color";
+import { InputRule } from "@tiptap/core";
 
 import SlashCommand from "./slash-command";
-import { InputRule } from "@tiptap/core";
+import { collaborationExtensions } from "./collaboration";
 
 export const TiptapExtensions = [
   StarterKit.configure({
+    history: false,
     bulletList: {
       HTMLAttributes: {
         class: "list-disc list-outside leading-3",
@@ -100,4 +102,5 @@ export const TiptapExtensions = [
   TiptapUnderline,
   TextStyle,
   Color,
+  ...collaborationExtensions,
 ];

@@ -13,6 +13,8 @@
   "dependencies": {
     "@tiptap/core": "^2.0.3",
     "@tiptap/extension-color": "^2.0.3",
+    "@tiptap/extension-collaboration": "^2.0.3",
+    "@tiptap/extension-collaboration-cursor": "^2.0.3",
     "@tiptap/extension-horizontal-rule": "^2.0.3",
     "@tiptap/extension-image": "^2.0.3",
     "@tiptap/extension-link": "^2.0.0-beta.220",
@@ -43,7 +45,10 @@
     "sonner": "^0.4.0",
     "tippy.js": "^6.3.7",
     "typescript": "4.9.5",
-    "use-debounce": "^9.0.3"
+    "use-debounce": "^9.0.3",
+    "y-partykit": "0.0.0-a16ecec",
+    "y-prosemirror": "^1.2.1",
+    "yjs": "^13.6.4"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.9",

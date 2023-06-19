@@ -1,5 +1,6 @@
 import "@/styles/tailwind.css";
 import "@/styles/prosemirror.css";
+import "@/styles/collaboration.css";
 
 import cx from "classnames";
 import { cal, inter } from "@/styles/fonts";
