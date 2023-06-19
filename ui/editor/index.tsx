@@ -11,12 +11,15 @@ import { toast } from "sonner";
 import va from "@vercel/analytics";
 import DEFAULT_EDITOR_CONTENT from "./default-content";
 
+import { EditorBubbleMenu } from "./components";
+
 export default function Editor() {
   const [content, setContent] = useLocalStorage(
     "content",
     DEFAULT_EDITOR_CONTENT,
   );
   const [saveStatus, setSaveStatus] = useState("Saved");
+
   const [hydrated, setHydrated] = useState(false);
 
   const debouncedUpdates = useDebouncedCallback(async ({ editor }) => {
@@ -45,7 +48,7 @@ export default function Editor() {
           from: selection.from - 2,
           to: selection.from,
         });
-        e.editor.commands.insertContent("↺");
+        e.editor.commands.insertContent("🤖...");
         complete(e.editor.getText());
         va.track("Autocomplete Shortcut Used");
       } else {
@@ -80,17 +83,17 @@ export default function Editor() {
 
   // Insert chunks of the generated text
   useEffect(() => {
-    // remove ↺ and insert the generated text
+    // remove 🤖... and insert the generated text
     if (
       completion.length > 0 &&
       editor?.state.doc.textBetween(
-        editor.state.selection.from - 1,
+        editor.state.selection.from - 5,
         editor.state.selection.from,
         "\n",
-      ) === "↺"
+      ) === "🤖..."
     ) {
       editor?.commands.deleteRange({
-        from: editor.state.selection.from - 1,
+        from: editor.state.selection.from - 5,
         to: editor.state.selection.from,
       });
     }
@@ -143,7 +146,15 @@ export default function Editor() {
       <div className="absolute right-5 top-5 mb-5 rounded-lg bg-stone-100 px-2 py-1 text-sm text-stone-400">
         {saveStatus}
       </div>
-      <EditorContent editor={editor} />
+
+      {editor ? (
+        <>
+          <EditorContent editor={editor} />
+          <EditorBubbleMenu editor={editor} />
+        </>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }
