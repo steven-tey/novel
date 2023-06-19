@@ -19,6 +19,7 @@ import {
   List,
   ListOrdered,
   MessageSquarePlus,
+  Strikethrough,
 } from "lucide-react";
 import LoadingCircle from "@/ui/shared/loading-circle";
 import { toast } from "sonner";
@@ -113,6 +114,14 @@ const getSuggestionItems = ({ query }: { query: string }) => {
       icon: <Italic size={18} />,
       command: ({ editor, range }: Command) => {
         editor.chain().focus().deleteRange(range).setMark("italic").run();
+      },
+    },
+    {
+      title: 'Strikethrough',
+      description: 'Make text strikethrough.',
+      icon: <Strikethrough size={18} />,
+      command: ({ editor, range }: Command) => {
+        editor.chain().focus().deleteRange(range).setMark('strike').run();
       },
     },
     {
