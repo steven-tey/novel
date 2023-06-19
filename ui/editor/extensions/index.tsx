@@ -65,7 +65,7 @@ export const TiptapExtensions = [
     },
   }).configure({
     HTMLAttributes: {
-      class: "my-4 border-t border-stone-300",
+      class: "mt-4 mb-6 border-t border-stone-300",
     },
   }),
   TiptapLink.configure({

@@ -73,7 +73,7 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
 
   return (
     <BubbleMenu {...bubbleMenuProps}>
-      <div className="flex overflow-hidden bg-white border rounded shadow border-slate-300">
+      <div className="flex overflow-hidden rounded border border-stone-300 bg-white shadow">
         <NodeSelector
           editor={props.editor}
           isOpen={isNodeSelectorOpen}
@@ -84,14 +84,13 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
           <button
             key={index}
             onClick={item.command}
-            className={cx([
-              item.canBeActive && item.isActive()
-                ? "bg-slate-200"
-                : "hover:bg-slate-100",
-              "p-1 text-gray-600",
-            ])}
+            className="p-1 text-gray-600 hover:bg-stone-100"
           >
-            <item.icon className="w-4 h-4" />
+            <item.icon
+              className={cx("h-4 w-4", {
+                "text-blue-500": item.canBeActive && item.isActive(),
+              })}
+            />
           </button>
         ))}
       </div>
