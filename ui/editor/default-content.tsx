@@ -11,7 +11,7 @@ const DEFAULT_EDITOR_CONTENT = {
       content: [
         {
           type: "text",
-          text: "Novel is a Notion-style WYSIWYG editor with AI-powered autocompletions. Built with ",
+          text: "Novel is a Notion-style WYSIWYG editor with AI-powered autocompletions and multiplayer. Built with ",
         },
         {
           type: "text",
@@ -44,7 +44,7 @@ const DEFAULT_EDITOR_CONTENT = {
           ],
           text: "OpenAI",
         },
-        { type: "text", text: ", and the " },
+        { type: "text", text: ", " },
         {
           type: "text",
           marks: [
@@ -60,8 +60,39 @@ const DEFAULT_EDITOR_CONTENT = {
           ],
           text: "Vercel AI SDK",
         },
-        { type: "text", text: " → " },
-        { type: "text", marks: [{ type: "code" }], text: "npm i ai" },
+        { type: "text", text: ", " },
+        {
+          type: "text",
+          marks: [
+            {
+              type: "link",
+              attrs: {
+                href: "https://docs.yjs.dev/",
+                target: "_blank",
+                class:
+                  "text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer",
+              },
+            },
+          ],
+          text: "Y.js",
+        },
+        { type: "text", text: ", and " },
+        {
+          type: "text",
+          marks: [
+            {
+              type: "link",
+              attrs: {
+                href: "https://github.com/partykit/partykit/",
+                target: "_blank",
+                class:
+                  "text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer",
+              },
+            },
+          ],
+          text: "Partykit",
+        },
+        { type: "text", text: "." },
       ],
     },
     {
