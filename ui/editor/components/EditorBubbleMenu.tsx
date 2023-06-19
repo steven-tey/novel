@@ -13,7 +13,6 @@ import { NodeSelector } from "./NodeSelector";
 
 export interface BubbleMenuItem {
   name: string;
-  canBeActive: boolean;
   isActive: () => boolean;
   command: () => void;
   icon: typeof BoldIcon;
@@ -25,35 +24,30 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
   const items: BubbleMenuItem[] = [
     {
       name: "bold",
-      canBeActive: true,
       isActive: () => props.editor.isActive("bold"),
       command: () => props.editor.chain().focus().toggleBold().run(),
       icon: BoldIcon,
     },
     {
       name: "italic",
-      canBeActive: true,
       isActive: () => props.editor.isActive("italic"),
       command: () => props.editor.chain().focus().toggleItalic().run(),
       icon: ItalicIcon,
     },
     {
       name: "underline",
-      canBeActive: true,
       isActive: () => props.editor.isActive("underline"),
       command: () => props.editor.chain().focus().toggleUnderline().run(),
       icon: UnderlineIcon,
     },
     {
       name: "strike",
-      canBeActive: true,
       isActive: () => props.editor.isActive("strike"),
       command: () => props.editor.chain().focus().toggleStrike().run(),
       icon: StrikethroughIcon,
     },
     {
       name: "code",
-      canBeActive: true,
       isActive: () => props.editor.isActive("code"),
       command: () => props.editor.chain().focus().toggleCode().run(),
       icon: CodeIcon,
@@ -89,7 +83,7 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
         >
           <item.icon
             className={cx("h-4 w-4", {
-              "text-blue-500": item.canBeActive && item.isActive(),
+              "text-blue-500": item.isActive(),
             })}
           />
         </button>
