@@ -57,7 +57,7 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
   const bubbleMenuProps: EditorBubbleMenuProps = {
     ...props,
     tippyOptions: {
-      moveTransition: "transform 0.2s ease-out",
+      moveTransition: "transform 0.15s ease-out",
       onHidden: () => setIsNodeSelectorOpen(false),
     },
   };
