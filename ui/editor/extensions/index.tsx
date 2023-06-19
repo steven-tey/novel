@@ -1,8 +1,10 @@
 import StarterKit from "@tiptap/starter-kit";
+import HorizontalRule from "@tiptap/extension-horizontal-rule";
 import TiptapLink from "@tiptap/extension-link";
 import TiptapImage from "@tiptap/extension-image";
 import Placeholder from "@tiptap/extension-placeholder";
 import SlashCommand from "./slash-command";
+import { InputRule } from "@tiptap/core";
 
 export const TiptapExtensions = [
   StarterKit.configure({
@@ -36,6 +38,32 @@ export const TiptapExtensions = [
         class:
           "rounded-md bg-stone-200 px-1.5 py-1 font-mono font-medium text-black",
       },
+    },
+  }),
+  // patch to fix horizontal rule bug: https://github.com/ueberdosis/tiptap/pull/3859#issuecomment-1536799740
+  HorizontalRule.extend({
+    addInputRules() {
+      return [
+        new InputRule({
+          find: /^(?:---|—-|___\s|\*\*\*\s)$/,
+          handler: ({ state, range, match }) => {
+            const attributes = {};
+
+            const { tr } = state;
+            const start = range.from;
+            let end = range.to;
+
+            tr.insert(start - 1, this.type.create(attributes)).delete(
+              tr.mapping.map(start),
+              tr.mapping.map(end),
+            );
+          },
+        }),
+      ];
+    },
+  }).configure({
+    HTMLAttributes: {
+      class: "my-4 border-t border-stone-300",
     },
   }),
   TiptapLink.configure({

@@ -2,14 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-.ProseMirror p.is-editor-empty:first-child::before {
+.ProseMirror .is-editor-empty:first-child::before {
   content: attr(data-placeholder);
   float: left;
   color: #adb5bd;
   pointer-events: none;
   height: 0;
 }
-.ProseMirror p.is-empty::before {
+.ProseMirror .is-empty::before {
   content: attr(data-placeholder);
   float: left;
   color: #adb5bd;

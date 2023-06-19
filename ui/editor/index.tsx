@@ -45,6 +45,7 @@ export default function Editor() {
           from: selection.from - 2,
           to: selection.from,
         });
+        e.editor.commands.insertContent("↺");
         complete(e.editor.getText());
         va.track("Autocomplete Shortcut Used");
       } else {
@@ -79,6 +80,20 @@ export default function Editor() {
 
   // Insert chunks of the generated text
   useEffect(() => {
+    // remove ↺ and insert the generated text
+    if (
+      completion.length > 0 &&
+      editor?.state.doc.textBetween(
+        editor.state.selection.from - 1,
+        editor.state.selection.from,
+        "\n",
+      ) === "↺"
+    ) {
+      editor?.commands.deleteRange({
+        from: editor.state.selection.from - 1,
+        to: editor.state.selection.from,
+      });
+    }
     const diff = completion.slice(prev.current.length);
     prev.current = completion;
     editor?.commands.insertContent(diff, {
