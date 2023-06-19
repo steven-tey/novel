@@ -15,6 +15,12 @@ export const yProvider = new YProvider(
   { connect: false },
 );
 
+if (typeof window !== "undefined") {
+  window.addEventListener("beforeunload", () => {
+    if (yProvider.wsconnected) yProvider.disconnect();
+  });
+}
+
 export const collaborationExtensions = [
   TiptapCollaboration.configure({ document: yDoc, field: "content" }),
   TiptapCursor.configure({ provider: yProvider }),
@@ -36,6 +42,18 @@ export function useConnectionStatus() {
   return state;
 }
 
+const colors = [
+  "#958DF1",
+  "#F98181",
+  "#FBBC88",
+  "#FAF594",
+  "#70CFF8",
+  "#94FADB",
+  "#B9F18D",
+];
+
+const getRandomColor = () => colors[Math.floor(Math.random() * colors.length)];
+
 export function useUser() {
   const [currentUser, setCurrentUser] = useState({ name: "" });
 
@@ -43,7 +61,10 @@ export function useUser() {
     const name = (window.prompt("Name") || "").trim().slice(0, 32);
 
     if (name) {
-      yProvider.awareness.setLocalStateField("user", { name });
+      yProvider.awareness.setLocalStateField("user", {
+        name,
+        color: getRandomColor(),
+      });
       localStorage.setItem("name", name);
       return setCurrentUser({ name });
     }
@@ -54,7 +75,13 @@ export function useUser() {
     if (!localState?.user?.name) {
       const stored = localStorage.getItem("name");
       if (stored) {
-        yProvider.awareness.setLocalStateField("user", { name: stored });
+        const user = { name: stored, color: getRandomColor() };
+        yProvider.awareness.setLocalStateField("user", user);
+        yProvider.once("status", (connected: boolean) => {
+          if (connected) {
+            yProvider.awareness.setLocalStateField("user", user);
+          }
+        });
       }
       const name = stored || `User ${yProvider.awareness.clientID}`;
       setCurrentUser({ name });
