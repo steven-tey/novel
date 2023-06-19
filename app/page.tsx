@@ -7,7 +7,7 @@ export default function Page() {
       <a
         href="/deploy"
         target="_blank"
-        className="absolute bottom-5 left-5 max-h-fit rounded-lg p-2 transition-colors duration-200 hover:bg-stone-100 sm:top-5 sm:bottom-auto"
+        className="absolute bottom-5 left-5 max-h-fit rounded-lg p-2 transition-colors duration-200 hover:bg-stone-100 sm:bottom-auto sm:top-5"
       >
         <svg
           width={22}
@@ -21,7 +21,7 @@ export default function Page() {
       <a
         href="/github"
         target="_blank"
-        className="absolute bottom-5 right-5 max-h-fit rounded-lg p-2 transition-colors duration-200 hover:bg-stone-100 sm:top-5 sm:bottom-auto"
+        className="absolute bottom-5 right-5 max-h-fit rounded-lg p-2 transition-colors duration-200 hover:bg-stone-100 sm:bottom-auto sm:top-5"
       >
         <Github />
       </a>
