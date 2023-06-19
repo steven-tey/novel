@@ -1,3 +1,4 @@
+import "@/styles/collaboration.css";
 import "@/styles/globals.css";
 import cx from "classnames";
 import { cal, inter } from "@/styles/fonts";

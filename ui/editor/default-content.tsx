@@ -4,7 +4,7 @@ const DEFAULT_EDITOR_CONTENT = {
     {
       type: "heading",
       attrs: { level: 2 },
-      content: [{ type: "text", text: "Introducing Novel" }],
+      content: [{ type: "text", text: "Novel with Y.js and Partykit" }],
     },
     {
       type: "paragraph",

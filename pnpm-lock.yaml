@@ -8,6 +8,12 @@ dependencies:
   '@tiptap/core':
     specifier: ^2.0.3
     version: 2.0.3(@tiptap/pm@2.0.3)
+  '@tiptap/extension-collaboration':
+    specifier: ^2.0.3
+    version: 2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3)(y-prosemirror@1.2.1)
+  '@tiptap/extension-collaboration-cursor':
+    specifier: ^2.0.3
+    version: 2.0.3(@tiptap/core@2.0.3)(y-prosemirror@1.2.1)
   '@tiptap/extension-horizontal-rule':
     specifier: ^2.0.3
     version: 2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3)
@@ -95,6 +101,15 @@ dependencies:
   use-debounce:
     specifier: ^9.0.3
     version: 9.0.4(react@18.2.0)
+  y-partykit:
+    specifier: 0.0.0-a16ecec
+    version: 0.0.0-a16ecec
+  y-prosemirror:
+    specifier: ^1.2.1
+    version: 1.2.1(prosemirror-model@1.19.2)(prosemirror-state@1.4.3)(prosemirror-view@1.31.4)(y-protocols@1.0.5)(yjs@13.6.4)
+  yjs:
+    specifier: ^13.6.4
+    version: 13.6.4
 
 devDependencies:
   '@tailwindcss/typography':
@@ -754,6 +769,28 @@ packages:
       '@tiptap/core': ^2.0.0
     dependencies:
       '@tiptap/core': 2.0.3(@tiptap/pm@2.0.3)
+    dev: false
+
+  /@tiptap/extension-collaboration-cursor@2.0.3(@tiptap/core@2.0.3)(y-prosemirror@1.2.1):
+    resolution: {integrity: sha512-pBcsk3ZkK8IQK6UP/a7Y4rjZRW/anhxFaTCcTxrUvn/azqRI+mcCsRwbc5lNLzcYq5JVOHGROjriNmGGkIr5jA==}
+    peerDependencies:
+      '@tiptap/core': ^2.0.0
+      y-prosemirror: 1.0.20
+    dependencies:
+      '@tiptap/core': 2.0.3(@tiptap/pm@2.0.3)
+      y-prosemirror: 1.2.1(prosemirror-model@1.19.2)(prosemirror-state@1.4.3)(prosemirror-view@1.31.4)(y-protocols@1.0.5)(yjs@13.6.4)
+    dev: false
+
+  /@tiptap/extension-collaboration@2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3)(y-prosemirror@1.2.1):
+    resolution: {integrity: sha512-oA+5Dx+L1GfFrP2tUol8lfKNrLitYgHBaBJbAiqh/QPKVuUiEWgFS2W1oYaSGmwYjzdPCVJqXyQLzSJvEdnBWQ==}
+    peerDependencies:
+      '@tiptap/core': ^2.0.0
+      '@tiptap/pm': ^2.0.0
+      y-prosemirror: 1.0.20
+    dependencies:
+      '@tiptap/core': 2.0.3(@tiptap/pm@2.0.3)
+      '@tiptap/pm': 2.0.3(@tiptap/core@2.0.3)
+      y-prosemirror: 1.2.1(prosemirror-model@1.19.2)(prosemirror-state@1.4.3)(prosemirror-view@1.31.4)(y-protocols@1.0.5)(yjs@13.6.4)
     dev: false
 
   /@tiptap/extension-document@2.0.3(@tiptap/core@2.0.3):
@@ -2704,6 +2741,10 @@ packages:
       - encoding
     dev: false
 
+  /isomorphic.js@0.2.5:
+    resolution: {integrity: sha512-PIeMbHqMt4DnUP3MA/Flc0HElYjMXArsw1qwJZcm9sqR8mq3l8NYizFMty0pWwE/tzIGH3EKK5+jes5mAr85yw==}
+    dev: false
+
   /jiti@1.18.2:
     resolution: {integrity: sha512-QAdOptna2NYiSSpv0O/BwoHBSmz4YhpzJHyi+fnMRTXFjp7B8i/YG5Z8IfusxB1ufjcD2Sre1F3R+nX3fvy7gg==}
     hasBin: true
@@ -2782,6 +2823,14 @@ packages:
       type-check: 0.4.0
     dev: false
 
+  /lib0@0.2.78:
+    resolution: {integrity: sha512-SV2nU43/6eaYnGH3l0lg2wg1ziB/TH3sAd2E8quXPGwrqo+aX98SNT2ZKucpUr5B8A52jD7ZMjAl+r87Fa/bLQ==}
+    engines: {node: '>=16'}
+    hasBin: true
+    dependencies:
+      isomorphic.js: 0.2.5
+    dev: false
+
   /lilconfig@2.1.0:
     resolution: {integrity: sha512-utWOt/GHzuUxnLKxB6dk81RoOeoNeHgbrXiuGk4yyF5qlRz+iIVWu56E2fqGHFrXz0QNUhLB/8nKqvRH66JKGQ==}
     engines: {node: '>=10'}
@@ -2811,6 +2860,10 @@ packages:
   /lodash.castarray@4.4.0:
     resolution: {integrity: sha512-aVx8ztPv7/2ULbArGJ2Y42bG1mEQ5mGjpdvrbJcJFU3TbYybe+QlLS4pst9zV52ymy2in1KpFPiZnAOATxD4+Q==}
     dev: true
+
+  /lodash.debounce@4.0.8:
+    resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
+    dev: false
 
   /lodash.isplainobject@4.0.6:
     resolution: {integrity: sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F+MFOBA==}
@@ -4512,6 +4565,38 @@ packages:
   /wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
 
+  /y-partykit@0.0.0-a16ecec:
+    resolution: {integrity: sha512-sIl5cbLvvZiZJm1txQtbiW5d3hNcdCrQbXkJerAF0GfLiZuicJHPimXgE5oCEVXkXDUb9Q5amvp8z/6OAFLVQg==}
+    dependencies:
+      lib0: 0.2.78
+      lodash.debounce: 4.0.8
+      y-protocols: 1.0.5
+      yjs: 13.6.4
+    dev: false
+
+  /y-prosemirror@1.2.1(prosemirror-model@1.19.2)(prosemirror-state@1.4.3)(prosemirror-view@1.31.4)(y-protocols@1.0.5)(yjs@13.6.4):
+    resolution: {integrity: sha512-czMBfB1eL2awqmOSxQM8cS/fsUOGE6fjvyPLInrh4crPxFiw67wDpwIW+EGBYKRa04sYbS0ScGj7ZgvWuDrmBQ==}
+    peerDependencies:
+      prosemirror-model: ^1.7.1
+      prosemirror-state: ^1.2.3
+      prosemirror-view: ^1.9.10
+      y-protocols: ^1.0.1
+      yjs: ^13.5.38
+    dependencies:
+      lib0: 0.2.78
+      prosemirror-model: 1.19.2
+      prosemirror-state: 1.4.3
+      prosemirror-view: 1.31.4
+      y-protocols: 1.0.5
+      yjs: 13.6.4
+    dev: false
+
+  /y-protocols@1.0.5:
+    resolution: {integrity: sha512-Wil92b7cGk712lRHDqS4T90IczF6RkcvCwAD0A2OPg+adKmOe+nOiT/N2hvpQIWS3zfjmtL4CPaH5sIW1Hkm/A==}
+    dependencies:
+      lib0: 0.2.78
+    dev: false
+
   /yallist@3.1.1:
     resolution: {integrity: sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==}
     dev: false
@@ -4524,6 +4609,13 @@ packages:
     resolution: {integrity: sha512-2eHWfjaoXgTBC2jNM1LRef62VQa0umtvRiDSk6HSzW7RvS5YtkabJrwYLLEKWBc8a5U2PTSCs+dJjUTJdlHsWQ==}
     engines: {node: '>= 14'}
     dev: true
+
+  /yjs@13.6.4:
+    resolution: {integrity: sha512-AirXWU/Qws6gmaz4MMluFqahweQUyLzX7QbjHmhyqbokQIki2WpE3F/NkUyOdcgEmfdTJKVys+LGgph6smZFbg==}
+    engines: {node: '>=16.0.0', npm: '>=8.0.0'}
+    dependencies:
+      lib0: 0.2.78
+    dev: false
 
   /yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
