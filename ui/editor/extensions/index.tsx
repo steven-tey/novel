@@ -3,6 +3,8 @@ import HorizontalRule from "@tiptap/extension-horizontal-rule";
 import TiptapLink from "@tiptap/extension-link";
 import TiptapImage from "@tiptap/extension-image";
 import Placeholder from "@tiptap/extension-placeholder";
+import TiptapUnderline from "@tiptap/extension-underline";
+
 import SlashCommand from "./slash-command";
 import { InputRule } from "@tiptap/core";
 
@@ -63,7 +65,7 @@ export const TiptapExtensions = [
     },
   }).configure({
     HTMLAttributes: {
-      class: "my-4 border-t border-stone-300",
+      class: "mt-4 mb-6 border-t border-stone-300",
     },
   }),
   TiptapLink.configure({
@@ -85,4 +87,5 @@ export const TiptapExtensions = [
     includeChildren: true,
   }),
   SlashCommand,
+  TiptapUnderline,
 ];

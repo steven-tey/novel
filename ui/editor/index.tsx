@@ -11,12 +11,15 @@ import { toast } from "sonner";
 import va from "@vercel/analytics";
 import DEFAULT_EDITOR_CONTENT from "./default-content";
 
+import { EditorBubbleMenu } from "./components";
+
 export default function Editor() {
   const [content, setContent] = useLocalStorage(
     "content",
     DEFAULT_EDITOR_CONTENT,
   );
   const [saveStatus, setSaveStatus] = useState("Saved");
+
   const [hydrated, setHydrated] = useState(false);
 
   const debouncedUpdates = useDebouncedCallback(async ({ editor }) => {
@@ -143,7 +146,15 @@ export default function Editor() {
       <div className="absolute right-5 top-5 mb-5 rounded-lg bg-stone-100 px-2 py-1 text-sm text-stone-400">
         {saveStatus}
       </div>
-      <EditorContent editor={editor} />
+
+      {editor ? (
+        <>
+          <EditorContent editor={editor} />
+          <EditorBubbleMenu editor={editor} />
+        </>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }
