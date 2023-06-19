@@ -15,10 +15,12 @@ import {
   Bold,
   Heading1,
   Heading2,
+  Heading3,
   Italic,
   List,
   ListOrdered,
   MessageSquarePlus,
+  Text,
 } from "lucide-react";
 import LoadingCircle from "@/ui/shared/loading-circle";
 import { toast } from "sonner";
@@ -74,6 +76,28 @@ const getSuggestionItems = ({ query }: { query: string }) => {
       icon: <Magic className="w-7 text-black" />,
     },
     {
+      title: "Send Feedback",
+      description: "Let us know how we can improve.",
+      icon: <MessageSquarePlus size={18} />,
+      command: ({ editor, range }: Command) => {
+        editor.chain().focus().deleteRange(range).run();
+        window.open("/feedback", "_blank");
+      },
+    },
+    {
+      title: "Text",
+      description: "Just start typing with plain text.",
+      icon: <Text size={18} />,
+      command: ({ editor, range }: Command) => {
+        editor
+          .chain()
+          .focus()
+          .deleteRange(range)
+          .toggleNode("paragraph", "paragraph")
+          .run();
+      },
+    },
+    {
       title: "Heading 1",
       description: "Big section heading.",
       icon: <Heading1 size={18} />,
@@ -96,6 +120,19 @@ const getSuggestionItems = ({ query }: { query: string }) => {
           .focus()
           .deleteRange(range)
           .setNode("heading", { level: 2 })
+          .run();
+      },
+    },
+    {
+      title: "Heading 3",
+      description: "Small section heading.",
+      icon: <Heading3 size={18} />,
+      command: ({ editor, range }: Command) => {
+        editor
+          .chain()
+          .focus()
+          .deleteRange(range)
+          .setNode("heading", { level: 3 })
           .run();
       },
     },
@@ -129,15 +166,6 @@ const getSuggestionItems = ({ query }: { query: string }) => {
       icon: <ListOrdered size={18} />,
       command: ({ editor, range }: Command) => {
         editor.chain().focus().deleteRange(range).toggleOrderedList().run();
-      },
-    },
-    {
-      title: "Send Feedback",
-      description: "Let us know how we can improve.",
-      icon: <MessageSquarePlus size={18} />,
-      command: ({ editor, range }: Command) => {
-        editor.chain().focus().deleteRange(range).run();
-        window.open("/feedback", "_blank");
       },
     },
   ].filter((item) => {

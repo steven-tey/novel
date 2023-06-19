@@ -64,7 +64,6 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
     ...props,
     tippyOptions: {
       moveTransition: "transform 0.2s ease-out",
-      animation: "shift-toward-subtle",
       onHidden: () => setIsNodeSelectorOpen(false),
     },
   };
@@ -72,28 +71,29 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
   const [isNodeSelectorOpen, setIsNodeSelectorOpen] = useState(false);
 
   return (
-    <BubbleMenu {...bubbleMenuProps}>
-      <div className="flex overflow-hidden rounded border border-stone-300 bg-white shadow">
-        <NodeSelector
-          editor={props.editor}
-          isOpen={isNodeSelectorOpen}
-          setIsOpen={setIsNodeSelectorOpen}
-        />
+    <BubbleMenu
+      {...bubbleMenuProps}
+      className="flex overflow-hidden rounded border border-stone-200 bg-white shadow-xl"
+    >
+      <NodeSelector
+        editor={props.editor}
+        isOpen={isNodeSelectorOpen}
+        setIsOpen={setIsNodeSelectorOpen}
+      />
 
-        {items.map((item, index) => (
-          <button
-            key={index}
-            onClick={item.command}
-            className="p-1 text-gray-600 hover:bg-stone-100"
-          >
-            <item.icon
-              className={cx("h-4 w-4", {
-                "text-blue-500": item.canBeActive && item.isActive(),
-              })}
-            />
-          </button>
-        ))}
-      </div>
+      {items.map((item, index) => (
+        <button
+          key={index}
+          onClick={item.command}
+          className="p-2 text-gray-600 hover:bg-stone-100 active:bg-stone-200"
+        >
+          <item.icon
+            className={cx("h-4 w-4", {
+              "text-blue-500": item.canBeActive && item.isActive(),
+            })}
+          />
+        </button>
+      ))}
     </BubbleMenu>
   );
 };
