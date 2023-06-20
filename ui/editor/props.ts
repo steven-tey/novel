@@ -9,7 +9,9 @@ export const TiptapEditorProps: EditorProps = {
   handleDOMEvents: {
     keydown: (_view, event) => {
       // Prevents the editor from handling the Enter key when slash commands are active (but exclude shift+enter)
-      return event.key === "Enter" && !event.shiftKey;
+      if (event.key === "Enter" && !event.shiftKey) {
+        return true;
+      }
     },
   },
   handlePaste: (view, event, _slice) => {

@@ -1,1 +1,1 @@
-export * from "./EditorBubbleMenu";
+export * from "./bubble-menu";

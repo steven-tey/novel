@@ -9,7 +9,8 @@ import {
   CodeIcon,
 } from "lucide-react";
 
-import { NodeSelector } from "./NodeSelector";
+import { NodeSelector } from "./node-selector";
+import { AISelector } from "./ai-selector";
 
 export interface BubbleMenuItem {
   name: string;
@@ -53,26 +54,40 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
       icon: CodeIcon,
     },
   ];
-
   const bubbleMenuProps: EditorBubbleMenuProps = {
     ...props,
     tippyOptions: {
       moveTransition: "transform 0.15s ease-out",
-      onHidden: () => setIsNodeSelectorOpen(false),
+      onHidden: () => {
+        setIsNodeSelectorOpen(false);
+        setIsAISelectorOpen(false);
+      },
     },
   };
 
+  const [isAISelectorOpen, setIsAISelectorOpen] = useState(false);
   const [isNodeSelectorOpen, setIsNodeSelectorOpen] = useState(false);
 
   return (
     <BubbleMenu
       {...bubbleMenuProps}
-      className="flex overflow-hidden rounded border border-stone-200 bg-white shadow-xl"
+      className="flex w-fit overflow-hidden rounded border border-stone-200 bg-white shadow-xl"
     >
+      <AISelector
+        editor={props.editor}
+        isOpen={isAISelectorOpen}
+        setIsOpen={() => {
+          setIsAISelectorOpen(!isAISelectorOpen);
+          setIsNodeSelectorOpen(false);
+        }}
+      />
       <NodeSelector
         editor={props.editor}
         isOpen={isNodeSelectorOpen}
-        setIsOpen={setIsNodeSelectorOpen}
+        setIsOpen={() => {
+          setIsNodeSelectorOpen(!isNodeSelectorOpen);
+          setIsAISelectorOpen(false);
+        }}
       />
 
       {items.map((item, index) => (

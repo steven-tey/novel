@@ -26,6 +26,7 @@ import LoadingCircle from "@/ui/shared/loading-circle";
 import { toast } from "sonner";
 import va from "@vercel/analytics";
 import Magic from "@/ui/shared/magic";
+import { NAVIGATION_KEYS } from "@/lib/constants";
 
 interface CommandItemProps {
   title: string;
@@ -246,9 +247,8 @@ const CommandList = ({
   );
 
   useEffect(() => {
-    const navigationKeys = ["ArrowUp", "ArrowDown", "Enter"];
     const onKeyDown = (e: KeyboardEvent) => {
-      if (navigationKeys.includes(e.key)) {
+      if (NAVIGATION_KEYS.includes(e.key)) {
         e.preventDefault();
         if (e.key === "ArrowUp") {
           setSelectedIndex((selectedIndex + items.length - 1) % items.length);

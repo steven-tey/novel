@@ -1,5 +1,4 @@
 import { Editor } from "@tiptap/core";
-import cx from "classnames";
 import {
   Check,
   ChevronDown,
@@ -9,9 +8,11 @@ import {
   ListOrdered,
   TextIcon,
 } from "lucide-react";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 
-import { BubbleMenuItem } from "./EditorBubbleMenu";
+import { BubbleMenuItem } from ".";
+import { Command } from "cmdk";
+import { NAVIGATION_KEYS } from "@/lib/constants";
 
 interface NodeSelectorProps {
   editor: Editor;
@@ -70,43 +71,53 @@ export const NodeSelector: FC<NodeSelectorProps> = ({
 
   const activeItem = items.find((item) => item.isActive());
 
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (NAVIGATION_KEYS.includes(e.key)) {
+        e.preventDefault();
+      }
+    };
+    if (isOpen) {
+      document.addEventListener("keydown", onKeyDown);
+    }
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [isOpen]);
+
   return (
     <div className="relative h-full">
       <button
-        className="flex h-full items-center gap-1 p-2 text-sm font-medium text-gray-600 hover:bg-stone-100 active:bg-stone-200"
+        className="flex h-full items-center gap-1 border-r border-stone-200 p-2 text-sm font-medium text-gray-600 hover:bg-stone-100 active:bg-stone-200"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <span>{activeItem?.name}</span>
-
+        <span className="whitespace-nowrap">{activeItem?.name}</span>
         <ChevronDown className="h-4 w-4" />
       </button>
 
       {isOpen && (
-        <section className="fixed top-full z-[99999] mt-1 flex w-48 flex-col overflow-hidden rounded border border-stone-200 bg-white p-1 shadow-xl animate-in fade-in slide-in-from-top-1">
-          {items.map((item, index) => (
-            <button
-              key={index}
-              onClick={() => {
-                item.command();
-                setIsOpen(false);
-              }}
-              className={cx(
-                "flex items-center justify-between rounded-sm px-2 py-1 text-sm text-gray-600 hover:bg-stone-100",
-                {
-                  "text-blue-600": item.isActive(),
-                },
-              )}
-            >
-              <div className="flex items-center space-x-2">
-                <div className="rounded-sm border border-stone-200 p-1">
-                  <item.icon className="h-3 w-3" />
+        <Command className="fixed top-full z-[99999] mt-1 flex w-48 flex-col overflow-hidden rounded border border-stone-200 bg-white p-1 shadow-xl animate-in fade-in slide-in-from-top-1">
+          <Command.List>
+            {items.map((item, index) => (
+              <Command.Item
+                key={index}
+                onSelect={() => {
+                  item.command();
+                  setIsOpen(false);
+                }}
+                className="flex cursor-pointer items-center justify-between rounded-sm px-2 py-1 text-sm text-gray-600 active:bg-stone-200 aria-selected:bg-stone-100"
+              >
+                <div className="flex items-center space-x-2">
+                  <div className="rounded-sm border border-stone-200 bg-white p-1">
+                    <item.icon className="h-3 w-3" />
+                  </div>
+                  <span>{item.name}</span>
                 </div>
-                <span>{item.name}</span>
-              </div>
-              {item.isActive() && <Check className="h-4 w-4" />}
-            </button>
-          ))}
-        </section>
+                {item.isActive() && <Check className="h-4 w-4" />}
+              </Command.Item>
+            ))}
+          </Command.List>
+        </Command>
       )}
     </div>
   );
