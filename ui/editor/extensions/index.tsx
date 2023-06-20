@@ -4,6 +4,9 @@ import TiptapLink from "@tiptap/extension-link";
 import TiptapImage from "@tiptap/extension-image";
 import Placeholder from "@tiptap/extension-placeholder";
 import TiptapUnderline from "@tiptap/extension-underline";
+import TextStyle from '@tiptap/extension-text-style'
+import { Color } from '@tiptap/extension-color'
+
 
 import SlashCommand from "./slash-command";
 import { InputRule } from "@tiptap/core";
@@ -88,4 +91,6 @@ export const TiptapExtensions = [
   }),
   SlashCommand,
   TiptapUnderline,
+  TextStyle,
+  Color
 ];

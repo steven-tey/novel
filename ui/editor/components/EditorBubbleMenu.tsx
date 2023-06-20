@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 
 import { NodeSelector } from "./NodeSelector";
+import { ColorSelector } from "./ColorSelector";
 
 export interface BubbleMenuItem {
   name: string;
@@ -58,11 +59,16 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
     ...props,
     tippyOptions: {
       moveTransition: "transform 0.15s ease-out",
-      onHidden: () => setIsNodeSelectorOpen(false),
+      onHidden: () => {
+        setIsNodeSelectorOpen(false)
+        setIsColorSelectorOpen(false)
+
+      },
     },
   };
 
   const [isNodeSelectorOpen, setIsNodeSelectorOpen] = useState(false);
+  const [isColorSelectorOpen, setIsColorSelectorOpen] = useState(false);
 
   return (
     <BubbleMenu
@@ -88,6 +94,11 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
           />
         </button>
       ))}
+      <ColorSelector
+        editor={props.editor}
+        isOpen={isColorSelectorOpen}
+        setIsOpen={setIsColorSelectorOpen}
+      />
     </BubbleMenu>
   );
 };
