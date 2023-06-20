@@ -9,7 +9,7 @@ const nextConfig = {
       },
       {
         source: "/feedback",
-        destination: "https://github.com/steven-tey/novel/issues/new",
+        destination: "https://github.com/steven-tey/novel/issues",
         permanent: true,
       },
       {
