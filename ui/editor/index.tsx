@@ -48,7 +48,6 @@ export default function Editor() {
           from: selection.from - 2,
           to: selection.from,
         });
-        e.editor.commands.insertContent("🤖...");
         complete(e.editor.getText());
         va.track("Autocomplete Shortcut Used");
       } else {
@@ -83,20 +82,6 @@ export default function Editor() {
 
   // Insert chunks of the generated text
   useEffect(() => {
-    // remove 🤖... and insert the generated text
-    if (
-      completion.length > 0 &&
-      editor?.state.doc.textBetween(
-        editor.state.selection.from - 5,
-        editor.state.selection.from,
-        "\n",
-      ) === "🤖..."
-    ) {
-      editor?.commands.deleteRange({
-        from: editor.state.selection.from - 5,
-        to: editor.state.selection.from,
-      });
-    }
     const diff = completion.slice(prev.current.length);
     prev.current = completion;
     editor?.commands.insertContent(diff, {
@@ -121,13 +106,26 @@ export default function Editor() {
         editor?.commands.insertContent("++");
       }
     };
+    const mousedownHandler = (e: MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      stop();
+      if (window.confirm("AI writing paused. Continue?")) {
+        complete(editor?.getText() || "");
+      }
+    };
     if (isLoading) {
       document.addEventListener("keydown", onKeyDown);
+      window.addEventListener("mousedown", mousedownHandler);
+    } else {
+      document.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("mousedown", mousedownHandler);
     }
     return () => {
       document.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("mousedown", mousedownHandler);
     };
-  }, [stop, isLoading, editor, completion.length]);
+  }, [stop, isLoading, editor, complete, completion.length]);
 
   // Hydrate the editor with the content from localStorage.
   useEffect(() => {
@@ -136,6 +134,7 @@ export default function Editor() {
       setHydrated(true);
     }
   }, [editor, content, hydrated]);
+
   return (
     <div
       onClick={() => {
