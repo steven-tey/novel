@@ -1,18 +1,7 @@
 import { Editor } from "@tiptap/core";
 import cx from "classnames";
-import {
-  BoldIcon,
-  Check,
-  ChevronDown,
-  Heading1,
-  Heading2,
-  Heading3,
-  ListOrdered,
-  TextIcon,
-} from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
 import { FC } from "react";
-
-import { BubbleMenuItem } from "./EditorBubbleMenu";
 
 export interface BubbleColorMenuItem {
   name: string;
@@ -114,9 +103,7 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
       >
         <span style={{ color: activeItem?.color || "#000000" }}>A</span>
 
-        <ChevronDown
-          className="h-4 w-4 "
-        />
+        <ChevronDown className="h-4 w-4 " />
       </button>
 
       {isOpen && (
