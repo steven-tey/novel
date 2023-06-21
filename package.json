@@ -35,7 +35,7 @@
     "eslint-config-next": "13.2.4",
     "eventsource-parser": "^0.1.0",
     "lucide-react": "^0.244.0",
-    "next": "13.4.7-canary.2",
+    "next": "13.4.6",
     "openai-edge": "^1.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
