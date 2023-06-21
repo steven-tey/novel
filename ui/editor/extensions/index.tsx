@@ -44,6 +44,7 @@ export const TiptapExtensions = [
           "rounded-md bg-stone-200 px-1.5 py-1 font-mono font-medium text-black",
       },
     },
+    horizontalRule: false,
   }),
   // patch to fix horizontal rule bug: https://github.com/ueberdosis/tiptap/pull/3859#issuecomment-1536799740
   HorizontalRule.extend({
