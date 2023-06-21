@@ -1,4 +1,5 @@
-import "@/styles/globals.css";
+import "@/styles/tailwind.css";
+import "@/styles/prosemirror.css";
 
 import cx from "classnames";
 import { cal, inter } from "@/styles/fonts";
