@@ -26,7 +26,7 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
     },
     {
       name: "Purple",
-      color: "#8F64AF",
+      color: "#9333EA",
     },
     {
       name: "Red",
@@ -34,7 +34,7 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
     },
     {
       name: "Blue",
-      color: "#5757FF",
+      color: "#2563EB",
     },
     {
       name: "Green",
@@ -50,7 +50,7 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
     },
     {
       name: "Gray",
-      color: "#6E6E6E",
+      color: "#A8A29E",
     },
   ];
 
