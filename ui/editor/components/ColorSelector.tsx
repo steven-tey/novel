@@ -32,41 +32,33 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
     {
       name: "Purple",
 
-      command: () => editor.chain().focus().setColor("#958DF1").run(),
-      isActive: () => editor.isActive("textStyle", { color: "#958DF1" }),
-      color: "#958DF1",
+      command: () => editor.chain().focus().setColor("#8F64AF").run(),
+      isActive: () => editor.isActive("textStyle", { color: "#8F64AF" }),
+      color: "#8F64AF",
     },
     {
       name: "Red",
 
-      command: () => editor.chain().focus().setColor("#FF0000").run(),
-      isActive: () => editor.isActive("textStyle", { color: "#FF0000" }),
-      color: "#FF0000",
+      command: () => editor.chain().focus().setColor("#E00000").run(),
+      isActive: () => editor.isActive("textStyle", { color: "#E00000" }),
+      color: "#E00000",
     },
     {
       name: "Blue",
 
-      command: () => editor.chain().focus().setColor("#0000FF").run(),
-      isActive: () => editor.isActive("textStyle", { color: "#0000FF" }),
-      color: "#0000FF",
+      command: () => editor.chain().focus().setColor("#5757FF").run(),
+      isActive: () => editor.isActive("textStyle", { color: "#5757FF" }),
+      color: "#5757FF",
     },
     {
       name: "Green",
 
-      command: () => editor.chain().focus().setColor("#00FF00").run(),
-      isActive: () => editor.isActive("textStyle", { color: "#00FF00" }),
-      color: "#00FF00",
-    },
-    {
-      name: "Yellow",
-
-      command: () => editor.chain().focus().setColor("#FFFF00").run(),
-      isActive: () => editor.isActive("textStyle", { color: "#FFFF00" }),
-      color: "#FFFF00",
+      command: () => editor.chain().focus().setColor("#008A00").run(),
+      isActive: () => editor.isActive("textStyle", { color: "#008A00" }),
+      color: "#008A00",
     },
     {
       name: "Orange",
-
       command: () => editor.chain().focus().setColor("#FFA500").run(),
       isActive: () => editor.isActive("textStyle", { color: "#FFA500" }),
       color: "#FFA500",
@@ -74,22 +66,15 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
     {
       name: "Pink",
 
-      command: () => editor.chain().focus().setColor("#FFC0CB").run(),
-      isActive: () => editor.isActive("textStyle", { color: "#FFC0CB" }),
-      color: "#FFC0CB",
+      command: () => editor.chain().focus().setColor("#BA4081").run(),
+      isActive: () => editor.isActive("textStyle", { color: "#BA4081" }),
+      color: "#BA4081",
     },
     {
-      name: "Cyan",
-
-      command: () => editor.chain().focus().setColor("#00FFFF").run(),
-      isActive: () => editor.isActive("textStyle", { color: "#00FFFF" }),
-      color: "#00FFFF",
-    },
-    {
-      name: "Light Gray",
-      command: () => editor.chain().focus().setColor("#CCCCCC").run(),
-      isActive: () => editor.isActive("textStyle", { color: "#CCCCCC" }),
-      color: "#CCCCCC",
+      name: "Gray",
+      command: () => editor.chain().focus().setColor("#6E6E6E").run(),
+      isActive: () => editor.isActive("textStyle", { color: "#6E6E6E" }),
+      color: "#6E6E6E",
     },
   ];
 
