@@ -80,7 +80,10 @@ export const TiptapExtensions = [
     },
   }),
   TiptapImage.configure({
-    inline: true,
+    allowBase64: true,
+    HTMLAttributes: {
+      class: "rounded-lg border border-stone-200",
+    },
   }),
   Placeholder.configure({
     placeholder: ({ node }) => {

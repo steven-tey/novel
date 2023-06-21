@@ -56,7 +56,7 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
 
   const bubbleMenuProps: EditorBubbleMenuProps = {
     ...props,
-    shouldShow: ({editor}) => {
+    shouldShow: ({ editor }) => {
       // don't show if image is selected
       if (editor.isActive("image")) {
         return false;
