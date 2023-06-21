@@ -4,9 +4,8 @@ import TiptapLink from "@tiptap/extension-link";
 import TiptapImage from "@tiptap/extension-image";
 import Placeholder from "@tiptap/extension-placeholder";
 import TiptapUnderline from "@tiptap/extension-underline";
-import TextStyle from '@tiptap/extension-text-style'
-import { Color } from '@tiptap/extension-color'
-
+import TextStyle from "@tiptap/extension-text-style";
+import { Color } from "@tiptap/extension-color";
 
 import SlashCommand from "./slash-command";
 import { InputRule } from "@tiptap/core";
@@ -30,12 +29,12 @@ export const TiptapExtensions = [
     },
     blockquote: {
       HTMLAttributes: {
-        class: "border-l-4 border-gray-300 pl-4",
+        class: "border-l-4 border-stone-300 pl-4",
       },
     },
     codeBlock: {
       HTMLAttributes: {
-        class: "rounded-md bg-gray-200 p-5 font-mono font-medium text-gray-800",
+        class: "rounded-md bg-stone-200 p-5 font-mono font-medium text-stone-800",
       },
     },
     code: {
@@ -97,5 +96,5 @@ export const TiptapExtensions = [
   SlashCommand,
   TiptapUnderline,
   TextStyle,
-  Color
+  Color,
 ];

@@ -57,7 +57,7 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
 
   const bubbleMenuProps: EditorBubbleMenuProps = {
     ...props,
-    shouldShow: ({editor}) => {
+    shouldShow: ({ editor }) => {
       // don't show if image is selected
       if (editor.isActive("image")) {
         return false;
@@ -67,9 +67,8 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
     tippyOptions: {
       moveTransition: "transform 0.15s ease-out",
       onHidden: () => {
-        setIsNodeSelectorOpen(false)
-        setIsColorSelectorOpen(false)
-
+        setIsNodeSelectorOpen(false);
+        setIsColorSelectorOpen(false);
       },
     },
   };
@@ -92,7 +91,7 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
         <button
           key={index}
           onClick={item.command}
-          className="p-2 text-gray-600 hover:bg-stone-100 active:bg-stone-200"
+          className="p-2 text-stone-600 hover:bg-stone-100 active:bg-stone-200"
         >
           <item.icon
             className={cx("h-4 w-4", {
