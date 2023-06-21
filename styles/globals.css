@@ -16,3 +16,7 @@
   pointer-events: none;
   height: 0;
 }
+
+#tippy-2 {
+    @apply w-full max-w-screen-lg;
+  }

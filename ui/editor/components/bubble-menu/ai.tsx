@@ -19,6 +19,7 @@ const AIBubbleMenu: React.FC<Props> = ({ editor }: Props) => {
     <BubbleMenu
       editor={editor}
       tippyOptions={{
+        maxWidth: "100%",
         placement: "bottom",
         popperOptions: {
           strategy: "fixed",
