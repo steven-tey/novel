@@ -123,6 +123,15 @@ export default function Editor() {
       }}
       className="relative flex w-full max-w-screen-lg flex-col gap-2 border-stone-200 p-12 px-8 sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:px-12 sm:shadow-lg"
     >
+      <button
+        className="ml-auto rounded-lg border border-stone-100 px-2 py-1 transition-colors hover:border-stone-400"
+        onClick={() => {
+          navigator.clipboard.writeText(window.location.href);
+          toast.success("Copied to clipboard.");
+        }}
+      >
+        Share 🔗
+      </button>
       <main className="min-h-[500px]">
         {editor && (
           <>

@@ -25,7 +25,7 @@ export default function Page() {
       >
         <Github />
       </a>
-      <div className="flex min-h-screen flex-col items-center sm:px-5 sm:pt-[calc(20vh)]">
+      <div className="flex min-h-screen flex-col items-center sm:px-5 sm:pt-[calc(10vh)]">
         <Editor />
       </div>
     </>

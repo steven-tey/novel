@@ -1,12 +1,7 @@
-<<<<<<< HEAD
 import "@/styles/tailwind.css";
 import "@/styles/prosemirror.css";
 import "@/styles/collaboration.css";
 
-=======
-import "@/styles/collaboration.css";
-import "@/styles/globals.css";
->>>>>>> d46b80d (add multiplayer with Y.js and partykit)
 import cx from "classnames";
 import { cal, inter } from "@/styles/fonts";
 import { Analytics } from "@vercel/analytics/react";

@@ -1,19 +1,41 @@
 import TiptapCollaboration from "@tiptap/extension-collaboration";
 import TiptapCursor from "@tiptap/extension-collaboration-cursor";
-import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useState } from "react";
 import YProvider from "y-partykit/provider";
 import * as Y from "yjs";
+import { uniqueNamesGenerator, adjectives, starWars, animals } from 'unique-names-generator';
 
 // const partykitHost = "localhost:1999"
 const partykitHost = "yjs.threepointone.partykit.dev/party";
 
 const yDoc = new Y.Doc();
-export const yProvider = new YProvider(
-  partykitHost,
-  "novel-yjs-multiplayer-party",
-  yDoc,
-  { connect: false },
-);
+const urlParams = new URLSearchParams(window.location.search);
+const room = urlParams.get("room");
+let yProvider: YProvider;
+if (room) {
+  yProvider = new YProvider(
+    partykitHost,
+    room,
+    yDoc,
+    { connect: false },
+  );
+} else {  
+  const roomname = uniqueNamesGenerator({
+    dictionaries: [adjectives, starWars, animals],
+    separator: '-',
+    length: 3,
+    style: 'lowerCase'
+  }).replace(/ /g, '');
+  yProvider = new YProvider(
+    partykitHost,
+    roomname,
+    yDoc,
+    { connect: false },
+  );
+  window.location.search = `?room=${roomname}`;
+}
+
+export { yProvider } 
 
 if (typeof window !== "undefined") {
   window.addEventListener("beforeunload", () => {

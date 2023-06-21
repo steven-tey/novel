@@ -17,6 +17,7 @@ export function useInitialEditorState(editor: Editor | null) {
       if (connected) {
         setSeedInitialState(() => (schema: Schema) => {
           const aloneInTheRoom = yProvider.awareness.getStates().size === 1;
+          const _roomName = yProvider.roomname;
           const fragment = yProvider.doc.getXmlFragment("content");
 
           if (
