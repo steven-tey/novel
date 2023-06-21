@@ -83,7 +83,7 @@ export const TiptapExtensions = [
     },
   }),
   TiptapImage.configure({
-    inline: true,
+    allowBase64: true,
   }),
   Placeholder.configure({
     placeholder: ({ node }) => {
