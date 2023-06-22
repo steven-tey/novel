@@ -1,41 +1,23 @@
 import TiptapCollaboration from "@tiptap/extension-collaboration";
 import TiptapCursor from "@tiptap/extension-collaboration-cursor";
 import { useCallback, useEffect, useState } from "react";
-import YProvider from "y-partykit/provider";
 import * as Y from "yjs";
-import { uniqueNamesGenerator, adjectives, starWars, animals } from 'unique-names-generator';
 
-// const partykitHost = "localhost:1999"
-const partykitHost = "yjs.threepointone.partykit.dev/party";
+import { randomRoomName } from "./randomRoomName";
+import { yProvider } from "./yProvider";
 
-const yDoc = new Y.Doc();
-const urlParams = new URLSearchParams(window.location.search);
-const room = urlParams.get("room");
-let yProvider: YProvider;
-if (room) {
-  yProvider = new YProvider(
-    partykitHost,
-    room,
-    yDoc,
-    { connect: false },
-  );
-} else {  
-  const roomname = uniqueNamesGenerator({
-    dictionaries: [adjectives, starWars, animals],
-    separator: '-',
-    length: 3,
-    style: 'lowerCase'
-  }).replace(/ /g, '');
-  yProvider = new YProvider(
-    partykitHost,
-    roomname,
-    yDoc,
-    { connect: false },
-  );
-  window.location.search = `?room=${roomname}`;
+export function connectToNewRoom() {
+  const roomName = randomRoomName();
+  joinRoom(roomName);
+  return roomName;
 }
 
-export { yProvider } 
+export function joinRoom(roomName: string) {
+  yProvider.destroy();
+  yProvider.doc = new Y.Doc();
+  yProvider.roomname = roomName;
+  yProvider.connect();
+}
 
 if (typeof window !== "undefined") {
   window.addEventListener("beforeunload", () => {
@@ -44,16 +26,9 @@ if (typeof window !== "undefined") {
 }
 
 export const collaborationExtensions = [
-  TiptapCollaboration.configure({ document: yDoc, field: "content" }),
+  TiptapCollaboration.configure({ document: yProvider.doc, field: "content" }),
   TiptapCursor.configure({ provider: yProvider }),
 ];
-
-export function useConnection() {
-  useEffect(() => {
-    yProvider.connect();
-    return () => yProvider.disconnect();
-  }, []);
-}
 
 export type ConnectionStatus = "disconnected" | "connecting" | "connected";
 export function useConnectionStatus() {

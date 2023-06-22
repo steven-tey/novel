@@ -106,12 +106,15 @@ dependencies:
   use-debounce:
     specifier: ^9.0.3
     version: 9.0.4(react@18.2.0)
+  y-indexeddb:
+    specifier: ^9.0.11
+    version: 9.0.11(yjs@13.6.4)
   y-partykit:
     specifier: 0.0.0-a16ecec
     version: 0.0.0-a16ecec
   y-prosemirror:
     specifier: ^1.2.1
-    version: 1.2.1(yjs@13.6.4)
+    version: 1.2.1(y-protocols@1.0.5)(yjs@13.6.4)
   yjs:
     specifier: ^13.6.4
     version: 13.6.4
@@ -141,6 +144,9 @@ devDependencies:
   unique-names-generator:
     specifier: ^4.7.1
     version: 4.7.1
+  y-protocols:
+    specifier: ^1.0.5
+    version: 1.0.5
 
 packages:
 
@@ -789,7 +795,7 @@ packages:
       y-prosemirror: 1.0.20
     dependencies:
       '@tiptap/core': 2.0.3(@tiptap/pm@2.0.3)
-      y-prosemirror: 1.2.1(yjs@13.6.4)
+      y-prosemirror: 1.2.1(y-protocols@1.0.5)(yjs@13.6.4)
     dev: false
 
   /@tiptap/extension-collaboration@2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3)(y-prosemirror@1.2.1):
@@ -801,7 +807,7 @@ packages:
     dependencies:
       '@tiptap/core': 2.0.3(@tiptap/pm@2.0.3)
       '@tiptap/pm': 2.0.3(@tiptap/core@2.0.3)
-      y-prosemirror: 1.2.1(yjs@13.6.4)
+      y-prosemirror: 1.2.1(y-protocols@1.0.5)(yjs@13.6.4)
     dev: false
 
   /@tiptap/extension-color@2.0.3(@tiptap/core@2.0.3)(@tiptap/extension-text-style@2.0.3):
@@ -2691,7 +2697,6 @@ packages:
 
   /isomorphic.js@0.2.5:
     resolution: {integrity: sha512-PIeMbHqMt4DnUP3MA/Flc0HElYjMXArsw1qwJZcm9sqR8mq3l8NYizFMty0pWwE/tzIGH3EKK5+jes5mAr85yw==}
-    dev: false
 
   /jiti@1.18.2:
     resolution: {integrity: sha512-QAdOptna2NYiSSpv0O/BwoHBSmz4YhpzJHyi+fnMRTXFjp7B8i/YG5Z8IfusxB1ufjcD2Sre1F3R+nX3fvy7gg==}
@@ -2777,7 +2782,6 @@ packages:
     hasBin: true
     dependencies:
       isomorphic.js: 0.2.5
-    dev: false
 
   /lilconfig@2.1.0:
     resolution: {integrity: sha512-utWOt/GHzuUxnLKxB6dk81RoOeoNeHgbrXiuGk4yyF5qlRz+iIVWu56E2fqGHFrXz0QNUhLB/8nKqvRH66JKGQ==}
@@ -4501,6 +4505,15 @@ packages:
   /wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
 
+  /y-indexeddb@9.0.11(yjs@13.6.4):
+    resolution: {integrity: sha512-HOKQ70qW1h2WJGtOKu9rE8fbX86ExVZedecndMuhwax3yM4DQsQzCTGHt/jvTrFZr/9Ahvd8neD6aZ4dMMjtdg==}
+    peerDependencies:
+      yjs: ^13.0.0
+    dependencies:
+      lib0: 0.2.78
+      yjs: 13.6.4
+    dev: false
+
   /y-partykit@0.0.0-a16ecec:
     resolution: {integrity: sha512-sIl5cbLvvZiZJm1txQtbiW5d3hNcdCrQbXkJerAF0GfLiZuicJHPimXgE5oCEVXkXDUb9Q5amvp8z/6OAFLVQg==}
     dependencies:
@@ -4510,7 +4523,7 @@ packages:
       yjs: 13.6.4
     dev: false
 
-  /y-prosemirror@1.2.1(yjs@13.6.4):
+  /y-prosemirror@1.2.1(y-protocols@1.0.5)(yjs@13.6.4):
     resolution: {integrity: sha512-czMBfB1eL2awqmOSxQM8cS/fsUOGE6fjvyPLInrh4crPxFiw67wDpwIW+EGBYKRa04sYbS0ScGj7ZgvWuDrmBQ==}
     peerDependencies:
       prosemirror-model: ^1.7.1
@@ -4520,6 +4533,7 @@ packages:
       yjs: ^13.5.38
     dependencies:
       lib0: 0.2.78
+      y-protocols: 1.0.5
       yjs: 13.6.4
     dev: false
 
@@ -4527,7 +4541,6 @@ packages:
     resolution: {integrity: sha512-Wil92b7cGk712lRHDqS4T90IczF6RkcvCwAD0A2OPg+adKmOe+nOiT/N2hvpQIWS3zfjmtL4CPaH5sIW1Hkm/A==}
     dependencies:
       lib0: 0.2.78
-    dev: false
 
   /yallist@3.1.1:
     resolution: {integrity: sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==}

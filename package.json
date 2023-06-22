@@ -12,9 +12,9 @@
   },
   "dependencies": {
     "@tiptap/core": "^2.0.3",
-    "@tiptap/extension-color": "^2.0.3",
     "@tiptap/extension-collaboration": "^2.0.3",
     "@tiptap/extension-collaboration-cursor": "^2.0.3",
+    "@tiptap/extension-color": "^2.0.3",
     "@tiptap/extension-horizontal-rule": "^2.0.3",
     "@tiptap/extension-image": "^2.0.3",
     "@tiptap/extension-link": "^2.0.0-beta.220",
@@ -48,6 +48,7 @@
     "use-debounce": "^9.0.3",
     "y-partykit": "0.0.0-a16ecec",
     "y-prosemirror": "^1.2.1",
+    "y-indexeddb": "^9.0.11",
     "yjs": "^13.6.4"
   },
   "devDependencies": {
@@ -58,6 +59,7 @@
     "prettier-plugin-tailwindcss": "^0.2.5",
     "tailwindcss": "^3.2.7",
     "tailwindcss-animate": "^1.0.6",
-    "unique-names-generator": "^4.7.1"
+    "unique-names-generator": "^4.7.1",
+    "y-protocols": "^1.0.5"
   }
 }
