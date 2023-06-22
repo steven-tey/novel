@@ -34,7 +34,8 @@ export const TiptapExtensions = [
     },
     codeBlock: {
       HTMLAttributes: {
-        class: "rounded-md bg-stone-200 p-5 font-mono font-medium text-stone-800",
+        class:
+          "rounded-md bg-stone-200 p-5 font-mono font-medium text-stone-800",
       },
     },
     code: {
@@ -48,6 +49,7 @@ export const TiptapExtensions = [
       color: "#DBEAFE",
       width: 4,
     },
+    gapcursor: false
   }),
   // patch to fix horizontal rule bug: https://github.com/ueberdosis/tiptap/pull/3859#issuecomment-1536799740
   HorizontalRule.extend({
