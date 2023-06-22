@@ -7,6 +7,7 @@ import {
   Heading2,
   Heading3,
   ListOrdered,
+  Quote,
   TextIcon,
 } from "lucide-react";
 import { FC } from "react";
@@ -53,6 +54,23 @@ export const NodeSelector: FC<NodeSelectorProps> = ({
       icon: Heading3,
       command: () => editor.chain().focus().toggleHeading({ level: 3 }).run(),
       isActive: () => editor.isActive("heading", { level: 3 }),
+    },
+    {
+      name: "Quote",
+      icon: Quote,
+      command: () => {
+        if (editor.isActive("bulletList") || editor.isActive("orderedList")) {
+          editor
+            .chain()
+            .focus()
+            .toggleNode("paragraph", "paragraph")
+            .toggleBlockquote()
+            .run();
+        } else {
+          editor.chain().focus().toggleBlockquote().run();
+        }
+      },
+      isActive: () => editor.isActive("blockquote"),
     },
     {
       name: "Bullet List",

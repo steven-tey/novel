@@ -29,7 +29,7 @@ export const TiptapExtensions = [
     },
     blockquote: {
       HTMLAttributes: {
-        class: "border-l-4 border-stone-300 pl-4",
+        class: "border-l-4 border-stone-700 pl-4",
       },
     },
     codeBlock: {

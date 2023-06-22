@@ -21,6 +21,7 @@ import {
   ListOrdered,
   MessageSquarePlus,
   Text,
+  Quote,
 } from "lucide-react";
 import LoadingCircle from "@/ui/shared/loading-circle";
 import { toast } from "sonner";
@@ -134,6 +135,24 @@ const getSuggestionItems = ({ query }: { query: string }) => {
           .deleteRange(range)
           .setNode("heading", { level: 3 })
           .run();
+      },
+    },
+    {
+      title: "Quote",
+      description: "Capture a quote.",
+      icon: <Quote size={18} />,
+      command: ({ editor, range }: Command) => {
+        if (editor.isActive("bulletList") || editor.isActive("orderedList")) {
+          editor
+            .chain()
+            .focus()
+            .deleteRange(range)
+            .toggleNode("paragraph", "paragraph")
+            .toggleBlockquote()
+            .run();
+        } else {
+          editor.chain().focus().deleteRange(range).toggleBlockquote().run();
+        }
       },
     },
     {
