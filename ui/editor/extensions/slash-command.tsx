@@ -19,8 +19,9 @@ import {
   ListOrdered,
   MessageSquarePlus,
   Text,
-  Quote,
+  TextQuote,
   Image as ImageIcon,
+  Code,
 } from "lucide-react";
 import LoadingCircle from "@/ui/shared/loading-circle";
 import { toast } from "sonner";
@@ -138,24 +139,6 @@ const getSuggestionItems = ({ query }: { query: string }) => {
       },
     },
     {
-      title: "Quote",
-      description: "Capture a quote.",
-      icon: <Quote size={18} />,
-      command: ({ editor, range }: Command) => {
-        if (editor.isActive("bulletList") || editor.isActive("orderedList")) {
-          editor
-            .chain()
-            .focus()
-            .deleteRange(range)
-            .toggleNode("paragraph", "paragraph")
-            .toggleBlockquote()
-            .run();
-        } else {
-          editor.chain().focus().deleteRange(range).toggleBlockquote().run();
-        }
-      },
-    },
-    {
       title: "Bullet List",
       description: "Create a simple bullet list.",
       icon: <List size={18} />,
@@ -170,6 +153,26 @@ const getSuggestionItems = ({ query }: { query: string }) => {
       command: ({ editor, range }: Command) => {
         editor.chain().focus().deleteRange(range).toggleOrderedList().run();
       },
+    },
+    {
+      title: "Quote",
+      description: "Capture a quote.",
+      icon: <TextQuote size={18} />,
+      command: ({ editor, range }: Command) =>
+        editor
+          .chain()
+          .focus()
+          .deleteRange(range)
+          .toggleNode("paragraph", "paragraph")
+          .toggleBlockquote()
+          .run(),
+    },
+    {
+      title: "Code",
+      description: "Capture a code snippet.",
+      icon: <Code size={18} />,
+      command: ({ editor, range }: Command) =>
+        editor.chain().focus().deleteRange(range).toggleCodeBlock().run(),
     },
     {
       title: "Image",

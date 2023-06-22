@@ -6,9 +6,10 @@ import {
   Heading1,
   Heading2,
   Heading3,
+  TextQuote,
   ListOrdered,
-  Quote,
   TextIcon,
+  Code,
 } from "lucide-react";
 import { FC } from "react";
 
@@ -56,23 +57,6 @@ export const NodeSelector: FC<NodeSelectorProps> = ({
       isActive: () => editor.isActive("heading", { level: 3 }),
     },
     {
-      name: "Quote",
-      icon: Quote,
-      command: () => {
-        if (editor.isActive("bulletList") || editor.isActive("orderedList")) {
-          editor
-            .chain()
-            .focus()
-            .toggleNode("paragraph", "paragraph")
-            .toggleBlockquote()
-            .run();
-        } else {
-          editor.chain().focus().toggleBlockquote().run();
-        }
-      },
-      isActive: () => editor.isActive("blockquote"),
-    },
-    {
       name: "Bullet List",
       icon: ListOrdered,
       command: () => editor.chain().focus().toggleBulletList().run(),
@@ -84,9 +68,29 @@ export const NodeSelector: FC<NodeSelectorProps> = ({
       command: () => editor.chain().focus().toggleOrderedList().run(),
       isActive: () => editor.isActive("orderedList"),
     },
+    {
+      name: "Quote",
+      icon: TextQuote,
+      command: () =>
+        editor
+          .chain()
+          .focus()
+          .toggleNode("paragraph", "paragraph")
+          .toggleBlockquote()
+          .run(),
+      isActive: () => editor.isActive("blockquote"),
+    },
+    {
+      name: "Code",
+      icon: Code,
+      command: () => editor.chain().focus().toggleCodeBlock().run(),
+      isActive: () => editor.isActive("codeBlock"),
+    },
   ];
 
-  const activeItem = items.find((item) => item.isActive()) ?? items[0];
+  const activeItem = items.filter((item) => item.isActive()).pop() ?? {
+    name: "Multiple",
+  };
 
   return (
     <div className="relative h-full">
@@ -121,7 +125,7 @@ export const NodeSelector: FC<NodeSelectorProps> = ({
                 </div>
                 <span>{item.name}</span>
               </div>
-              {item.isActive() && <Check className="h-4 w-4" />}
+              {activeItem.name === item.name && <Check className="h-4 w-4" />}
             </button>
           ))}
         </section>
