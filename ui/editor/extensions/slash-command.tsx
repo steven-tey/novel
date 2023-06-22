@@ -19,7 +19,9 @@ import {
   ListOrdered,
   MessageSquarePlus,
   Text,
+  TextQuote,
   Image as ImageIcon,
+  Code,
 } from "lucide-react";
 import LoadingCircle from "@/ui/shared/loading-circle";
 import { toast } from "sonner";
@@ -151,6 +153,26 @@ const getSuggestionItems = ({ query }: { query: string }) => {
       command: ({ editor, range }: Command) => {
         editor.chain().focus().deleteRange(range).toggleOrderedList().run();
       },
+    },
+    {
+      title: "Quote",
+      description: "Capture a quote.",
+      icon: <TextQuote size={18} />,
+      command: ({ editor, range }: Command) =>
+        editor
+          .chain()
+          .focus()
+          .deleteRange(range)
+          .toggleNode("paragraph", "paragraph")
+          .toggleBlockquote()
+          .run(),
+    },
+    {
+      title: "Code",
+      description: "Capture a code snippet.",
+      icon: <Code size={18} />,
+      command: ({ editor, range }: Command) =>
+        editor.chain().focus().deleteRange(range).toggleCodeBlock().run(),
     },
     {
       title: "Image",
@@ -289,7 +311,7 @@ const CommandList = ({
 
   return items.length > 0 ? (
     <div
-    id="slash-command"
+      id="slash-command"
       ref={commandListContainer}
       className="z-50 h-auto max-h-[330px] w-72 overflow-y-auto scroll-smooth rounded-md border border-stone-200 bg-white px-1 py-2 shadow-md transition-all"
     >
