@@ -9,11 +9,11 @@ export const handleImageUpload = (
 ) => {
   // check if the file is an image
   if (!file.type.includes("image/")) {
-    toast.error("File type not supported");
+    toast.error("File type not supported.");
 
     // check if the file size is less than 50MB
   } else if (file.size / 1024 / 1024 > 50) {
-    toast.error("File size too big (max 50MB)");
+    toast.error("File size too big (max 50MB).");
   } else {
     // const reader = new FileReader();
     // reader.onload = (e) => {
@@ -38,64 +38,79 @@ export const handleImageUpload = (
         },
         body: file,
       }).then(async (res) => {
+        // Successfully uploaded image
         if (res.status === 200) {
           const { url } = (await res.json()) as BlobResult;
           // preload the image
           let image = new Image();
           image.src = url;
           image.onload = () => {
-            // for paste events
-            if (event instanceof ClipboardEvent) {
-              return view.dispatch(
-                view.state.tr.replaceSelectionWith(
-                  view.state.schema.nodes.image.create({
-                    src: url,
-                    alt: file.name,
-                    title: file.name,
-                  }),
-                ),
-              );
-
-              // for drag and drop events
-            } else if (event instanceof DragEvent) {
-              const { schema } = view.state;
-              const coordinates = view.posAtCoords({
-                left: event.clientX,
-                top: event.clientY,
-              });
-              const node = schema.nodes.image.create({
-                src: url,
-                alt: file.name,
-                title: file.name,
-              }); // creates the image element
-              const transaction = view.state.tr.insert(
-                coordinates?.pos || 0,
-                node,
-              ); // places it in the correct position
-              return view.dispatch(transaction);
-
-              // for input upload events
-            } else if (event instanceof Event) {
-              return view.dispatch(
-                view.state.tr.replaceSelectionWith(
-                  view.state.schema.nodes.image.create({
-                    src: url,
-                    alt: file.name,
-                    title: file.name,
-                  }),
-                ),
-              );
-            }
+            insertImage(url);
           };
+
+          // No blob store configured
+        } else if (res.status === 401) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            insertImage(e.target?.result as string);
+          };
+          reader.readAsDataURL(file);
+          throw new Error(
+            "`BLOB_READ_WRITE_TOKEN` environment variable not found, reading image locally instead.",
+          );
+
+          // Unknown error
         } else {
-          throw await res.text();
+          throw new Error(`Error uploading image. Please try again.`);
         }
       }),
       {
         loading: "Uploading image...",
-        success: "Image uploaded",
-        error: (e) => `Failed to upload image: ${e}`,
+        success: "Image uploaded successfully.",
+        error: (e) => e.message,
       },
     );
   }
+
+  const insertImage = (url: string) => {
+    // for paste events
+    if (event instanceof ClipboardEvent) {
+      return view.dispatch(
+        view.state.tr.replaceSelectionWith(
+          view.state.schema.nodes.image.create({
+            src: url,
+            alt: file.name,
+            title: file.name,
+          }),
+        ),
+      );
+
+      // for drag and drop events
+    } else if (event instanceof DragEvent) {
+      const { schema } = view.state;
+      const coordinates = view.posAtCoords({
+        left: event.clientX,
+        top: event.clientY,
+      });
+      const node = schema.nodes.image.create({
+        src: url,
+        alt: file.name,
+        title: file.name,
+      }); // creates the image element
+      const transaction = view.state.tr.insert(coordinates?.pos || 0, node); // places it in the correct position
+      return view.dispatch(transaction);
+
+      // for input upload events
+    } else if (event instanceof Event) {
+      return view.dispatch(
+        view.state.tr.replaceSelectionWith(
+          view.state.schema.nodes.image.create({
+            src: url,
+            alt: file.name,
+            title: file.name,
+          }),
+        ),
+      );
+    }
+  };
 };
