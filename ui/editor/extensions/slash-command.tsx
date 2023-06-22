@@ -12,20 +12,20 @@ import { ReactRenderer } from "@tiptap/react";
 import { useCompletion } from "ai/react";
 import tippy from "tippy.js";
 import {
-  Bold,
   Heading1,
   Heading2,
   Heading3,
-  Italic,
   List,
   ListOrdered,
   MessageSquarePlus,
   Text,
+  Image as ImageIcon,
 } from "lucide-react";
 import LoadingCircle from "@/ui/shared/loading-circle";
 import { toast } from "sonner";
 import va from "@vercel/analytics";
 import Magic from "@/ui/shared/magic";
+import { handleImageUpload } from "@/lib/utils/editor";
 
 interface CommandItemProps {
   title: string;
@@ -137,22 +137,6 @@ const getSuggestionItems = ({ query }: { query: string }) => {
       },
     },
     {
-      title: "Bold",
-      description: "Make text bold.",
-      icon: <Bold size={18} />,
-      command: ({ editor, range }: Command) => {
-        editor.chain().focus().deleteRange(range).setMark("bold").run();
-      },
-    },
-    {
-      title: "Italic",
-      description: "Make text italic.",
-      icon: <Italic size={18} />,
-      command: ({ editor, range }: Command) => {
-        editor.chain().focus().deleteRange(range).setMark("italic").run();
-      },
-    },
-    {
       title: "Bullet List",
       description: "Create a simple bullet list.",
       icon: <List size={18} />,
@@ -168,13 +152,31 @@ const getSuggestionItems = ({ query }: { query: string }) => {
         editor.chain().focus().deleteRange(range).toggleOrderedList().run();
       },
     },
+    {
+      title: "Image",
+      description: "Upload an image from your computer.",
+      icon: <ImageIcon size={18} />,
+      command: ({ editor, range }: Command) => {
+        editor.chain().focus().deleteRange(range).run();
+        // upload image
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "image/*";
+        input.onchange = async (event) => {
+          if (input.files?.length) {
+            const file = input.files[0];
+            return handleImageUpload(file, editor.view, event);
+          }
+        };
+        input.click();
+      },
+    },
   ].filter((item) => {
     if (typeof query === "string" && query.length > 0) {
       return item.title.toLowerCase().includes(query.toLowerCase());
     }
     return true;
   });
-  // .slice(0, 10);
 };
 
 export const updateScrollView = (container: HTMLElement, item: HTMLElement) => {
@@ -287,6 +289,7 @@ const CommandList = ({
 
   return items.length > 0 ? (
     <div
+    id="slash-command"
       ref={commandListContainer}
       className="z-50 h-auto max-h-[330px] w-72 overflow-y-auto scroll-smooth rounded-md border border-stone-200 bg-white px-1 py-2 shadow-md transition-all"
     >
