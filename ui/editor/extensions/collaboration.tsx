@@ -77,10 +77,8 @@ export function useUser() {
       if (stored) {
         const user = { name: stored, color: getRandomColor() };
         yProvider.awareness.setLocalStateField("user", user);
-        yProvider.once("status", (connected: boolean) => {
-          if (connected) {
-            yProvider.awareness.setLocalStateField("user", user);
-          }
+        yProvider.once("sync", () => {
+          yProvider.awareness.setLocalStateField("user", user);
         });
       }
       const name = stored || `User ${yProvider.awareness.clientID}`;
