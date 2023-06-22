@@ -88,13 +88,13 @@ export const handleImageUpload = (
             }
           };
         } else {
-          throw new Error("Failed to upload image");
+          throw await res.text();
         }
       }),
       {
         loading: "Uploading image...",
         success: "Image uploaded",
-        error: "Failed to upload image",
+        error: (e) => `Failed to upload image: ${e}`,
       },
     );
   }
