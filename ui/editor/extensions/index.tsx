@@ -35,7 +35,7 @@ export const TiptapExtensions = [
     codeBlock: {
       HTMLAttributes: {
         class:
-          "rounded-md bg-stone-200 p-5 font-mono font-medium text-stone-800",
+          "rounded-sm bg-stone-100 p-5 font-mono font-medium text-stone-800",
       },
     },
     code: {
