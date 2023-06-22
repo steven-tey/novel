@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 
 import { NodeSelector } from "./NodeSelector";
+import { ColorSelector } from "./ColorSelector";
 
 export interface BubbleMenuItem {
   name: string;
@@ -56,13 +57,24 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
 
   const bubbleMenuProps: EditorBubbleMenuProps = {
     ...props,
+    shouldShow: ({ editor }) => {
+      // don't show if image is selected
+      if (editor.isActive("image")) {
+        return false;
+      }
+      return editor.view.state.selection.content().size > 0;
+    },
     tippyOptions: {
       moveTransition: "transform 0.15s ease-out",
-      onHidden: () => setIsNodeSelectorOpen(false),
+      onHidden: () => {
+        setIsNodeSelectorOpen(false);
+        setIsColorSelectorOpen(false);
+      },
     },
   };
 
   const [isNodeSelectorOpen, setIsNodeSelectorOpen] = useState(false);
+  const [isColorSelectorOpen, setIsColorSelectorOpen] = useState(false);
 
   return (
     <BubbleMenu
@@ -72,14 +84,17 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
       <NodeSelector
         editor={props.editor}
         isOpen={isNodeSelectorOpen}
-        setIsOpen={setIsNodeSelectorOpen}
+        setIsOpen={() => {
+          setIsNodeSelectorOpen(!isNodeSelectorOpen);
+          setIsColorSelectorOpen(false);
+        }}
       />
 
       {items.map((item, index) => (
         <button
           key={index}
           onClick={item.command}
-          className="p-2 text-gray-600 hover:bg-stone-100 active:bg-stone-200"
+          className="p-2 text-stone-600 hover:bg-stone-100 active:bg-stone-200"
         >
           <item.icon
             className={cx("h-4 w-4", {
@@ -88,6 +103,14 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
           />
         </button>
       ))}
+      <ColorSelector
+        editor={props.editor}
+        isOpen={isColorSelectorOpen}
+        setIsOpen={() => {
+          setIsColorSelectorOpen(!isColorSelectorOpen);
+          setIsNodeSelectorOpen(false);
+        }}
+      />
     </BubbleMenu>
   );
 };

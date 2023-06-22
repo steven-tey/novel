@@ -4,6 +4,8 @@ import TiptapLink from "@tiptap/extension-link";
 import TiptapImage from "@tiptap/extension-image";
 import Placeholder from "@tiptap/extension-placeholder";
 import TiptapUnderline from "@tiptap/extension-underline";
+import TextStyle from "@tiptap/extension-text-style";
+import { Color } from "@tiptap/extension-color";
 
 import SlashCommand from "./slash-command";
 import { InputRule } from "@tiptap/core";
@@ -27,12 +29,13 @@ export const TiptapExtensions = [
     },
     blockquote: {
       HTMLAttributes: {
-        class: "border-l-4 border-gray-300 pl-4",
+        class: "border-l-4 border-stone-700",
       },
     },
     codeBlock: {
       HTMLAttributes: {
-        class: "rounded-md bg-gray-200 p-5 font-mono font-medium text-gray-800",
+        class:
+          "rounded-sm bg-stone-100 p-5 font-mono font-medium text-stone-800",
       },
     },
     code: {
@@ -41,6 +44,12 @@ export const TiptapExtensions = [
           "rounded-md bg-stone-200 px-1.5 py-1 font-mono font-medium text-black",
       },
     },
+    horizontalRule: false,
+    dropcursor: {
+      color: "#DBEAFE",
+      width: 4,
+    },
+    gapcursor: false,
   }),
   // patch to fix horizontal rule bug: https://github.com/ueberdosis/tiptap/pull/3859#issuecomment-1536799740
   HorizontalRule.extend({
@@ -75,7 +84,10 @@ export const TiptapExtensions = [
     },
   }),
   TiptapImage.configure({
-    inline: true,
+    allowBase64: true,
+    HTMLAttributes: {
+      class: "rounded-lg border border-stone-200",
+    },
   }),
   Placeholder.configure({
     placeholder: ({ node }) => {
@@ -88,4 +100,6 @@ export const TiptapExtensions = [
   }),
   SlashCommand,
   TiptapUnderline,
+  TextStyle,
+  Color,
 ];

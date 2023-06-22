@@ -6,8 +6,10 @@ import {
   Heading1,
   Heading2,
   Heading3,
+  TextQuote,
   ListOrdered,
   TextIcon,
+  Code,
 } from "lucide-react";
 import { FC } from "react";
 
@@ -66,14 +68,34 @@ export const NodeSelector: FC<NodeSelectorProps> = ({
       command: () => editor.chain().focus().toggleOrderedList().run(),
       isActive: () => editor.isActive("orderedList"),
     },
+    {
+      name: "Quote",
+      icon: TextQuote,
+      command: () =>
+        editor
+          .chain()
+          .focus()
+          .toggleNode("paragraph", "paragraph")
+          .toggleBlockquote()
+          .run(),
+      isActive: () => editor.isActive("blockquote"),
+    },
+    {
+      name: "Code",
+      icon: Code,
+      command: () => editor.chain().focus().toggleCodeBlock().run(),
+      isActive: () => editor.isActive("codeBlock"),
+    },
   ];
 
-  const activeItem = items.find((item) => item.isActive());
+  const activeItem = items.filter((item) => item.isActive()).pop() ?? {
+    name: "Multiple",
+  };
 
   return (
     <div className="relative h-full">
       <button
-        className="flex h-full items-center gap-1 p-2 text-sm font-medium text-gray-600 hover:bg-stone-100 active:bg-stone-200"
+        className="flex h-full items-center gap-1 p-2 text-sm font-medium text-stone-600 hover:bg-stone-100 active:bg-stone-200"
         onClick={() => setIsOpen(!isOpen)}
       >
         <span>{activeItem?.name}</span>
@@ -91,7 +113,7 @@ export const NodeSelector: FC<NodeSelectorProps> = ({
                 setIsOpen(false);
               }}
               className={cx(
-                "flex items-center justify-between rounded-sm px-2 py-1 text-sm text-gray-600 hover:bg-stone-100",
+                "flex items-center justify-between rounded-sm px-2 py-1 text-sm text-stone-600 hover:bg-stone-100",
                 {
                   "text-blue-600": item.isActive(),
                 },
@@ -103,7 +125,7 @@ export const NodeSelector: FC<NodeSelectorProps> = ({
                 </div>
                 <span>{item.name}</span>
               </div>
-              {item.isActive() && <Check className="h-4 w-4" />}
+              {activeItem.name === item.name && <Check className="h-4 w-4" />}
             </button>
           ))}
         </section>
