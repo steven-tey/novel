@@ -6,6 +6,7 @@ import { cal, inter } from "@/styles/fonts";
 import { Analytics } from "@vercel/analytics/react";
 import { Metadata } from "next";
 import Toaster from "./toaster";
+import { ReactNode } from "react";
 
 const title =
   "Novel – Notion-style WYSIWYG editor with AI-powered autocompletions";
@@ -29,11 +30,7 @@ export const metadata: Metadata = {
   themeColor: "#ffffff",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <Toaster />

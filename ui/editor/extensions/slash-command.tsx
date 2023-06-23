@@ -35,7 +35,7 @@ interface CommandItemProps {
   icon: ReactNode;
 }
 
-interface Command {
+interface CommandProps {
   editor: Editor;
   range: Range;
 }
@@ -81,7 +81,7 @@ const getSuggestionItems = ({ query }: { query: string }) => {
       title: "Send Feedback",
       description: "Let us know how we can improve.",
       icon: <MessageSquarePlus size={18} />,
-      command: ({ editor, range }: Command) => {
+      command: ({ editor, range }: CommandProps) => {
         editor.chain().focus().deleteRange(range).run();
         window.open("/feedback", "_blank");
       },
@@ -90,7 +90,7 @@ const getSuggestionItems = ({ query }: { query: string }) => {
       title: "Text",
       description: "Just start typing with plain text.",
       icon: <Text size={18} />,
-      command: ({ editor, range }: Command) => {
+      command: ({ editor, range }: CommandProps) => {
         editor
           .chain()
           .focus()
@@ -103,7 +103,7 @@ const getSuggestionItems = ({ query }: { query: string }) => {
       title: "Heading 1",
       description: "Big section heading.",
       icon: <Heading1 size={18} />,
-      command: ({ editor, range }: Command) => {
+      command: ({ editor, range }: CommandProps) => {
         editor
           .chain()
           .focus()
@@ -116,7 +116,7 @@ const getSuggestionItems = ({ query }: { query: string }) => {
       title: "Heading 2",
       description: "Medium section heading.",
       icon: <Heading2 size={18} />,
-      command: ({ editor, range }: Command) => {
+      command: ({ editor, range }: CommandProps) => {
         editor
           .chain()
           .focus()
@@ -129,7 +129,7 @@ const getSuggestionItems = ({ query }: { query: string }) => {
       title: "Heading 3",
       description: "Small section heading.",
       icon: <Heading3 size={18} />,
-      command: ({ editor, range }: Command) => {
+      command: ({ editor, range }: CommandProps) => {
         editor
           .chain()
           .focus()
@@ -142,7 +142,7 @@ const getSuggestionItems = ({ query }: { query: string }) => {
       title: "Bullet List",
       description: "Create a simple bullet list.",
       icon: <List size={18} />,
-      command: ({ editor, range }: Command) => {
+      command: ({ editor, range }: CommandProps) => {
         editor.chain().focus().deleteRange(range).toggleBulletList().run();
       },
     },
@@ -150,7 +150,7 @@ const getSuggestionItems = ({ query }: { query: string }) => {
       title: "Numbered List",
       description: "Create a list with numbering.",
       icon: <ListOrdered size={18} />,
-      command: ({ editor, range }: Command) => {
+      command: ({ editor, range }: CommandProps) => {
         editor.chain().focus().deleteRange(range).toggleOrderedList().run();
       },
     },
@@ -158,7 +158,7 @@ const getSuggestionItems = ({ query }: { query: string }) => {
       title: "Quote",
       description: "Capture a quote.",
       icon: <TextQuote size={18} />,
-      command: ({ editor, range }: Command) =>
+      command: ({ editor, range }: CommandProps) =>
         editor
           .chain()
           .focus()
@@ -171,14 +171,14 @@ const getSuggestionItems = ({ query }: { query: string }) => {
       title: "Code",
       description: "Capture a code snippet.",
       icon: <Code size={18} />,
-      command: ({ editor, range }: Command) =>
+      command: ({ editor, range }: CommandProps) =>
         editor.chain().focus().deleteRange(range).toggleCodeBlock().run(),
     },
     {
       title: "Image",
       description: "Upload an image from your computer.",
       icon: <ImageIcon size={18} />,
-      command: ({ editor, range }: Command) => {
+      command: ({ editor, range }: CommandProps) => {
         editor.chain().focus().deleteRange(range).run();
         // upload image
         const input = document.createElement("input");
