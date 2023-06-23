@@ -6,6 +6,8 @@ import Placeholder from "@tiptap/extension-placeholder";
 import TiptapUnderline from "@tiptap/extension-underline";
 import TextStyle from "@tiptap/extension-text-style";
 import { Color } from "@tiptap/extension-color";
+import TaskItem from '@tiptap/extension-task-item'
+import TaskList from '@tiptap/extension-task-list'
 
 import SlashCommand from "./slash-command";
 import { InputRule } from "@tiptap/core";
@@ -102,4 +104,14 @@ export const TiptapExtensions = [
   TiptapUnderline,
   TextStyle,
   Color,
+  TaskList.configure({
+    HTMLAttributes: {
+      class: "not-prose pl-2",
+    },
+  }),
+  TaskItem.configure({
+    HTMLAttributes: {
+      class: "flex items-start mb-4",
+    },
+  }),
 ];

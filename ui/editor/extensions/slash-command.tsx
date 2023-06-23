@@ -22,6 +22,7 @@ import {
   TextQuote,
   Image as ImageIcon,
   Code,
+  CheckSquare,
 } from "lucide-react";
 import LoadingCircle from "@/ui/shared/loading-circle";
 import { toast } from "sonner";
@@ -191,6 +192,14 @@ const getSuggestionItems = ({ query }: { query: string }) => {
           }
         };
         input.click();
+      },
+    },
+    {
+      title: "To-do List",
+      description: "Track tasks with a to-do list.",
+      icon: <CheckSquare size={18} />,
+      command: ({ editor, range }: Command) => {
+        editor.chain().focus().deleteRange(range).toggleTaskList().run();
       },
     },
   ].filter((item) => {

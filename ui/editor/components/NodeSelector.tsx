@@ -10,6 +10,7 @@ import {
   ListOrdered,
   TextIcon,
   Code,
+  CheckSquare,
 } from "lucide-react";
 import { FC } from "react";
 
@@ -85,6 +86,12 @@ export const NodeSelector: FC<NodeSelectorProps> = ({
       icon: Code,
       command: () => editor.chain().focus().toggleCodeBlock().run(),
       isActive: () => editor.isActive("codeBlock"),
+    },
+    {
+      name: "To-do List",
+      icon: CheckSquare,
+      command: () => editor.chain().focus().toggleTaskList().run(),
+      isActive: () => editor.isActive("taskItem"),
     },
   ];
 
