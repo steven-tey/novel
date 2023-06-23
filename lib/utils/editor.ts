@@ -7,12 +7,13 @@ export const handleImageUpload = (
   view: EditorView,
   event: ClipboardEvent | DragEvent | Event,
 ) => {
+  const MAX_FILE_SIZE = 50 * 1024 * 1024;
   // check if the file is an image
   if (!file.type.includes("image/")) {
     toast.error("File type not supported.");
 
     // check if the file size is less than 50MB
-  } else if (file.size / 1024 / 1024 > 50) {
+  } else if (file.size > MAX_FILE_SIZE) {
     toast.error("File size too big (max 50MB).");
   } else {
     // const reader = new FileReader();
