@@ -9,9 +9,9 @@ import { Color } from "@tiptap/extension-color";
 import { InputRule } from "@tiptap/core";
 
 import SlashCommand from "./slash-command";
-import { collaborationExtensions } from "./collaboration";
+import { useCollaborationExtensions } from "./collaboration/useCollaborationExtensions";
 
-export const TiptapExtensions = [
+const TiptapExtensions = [
   StarterKit.configure({
     history: false,
     bulletList: {
@@ -36,7 +36,8 @@ export const TiptapExtensions = [
     },
     codeBlock: {
       HTMLAttributes: {
-        class: "rounded-md bg-stone-200 p-5 font-mono font-medium text-stone-800",
+        class:
+          "rounded-md bg-stone-200 p-5 font-mono font-medium text-stone-800",
       },
     },
     code: {
@@ -102,5 +103,8 @@ export const TiptapExtensions = [
   TiptapUnderline,
   TextStyle,
   Color,
-  ...collaborationExtensions,
 ];
+
+export function useTiptapExtensions() {
+  return [...TiptapExtensions, ...useCollaborationExtensions()];
+}

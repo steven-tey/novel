@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import { TiptapEditorProps } from "./props";
-import { TiptapExtensions } from "./extensions";
+import { useTiptapExtensions } from "./extensions";
 import { useCompletion } from "ai/react";
 import { toast } from "sonner";
 import va from "@vercel/analytics";
@@ -13,7 +13,7 @@ import { useInitialEditorState } from "./useInitialEditorState";
 
 export default function Editor() {
   const editor = useEditor({
-    extensions: TiptapExtensions,
+    extensions: useTiptapExtensions(),
     editorProps: TiptapEditorProps,
     onUpdate: (e) => {
       const selection = e.editor.state.selection;
