@@ -34,6 +34,18 @@ ul[data-type="taskList"] li > label {
 
 ul[data-type="taskList"] li > label input[type="checkbox"] {
   cursor: pointer;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  vertical-align: middle;
+  position: relative;
+  top: -1.5px;
+  border-radius: 2px;
+  border: 1px solid #ced4da;
+  margin-right: 0.3rem;
+}
+
+ul[data-type="taskList"] li[data-checked="true"] > div > p {
+  color: #a8a29e;
+  text-decoration: line-through;
 }

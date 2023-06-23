@@ -101,6 +101,14 @@ const getSuggestionItems = ({ query }: { query: string }) => {
       },
     },
     {
+      title: "To-do List",
+      description: "Track tasks with a to-do list.",
+      icon: <CheckSquare size={18} />,
+      command: ({ editor, range }: CommandProps) => {
+        editor.chain().focus().deleteRange(range).toggleTaskList().run();
+      },
+    },
+    {
       title: "Heading 1",
       description: "Big section heading.",
       icon: <Heading1 size={18} />,
@@ -192,14 +200,6 @@ const getSuggestionItems = ({ query }: { query: string }) => {
           }
         };
         input.click();
-      },
-    },
-    {
-      title: "To-do List",
-      description: "Track tasks with a to-do list.",
-      icon: <CheckSquare size={18} />,
-      command: ({ editor, range }: Command) => {
-        editor.chain().focus().deleteRange(range).toggleTaskList().run();
       },
     },
   ].filter((item) => {
