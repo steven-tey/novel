@@ -44,6 +44,7 @@ export const TiptapExtensions = [
       HTMLAttributes: {
         class:
           "rounded-md bg-stone-200 px-1.5 py-1 font-mono font-medium text-black",
+        spellcheck: "false",
       },
     },
     horizontalRule: false,
@@ -83,6 +84,7 @@ export const TiptapExtensions = [
     HTMLAttributes: {
       class:
         "text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer",
+      spellcheck: "false",
     },
   }),
   TiptapImage.configure({
