@@ -59,7 +59,7 @@ export const TiptapExtensions = [
       return [
         new InputRule({
           find: /^(?:---|—-|___\s|\*\*\*\s)$/,
-          handler: ({ state, range, match }) => {
+          handler: ({ state, range }) => {
             const attributes = {};
 
             const { tr } = state;

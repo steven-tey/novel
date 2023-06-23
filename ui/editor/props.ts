@@ -11,12 +11,12 @@ export const TiptapEditorProps: EditorProps = {
       if (["ArrowUp", "ArrowDown", "Enter"].includes(event.key)) {
         const slashCommand = document.querySelector("#slash-command");
         if (slashCommand) {
-          return true
+          return true;
         }
       }
     },
   },
-  handlePaste: (view, event, _slice) => {
+  handlePaste: (view, event) => {
     if (
       event.clipboardData &&
       event.clipboardData.files &&
