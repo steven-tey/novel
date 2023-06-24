@@ -10,15 +10,16 @@ import {
   ListOrdered,
   TextIcon,
   Code,
+  CheckSquare,
 } from "lucide-react";
-import { FC } from "react";
+import { Dispatch, FC, SetStateAction } from "react";
 
 import { BubbleMenuItem } from "./EditorBubbleMenu";
 
 interface NodeSelectorProps {
   editor: Editor;
   isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 export const NodeSelector: FC<NodeSelectorProps> = ({
@@ -32,7 +33,7 @@ export const NodeSelector: FC<NodeSelectorProps> = ({
       icon: TextIcon,
       command: () =>
         editor.chain().focus().toggleNode("paragraph", "paragraph").run(),
-      // I feel like there has to be a more efficient way to do this – feel free to PR if you know how!
+      // I feel like there has to be a more efficient way to do this – feel free to PR if you know how!
       isActive: () =>
         editor.isActive("paragraph") &&
         !editor.isActive("bulletList") &&
@@ -55,6 +56,12 @@ export const NodeSelector: FC<NodeSelectorProps> = ({
       icon: Heading3,
       command: () => editor.chain().focus().toggleHeading({ level: 3 }).run(),
       isActive: () => editor.isActive("heading", { level: 3 }),
+    },
+    {
+      name: "To-do List",
+      icon: CheckSquare,
+      command: () => editor.chain().focus().toggleTaskList().run(),
+      isActive: () => editor.isActive("taskItem"),
     },
     {
       name: "Bullet List",

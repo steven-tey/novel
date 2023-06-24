@@ -11,7 +11,7 @@ const DEFAULT_EDITOR_CONTENT = {
       content: [
         {
           type: "text",
-          text: "Novel is a Notion-style WYSIWYG editor with AI-powered autocompletions. Built with ",
+          text: "Novel is a Notion-style WYSIWYG editor with AI-powered autocompletion. Built with ",
         },
         {
           type: "text",

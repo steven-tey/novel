@@ -22,6 +22,7 @@ import {
   TextQuote,
   Image as ImageIcon,
   Code,
+  CheckSquare,
 } from "lucide-react";
 import LoadingCircle from "@/ui/shared/loading-circle";
 import { toast } from "sonner";
@@ -35,7 +36,7 @@ interface CommandItemProps {
   icon: ReactNode;
 }
 
-interface Command {
+interface CommandProps {
   editor: Editor;
   range: Range;
 }
@@ -75,13 +76,14 @@ const getSuggestionItems = ({ query }: { query: string }) => {
     {
       title: "Continue writing",
       description: "Use AI to expand your thoughts.",
+      searchTerms: ["gpt"],
       icon: <Magic className="w-7 text-black" />,
     },
     {
       title: "Send Feedback",
       description: "Let us know how we can improve.",
       icon: <MessageSquarePlus size={18} />,
-      command: ({ editor, range }: Command) => {
+      command: ({ editor, range }: CommandProps) => {
         editor.chain().focus().deleteRange(range).run();
         window.open("/feedback", "_blank");
       },
@@ -89,8 +91,9 @@ const getSuggestionItems = ({ query }: { query: string }) => {
     {
       title: "Text",
       description: "Just start typing with plain text.",
+      searchTerms: ["p", "paragraph"],
       icon: <Text size={18} />,
-      command: ({ editor, range }: Command) => {
+      command: ({ editor, range }: CommandProps) => {
         editor
           .chain()
           .focus()
@@ -100,10 +103,20 @@ const getSuggestionItems = ({ query }: { query: string }) => {
       },
     },
     {
+      title: "To-do List",
+      description: "Track tasks with a to-do list.",
+      searchTerms: ["todo", "task", "list", "check", "checkbox"],
+      icon: <CheckSquare size={18} />,
+      command: ({ editor, range }: CommandProps) => {
+        editor.chain().focus().deleteRange(range).toggleTaskList().run();
+      },
+    },
+    {
       title: "Heading 1",
       description: "Big section heading.",
+      searchTerms: ["title", "big", "large"],
       icon: <Heading1 size={18} />,
-      command: ({ editor, range }: Command) => {
+      command: ({ editor, range }: CommandProps) => {
         editor
           .chain()
           .focus()
@@ -115,8 +128,9 @@ const getSuggestionItems = ({ query }: { query: string }) => {
     {
       title: "Heading 2",
       description: "Medium section heading.",
+      searchTerms: ["subtitle", "medium"],
       icon: <Heading2 size={18} />,
-      command: ({ editor, range }: Command) => {
+      command: ({ editor, range }: CommandProps) => {
         editor
           .chain()
           .focus()
@@ -128,8 +142,9 @@ const getSuggestionItems = ({ query }: { query: string }) => {
     {
       title: "Heading 3",
       description: "Small section heading.",
+      searchTerms: ["subtitle", "small"],
       icon: <Heading3 size={18} />,
-      command: ({ editor, range }: Command) => {
+      command: ({ editor, range }: CommandProps) => {
         editor
           .chain()
           .focus()
@@ -141,24 +156,27 @@ const getSuggestionItems = ({ query }: { query: string }) => {
     {
       title: "Bullet List",
       description: "Create a simple bullet list.",
+      searchTerms: ["unordered", "point"],
       icon: <List size={18} />,
-      command: ({ editor, range }: Command) => {
+      command: ({ editor, range }: CommandProps) => {
         editor.chain().focus().deleteRange(range).toggleBulletList().run();
       },
     },
     {
       title: "Numbered List",
       description: "Create a list with numbering.",
+      searchTerms: ["ordered"],
       icon: <ListOrdered size={18} />,
-      command: ({ editor, range }: Command) => {
+      command: ({ editor, range }: CommandProps) => {
         editor.chain().focus().deleteRange(range).toggleOrderedList().run();
       },
     },
     {
       title: "Quote",
       description: "Capture a quote.",
+      searchTerms: ["blockquote"],
       icon: <TextQuote size={18} />,
-      command: ({ editor, range }: Command) =>
+      command: ({ editor, range }: CommandProps) =>
         editor
           .chain()
           .focus()
@@ -170,15 +188,17 @@ const getSuggestionItems = ({ query }: { query: string }) => {
     {
       title: "Code",
       description: "Capture a code snippet.",
+      searchTerms: ["codeblock"],
       icon: <Code size={18} />,
-      command: ({ editor, range }: Command) =>
+      command: ({ editor, range }: CommandProps) =>
         editor.chain().focus().deleteRange(range).toggleCodeBlock().run(),
     },
     {
       title: "Image",
       description: "Upload an image from your computer.",
+      searchTerms: ["photo", "picture", "media"],
       icon: <ImageIcon size={18} />,
-      command: ({ editor, range }: Command) => {
+      command: ({ editor, range }: CommandProps) => {
         editor.chain().focus().deleteRange(range).run();
         // upload image
         const input = document.createElement("input");
@@ -195,7 +215,13 @@ const getSuggestionItems = ({ query }: { query: string }) => {
     },
   ].filter((item) => {
     if (typeof query === "string" && query.length > 0) {
-      return item.title.toLowerCase().includes(query.toLowerCase());
+      const search = query.toLowerCase();
+      return (
+        item.title.toLowerCase().includes(search) ||
+        item.description.toLowerCase().includes(search) ||
+        (item.searchTerms &&
+          item.searchTerms.some((term: string) => term.includes(search)))
+      );
     }
     return true;
   });
