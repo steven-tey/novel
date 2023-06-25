@@ -147,7 +147,7 @@ export default function Editor() {
         {saveStatus}
       </div>
       {editor && <EditorBubbleMenu editor={editor} />}
-      {editor.isActive("table") && <TableMenu editor={editor} />}
+      {editor?.isActive("table") && <TableMenu editor={editor} />}
       <EditorContent editor={editor} />
     </div>
   );
