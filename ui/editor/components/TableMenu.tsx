@@ -38,19 +38,19 @@ export const TableMenu = ({ editor }: { editor: any }) => {
     },
   ];
 
-  const handleWindowClick = () => {
-    const selection: any = window.getSelection();
-    const range = selection.getRangeAt(0);
-    const tableNode = range.startContainer?.closest?.("table");
-    if (tableNode) {
-      const activeTable = tableNode.getBoundingClientRect(); // get the currently active table position
-      const scrollOffset = window.scrollY; // culculating the current height of the site
-      const tableTop = activeTable.top + scrollOffset;
-      tableLocation !== tableTop && setTableLocation(tableTop);
-    }
-  };
-
   useEffect(() => {
+    const handleWindowClick = () => {
+      const selection: any = window.getSelection();
+      const range = selection.getRangeAt(0);
+      const tableNode = range.startContainer?.closest?.("table");
+      if (tableNode) {
+        const activeTable = tableNode.getBoundingClientRect(); // get the currently active table position
+        const scrollOffset = window.scrollY; // culculating the current height of the site
+        const tableTop = activeTable.top + scrollOffset;
+        tableLocation !== tableTop && setTableLocation(tableTop);
+      }
+    };
+
     // Call the function if user click on the table
     window.addEventListener("click", handleWindowClick);
 
@@ -58,14 +58,13 @@ export const TableMenu = ({ editor }: { editor: any }) => {
     return () => {
       window.removeEventListener("click", handleWindowClick);
     };
-  }, []);
-
+  }, [tableLocation]);
 
   return (
     <section
       className="absolute left-2/4 flex translate-x-[-50%] overflow-hidden rounded border border-stone-200 bg-white shadow-xl"
       style={{
-        top: `${tableLocation - 60}px`,
+        top: `${tableLocation - 50}px`,
       }}
     >
       {items.map((item, index) => (

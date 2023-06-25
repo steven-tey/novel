@@ -127,7 +127,7 @@ export const TiptapExtensions = [
   TableHeader.configure({
     HTMLAttributes: {
       class:
-        "border box-border min-w-[1em] py-2 px-1 relative align-top text-start !py-1",
+        "bg-stone-100 border box-border min-w-[1em] py-2 px-1 relative align-top text-start !py-1",
     },
   }),
   SlashCommand,
