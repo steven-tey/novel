@@ -25,5 +25,5 @@ export function useInitialEditorState(editor: Editor | null) {
     ) {
       editor.commands.setContent(DEFAULT_EDITOR_CONTENT);
     }
-  }, [editor, connectionStatus, yProvider.doc, yProvider.persistence.synced]);
+  }, [editor, connectionStatus, yProvider.doc, yProvider.persistence?.synced]);
 }

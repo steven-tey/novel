@@ -9,7 +9,7 @@ const partykitHost = "yjs.threepointone.partykit.dev/party";
 let yProvider = createCollaborationProvider("offline-room", partykitHost);
 
 interface CollaborationProvider extends YPartyKitProvider {
-  persistence: IndexeddbPersistence;
+  persistence?: IndexeddbPersistence;
 }
 
 export function useCollaborationProvider() {
@@ -33,10 +33,18 @@ function getSnapshot() {
 
 function createCollaborationProvider(roomName: string, host: string) {
   const yDoc = new Y.Doc();
-  const indexeddbPersistence = new IndexeddbPersistence(roomName, yDoc);
-  const yProvider = new YPartyKitProvider(host, roomName, yDoc, {
-    connect: false,
-  }) as CollaborationProvider;
+  const indexeddbPersistence =
+    typeof window !== "undefined"
+      ? new IndexeddbPersistence(roomName, yDoc)
+      : undefined;
+  const yProvider: CollaborationProvider = new YPartyKitProvider(
+    host,
+    roomName,
+    yDoc,
+    {
+      connect: false,
+    },
+  );
 
   if (typeof window !== "undefined") {
     Object.assign(window, { yProvider });
