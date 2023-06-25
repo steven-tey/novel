@@ -38,8 +38,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <Toaster />
-      <body className={cx(cal.variable, inter.variable)}>{children}</body>
+      <body className={cx(cal.variable, inter.variable)}>
+        {children}
+        <Toaster />
+      </body>
       <Analytics />
     </html>
   );
