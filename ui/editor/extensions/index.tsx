@@ -10,6 +10,7 @@ import { InputRule } from "@tiptap/core";
 
 import SlashCommand from "./slash-command";
 import { useCollaborationExtensions } from "./collaboration/useCollaborationExtensions";
+import { useMemo } from "react";
 
 const TiptapExtensions = [
   StarterKit.configure({
@@ -106,5 +107,9 @@ const TiptapExtensions = [
 ];
 
 export function useTiptapExtensions() {
-  return [...TiptapExtensions, ...useCollaborationExtensions()];
+  const collaborationExtensions = useCollaborationExtensions();
+  return useMemo(
+    () => [...TiptapExtensions, ...collaborationExtensions],
+    [collaborationExtensions],
+  );
 }

@@ -12,27 +12,31 @@ import { EditorBubbleMenu } from "./components";
 import { useInitialEditorState } from "./useInitialEditorState";
 
 export default function Editor() {
-  const editor = useEditor({
-    extensions: useTiptapExtensions(),
-    editorProps: TiptapEditorProps,
-    onUpdate: (e) => {
-      const selection = e.editor.state.selection;
-      const lastTwo = e.editor.state.doc.textBetween(
-        selection.from - 2,
-        selection.from,
-        "\n",
-      );
-      if (lastTwo === "++" && !isLoading) {
-        e.editor.commands.deleteRange({
-          from: selection.from - 2,
-          to: selection.from,
-        });
-        complete(e.editor.getText());
-        va.track("Autocomplete Shortcut Used");
-      }
+  const tiptapExtensions = useTiptapExtensions();
+  const editor = useEditor(
+    {
+      extensions: tiptapExtensions,
+      editorProps: TiptapEditorProps,
+      onUpdate: (e) => {
+        const selection = e.editor.state.selection;
+        const lastTwo = e.editor.state.doc.textBetween(
+          selection.from - 2,
+          selection.from,
+          "\n",
+        );
+        if (lastTwo === "++" && !isLoading) {
+          e.editor.commands.deleteRange({
+            from: selection.from - 2,
+            to: selection.from,
+          });
+          complete(e.editor.getText());
+          va.track("Autocomplete Shortcut Used");
+        }
+      },
+      autofocus: "end",
     },
-    autofocus: "end",
-  });
+    [tiptapExtensions],
+  );
 
   useInitialEditorState(editor);
 
