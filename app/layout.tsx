@@ -6,7 +6,8 @@ import cx from "classnames";
 import { cal, inter } from "@/styles/fonts";
 import { Analytics } from "@vercel/analytics/react";
 import { Metadata } from "next";
-import { Toaster } from "sonner";
+
+import { Toaster } from "../ui/shared/Toaster";
 
 const title =
   "Novel – Notion-style WYSIWYG editor with AI-powered autocompletions";
