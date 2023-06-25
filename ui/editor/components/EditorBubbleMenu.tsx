@@ -84,7 +84,10 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
       <NodeSelector
         editor={props.editor}
         isOpen={isNodeSelectorOpen}
-        setIsOpen={setIsNodeSelectorOpen}
+        setIsOpen={() => {
+          setIsNodeSelectorOpen(!isNodeSelectorOpen);
+          setIsColorSelectorOpen(false);
+        }}
       />
 
       {items.map((item, index) => (
@@ -103,7 +106,10 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
       <ColorSelector
         editor={props.editor}
         isOpen={isColorSelectorOpen}
-        setIsOpen={setIsColorSelectorOpen}
+        setIsOpen={() => {
+          setIsColorSelectorOpen(!isColorSelectorOpen);
+          setIsNodeSelectorOpen(false);
+        }}
       />
     </BubbleMenu>
   );

@@ -1,7 +1,7 @@
 import { Editor } from "@tiptap/core";
 import cx from "classnames";
 import { Check, ChevronDown } from "lucide-react";
-import { FC } from "react";
+import { Dispatch, FC, SetStateAction } from "react";
 
 export interface BubbleColorMenuItem {
   name: string;
@@ -11,7 +11,7 @@ export interface BubbleColorMenuItem {
 interface ColorSelectorProps {
   editor: Editor;
   isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 export const ColorSelector: FC<ColorSelectorProps> = ({

@@ -59,7 +59,6 @@ export async function POST(req: Request): Promise<Response> {
         content,
       },
     ],
-    max_tokens: 100,
     temperature: 0.7,
     top_p: 1,
     frequency_penalty: 0,
