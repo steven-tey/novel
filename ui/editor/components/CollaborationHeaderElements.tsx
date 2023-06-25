@@ -25,7 +25,6 @@ export const CollaborationHeaderElements = () => {
       roomInSearchParams &&
       collaborationStore.roomname !== roomInSearchParams
     ) {
-      console.log("Joining room from search params", roomInSearchParams);
       joinRoom(roomInSearchParams);
     }
   }, [roomInSearchParams, connectionStatus, collaborationStore]);
@@ -42,14 +41,18 @@ export const CollaborationHeaderElements = () => {
     <>
       <div
         className={
-          "before:content-[' '] flex items-center gap-1.5 before:block before:h-2 before:w-2 before:rounded-full before:bg-stone-300 data-[status='connected']:before:bg-emerald-500"
+          "before:content-[' '] flex items-center gap-1.5 text-xs before:block before:h-2 before:w-2 before:rounded-full before:bg-stone-300 data-[status='connected']:before:bg-emerald-500 sm:text-base"
         }
         data-status={connectionStatus}
       >
-        {connectionStatus === "connected"
-          ? `${users.size} user${users.size === 1 ? "" : "s"} online`
-          : "offline"}{" "}
-        in room {collaborationStore.roomname}
+        <span className="overflow-ellipsis whitespace-nowrap">
+          {connectionStatus === "connected"
+            ? `${users.size} user${users.size === 1 ? "" : "s"} online`
+            : "offline"}{" "}
+          <span className="hidden md:inline">
+            in room {collaborationStore.roomname}
+          </span>
+        </span>
       </div>
       <UserNameButton />
       <ShareButton />
@@ -62,7 +65,7 @@ function UserNameButton() {
 
   return (
     <button
-      className="ml-auto rounded-lg border border-stone-100 px-2 py-1 transition-colors hover:border-stone-400"
+      className="ml-auto rounded-lg border border-stone-200 px-2 py-1 transition-colors hover:border-stone-400 sm:shadow-sm"
       onClick={user.setName}
       style={{
         opacity: user.name ? 1 : 0,
@@ -78,7 +81,7 @@ function ShareButton() {
 
   return (
     <button
-      className="text-md rounded-lg border border-stone-200 px-2 py-1 font-semibold transition-colors hover:border-stone-400 sm:shadow-sm"
+      className="flex-shrink-0 rounded-lg border border-stone-200 px-2 py-1 transition-colors hover:border-stone-400 sm:shadow-sm"
       onClick={() => {
         const url = new URL(window.location.href);
 
