@@ -2,6 +2,7 @@ import { useSyncExternalStore } from "react";
 import YPartyKitProvider from "y-partykit/provider";
 import { IndexeddbPersistence } from "y-indexeddb";
 import * as Y from "yjs";
+
 import { randomRoomName } from "./randomRoomName";
 
 const partykitHost = "yjs.threepointone.partykit.dev/party";
@@ -37,7 +38,13 @@ function createCollaborationProvider(roomName: string, host: string) {
     Object.assign(window, { yProvider });
 
     indexeddbPersistence.on("synced", (persistence: IndexeddbPersistence) => {
-      console.log("indexeddb synced", persistence.synced);
+      if (persistence.synced) {
+        console.log(
+          `%c[Collaboration]%c IndexedDB synced.`,
+          "color: rgb(120, 120, 120)",
+          "color: inherit",
+        );
+      }
     });
   }
 
@@ -51,6 +58,11 @@ export function connectToNewRoom() {
 }
 
 export function joinRoom(roomName: string) {
+  console.log(
+    `%c[Collaboration]%c Joining room: ${roomName}`,
+    "color: rgb(120, 120, 120)",
+    "color: inherit",
+  );
   yProvider.destroy();
   yProvider = createCollaborationProvider(roomName, partykitHost);
   yProvider.connect();
