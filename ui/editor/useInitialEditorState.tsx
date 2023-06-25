@@ -16,7 +16,7 @@ export function useInitialEditorState(editor: Editor | null) {
   useEffect(() => {
     const isOffline =
       connectionStatus === "disconnected" &&
-      !window.location.search.includes("room=");
+      yProvider.persistence.name === "offline-room";
 
     const firstParagraph = yProvider.doc.getXmlFragment("offline-room").get(0);
 
@@ -28,5 +28,11 @@ export function useInitialEditorState(editor: Editor | null) {
     ) {
       editor.commands.setContent(DEFAULT_EDITOR_CONTENT);
     }
-  }, [editor, connectionStatus, yProvider.doc, persistenceSynced]);
+  }, [
+    editor,
+    connectionStatus,
+    yProvider.doc,
+    yProvider.persistence.name,
+    persistenceSynced,
+  ]);
 }

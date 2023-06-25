@@ -21,7 +21,7 @@ declare module "y-indexeddb" {
   export const clearDocument: (name: string) => Promise<void>;
 
   export class IndexeddbPersistence extends Observable<"synced"> {
-    constructor(name: string, doc: Y.Doc);
+    constructor(public name: string, public doc: Y.Doc);
     synced: boolean;
     whenSynced: Promise<IndexeddbPersistence>;
     clearData(): Promise<void>;

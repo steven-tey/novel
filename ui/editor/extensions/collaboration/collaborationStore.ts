@@ -66,7 +66,30 @@ function createCollaborationProvider(roomName: string, host: string) {
 
 export function connectToNewRoom() {
   const roomName = randomRoomName();
-  joinRoom(roomName);
+
+  console.log(
+    `%c[Collaboration]%c Creating new room: ${roomName}`,
+    "color: rgb(120, 120, 120)",
+    "color: inherit",
+  );
+
+  const xmlFrag = yProvider.doc.getXmlFragment("offline-room");
+
+  yProvider.destroy();
+  yProvider = createCollaborationProvider(roomName, partykitHost);
+  yProvider.connect();
+
+  yProvider.doc
+    .getXmlFragment(roomName)
+    .insert(
+      0,
+      xmlFrag
+        .toArray()
+        .map((item) =>
+          item instanceof Y.AbstractType ? item.clone() : item,
+        ) as Y.XmlElement[],
+    );
+
   return roomName;
 }
 
