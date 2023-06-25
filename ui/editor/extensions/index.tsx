@@ -44,6 +44,7 @@ export const TiptapExtensions = [
       HTMLAttributes: {
         class:
           "rounded-md bg-stone-200 px-1.5 py-1 font-mono font-medium text-black",
+        spellcheck: "false",
       },
     },
     horizontalRule: false,
