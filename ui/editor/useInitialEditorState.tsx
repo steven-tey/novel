@@ -32,7 +32,7 @@ export function useInitialEditorState(editor: Editor | null) {
     editor,
     connectionStatus,
     yProvider.doc,
-    yProvider.persistence.name,
+    yProvider.persistence?.name,
     persistenceSynced,
   ]);
 }

@@ -16,18 +16,25 @@ export const CollaborationHeaderElements = () => {
   const connectionStatus = useConnectionStatus();
   const users = useUsers();
   const searchParams = useSearchParams();
-  const collaborationStore = useCollaborationProvider();
+  const collaborationProvider = useCollaborationProvider();
 
   const roomInSearchParams = searchParams.get("room");
   useEffect(() => {
     if (
       connectionStatus !== "connecting" &&
       roomInSearchParams &&
-      collaborationStore.roomname !== roomInSearchParams
+      collaborationProvider.roomname !== roomInSearchParams
     ) {
       joinRoom(roomInSearchParams);
+    } else if (
+      connectionStatus === "connected" &&
+      !roomInSearchParams &&
+      collaborationProvider.roomname !== "offline-room"
+    ) {
+      collaborationProvider.disconnect();
+      collaborationProvider.roomname = "offline-room";
     }
-  }, [roomInSearchParams, connectionStatus, collaborationStore]);
+  }, [roomInSearchParams, connectionStatus, collaborationProvider]);
 
   if (connectionStatus === "disconnected") {
     return (
@@ -50,7 +57,7 @@ export const CollaborationHeaderElements = () => {
             ? `${users.size} user${users.size === 1 ? "" : "s"} online`
             : "offline"}{" "}
           <span className="hidden md:inline">
-            in room {collaborationStore.roomname}
+            in room {collaborationProvider.roomname}
           </span>
         </span>
       </div>

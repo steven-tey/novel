@@ -7,13 +7,16 @@ export type ConnectionStatus = "disconnected" | "connecting" | "connected";
 export function useConnectionStatus() {
   const yProvider = useCollaborationProvider();
 
-  const [state, setState] = useState<ConnectionStatus>(
-    yProvider.wsconnected
-      ? "connected"
-      : yProvider.wsconnecting
-      ? "connecting"
-      : "disconnected",
-  );
+  const computedStatus = yProvider.wsconnected
+    ? "connected"
+    : yProvider.wsconnecting
+    ? "connecting"
+    : "disconnected";
+
+  const [state, setState] = useState<ConnectionStatus>(computedStatus);
+  if (state !== computedStatus) {
+    setState(computedStatus);
+  }
 
   useEffect(() => {
     yProvider.on("status", (event: { status: ConnectionStatus }) => {
