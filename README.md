@@ -18,6 +18,7 @@
 <p align="center">
   <a href="#introduction"><strong>Introduction</strong></a> ·
   <a href="#deploy-your-own"><strong>Deploy Your Own</strong></a> ·
+  <a href="#setting-up-locally"><strong>Setting Up Locally</strong></a> ·
   <a href="#tech-stack"><strong>Tech Stack</strong></a> ·
   <a href="#contributing"><strong>Contributing</strong></a> ·
   <a href="#license"><strong>License</strong></a>
@@ -40,6 +41,15 @@ You can deploy your own version of Novel to Vercel with one click:
 
 [![Deploy with Vercel](https://vercel.com/button)](https://stey.me/novel-deploy)
 
+## Setting Up Locally
+
+To set up Novel locally, you'll need to clone the repository and set up the following environment variables:
+
+- `OPENAI_API_KEY` – your OpenAI API key (you can get one [here](https://platform.openai.com/account/api-keys))
+- `BLOB_READ_WRITE_TOKEN` – your Vercel Blob read/write token (you can get one [here](https://vercel.com/docs/storage/vercel-blob/quickstart#quickstart))
+
+If you've deployed this to Vercel, you can also use [`vc env pull`](https://vercel.com/docs/cli/env#exporting-development-environment-variables) to pull the environment variables from your Vercel project.
+
 ## Tech Stack
 
 Novel is built on the following stack:
@@ -58,10 +68,6 @@ Here's how you can contribute:
 
 - [Open an issue](https://github.com/steven-tey/novel/issues) if you believe you've encountered a bug.
 - Make a [pull request](https://github.com/steven-tey/novel/pull) to add new features/make quality-of-life improvements/fix bugs.
-
-<a href="https://github.com/steven-tey/novel/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=steven-tey/novel" />
-</a>
 
 ## Author
 

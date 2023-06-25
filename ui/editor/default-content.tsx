@@ -11,7 +11,7 @@ const DEFAULT_EDITOR_CONTENT = {
       content: [
         {
           type: "text",
-          text: "Novel is a Notion-style WYSIWYG editor with AI-powered autocompletions and multiplayer. Built with ",
+          text: "Novel is an open-source Notion-style WYSIWYG editor with AI-powered autocompletion and realtime collaboration features. Built with ",
         },
         {
           type: "text",

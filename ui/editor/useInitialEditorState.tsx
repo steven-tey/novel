@@ -1,48 +1,38 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { prosemirrorJSONToYXmlFragment } from "y-prosemirror";
+import { useEffect } from "react";
 import type { Editor } from "@tiptap/core";
-import type { Schema } from "@tiptap/pm/model";
 
-import { yProvider } from "./extensions/collaboration";
+import {
+  useCollaborationProvider,
+  useConnectionStatus,
+} from "./extensions/collaboration";
 import DEFAULT_EDITOR_CONTENT from "./default-content";
+import { usePersistenceSynced } from "./extensions/collaboration/usePersistenceSynced";
 
 export function useInitialEditorState(editor: Editor | null) {
-  const [seedInitialState, setSeedInitialState] =
-    useState<(editor: Schema) => void>();
+  const connectionStatus = useConnectionStatus();
+  const yProvider = useCollaborationProvider();
+  const persistenceSynced = usePersistenceSynced();
 
   useEffect(() => {
-    const handleSync = (connected: boolean) => {
-      if (connected) {
-        setSeedInitialState(() => (schema: Schema) => {
-          const aloneInTheRoom = yProvider.awareness.getStates().size === 1;
-          const fragment = yProvider.doc.getXmlFragment("content");
+    const isOffline =
+      connectionStatus === "disconnected" &&
+      yProvider.persistence.name === "offline-room";
 
-          if (
-            aloneInTheRoom &&
-            (fragment.length === 0 ||
-              (fragment.length === 1 &&
-                fragment.toJSON() === "<paragraph></paragraph>"))
-          ) {
-            prosemirrorJSONToYXmlFragment(
-              schema,
-              DEFAULT_EDITOR_CONTENT,
-              fragment,
-            );
-          }
-        });
-      }
-    };
+    const firstParagraph = yProvider.doc.getXmlFragment("offline-room").get(0);
 
-    yProvider.on("sync", handleSync);
-
-    return () => yProvider.off("sync", handleSync);
-  }, []);
-
-  useEffect(() => {
-    if (editor && seedInitialState) {
-      seedInitialState(editor.schema);
+    if (
+      editor &&
+      isOffline &&
+      persistenceSynced &&
+      (!firstParagraph || firstParagraph.toJSON() === "<paragraph></paragraph>")
+    ) {
+      editor.commands.setContent(DEFAULT_EDITOR_CONTENT);
     }
-  }, [editor, seedInitialState]);
+  }, [
+    editor,
+    connectionStatus,
+    yProvider.doc,
+    yProvider.persistence?.name,
+    persistenceSynced,
+  ]);
 }

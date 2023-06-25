@@ -3,25 +3,18 @@
 import { useEffect, useRef } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import { TiptapEditorProps } from "./props";
-import { TiptapExtensions } from "./extensions";
+import { useTiptapExtensions } from "./extensions";
+import { EditorBubbleMenu } from "./components";
+import { useInitialEditorState } from "./useInitialEditorState";
 import { useCompletion } from "ai/react";
 import { toast } from "sonner";
 import va from "@vercel/analytics";
 
-import {
-  useConnectionStatus,
-  useUser,
-  useConnection,
-} from "./extensions/collaboration";
-import { useInitialEditorState } from "./useInitialEditorState";
-
 export default function Editor() {
-  useConnection();
-  const user = useUser();
-  const connectionStatus = useConnectionStatus();
+  const tiptapExtensions = useTiptapExtensions();
 
   const editor = useEditor({
-    extensions: TiptapExtensions,
+    extensions: tiptapExtensions,
     editorProps: TiptapEditorProps,
     onUpdate: (e) => {
       const selection = e.editor.state.selection;
@@ -40,8 +33,9 @@ export default function Editor() {
         va.track("Autocomplete Shortcut Used");
       }
     },
-    autofocus: "end",
   });
+
+  useInitialEditorState(editor);
 
   const { complete, completion, isLoading, stop } = useCompletion({
     id: "novel",
@@ -68,20 +62,6 @@ export default function Editor() {
 
   // Insert chunks of the generated text
   useEffect(() => {
-    // remove ↺ and insert the generated text
-    if (
-      completion.length > 0 &&
-      editor?.state.doc.textBetween(
-        editor.state.selection.from - 1,
-        editor.state.selection.from,
-        "\n",
-      ) === "↺"
-    ) {
-      editor?.commands.deleteRange({
-        from: editor.state.selection.from - 1,
-        to: editor.state.selection.from,
-      });
-    }
     const diff = completion.slice(prev.current.length);
     prev.current = completion;
     editor?.commands.insertContent(diff, {
@@ -106,13 +86,26 @@ export default function Editor() {
         editor?.commands.insertContent("++");
       }
     };
+    const mousedownHandler = (e: MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      stop();
+      if (window.confirm("AI writing paused. Continue?")) {
+        complete(editor?.getText() || "");
+      }
+    };
     if (isLoading) {
       document.addEventListener("keydown", onKeyDown);
+      window.addEventListener("mousedown", mousedownHandler);
+    } else {
+      document.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("mousedown", mousedownHandler);
     }
     return () => {
       document.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("mousedown", mousedownHandler);
     };
-  }, [stop, isLoading, editor, completion.length]);
+  }, [stop, isLoading, editor, complete, completion.length]);
 
   useInitialEditorState(editor);
 
@@ -124,7 +117,12 @@ export default function Editor() {
       className="relative flex w-full max-w-screen-lg flex-col gap-2 border-stone-200 p-12 px-8 sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:px-12 sm:shadow-lg"
     >
       <main className="min-h-[500px]">
-        <EditorContent editor={editor} />
+        {editor && (
+          <>
+            <EditorContent editor={editor} />
+            <EditorBubbleMenu editor={editor} />
+          </>
+        )}
       </main>
       <footer className="bottom-8 flex flex-row items-center text-sm">
         <>

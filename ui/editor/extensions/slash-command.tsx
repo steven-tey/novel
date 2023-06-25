@@ -12,18 +12,23 @@ import { ReactRenderer } from "@tiptap/react";
 import { useCompletion } from "ai/react";
 import tippy from "tippy.js";
 import {
-  Bold,
   Heading1,
   Heading2,
-  Italic,
+  Heading3,
   List,
   ListOrdered,
   MessageSquarePlus,
+  Text,
+  TextQuote,
+  Image as ImageIcon,
+  Code,
+  CheckSquare,
 } from "lucide-react";
 import LoadingCircle from "@/ui/shared/loading-circle";
 import { toast } from "sonner";
 import va from "@vercel/analytics";
 import Magic from "@/ui/shared/magic";
+import { handleImageUpload } from "@/lib/utils/editor";
 
 interface CommandItemProps {
   title: string;
@@ -31,7 +36,7 @@ interface CommandItemProps {
   icon: ReactNode;
 }
 
-interface Command {
+interface CommandProps {
   editor: Editor;
   range: Range;
 }
@@ -71,13 +76,47 @@ const getSuggestionItems = ({ query }: { query: string }) => {
     {
       title: "Continue writing",
       description: "Use AI to expand your thoughts.",
+      searchTerms: ["gpt"],
       icon: <Magic className="w-7 text-black" />,
+    },
+    {
+      title: "Send Feedback",
+      description: "Let us know how we can improve.",
+      icon: <MessageSquarePlus size={18} />,
+      command: ({ editor, range }: CommandProps) => {
+        editor.chain().focus().deleteRange(range).run();
+        window.open("/feedback", "_blank");
+      },
+    },
+    {
+      title: "Text",
+      description: "Just start typing with plain text.",
+      searchTerms: ["p", "paragraph"],
+      icon: <Text size={18} />,
+      command: ({ editor, range }: CommandProps) => {
+        editor
+          .chain()
+          .focus()
+          .deleteRange(range)
+          .toggleNode("paragraph", "paragraph")
+          .run();
+      },
+    },
+    {
+      title: "To-do List",
+      description: "Track tasks with a to-do list.",
+      searchTerms: ["todo", "task", "list", "check", "checkbox"],
+      icon: <CheckSquare size={18} />,
+      command: ({ editor, range }: CommandProps) => {
+        editor.chain().focus().deleteRange(range).toggleTaskList().run();
+      },
     },
     {
       title: "Heading 1",
       description: "Big section heading.",
+      searchTerms: ["title", "big", "large"],
       icon: <Heading1 size={18} />,
-      command: ({ editor, range }: Command) => {
+      command: ({ editor, range }: CommandProps) => {
         editor
           .chain()
           .focus()
@@ -89,8 +128,9 @@ const getSuggestionItems = ({ query }: { query: string }) => {
     {
       title: "Heading 2",
       description: "Medium section heading.",
+      searchTerms: ["subtitle", "medium"],
       icon: <Heading2 size={18} />,
-      command: ({ editor, range }: Command) => {
+      command: ({ editor, range }: CommandProps) => {
         editor
           .chain()
           .focus()
@@ -100,53 +140,91 @@ const getSuggestionItems = ({ query }: { query: string }) => {
       },
     },
     {
-      title: "Bold",
-      description: "Make text bold.",
-      icon: <Bold size={18} />,
-      command: ({ editor, range }: Command) => {
-        editor.chain().focus().deleteRange(range).setMark("bold").run();
-      },
-    },
-    {
-      title: "Italic",
-      description: "Make text italic.",
-      icon: <Italic size={18} />,
-      command: ({ editor, range }: Command) => {
-        editor.chain().focus().deleteRange(range).setMark("italic").run();
+      title: "Heading 3",
+      description: "Small section heading.",
+      searchTerms: ["subtitle", "small"],
+      icon: <Heading3 size={18} />,
+      command: ({ editor, range }: CommandProps) => {
+        editor
+          .chain()
+          .focus()
+          .deleteRange(range)
+          .setNode("heading", { level: 3 })
+          .run();
       },
     },
     {
       title: "Bullet List",
       description: "Create a simple bullet list.",
+      searchTerms: ["unordered", "point"],
       icon: <List size={18} />,
-      command: ({ editor, range }: Command) => {
+      command: ({ editor, range }: CommandProps) => {
         editor.chain().focus().deleteRange(range).toggleBulletList().run();
       },
     },
     {
       title: "Numbered List",
       description: "Create a list with numbering.",
+      searchTerms: ["ordered"],
       icon: <ListOrdered size={18} />,
-      command: ({ editor, range }: Command) => {
+      command: ({ editor, range }: CommandProps) => {
         editor.chain().focus().deleteRange(range).toggleOrderedList().run();
       },
     },
     {
-      title: "Send Feedback",
-      description: "Let us know how we can improve.",
-      icon: <MessageSquarePlus size={18} />,
-      command: ({ editor, range }: Command) => {
+      title: "Quote",
+      description: "Capture a quote.",
+      searchTerms: ["blockquote"],
+      icon: <TextQuote size={18} />,
+      command: ({ editor, range }: CommandProps) =>
+        editor
+          .chain()
+          .focus()
+          .deleteRange(range)
+          .toggleNode("paragraph", "paragraph")
+          .toggleBlockquote()
+          .run(),
+    },
+    {
+      title: "Code",
+      description: "Capture a code snippet.",
+      searchTerms: ["codeblock"],
+      icon: <Code size={18} />,
+      command: ({ editor, range }: CommandProps) =>
+        editor.chain().focus().deleteRange(range).toggleCodeBlock().run(),
+    },
+    {
+      title: "Image",
+      description: "Upload an image from your computer.",
+      searchTerms: ["photo", "picture", "media"],
+      icon: <ImageIcon size={18} />,
+      command: ({ editor, range }: CommandProps) => {
         editor.chain().focus().deleteRange(range).run();
-        window.open("/feedback", "_blank");
+        // upload image
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "image/*";
+        input.onchange = async (event) => {
+          if (input.files?.length) {
+            const file = input.files[0];
+            return handleImageUpload(file, editor.view, event);
+          }
+        };
+        input.click();
       },
     },
   ].filter((item) => {
     if (typeof query === "string" && query.length > 0) {
-      return item.title.toLowerCase().includes(query.toLowerCase());
+      const search = query.toLowerCase();
+      return (
+        item.title.toLowerCase().includes(search) ||
+        item.description.toLowerCase().includes(search) ||
+        (item.searchTerms &&
+          item.searchTerms.some((term: string) => term.includes(search)))
+      );
     }
     return true;
   });
-  // .slice(0, 10);
 };
 
 export const updateScrollView = (container: HTMLElement, item: HTMLElement) => {
@@ -259,8 +337,9 @@ const CommandList = ({
 
   return items.length > 0 ? (
     <div
+      id="slash-command"
       ref={commandListContainer}
-      className="z-50 h-auto max-h-[330px] w-72 overflow-y-auto scroll-smooth rounded-md border border-gray-200 bg-white px-1 py-2 shadow-md transition-all"
+      className="z-50 h-auto max-h-[330px] w-72 overflow-y-auto scroll-smooth rounded-md border border-stone-200 bg-white px-1 py-2 shadow-md transition-all"
     >
       {items.map((item: CommandItemProps, index: number) => {
         return (

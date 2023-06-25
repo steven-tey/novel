@@ -3,12 +3,18 @@ import HorizontalRule from "@tiptap/extension-horizontal-rule";
 import TiptapLink from "@tiptap/extension-link";
 import TiptapImage from "@tiptap/extension-image";
 import Placeholder from "@tiptap/extension-placeholder";
+import TiptapUnderline from "@tiptap/extension-underline";
+import TextStyle from "@tiptap/extension-text-style";
+import { Color } from "@tiptap/extension-color";
+import TaskItem from "@tiptap/extension-task-item";
+import TaskList from "@tiptap/extension-task-list";
 import { InputRule } from "@tiptap/core";
 
 import SlashCommand from "./slash-command";
-import { collaborationExtensions } from "./collaboration";
+import { useCollaborationExtensions } from "./collaboration/useCollaborationExtensions";
+import { useMemo } from "react";
 
-export const TiptapExtensions = [
+const TiptapExtensions = [
   StarterKit.configure({
     history: false,
     bulletList: {
@@ -28,20 +34,28 @@ export const TiptapExtensions = [
     },
     blockquote: {
       HTMLAttributes: {
-        class: "border-l-4 border-gray-300 pl-4",
+        class: "border-l-4 border-stone-700",
       },
     },
     codeBlock: {
       HTMLAttributes: {
-        class: "rounded-md bg-gray-200 p-5 font-mono font-medium text-gray-800",
+        class:
+          "rounded-sm bg-stone-100 p-5 font-mono font-medium text-stone-800",
       },
     },
     code: {
       HTMLAttributes: {
         class:
           "rounded-md bg-stone-200 px-1.5 py-1 font-mono font-medium text-black",
+        spellcheck: "false",
       },
     },
+    horizontalRule: false,
+    dropcursor: {
+      color: "#DBEAFE",
+      width: 4,
+    },
+    gapcursor: false,
   }),
   // patch to fix horizontal rule bug: https://github.com/ueberdosis/tiptap/pull/3859#issuecomment-1536799740
   HorizontalRule.extend({
@@ -49,7 +63,7 @@ export const TiptapExtensions = [
       return [
         new InputRule({
           find: /^(?:---|—-|___\s|\*\*\*\s)$/,
-          handler: ({ state, range, match }) => {
+          handler: ({ state, range }) => {
             const attributes = {};
 
             const { tr } = state;
@@ -66,7 +80,7 @@ export const TiptapExtensions = [
     },
   }).configure({
     HTMLAttributes: {
-      class: "my-4 border-t border-stone-300",
+      class: "mt-4 mb-6 border-t border-stone-300",
     },
   }),
   TiptapLink.configure({
@@ -76,7 +90,10 @@ export const TiptapExtensions = [
     },
   }),
   TiptapImage.configure({
-    inline: true,
+    allowBase64: true,
+    HTMLAttributes: {
+      class: "rounded-lg border border-stone-200",
+    },
   }),
   Placeholder.configure({
     placeholder: ({ node }) => {
@@ -88,5 +105,25 @@ export const TiptapExtensions = [
     includeChildren: true,
   }),
   SlashCommand,
-  ...collaborationExtensions,
+  TiptapUnderline,
+  TextStyle,
+  Color,
+  TaskList.configure({
+    HTMLAttributes: {
+      class: "not-prose pl-2",
+    },
+  }),
+  TaskItem.configure({
+    HTMLAttributes: {
+      class: "flex items-start mb-4",
+    },
+  }),
 ];
+
+export function useTiptapExtensions() {
+  const collaborationExtensions = useCollaborationExtensions();
+  return useMemo(
+    () => [...TiptapExtensions, ...collaborationExtensions],
+    [collaborationExtensions],
+  );
+}
