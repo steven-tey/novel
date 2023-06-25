@@ -5,7 +5,6 @@ import {
   names,
   animals,
 } from "unique-names-generator";
-import * as crypto from "crypto";
 
 export function randomRoomName() {
   return (
@@ -25,7 +24,7 @@ const URLSAFE_BASE64_ALPHABET =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
 
 function getSuffix() {
-  let bytes = crypto.webcrypto.getRandomValues(new Uint8Array(SUFFIX_LENGTH));
+  let bytes = crypto.getRandomValues(new Uint8Array(SUFFIX_LENGTH));
   return Array.from(bytes)
     .map((x) => URLSAFE_BASE64_ALPHABET[x & 63])
     .join("");
