@@ -1,38 +1,41 @@
 "use client";
 
-import { Toaster, toast } from "sonner";
+import { toast } from "sonner";
 import {
   connectToNewRoom,
   joinRoom,
+  useCollaborationProvider,
   useConnectionStatus,
   useUser,
 } from "../extensions/collaboration";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useUsers } from "../extensions/collaboration/useUsers";
 import { useEffect } from "react";
-import { yProvider } from "../extensions/collaboration/yProvider";
 
 export const CollaborationHeaderElements = () => {
   const connectionStatus = useConnectionStatus();
   const users = useUsers();
   const searchParams = useSearchParams();
-
-  console.log({ connectionStatus, users });
+  const collaborationStore = useCollaborationProvider();
 
   const roomInSearchParams = searchParams.get("room");
   useEffect(() => {
     if (
       connectionStatus !== "connecting" &&
       roomInSearchParams &&
-      yProvider.roomname !== roomInSearchParams
+      collaborationStore.roomname !== roomInSearchParams
     ) {
       console.log("Joining room from search params", roomInSearchParams);
       joinRoom(roomInSearchParams);
     }
-  }, [roomInSearchParams, connectionStatus]);
+  }, [roomInSearchParams, connectionStatus, collaborationStore]);
 
   if (connectionStatus === "disconnected") {
-    return <ShareButton />;
+    return (
+      <>
+        <ShareButton />
+      </>
+    );
   }
 
   return (
@@ -46,9 +49,8 @@ export const CollaborationHeaderElements = () => {
         {connectionStatus === "connected"
           ? `${users.size} user${users.size === 1 ? "" : "s"} online`
           : "offline"}{" "}
-        in room {yProvider.roomname}
+        in room {collaborationStore.roomname}
       </div>
-      <Toaster />
       <UserNameButton />
       <ShareButton />
     </>
@@ -79,11 +81,10 @@ function ShareButton() {
       className="text-md rounded-lg border border-stone-200 px-2 py-1 font-semibold transition-colors hover:border-stone-400 sm:shadow-sm"
       onClick={() => {
         const url = new URL(window.location.href);
-        console.log({ url: url.searchParams.get("room") });
 
         if (!url.searchParams.has("room")) {
           const roomName = connectToNewRoom();
-          url.searchParams.set("room", roomName);
+          url.searchParams.set("room", roomName.trim());
           void router.push(url.toString());
         }
 
