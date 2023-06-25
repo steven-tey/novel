@@ -15,6 +15,7 @@ export const handleImageUpload = (
   } else if (file.size / 1024 / 1024 > 50) {
     toast.error("File size too big (max 50MB).");
   } else {
+    // reading locally
     // const reader = new FileReader();
     // reader.onload = (e) => {
     //   const { schema } = view.state;

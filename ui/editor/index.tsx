@@ -110,20 +110,18 @@ export default function Editor() {
   useInitialEditorState(editor);
 
   return (
-    <div
+    <main
       onClick={() => {
         editor?.chain().focus().run();
       }}
-      className="relative flex w-full max-w-screen-lg flex-col gap-2 border-stone-200 p-12 px-8 sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:px-12 sm:shadow-lg"
+      className="relative flex min-h-[500px] w-full max-w-screen-lg flex-col gap-2 border-stone-200 p-12 px-8 sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:px-12 sm:shadow-lg"
     >
-      <main className="min-h-[500px]">
-        {editor && (
-          <>
-            <EditorContent editor={editor} />
-            <EditorBubbleMenu editor={editor} />
-          </>
-        )}
-      </main>
-    </div>
+      {editor && (
+        <>
+          <EditorContent editor={editor} />
+          <EditorBubbleMenu editor={editor} />
+        </>
+      )}
+    </main>
   );
 }

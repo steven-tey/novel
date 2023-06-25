@@ -1,4 +1,4 @@
-import { handleImageUpload } from "@/lib/utils/editor";
+import { handleImageUpload } from "@/lib/editor";
 import { EditorProps } from "@tiptap/pm/view";
 
 export const TiptapEditorProps: EditorProps = {
