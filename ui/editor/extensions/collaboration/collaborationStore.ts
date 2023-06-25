@@ -8,8 +8,12 @@ import { randomRoomName } from "./randomRoomName";
 const partykitHost = "yjs.threepointone.partykit.dev/party";
 let yProvider = createCollaborationProvider("offline-room", partykitHost);
 
+interface CollaborationProvider extends YPartyKitProvider {
+  persistence: IndexeddbPersistence;
+}
+
 export function useCollaborationProvider() {
-  return useSyncExternalStore<YPartyKitProvider>(
+  return useSyncExternalStore<CollaborationProvider>(
     subscribe,
     getSnapshot,
     getSnapshot,
@@ -32,7 +36,7 @@ function createCollaborationProvider(roomName: string, host: string) {
   const indexeddbPersistence = new IndexeddbPersistence(roomName, yDoc);
   const yProvider = new YPartyKitProvider(host, roomName, yDoc, {
     connect: false,
-  });
+  }) as CollaborationProvider;
 
   if (typeof window !== "undefined") {
     Object.assign(window, { yProvider });
@@ -48,6 +52,7 @@ function createCollaborationProvider(roomName: string, host: string) {
     });
   }
 
+  yProvider.persistence = indexeddbPersistence;
   return yProvider;
 }
 
