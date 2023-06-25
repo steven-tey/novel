@@ -4,8 +4,8 @@ import Github from "@/ui/shared/github";
 
 export default function Page() {
   return (
-    <>
-      <div className="absolute bottom-5 flex w-full justify-between px-5  sm:bottom-auto sm:top-5">
+    <div className="flex h-screen flex-col">
+      <div className="flex w-full justify-between p-5">
         <a
           href="/deploy"
           target="_blank"
@@ -31,9 +31,9 @@ export default function Page() {
           </a>
         </div>
       </div>
-      <div className="flex min-h-screen flex-col items-center sm:px-5 sm:pt-[calc(10vh)]">
+      <div className="flex flex-1 flex-col items-center justify-center px-5 sm:pb-16">
         <Editor />
       </div>
-    </>
+    </div>
   );
 }

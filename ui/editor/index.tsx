@@ -115,7 +115,7 @@ export default function Editor() {
       onClick={() => {
         editor?.chain().focus().run();
       }}
-      className="relative flex w-full max-w-screen-lg flex-col gap-2 border-stone-200 p-12 px-8 sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:px-12 sm:shadow-lg"
+      className="relative flex w-full max-w-screen-lg flex-1 flex-col gap-2 border-stone-200 p-12 px-8 sm:flex-initial sm:rounded-lg sm:border sm:px-12 sm:shadow-lg"
     >
       <main className="min-h-[500px]">
         {editor && (
