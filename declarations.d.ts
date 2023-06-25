@@ -1,13 +1,11 @@
+/* eslint-disable no-unused-vars */
 declare module "y-indexeddb" {
   import * as Y from "yjs";
   import * as idb from "lib0/indexeddb";
   import * as promise from "lib0/promise";
   import { Observable } from "lib0/observable";
 
-  const customStoreName: string = "custom";
-  const updatesStoreName: string = "updates";
-
-  export const PREFERRED_TRIM_SIZE: number = 500;
+  export const PREFERRED_TRIM_SIZE: number;
 
   export const fetchUpdates: (
     idbPersistence: IndexeddbPersistence,
