@@ -9,8 +9,8 @@ import {
   CodeIcon,
 } from "lucide-react";
 
-import { NodeSelector } from "./NodeSelector";
-import { ColorSelector } from "./ColorSelector";
+import { NodeSelector } from "./node-selector";
+import { ColorSelector } from "./color-selector";
 
 export interface BubbleMenuItem {
   name: string;
