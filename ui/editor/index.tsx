@@ -9,31 +9,38 @@ import { useInitialEditorState } from "./useInitialEditorState";
 import { useCompletion } from "ai/react";
 import { toast } from "sonner";
 import va from "@vercel/analytics";
+import type { Editor as TiptapEditor } from "@tiptap/core";
+import type { Transaction } from "@tiptap/pm/state";
 
 export default function Editor() {
   const tiptapExtensions = useTiptapExtensions();
 
-  const editor = useEditor({
-    extensions: tiptapExtensions,
-    editorProps: TiptapEditorProps,
-    onUpdate: (e) => {
-      const selection = e.editor.state.selection;
-      const lastTwo = e.editor.state.doc.textBetween(
-        selection.from - 2,
-        selection.from,
-        "\n",
-      );
-      if (lastTwo === "++" && !isLoading) {
-        e.editor.commands.deleteRange({
-          from: selection.from - 2,
-          to: selection.from,
-        });
-        e.editor.commands.insertContent("↺");
-        complete(e.editor.getText());
-        va.track("Autocomplete Shortcut Used");
-      }
+  const onUpdate = (e: { editor: TiptapEditor; transaction: Transaction }) => {
+    const selection = e.editor.state.selection;
+    const lastTwo = e.editor.state.doc.textBetween(
+      selection.from - 2,
+      selection.from,
+      "\n",
+    );
+    if (lastTwo === "++" && !isLoading) {
+      e.editor.commands.deleteRange({
+        from: selection.from - 2,
+        to: selection.from,
+      });
+      e.editor.commands.insertContent("↺");
+      complete(e.editor.getText());
+      va.track("Autocomplete Shortcut Used");
+    }
+  };
+
+  const editor = useEditor(
+    {
+      extensions: tiptapExtensions,
+      editorProps: TiptapEditorProps,
+      onUpdate,
     },
-  });
+    [tiptapExtensions],
+  );
 
   useInitialEditorState(editor);
 
