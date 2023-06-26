@@ -77,6 +77,19 @@ export default function Editor() {
     },
   });
 
+  const prev = useRef("");
+
+  // Insert chunks of the generated text
+  useEffect(() => {
+    const diff = completion.slice(prev.current.length);
+    prev.current = completion;
+    editor?.commands.insertContent(diff, {
+      parseOptions: {
+        preserveWhitespace: "full",
+      },
+    });
+  }, [isLoading, editor, completion]);
+
   useEffect(() => {
     // if user presses escape or cmd + z and it's loading,
     // stop the request, delete the completion, and insert back the "++"
@@ -92,13 +105,26 @@ export default function Editor() {
         editor?.commands.insertContent("++");
       }
     };
+    const mousedownHandler = (e: MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      stop();
+      if (window.confirm("AI writing paused. Continue?")) {
+        complete(editor?.getText() || "");
+      }
+    };
     if (isLoading) {
       document.addEventListener("keydown", onKeyDown);
+      window.addEventListener("mousedown", mousedownHandler);
+    } else {
+      document.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("mousedown", mousedownHandler);
     }
     return () => {
       document.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("mousedown", mousedownHandler);
     };
-  }, [stop, isLoading, editor, completion.length]);
+  }, [stop, isLoading, editor, complete, completion.length]);
 
   // Insert chunks of the generated text
   const prev = useRef("");
@@ -119,6 +145,7 @@ export default function Editor() {
       setHydrated(true);
     }
   }, [editor, content, hydrated]);
+
   return (
     <div
       onClick={() => {
@@ -130,7 +157,6 @@ export default function Editor() {
       <div className="absolute right-5 top-5 mb-5 rounded-lg bg-stone-100 px-2 py-1 text-sm text-stone-400">
         {status}
       </div>
-
       <EditorContent editor={editor} />
       {editor && (
         <>

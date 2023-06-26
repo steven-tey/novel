@@ -11,6 +11,7 @@ import {
 
 import { NodeSelector } from "./node-selector";
 import { AISelector } from "./ai-selector";
+import { ColorSelector } from "../ColorSelector";
 
 export interface BubbleMenuItem {
   name: string;
@@ -56,17 +57,26 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
   ];
   const bubbleMenuProps: EditorBubbleMenuProps = {
     ...props,
+    shouldShow: ({ editor }) => {
+      // don't show if image is selected
+      if (editor.isActive("image")) {
+        return false;
+      }
+      return editor.view.state.selection.content().size > 0;
+    },
     tippyOptions: {
       moveTransition: "transform 0.15s ease-out",
       onHidden: () => {
         setIsNodeSelectorOpen(false);
         setIsAISelectorOpen(false);
+        setIsColorSelectorOpen(false);
       },
     },
   };
 
   const [isAISelectorOpen, setIsAISelectorOpen] = useState(false);
   const [isNodeSelectorOpen, setIsNodeSelectorOpen] = useState(false);
+  const [isColorSelectorOpen, setIsColorSelectorOpen] = useState(false);
 
   return (
     <BubbleMenu
@@ -79,6 +89,7 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
         setIsOpen={() => {
           setIsAISelectorOpen(!isAISelectorOpen);
           setIsNodeSelectorOpen(false);
+          setIsColorSelectorOpen(false);
         }}
       />
       <NodeSelector
@@ -87,6 +98,7 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
         setIsOpen={() => {
           setIsNodeSelectorOpen(!isNodeSelectorOpen);
           setIsAISelectorOpen(false);
+          setIsColorSelectorOpen(false);
         }}
       />
 
@@ -94,7 +106,7 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
         <button
           key={index}
           onClick={item.command}
-          className="p-2 text-gray-600 hover:bg-stone-100 active:bg-stone-200"
+          className="p-2 text-stone-600 hover:bg-stone-100 active:bg-stone-200"
         >
           <item.icon
             className={cx("h-4 w-4", {
@@ -103,6 +115,15 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
           />
         </button>
       ))}
+      <ColorSelector
+        editor={props.editor}
+        isOpen={isColorSelectorOpen}
+        setIsOpen={() => {
+          setIsColorSelectorOpen(!isColorSelectorOpen);
+          setIsNodeSelectorOpen(false);
+          setIsAISelectorOpen(false);
+        }}
+      />
     </BubbleMenu>
   );
 };
