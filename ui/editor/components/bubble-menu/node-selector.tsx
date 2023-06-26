@@ -11,7 +11,7 @@ import {
   Code,
   CheckSquare,
 } from "lucide-react";
-import { Dispatch, FC, SetStateAction } from "react";
+import { Dispatch, FC, SetStateAction, useEffect } from "react";
 import clsx from "clsx";
 import { BubbleMenuItem } from ".";
 import { NAVIGATION_KEYS } from "@/lib/constants";

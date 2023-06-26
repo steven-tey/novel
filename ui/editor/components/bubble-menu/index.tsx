@@ -11,7 +11,7 @@ import {
 
 import { NodeSelector } from "./node-selector";
 import { AISelector } from "./ai-selector";
-import { ColorSelector } from "../ColorSelector";
+import { ColorSelector } from "../color-selector";
 
 export interface BubbleMenuItem {
   name: string;
