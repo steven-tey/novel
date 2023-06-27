@@ -8,6 +8,10 @@ import TextStyle from "@tiptap/extension-text-style";
 import { Color } from "@tiptap/extension-color";
 import TaskItem from "@tiptap/extension-task-item";
 import TaskList from "@tiptap/extension-task-list";
+import Table from "@tiptap/extension-table";
+import TableCell from "@tiptap/extension-table-cell";
+import TableHeader from "@tiptap/extension-table-header";
+import TableRow from "@tiptap/extension-table-row";
 
 import SlashCommand from "./slash-command";
 import { InputRule } from "@tiptap/core";
@@ -100,6 +104,31 @@ export const TiptapExtensions = [
       return "Press '/' for commands, or '++' for AI autocomplete...";
     },
     includeChildren: true,
+  }),
+  Table.configure({
+    HTMLAttributes: {
+      class:
+        "table-fixed m-0 overflow-hidden w-[98%] mx-auto my-3 border-collapse",
+    },
+    allowTableNodeSelection: true,
+  }),
+  TableRow.configure({
+    HTMLAttributes: {
+      class:
+        "border box-border min-w-[1em] py-2 px-1 relative align-top text-start !py-1",
+    },
+  }),
+  TableCell.configure({
+    HTMLAttributes: {
+      class:
+        "border box-border min-w-[1em] py-2 px-1 relative align-top text-start !py-1",
+    },
+  }),
+  TableHeader.configure({
+    HTMLAttributes: {
+      class:
+        "bg-stone-100 border box-border min-w-[1em] py-2 px-1 relative align-top text-start !py-1",
+    },
   }),
   SlashCommand,
   TiptapUnderline,
