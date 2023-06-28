@@ -11,7 +11,7 @@ import {
 
 import { NodeSelector } from "./node-selector";
 import { ColorSelector } from "./color-selector";
-
+import { LinkSelector } from "./link-selector";
 export interface BubbleMenuItem {
   name: string;
   isActive: () => boolean;
@@ -69,12 +69,14 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
       onHidden: () => {
         setIsNodeSelectorOpen(false);
         setIsColorSelectorOpen(false);
+        setIsLinkSelectorOpen(false);
       },
     },
   };
 
   const [isNodeSelectorOpen, setIsNodeSelectorOpen] = useState(false);
   const [isColorSelectorOpen, setIsColorSelectorOpen] = useState(false);
+  const [isLinkSelectorOpen, setIsLinkSelectorOpen] = useState(false);
 
   return (
     <BubbleMenu
@@ -87,9 +89,18 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
         setIsOpen={() => {
           setIsNodeSelectorOpen(!isNodeSelectorOpen);
           setIsColorSelectorOpen(false);
+          setIsLinkSelectorOpen(false);
         }}
       />
-
+      <LinkSelector
+        editor={props.editor}
+        isOpen={isLinkSelectorOpen}
+        setIsOpen={() => {
+          setIsLinkSelectorOpen(!isLinkSelectorOpen);
+          setIsColorSelectorOpen(false);
+          setIsNodeSelectorOpen(false);
+        }}
+      />
       {items.map((item, index) => (
         <button
           key={index}
@@ -109,6 +120,7 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
         setIsOpen={() => {
           setIsColorSelectorOpen(!isColorSelectorOpen);
           setIsNodeSelectorOpen(false);
+          setIsLinkSelectorOpen(false);
         }}
       />
     </BubbleMenu>
