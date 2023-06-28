@@ -28,23 +28,7 @@ const DEFAULT_EDITOR_CONTENT = {
           ],
           text: "Tiptap",
         },
-        { type: "text", text: ", " },
-        {
-          type: "text",
-          marks: [
-            {
-              type: "link",
-              attrs: {
-                href: "https://openai.com/",
-                target: "_blank",
-                class:
-                  "text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer",
-              },
-            },
-          ],
-          text: "OpenAI",
-        },
-        { type: "text", text: ", and the " },
+        { type: "text", text: " and " },
         {
           type: "text",
           marks: [
@@ -54,27 +38,85 @@ const DEFAULT_EDITOR_CONTENT = {
                 href: "https://sdk.vercel.ai/docs",
                 target: "_blank",
                 class:
-                  "text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer",
+                  "text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer",
               },
             },
           ],
           text: "Vercel AI SDK",
         },
-        { type: "text", text: " → " },
-        { type: "text", marks: [{ type: "code" }], text: "npm i ai" },
+        { type: "text", text: "." },
       ],
     },
+    {
+      type: "heading",
+      attrs: { level: 3 },
+      content: [{ type: "text", text: "Features" }],
+    },
+    {
+      type: "orderedList",
+      attrs: { tight: true, start: 1 },
+      content: [
+        {
+          type: "listItem",
+          content: [
+            {
+              type: "paragraph",
+              content: [{ type: "text", text: "Slash menu & bubble menu" }],
+            },
+          ],
+        },
+        {
+          type: "listItem",
+          content: [
+            {
+              type: "paragraph",
+              content: [
+                { type: "text", text: "AI autocomplete (type " },
+                { type: "text", marks: [{ type: "code" }], text: "++" },
+                {
+                  type: "text",
+                  text: " to activate, or select from slash menu)",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: "listItem",
+          content: [
+            {
+              type: "paragraph",
+              content: [
+                {
+                  type: "text",
+                  text: "Image uploads (drag & drop / copy & paste, or select from slash menu)",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: "image",
+      attrs: {
+        src: "https://public.blob.vercel-storage.com/pJrjXbdONOnAeZAZ/banner-2wQk82qTwyVgvlhTW21GIkWgqPGD2C.png",
+        alt: "banner.png",
+        title: "banner.png",
+      },
+    },
+    { type: "horizontalRule" },
     {
       type: "heading",
       attrs: { level: 3 },
       content: [{ type: "text", text: "Learn more" }],
     },
     {
-      type: "orderedList",
-      attrs: { start: 1 },
+      type: "taskList",
       content: [
         {
-          type: "listItem",
+          type: "taskItem",
+          attrs: { checked: false },
           content: [
             {
               type: "paragraph",
@@ -89,19 +131,19 @@ const DEFAULT_EDITOR_CONTENT = {
                         href: "https://twitter.com/steventey/status/1669762868416512000",
                         target: "_blank",
                         class:
-                          "text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer",
+                          "text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer",
                       },
                     },
                   ],
                   text: "launch video",
                 },
-                { type: "text", text: "." },
               ],
             },
           ],
         },
         {
-          type: "listItem",
+          type: "taskItem",
+          attrs: { checked: false },
           content: [
             {
               type: "paragraph",
@@ -122,13 +164,13 @@ const DEFAULT_EDITOR_CONTENT = {
                   ],
                   text: "GitHub",
                 },
-                { type: "text", text: "." },
               ],
             },
           ],
         },
         {
-          type: "listItem",
+          type: "taskItem",
+          attrs: { checked: false },
           content: [
             {
               type: "paragraph",
@@ -146,16 +188,15 @@ const DEFAULT_EDITOR_CONTENT = {
                       },
                     },
                   ],
-                  text: "Deploy",
+                  text: "Deploy your own",
                 },
-                { type: "text", text: " your own." },
+                { type: "text", text: " to Vercel" },
               ],
             },
           ],
         },
       ],
     },
-    { type: "paragraph" },
   ],
 };
 
