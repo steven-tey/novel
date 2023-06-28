@@ -40,10 +40,9 @@ export async function POST(req: Request): Promise<Response> {
 
   let { prompt: content } = await req.json();
 
-  // remove line breaks,
   // remove trailing slash,
   // limit to 5000 characters
-  content = content.replace(/\n/g, " ").replace(/\/$/, "").slice(0, 5000);
+  content = content.replace(/\/$/, "").slice(0, 5000);
 
   const response = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
@@ -52,7 +51,9 @@ export async function POST(req: Request): Promise<Response> {
         role: "system",
         content:
           "You are an AI writing assistant that continues existing text based on context from prior text. " +
-          "Give more weight/priority to the later characters than the beginning ones. Make sure to construct complete sentences.",
+          "Give more weight/priority to the later characters than the beginning ones. " +
+          "Limit your response to no more than 200 characters, but make sure to construct complete sentences. " + 
+          "Use Markdown formatting when appropriate.",
       },
       {
         role: "user",
