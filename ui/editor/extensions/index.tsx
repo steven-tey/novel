@@ -8,6 +8,7 @@ import TextStyle from "@tiptap/extension-text-style";
 import { Color } from "@tiptap/extension-color";
 import TaskItem from "@tiptap/extension-task-item";
 import TaskList from "@tiptap/extension-task-list";
+import { Markdown } from "tiptap-markdown";
 
 import SlashCommand from "./slash-command";
 import { InputRule } from "@tiptap/core";
@@ -16,17 +17,17 @@ export const TiptapExtensions = [
   StarterKit.configure({
     bulletList: {
       HTMLAttributes: {
-        class: "list-disc list-outside leading-3",
+        class: "list-disc list-outside leading-3 -mt-2",
       },
     },
     orderedList: {
       HTMLAttributes: {
-        class: "list-decimal list-outside leading-3",
+        class: "list-decimal list-outside leading-3 -mt-2",
       },
     },
     listItem: {
       HTMLAttributes: {
-        class: "leading-normal",
+        class: "leading-normal -mb-2",
       },
     },
     blockquote: {
@@ -112,7 +113,12 @@ export const TiptapExtensions = [
   }),
   TaskItem.configure({
     HTMLAttributes: {
-      class: "flex items-start mb-4",
+      class: "flex items-start my-4",
     },
+    nested: true,
+  }),
+  Markdown.configure({
+    linkify: true,
+    transformCopiedText: true,
   }),
 ];
