@@ -8,6 +8,7 @@ import TextStyle from "@tiptap/extension-text-style";
 import { Color } from "@tiptap/extension-color";
 import TaskItem from "@tiptap/extension-task-item";
 import TaskList from "@tiptap/extension-task-list";
+import { Markdown } from "tiptap-markdown";
 
 import SlashCommand from "./slash-command";
 import { InputRule } from "@tiptap/core";
@@ -114,5 +115,8 @@ export const TiptapExtensions = [
     HTMLAttributes: {
       class: "flex items-start mb-4",
     },
+  }),
+  Markdown.configure({
+    linkify: true,
   }),
 ];

@@ -285,7 +285,7 @@ const CommandList = ({
       });
       if (item) {
         if (item.title === "Continue writing") {
-          const text = editor.getText();
+          const text = editor.storage.markdown.getMarkdown();
           complete(text);
         } else {
           command(item);

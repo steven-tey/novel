@@ -48,7 +48,7 @@ export default function Editor() {
           from: selection.from - 2,
           to: selection.from,
         });
-        complete(e.editor.getText());
+        complete(e.editor.storage.markdown.getMarkdown());
         va.track("Autocomplete Shortcut Used");
       } else {
         debouncedUpdates(e);
@@ -84,11 +84,7 @@ export default function Editor() {
   useEffect(() => {
     const diff = completion.slice(prev.current.length);
     prev.current = completion;
-    editor?.commands.insertContent(diff, {
-      parseOptions: {
-        preserveWhitespace: "full",
-      },
-    });
+    editor?.commands.insertContent(diff);
   }, [isLoading, editor, completion]);
 
   useEffect(() => {
