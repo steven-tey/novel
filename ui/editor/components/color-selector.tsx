@@ -1,11 +1,10 @@
 import { Editor } from "@tiptap/core";
-import cx from "classnames";
 import { Check, ChevronDown } from "lucide-react";
 import { Dispatch, FC, SetStateAction } from "react";
 
 export interface BubbleColorMenuItem {
   name: string;
-  color: string;
+  color: string | null;
 }
 
 interface ColorSelectorProps {
@@ -26,6 +25,10 @@ const TEXT_COLORS: BubbleColorMenuItem[] = [
   {
     name: "Red",
     color: "#E00000",
+  },
+  {
+    name: "Yellow",
+    color: "#EAB308",
   },
   {
     name: "Blue",
@@ -61,6 +64,10 @@ const HIGHLIGHT_COLORS: BubbleColorMenuItem[] = [
   {
     name: "Red",
     color: "#FDEBEB",
+  },
+  {
+    name: "Yellow",
+    color: "#FEF9C3",
   },
   {
     name: "Blue",
@@ -103,40 +110,32 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
         className="flex h-full items-center gap-1 p-2 text-sm font-medium text-stone-600 hover:bg-stone-100 active:bg-stone-200"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <div
+        <span
           className="rounded-sm px-1"
-          style={{ backgroundColor: activeHighlightItem?.color || "#ffffff" }}
+          style={{
+            color: activeColorItem?.color,
+            backgroundColor: activeHighlightItem?.color,
+          }}
         >
-          <span
-            style={{
-              color: activeColorItem?.color || "#000000",
-            }}
-          >
-            A
-          </span>
-        </div>
+          A
+        </span>
 
         <ChevronDown className="h-4 w-4 " />
       </button>
 
       {isOpen && (
         <section className="fixed top-full z-[99999] mt-1 flex w-48 flex-col overflow-hidden rounded border border-stone-200 bg-white p-1 shadow-xl animate-in fade-in slide-in-from-top-1">
-          <div className="my-1 px-2 text-sm text-stone-500">
-            Color
-          </div>
+          <div className="my-1 px-2 text-sm text-stone-500">Color</div>
           {TEXT_COLORS.map(({ name, color }, index) => (
             <button
               key={index}
               onClick={() => {
-                editor.chain().focus().setColor(color).run();
+                editor.commands.unsetColor();
+                name !== "Default" &&
+                  editor.chain().focus().setColor(color).run();
                 setIsOpen(false);
               }}
-              className={cx(
-                "flex items-center justify-between rounded-sm px-2 py-1 text-sm text-stone-600 hover:bg-stone-100",
-                {
-                  "text-blue-600": editor.isActive("textStyle", { color }),
-                },
-              )}
+              className="flex items-center justify-between rounded-sm px-2 py-1 text-sm text-stone-600 hover:bg-stone-100"
             >
               <div className="flex items-center space-x-2">
                 <div
@@ -162,12 +161,10 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
               key={index}
               onClick={() => {
                 editor.commands.unsetHighlight();
-                editor.commands.setHighlight({ color });
+                name !== "Default" && editor.commands.setHighlight({ color });
                 setIsOpen(false);
               }}
-              className={cx(
-                "flex items-center justify-between rounded-sm px-2 py-1 text-sm text-stone-600 hover:bg-stone-100",
-              )}
+              className="flex items-center justify-between rounded-sm px-2 py-1 text-sm text-stone-600 hover:bg-stone-100"
             >
               <div className="flex items-center space-x-2">
                 <div
