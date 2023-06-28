@@ -7,6 +7,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { Metadata } from "next";
 import Toaster from "./toaster";
 import { ReactNode } from "react";
+import { cookies } from "next/dist/client/components/headers";
 
 const title =
   "Novel – Notion-style WYSIWYG editor with AI-powered autocompletions";
@@ -31,8 +32,9 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
+  const theme = cookies().get("theme")
   return (
-    <html lang="en">
+    <html lang="en" className={theme?.value}>
       <Toaster />
       <body className={cx(cal.variable, inter.variable)}>{children}</body>
       <Analytics />

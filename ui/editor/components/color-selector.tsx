@@ -61,16 +61,16 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
   return (
     <div className="relative h-full">
       <button
-        className="flex h-full items-center gap-1 p-2 text-sm font-medium text-stone-600 hover:bg-stone-100 active:bg-stone-200"
+        className="flex h-full items-center gap-1 p-2 text-sm font-medium text-stone-600 hover:bg-stone-100 active:bg-stone-200 dark:text-slate-200 dark:hover:bg-slate-800 dark:active:bg-slate-900"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <span style={{ color: activeItem?.color || "#000000" }}>A</span>
+        <span className="dark:text-slate-300" style={{ color: activeItem?.color}}>A</span>
 
         <ChevronDown className="h-4 w-4 " />
       </button>
 
       {isOpen && (
-        <section className="fixed top-full z-[99999] mt-1 flex w-48 flex-col overflow-hidden rounded border border-stone-200 bg-white p-1 shadow-xl animate-in fade-in slide-in-from-top-1">
+        <section className="fixed top-full z-[99999] mt-1 flex w-48 flex-col overflow-hidden rounded border border-stone-200 bg-white dark:border-stone-600 dark:bg-black p-1 shadow-xl animate-in fade-in slide-in-from-top-1">
           {items.map(({ name, color }, index) => (
             <button
               key={index}
@@ -79,7 +79,7 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
                 setIsOpen(false);
               }}
               className={cx(
-                "flex items-center justify-between rounded-sm px-2 py-1 text-sm text-stone-600 hover:bg-stone-100",
+                "flex items-center justify-between rounded-sm px-2 py-1 text-sm text-stone-600 hover:bg-stone-100 dark:text-slate-200 dark:hover:bg-slate-800",
                 {
                   "text-blue-600": editor.isActive("textStyle", { color }),
                 },
