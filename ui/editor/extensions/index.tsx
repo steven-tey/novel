@@ -109,9 +109,6 @@ export const TiptapExtensions = [
   Color,
   Highlight.configure({
     multicolor: true,
-    HTMLAttributes: {
-      class: "rounded-sm",
-    },
   }),
   TaskList.configure({
     HTMLAttributes: {
