@@ -16,6 +16,7 @@ export const LinkSelector: FC<LinkSelectorProps> = ({
 
   const inputRef = useRef<HTMLInputElement>(null)
 
+  // Continous input focus because input is loosing it focus due to editor props (my guess). This can be improve.
   useEffect(() => {
     inputRef.current && inputRef.current?.focus()
   })
