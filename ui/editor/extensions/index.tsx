@@ -118,5 +118,6 @@ export const TiptapExtensions = [
   }),
   Markdown.configure({
     linkify: true,
+    transformCopiedText: true,
   }),
 ];
