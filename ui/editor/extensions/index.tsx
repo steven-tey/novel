@@ -113,8 +113,9 @@ export const TiptapExtensions = [
   }),
   TaskItem.configure({
     HTMLAttributes: {
-      class: "flex items-start mb-4",
+      class: "flex items-start my-4",
     },
+    nested: true,
   }),
   Markdown.configure({
     linkify: true,
