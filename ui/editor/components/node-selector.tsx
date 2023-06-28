@@ -1,5 +1,4 @@
 import { Editor } from "@tiptap/core";
-import cx from "classnames";
 import {
   Check,
   ChevronDown,
