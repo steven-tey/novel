@@ -70,6 +70,21 @@ export default function Editor() {
       }
     },
     onFinish: (_prompt, completion) => {
+      if (!editor) return;
+      const from = editor.state.selection.from - completion.length;
+      const to = editor.state.selection.from;
+      const text = editor.state.doc.textBetween(from, to);
+      // Split the text into paragraphs
+      const paragraphs = text
+        .split("\n\n")
+        .filter((paragraph) => paragraph.length > 0);
+
+      // Map each paragraph to an object representing a paragraph node
+      const content = paragraphs.map((paragraph) => ({
+        type: "paragraph",
+        content: [{ type: "text", text: paragraph }],
+      }));
+      editor?.chain().deleteRange({ from, to }).insertContent(content).run();
       editor?.commands.setTextSelection({
         from: editor.state.selection.from - completion.length,
         to: editor.state.selection.from,
