@@ -79,6 +79,20 @@ ul[data-type="taskList"] li > label input[type="checkbox"] {
   &:checked::before {
     transform: scale(1);
   }
+
+  .dark:root & {
+    background-color: var(--stone-700);
+    border: 2px solid;
+    border-color: var(--dark-text);
+
+    &:hover {
+      background-color: var(--stone-700);
+    }
+
+    &:active {
+      background-color: var(--dark-secondary);
+    }
+  }
 }
 
 ul[data-type="taskList"] li[data-checked="true"] > div > p {
