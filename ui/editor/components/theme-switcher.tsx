@@ -28,7 +28,7 @@ export const ThemeSwitcher: FC<Props> = ({ theme }) => {
     }
 
     return (
-        <button className="text-black dark:text-white" onClick={toogleTheme}>
+        <button className="text-black dark:text-dark-text" onClick={toogleTheme}>
             {
                 _theme == 'dark' ?
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"

@@ -7,7 +7,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { Metadata } from "next";
 import Toaster from "./toaster";
 import { ReactNode } from "react";
-import { cookies } from "next/dist/client/components/headers";
+import { cookies } from "next/headers";
 
 const title =
   "Novel – Notion-style WYSIWYG editor with AI-powered autocompletions";

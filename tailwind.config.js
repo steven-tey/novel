@@ -1,3 +1,5 @@
+const colors = require('tailwindcss/colors')
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: "class",
@@ -12,6 +14,13 @@ module.exports = {
         display: ["var(--font-cal)", "system-ui", "sans-serif"],
         default: ["var(--font-inter)", "system-ui", "sans-serif"],
       },
+      colors: {
+        dark : {
+          primary: colors.stone['800'],
+          secondary: colors.stone['600'],
+          text: colors.stone['200'],
+        }
+      }
     },
   },
   plugins: [

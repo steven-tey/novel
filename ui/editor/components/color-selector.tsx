@@ -61,10 +61,10 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
   return (
     <div className="relative h-full">
       <button
-        className="flex h-full items-center gap-1 p-2 text-sm font-medium text-stone-600 hover:bg-stone-100 active:bg-stone-200 dark:text-slate-200 dark:hover:bg-slate-800 dark:active:bg-slate-900"
+        className="flex h-full items-center gap-1 p-2 text-sm font-medium text-stone-600 hover:bg-stone-100 active:bg-stone-200 dark:text-dark-text dark:hover:bg-dark-primary dark:active:bg-stone-900"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <span className="dark:text-slate-300" style={{ color: activeItem?.color}}>A</span>
+        <span className="dark:text-dark-text" style={{ color: activeItem?.color}}>A</span>
 
         <ChevronDown className="h-4 w-4 " />
       </button>
@@ -79,7 +79,7 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
                 setIsOpen(false);
               }}
               className={cx(
-                "flex items-center justify-between rounded-sm px-2 py-1 text-sm text-stone-600 hover:bg-stone-100 dark:text-slate-200 dark:hover:bg-slate-800",
+                "flex items-center justify-between rounded-sm px-2 py-1 text-sm text-stone-600 hover:bg-stone-100 dark:text-dark-text dark:hover:bg-dark-primary",
                 {
                   "text-blue-600": editor.isActive("textStyle", { color }),
                 },

@@ -340,18 +340,18 @@ const CommandList = ({
     <div
       id="slash-command"
       ref={commandListContainer}
-      className="z-50 h-auto max-h-[330px] w-72 overflow-y-auto scroll-smooth rounded-md border dark:border-stone-600 border-stone-200 dark:bg-black bg-white px-1 py-2 shadow-md transition-all"
+      className="z-50 h-auto max-h-[330px] w-72 overflow-y-auto scroll-smooth rounded-md border dark:border-dark-secondary border-stone-200 dark:bg-black bg-white px-1 py-2 shadow-md transition-all"
     >
       {items.map((item: CommandItemProps, index: number) => {
         return (
           <button
-            className={`flex w-full items-center space-x-2 rounded-md px-2 py-1 text-left text-sm dark:text-slate-200 text-stone-900 hover:bg-stone-100 dark:hover:bg-stone-800 ${
-              index === selectedIndex ? "bg-stone-100 text-stone-900 dark:bg-slate-600 dark:text-slate-300" : ""
+            className={`flex w-full items-center space-x-2 rounded-md px-2 py-1 text-left text-sm dark:text-dark-text text-stone-900 hover:bg-stone-100 dark:hover:bg-dark-primary ${
+              index === selectedIndex ? "bg-stone-100 text-stone-900 dark:bg-stone-900 dark:text-dark-text" : ""
             }`}
             key={index}
             onClick={() => selectItem(index)}
           >
-            <div className="flex h-10 w-10 items-center justify-center rounded-md border border-stone-200 bg-white dark:border-stone-600 dark:bg-black">
+            <div className="flex h-10 w-10 items-center justify-center rounded-md border border-stone-200 bg-white dark:border-dark-secondary dark:bg-black">
               {item.title === "Continue writing" && isLoading ? (
                 <LoadingCircle />
               ) : (
