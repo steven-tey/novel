@@ -77,7 +77,7 @@ const getSuggestionItems = ({ query }: { query: string }) => {
       title: "Continue writing",
       description: "Use AI to expand your thoughts.",
       searchTerms: ["gpt"],
-      icon: <Magic className="w-7 text-black" />,
+      icon: <Magic className="w-7" />,
     },
     {
       title: "Send Feedback",
@@ -351,7 +351,7 @@ const CommandList = ({
             key={index}
             onClick={() => selectItem(index)}
           >
-            <div className="flex h-10 w-10 items-center justify-center rounded-md border border-stone-200 bg-white dark:border-dark-secondary dark:bg-black">
+            <div className="flex h-10 w-10 items-center justify-center rounded-md border border-stone-200 bg-white dark:border-dark-secondary dark:bg-stone-900">
               {item.title === "Continue writing" && isLoading ? (
                 <LoadingCircle />
               ) : (
