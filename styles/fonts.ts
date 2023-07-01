@@ -3,7 +3,7 @@ import { Crimson_Text, Inter } from "next/font/google";
 
 export const cal = localFont({
   src: "./CalSans-SemiBold.otf",
-  variable: "--font-cal",
+  variable: "--font-display",
 });
 
 export const inter = Inter({

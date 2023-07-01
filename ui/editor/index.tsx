@@ -33,12 +33,7 @@ export default function Editor() {
 
   const editor = useEditor({
     extensions: TiptapExtensions,
-    editorProps: {
-      ...TiptapEditorProps,
-      attributes: {
-        class: `prose-lg font-default focus:outline-none max-w-full`,
-      },
-    },
+    editorProps: TiptapEditorProps,
     onUpdate: (e) => {
       setSaveStatus("Unsaved");
       const selection = e.editor.state.selection;
