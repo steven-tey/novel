@@ -28,7 +28,7 @@ import LoadingCircle from "@/ui/shared/loading-circle";
 import { toast } from "sonner";
 import va from "@vercel/analytics";
 import Magic from "@/ui/shared/magic";
-import { handleImageUpload } from "@/lib/utils/editor";
+import { handleImageUpload } from "@/lib/editor";
 
 interface CommandItemProps {
   title: string;
@@ -285,8 +285,9 @@ const CommandList = ({
       });
       if (item) {
         if (item.title === "Continue writing") {
-          const text = editor.getText();
-          complete(text);
+          // we're using this for now until we can figure out a way to stream markdown text with proper formatting: https://github.com/steven-tey/novel/discussions/7
+          complete(editor.getText());
+          // complete(editor.storage.markdown.getMarkdown());
         } else {
           command(item);
         }

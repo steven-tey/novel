@@ -1,5 +1,4 @@
 import { BubbleMenu, BubbleMenuProps } from "@tiptap/react";
-import cx from "classnames";
 import { FC, useState } from "react";
 import {
   BoldIcon,
@@ -9,8 +8,9 @@ import {
   CodeIcon,
 } from "lucide-react";
 
-import { NodeSelector } from "./NodeSelector";
-import { ColorSelector } from "./ColorSelector";
+import { NodeSelector } from "./node-selector";
+import { ColorSelector } from "./color-selector";
+import clsx from "clsx";
 
 export interface BubbleMenuItem {
   name: string;
@@ -97,7 +97,7 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
           className="p-2 text-stone-600 hover:bg-stone-100 active:bg-stone-200"
         >
           <item.icon
-            className={cx("h-4 w-4", {
+            className={clsx("h-4 w-4", {
               "text-blue-500": item.isActive(),
             })}
           />

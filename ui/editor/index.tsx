@@ -48,7 +48,9 @@ export default function Editor() {
           from: selection.from - 2,
           to: selection.from,
         });
+        // we're using this for now until we can figure out a way to stream markdown text with proper formatting: https://github.com/steven-tey/novel/discussions/7
         complete(e.editor.getText());
+        // complete(e.editor.storage.markdown.getMarkdown());
         va.track("Autocomplete Shortcut Used");
       } else {
         debouncedUpdates(e);
@@ -84,11 +86,7 @@ export default function Editor() {
   useEffect(() => {
     const diff = completion.slice(prev.current.length);
     prev.current = completion;
-    editor?.commands.insertContent(diff, {
-      parseOptions: {
-        preserveWhitespace: "full",
-      },
-    });
+    editor?.commands.insertContent(diff);
   }, [isLoading, editor, completion]);
 
   useEffect(() => {
@@ -145,15 +143,8 @@ export default function Editor() {
       <div className="absolute right-5 top-5 mb-5 rounded-lg bg-stone-100 px-2 py-1 text-sm text-stone-400">
         {saveStatus}
       </div>
-
-      {editor ? (
-        <>
-          <EditorContent editor={editor} />
-          <EditorBubbleMenu editor={editor} />
-        </>
-      ) : (
-        <></>
-      )}
+      {editor && <EditorBubbleMenu editor={editor} />}
+      <EditorContent editor={editor} />
     </div>
   );
 }

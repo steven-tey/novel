@@ -1,9 +1,9 @@
-import { handleImageUpload } from "@/lib/utils/editor";
+import { handleImageUpload } from "@/lib/editor";
 import { EditorProps } from "@tiptap/pm/view";
 
 export const TiptapEditorProps: EditorProps = {
   attributes: {
-    class: "prose-lg prose-headings:font-display focus:outline-none",
+    class: "prose-lg prose-headings:font-display focus:outline-none max-w-full",
   },
   handleDOMEvents: {
     keydown: (_view, event) => {
