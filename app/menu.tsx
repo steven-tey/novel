@@ -18,8 +18,8 @@ export default function Menu() {
         <MenuIcon className="text-stone-600" width={16} />
       </PopoverTrigger>
       <PopoverContent className="w-52" align="end">
-        <div className="grid gap-2 p-2">
-          <div className="p-2 pb-1">
+        <div className="grid p-2">
+          <div className="p-2">
             <p className="text-sm font-medium text-stone-500">Font Style</p>
           </div>
           {["Sans Serif", "Serif"].map((font) => (
