@@ -1,5 +1,5 @@
 import localFont from "next/font/local";
-import { Inter } from "next/font/google";
+import { Crimson_Text, Inter } from "next/font/google";
 
 export const cal = localFont({
   src: "./CalSans-SemiBold.otf",
@@ -7,6 +7,17 @@ export const cal = localFont({
 });
 
 export const inter = Inter({
-  variable: "--font-inter",
+  variable: "--font-default",
   subsets: ["latin"],
 });
+
+export const crimson = Crimson_Text({
+  weight: "400",
+  variable: "--font-default",
+  subsets: ["latin"],
+});
+
+export const fontMapper = {
+  "Sans Serif": inter.variable,
+  Serif: crimson.variable,
+};

@@ -24,10 +24,10 @@ import {
   Code,
   CheckSquare,
 } from "lucide-react";
-import LoadingCircle from "@/ui/shared/loading-circle";
+import LoadingCircle from "@/ui/icons/loading-circle";
 import { toast } from "sonner";
 import va from "@vercel/analytics";
-import Magic from "@/ui/shared/magic";
+import Magic from "@/ui/icons/magic";
 import { handleImageUpload } from "@/lib/editor";
 
 interface CommandItemProps {

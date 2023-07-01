@@ -10,7 +10,6 @@ import { useCompletion } from "ai/react";
 import { toast } from "sonner";
 import va from "@vercel/analytics";
 import DEFAULT_EDITOR_CONTENT from "./default-content";
-
 import { EditorBubbleMenu } from "./components";
 
 export default function Editor() {
@@ -34,7 +33,12 @@ export default function Editor() {
 
   const editor = useEditor({
     extensions: TiptapExtensions,
-    editorProps: TiptapEditorProps,
+    editorProps: {
+      ...TiptapEditorProps,
+      attributes: {
+        class: `prose-lg font-default focus:outline-none max-w-full`,
+      },
+    },
     onUpdate: (e) => {
       setSaveStatus("Unsaved");
       const selection = e.editor.state.selection;
