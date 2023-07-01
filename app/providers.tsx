@@ -4,7 +4,7 @@ import { Dispatch, ReactNode, SetStateAction, createContext } from "react";
 import { Toaster } from "sonner";
 import { Analytics } from "@vercel/analytics/react";
 import clsx from "clsx";
-import { cal, fontMapper } from "@/styles/fonts";
+import { displayFontMapper, defaultFontMapper } from "@/styles/fonts";
 import useLocalStorage from "@/lib/hooks/use-local-storage";
 
 export const AppContext = createContext<{
@@ -26,7 +26,9 @@ export default function Providers({ children }: { children: ReactNode }) {
       }}
     >
       <Toaster />
-      <body className={clsx(cal.variable, fontMapper[font])}>{children}</body>
+      <body className={clsx(displayFontMapper[font], defaultFontMapper[font])}>
+        {children}
+      </body>
       <Analytics />
     </AppContext.Provider>
   );

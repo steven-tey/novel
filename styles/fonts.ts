@@ -6,6 +6,12 @@ export const cal = localFont({
   variable: "--font-display",
 });
 
+export const crimsonBold = Crimson_Text({
+  weight: "700",
+  variable: "--font-display",
+  subsets: ["latin"],
+});
+
 export const inter = Inter({
   variable: "--font-default",
   subsets: ["latin"],
@@ -17,7 +23,12 @@ export const crimson = Crimson_Text({
   subsets: ["latin"],
 });
 
-export const fontMapper = {
+export const displayFontMapper = {
+  "Sans Serif": cal.variable,
+  Serif: crimsonBold.variable,
+};
+
+export const defaultFontMapper = {
   "Sans Serif": inter.variable,
   Serif: crimson.variable,
 };
