@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../../../../src/server/future/route-modules/app-route/helpers/clean-url.ts"],"names":["cleanURL","urlString","url","URL","host","search","protocol","toString"],"mappings":"AAAA;;;;;CAKC,GACD,OAAO,SAASA,SAASC,SAAiB,EAAU;IAClD,MAAMC,MAAM,IAAIC,IAAIF;IACpBC,IAAIE,IAAI,GAAG;IACXF,IAAIG,MAAM,GAAG;IACbH,IAAII,QAAQ,GAAG;IACf,OAAOJ,IAAIK,QAAQ;AACrB,CAAC"}

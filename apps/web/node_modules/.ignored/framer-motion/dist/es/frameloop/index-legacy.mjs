@@ -1,0 +1,19 @@
+import { frame, stepsOrder, cancelFrame } from './index.mjs';
+
+/**
+ * @deprecated
+ *
+ * Import as `frame` instead.
+ */
+const sync = frame;
+/**
+ * @deprecated
+ *
+ * Use cancelFrame(callback) instead.
+ */
+const cancelSync = stepsOrder.reduce((acc, key) => {
+    acc[key] = (process) => cancelFrame(process);
+    return acc;
+}, {});
+
+export { cancelSync, sync };

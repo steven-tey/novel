@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../../../../src/server/future/normalizers/built/pages/pages-page-normalizer.ts"],"names":["DevPagesPageNormalizer","AbsoluteFilenameNormalizer","constructor","pagesDir","extensions"],"mappings":";;;;+BAEaA;;;eAAAA;;;4CAF8B;AAEpC,MAAMA,+BAA+BC,sDAA0B;IACpEC,YAAYC,QAAgB,EAAEC,UAAiC,CAAE;QAC/D,KAAK,CAACD,UAAUC,YAAY;IAC9B;AACF"}

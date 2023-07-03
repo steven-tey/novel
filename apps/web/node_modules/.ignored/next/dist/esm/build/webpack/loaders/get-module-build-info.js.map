@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../../src/build/webpack/loaders/get-module-build-info.ts"],"names":["getModuleBuildInfo","webpackModule","buildInfo"],"mappings":"AAOA;;;CAGC,GACD,OAAO,SAASA,mBAAmBC,aAA6B,EAAE;IAChE,OAAOA,cAAcC,SAAS;AAYhC,CAAC"}

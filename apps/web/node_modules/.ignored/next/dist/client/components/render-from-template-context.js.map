@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../src/client/components/render-from-template-context.tsx"],"names":["RenderFromTemplateContext","children","useContext","TemplateContext"],"mappings":";;;;+BAKA;;;eAAwBA;;;;iEAHU;kCACF;AAHhC;AAKe,SAASA,4BAAyC;IAC/D,MAAMC,WAAWC,IAAAA,iBAAU,EAACC,iCAAe;IAC3C,qBAAO,4DAAGF;AACZ"}

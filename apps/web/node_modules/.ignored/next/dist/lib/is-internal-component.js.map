@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../src/lib/is-internal-component.ts"],"names":["isInternalComponent","pathname"],"mappings":";;;;+BAAgBA;;;eAAAA;;;AAAT,SAASA,oBAAoBC,QAAgB,EAAW;IAC7D,OAAQA;QACN,KAAK;QACL,KAAK;YACH,OAAO,IAAI;QACb;YACE,OAAO,KAAK;IAChB;AACF"}

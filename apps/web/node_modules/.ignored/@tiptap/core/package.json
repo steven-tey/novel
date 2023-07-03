@@ -1,0 +1,50 @@
+{
+  "name": "@tiptap/core",
+  "description": "headless rich text editor",
+  "version": "2.0.3",
+  "homepage": "https://tiptap.dev",
+  "keywords": [
+    "tiptap",
+    "headless",
+    "wysiwyg",
+    "text editor",
+    "prosemirror"
+  ],
+  "license": "MIT",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/ueberdosis"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/packages/core/src/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "umd": "dist/index.umd.js",
+  "types": "dist/packages/core/src/index.d.ts",
+  "files": [
+    "src",
+    "dist"
+  ],
+  "devDependencies": {
+    "@tiptap/pm": "^2.0.3"
+  },
+  "peerDependencies": {
+    "@tiptap/pm": "^2.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ueberdosis/tiptap",
+    "directory": "packages/core"
+  },
+  "sideEffects": false,
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "npm run clean && rollup -c"
+  }
+}

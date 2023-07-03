@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../../src/client/components/router-reducer/read-record-value.ts"],"names":["readRecordValue","thenable","status","value"],"mappings":"AAAA;;CAEC;;;;+BACeA;;;eAAAA;;;AAAT,SAASA,gBAAmBC,QAAoB,EAAK;IAC1D,kCAAkC;IAClC,IAAIA,SAASC,MAAM,KAAK,aAAa;QACnC,kCAAkC;QAClC,OAAOD,SAASE,KAAK;IACvB,OAAO;QACL,MAAMF,SAAQ;IAChB,CAAC;AACH"}

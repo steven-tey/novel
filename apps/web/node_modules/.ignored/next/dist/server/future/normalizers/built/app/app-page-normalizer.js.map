@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../../../../src/server/future/normalizers/built/app/app-page-normalizer.ts"],"names":["DevAppPageNormalizer","AbsoluteFilenameNormalizer","constructor","appDir","extensions"],"mappings":";;;;+BAMaA;;;eAAAA;;;4CAN8B;AAMpC,MAAMA,6BAA6BC,sDAA0B;IAClEC,YAAYC,MAAc,EAAEC,UAAiC,CAAE;QAC7D,KAAK,CAACD,QAAQC,YAAY;IAC5B;AACF"}

@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../src/build/polyfills/process.ts"],"names":["global","module","exports","process","env","require"],"mappings":"IACEA,iBAA8BA;AADhCC,OAAOC,OAAO,GACZF,CAAAA,CAAAA,kBAAAA,OAAOG,OAAO,YAAdH,KAAAA,IAAAA,gBAAgBI,GAAG,AAAD,KAAK,OAAOJ,CAAAA,CAAAA,mBAAAA,OAAOG,OAAO,YAAdH,KAAAA,IAAAA,iBAAgBI,GAAG,AAAD,MAAM,WAClDJ,OAAOG,OAAO,GACdE,QAAQ,yBAAyB"}

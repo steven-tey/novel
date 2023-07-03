@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../../../../src/build/webpack/config/blocks/images/messages.ts"],"names":["chalk","getCustomDocumentImageError","bold","cyan"],"mappings":"AAAA,OAAOA,WAAW,2BAA0B;AAE5C,OAAO,SAASC,8BAA8B;IAC5C,OAAO,CAAC,OAAO,EAAED,MAAME,IAAI,CAAC,UAAU,oBAAoB,EAAEF,MAAMG,IAAI,CACpE,sBACA,yEAAyE,EAAEH,MAAMG,IAAI,CACrF,iBACA,2EAA2E,CAAC;AAChF,CAAC"}

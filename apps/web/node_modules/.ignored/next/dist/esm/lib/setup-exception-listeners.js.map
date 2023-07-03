@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../src/lib/setup-exception-listeners.ts"],"names":["process","on","err","console","error","exit"],"mappings":"AAAAA,QAAQC,EAAE,CAAC,qBAAqB,CAACC,MAAQ;IACvCC,QAAQC,KAAK,CAAC,qBAAqBF;IACnCF,QAAQK,IAAI,CAAC;AACf;AAEAL,QAAQC,EAAE,CAAC,sBAAsB,CAACC,MAAQ;IACxCC,QAAQC,KAAK,CAAC,sBAAsBF;IACpCF,QAAQK,IAAI,CAAC;AACf"}

@@ -1,0 +1,136 @@
+{
+  "name": "prettier-plugin-tailwindcss",
+  "version": "0.3.0",
+  "description": "A Prettier plugin for sorting Tailwind CSS classes.",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tailwindlabs/prettier-plugin-tailwindcss"
+  },
+  "bugs": {
+    "url": "https://github.com/tailwindlabs/prettier-plugin-tailwindcss/issues"
+  },
+  "scripts": {
+    "_pre": "rimraf dist && cpy node_modules/tailwindcss/lib/css dist/css",
+    "_esbuild": "node build.js",
+    "prebuild": "npm run _pre",
+    "build": "npm run _esbuild -- --minify",
+    "predev": "npm run _pre",
+    "dev": "npm run _esbuild -- --watch",
+    "pretest": "node scripts/install-fixture-deps.js",
+    "test": "jest",
+    "prepublishOnly": "npm run build && npm test && node scripts/copy-licenses.js",
+    "format": "prettier \"src/**/*.js\" \"scripts/**/*.js\" \"tests/test.js\" --write --print-width 100 --single-quote --no-semi --plugin-search-dir ./tests"
+  },
+  "devDependencies": {
+    "@ianvs/prettier-plugin-sort-imports": "^3.7.0",
+    "@marko/translator-default": "^5.25.7",
+    "@prettier/plugin-pug": "^2.3.0",
+    "@shopify/prettier-plugin-liquid": "^1.0.3",
+    "@shufo/prettier-plugin-blade": "^1.8.4",
+    "@trivago/prettier-plugin-sort-imports": "^3.4.0",
+    "clear-module": "^4.1.2",
+    "cpy-cli": "^3.1.1",
+    "esbuild": "^0.14.11",
+    "escalade": "^3.1.1",
+    "import-sort-style-module": "^6.0.0",
+    "jest": "^27.4.7",
+    "jsesc": "^2.5.2",
+    "license-checker": "^25.0.1",
+    "line-column": "^1.0.2",
+    "object-hash": "^2.2.0",
+    "prettier": "^2.5.1",
+    "prettier-plugin-astro": "^0.7.2",
+    "prettier-plugin-css-order": "^1.3.0",
+    "prettier-plugin-import-sort": "^0.0.7",
+    "prettier-plugin-jsdoc": "^0.4.2",
+    "prettier-plugin-marko": "^1.4.3",
+    "prettier-plugin-organize-attributes": "^0.0.5",
+    "prettier-plugin-organize-imports": "^3.2.1",
+    "prettier-plugin-style-order": "^0.2.2",
+    "prettier-plugin-svelte": "^2.9.0",
+    "prettier-plugin-twig-melody": "^0.4.6",
+    "recast": "^0.20.5",
+    "resolve-from": "^5.0.0",
+    "rimraf": "^3.0.2",
+    "svelte": "^3.55.0",
+    "tailwindcss": "^3.3.0"
+  },
+  "peerDependencies": {
+    "@ianvs/prettier-plugin-sort-imports": "*",
+    "@prettier/plugin-pug": "*",
+    "@shopify/prettier-plugin-liquid": "*",
+    "@shufo/prettier-plugin-blade": "*",
+    "@trivago/prettier-plugin-sort-imports": "*",
+    "prettier": ">=2.2.0",
+    "prettier-plugin-astro": "*",
+    "prettier-plugin-css-order": "*",
+    "prettier-plugin-import-sort": "*",
+    "prettier-plugin-jsdoc": "*",
+    "prettier-plugin-marko": "*",
+    "prettier-plugin-organize-attributes": "*",
+    "prettier-plugin-organize-imports": "*",
+    "prettier-plugin-style-order": "*",
+    "prettier-plugin-svelte": "*",
+    "prettier-plugin-twig-melody": "*"
+  },
+  "peerDependenciesMeta": {
+    "@ianvs/prettier-plugin-sort-imports": {
+      "optional": true
+    },
+    "@prettier/plugin-pug": {
+      "optional": true
+    },
+    "@shopify/prettier-plugin-liquid": {
+      "optional": true
+    },
+    "@shufo/prettier-plugin-blade": {
+      "optional": true
+    },
+    "@trivago/prettier-plugin-sort-imports": {
+      "optional": true
+    },
+    "prettier-plugin-astro": {
+      "optional": true
+    },
+    "prettier-plugin-css-order": {
+      "optional": true
+    },
+    "prettier-plugin-import-sort": {
+      "optional": true
+    },
+    "prettier-plugin-jsdoc": {
+      "optional": true
+    },
+    "prettier-plugin-marko": {
+      "optional": true
+    },
+    "prettier-plugin-organize-attributes": {
+      "optional": true
+    },
+    "prettier-plugin-organize-imports": {
+      "optional": true
+    },
+    "prettier-plugin-style-order": {
+      "optional": true
+    },
+    "prettier-plugin-svelte": {
+      "optional": true
+    },
+    "prettier-plugin-twig-melody": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": ">=12.17.0"
+  },
+  "importSort": {
+    ".js, .jsx, .ts, .tsx": {
+      "style": "module"
+    }
+  }
+}

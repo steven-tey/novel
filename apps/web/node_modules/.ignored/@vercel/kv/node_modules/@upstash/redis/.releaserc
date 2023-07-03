@@ -1,0 +1,14 @@
+{
+  "branches": [
+    {
+      "name": "release"
+    },
+    {
+      "name": "main",
+      "channel": "next",
+      "prerelease": "next"
+    }
+  ],
+  "dryRun": false,
+  "ci": true
+}

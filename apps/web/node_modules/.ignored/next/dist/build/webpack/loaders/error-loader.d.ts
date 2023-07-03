@@ -1,0 +1,3 @@
+import { webpack } from 'next/dist/compiled/webpack/webpack';
+declare const ErrorLoader: webpack.LoaderDefinitionFunction;
+export default ErrorLoader;

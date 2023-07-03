@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../src/server/app-render/get-short-dynamic-param-type.tsx"],"names":["getShortDynamicParamType","type","Error"],"mappings":";;;;+BAKgBA;;;eAAAA;;;AAAT,SAASA,yBACdC,IAAuB,EACC;IACxB,OAAQA;QACN,KAAK;YACH,OAAO;QACT,KAAK;YACH,OAAO;QACT,KAAK;YACH,OAAO;QACT;YACE,MAAM,IAAIC,MAAM,8BAA6B;IACjD;AACF"}
