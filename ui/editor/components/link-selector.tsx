@@ -1,6 +1,15 @@
+import { cn } from "@/lib/utils";
 import { Editor } from "@tiptap/core";
-import { Link, Trash } from "lucide-react";
-import { Dispatch, FC, SetStateAction, useEffect, useRef } from "react";
+import { Check, Trash } from "lucide-react";
+import {
+  ChangeEvent,
+  Dispatch,
+  FC,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 interface LinkSelectorProps {
   editor: Editor;
@@ -13,51 +22,63 @@ export const LinkSelector: FC<LinkSelectorProps> = ({
   isOpen,
   setIsOpen,
 }) => {
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const inputRef = useRef<HTMLInputElement>(null)
-
-  // Continous input focus because input is loosing it focus due to editor props (my guess). This can be improve.
+  // Autofocus on input by default
   useEffect(() => {
-    inputRef.current && inputRef.current?.focus()
-  })
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length > 0) {
-      editor.chain().focus().setLink({ href: e.target.value }).run()
-    } else {
-      editor.chain().focus().unsetLink().run()
-    }
-  }
+    inputRef.current && inputRef.current?.focus();
+  });
 
   return (
     <div className="relative">
       <button
-        className="flex h-full items-center gap-1 p-2 text-sm font-medium text-stone-600 hover:bg-stone-100 active:bg-stone-200"
+        className="flex h-full items-center space-x-2 px-3 py-1.5 text-sm font-medium text-stone-600 hover:bg-stone-100 active:bg-stone-200"
         onClick={() => {
-          setIsOpen(!isOpen)
+          setIsOpen(!isOpen);
         }}
       >
-        <Link className="h-4 w-4" />
+        <p className="text-base">↗</p>
+        <p
+          className={cn("underline decoration-stone-400 underline-offset-4", {
+            "text-blue-500": editor.isActive("link"),
+          })}
+        >
+          Link
+        </p>
       </button>
       {isOpen && (
-        <section className="fixed top-full z-[99999] mt-1 flex max-w-[12rem] overflow-hidden rounded border border-stone-200 bg-white p-2 shadow-xl animate-in fade-in slide-in-from-top-1">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            const input = e.target[0] as HTMLInputElement;
+            editor.chain().focus().setLink({ href: input.value }).run();
+            setIsOpen(false);
+          }}
+          className="fixed top-full z-[99999] mt-1 flex w-60 overflow-hidden rounded border border-stone-200 bg-white p-1 shadow-xl animate-in fade-in slide-in-from-top-1"
+        >
           <input
             ref={inputRef}
-            type="text"
-            placeholder="URL"
-            className="outline-none overflow-hidden"
-            value={editor.getAttributes("link").href || ""}
-            onChange={handleInputChange}
+            type="url"
+            placeholder="Paste a link"
+            className="flex-1 p-1 text-sm outline-none"
+            defaultValue={editor.getAttributes("link").href || ""}
           />
-          {editor.getAttributes("link").href && (
+          {editor.getAttributes("link").href ? (
             <button
-              className="flex items-center ml-2 text-red-600 transition-all hover:text-red-500"
-              onClick={() => editor.chain().focus().unsetLink().run()}
+              className="flex items-center rounded-sm p-1 text-red-600 transition-all hover:bg-red-100"
+              onClick={() => {
+                editor.chain().focus().unsetLink().run();
+                setIsOpen(false);
+              }}
             >
               <Trash className="h-4 w-4" />
             </button>
+          ) : (
+            <button className="flex items-center rounded-sm p-1 text-stone-600 transition-all hover:bg-stone-100">
+              <Check className="h-4 w-4" />
+            </button>
           )}
-        </section>
+        </form>
       )}
     </div>
   );
