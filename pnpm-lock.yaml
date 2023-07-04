@@ -113,6 +113,9 @@ dependencies:
   sonner:
     specifier: ^0.5.0
     version: 0.5.0(react-dom@18.2.0)(react@18.2.0)
+  tailwind-merge:
+    specifier: ^1.13.2
+    version: 1.13.2
   tippy.js:
     specifier: ^6.3.7
     version: 6.3.7
@@ -5230,6 +5233,10 @@ packages:
     dependencies:
       '@pkgr/utils': 2.4.1
       tslib: 2.5.3
+    dev: false
+
+  /tailwind-merge@1.13.2:
+    resolution: {integrity: sha512-R2/nULkdg1VR/EL4RXg4dEohdoxNUJGLMnWIQnPKL+O9Twu7Cn3Rxi4dlXkDzZrEGtR+G+psSXFouWlpTyLhCQ==}
     dev: false
 
   /tailwindcss-animate@1.0.6(tailwindcss@3.3.2):

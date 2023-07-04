@@ -120,7 +120,7 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
           A
         </span>
 
-        <ChevronDown className="h-4 w-4 " />
+        <ChevronDown className="h-4 w-4" />
       </button>
 
       {isOpen && (

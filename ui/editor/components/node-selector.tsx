@@ -101,7 +101,7 @@ export const NodeSelector: FC<NodeSelectorProps> = ({
   return (
     <div className="relative h-full">
       <button
-        className="flex h-full items-center gap-1 p-2 text-sm font-medium text-stone-600 hover:bg-stone-100 active:bg-stone-200"
+        className="flex h-full items-center gap-1 whitespace-nowrap p-2 text-sm font-medium text-stone-600 hover:bg-stone-100 active:bg-stone-200"
         onClick={() => setIsOpen(!isOpen)}
       >
         <span>{activeItem?.name}</span>
