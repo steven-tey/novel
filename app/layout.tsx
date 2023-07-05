@@ -1,4 +1,4 @@
-import "@/styles/tailwind.css";
+import "@/styles/globals.css";
 import "@/styles/prosemirror.css";
 
 import { Metadata } from "next";

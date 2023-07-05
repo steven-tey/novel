@@ -20,7 +20,13 @@ export default function Providers({ children }: { children: ReactNode }) {
   const [font, setFont] = useLocalStorage<string>("novel__font", "Sans Serif");
 
   return (
-    <ThemeProvider>
+    <ThemeProvider
+      attribute="class"
+      value={{
+        light: "light-theme",
+        dark: "dark-theme",
+      }}
+    >
       <AppContext.Provider
         value={{
           font,

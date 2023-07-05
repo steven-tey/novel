@@ -107,11 +107,11 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
   return (
     <div className="relative h-full">
       <button
-        className="flex h-full items-center gap-1 p-2 text-sm font-medium text-stone-600 hover:bg-stone-100 active:bg-stone-200 dark:text-dark-text dark:hover:bg-dark-primary dark:active:bg-stone-900"
+        className="flex h-full items-center gap-1 p-2 text-sm font-medium text-stone-600 hover:bg-stone-100 active:bg-stone-200"
         onClick={() => setIsOpen(!isOpen)}
       >
         <span
-          className="rounded-sm px-1 dark:text-dark-text"
+          className="rounded-sm px-1"
           style={{
             color: activeColorItem?.color,
             backgroundColor: activeHighlightItem?.color,
@@ -124,7 +124,7 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
       </button>
 
       {isOpen && (
-        <section className="fixed top-full z-[99999] mt-1 flex w-48 flex-col overflow-hidden rounded border border-stone-200 bg-white p-1 shadow-xl animate-in fade-in slide-in-from-top-1 dark:border-stone-600 dark:bg-stone-900">
+        <section className="fixed top-full z-[99999] mt-1 flex w-48 flex-col overflow-hidden rounded border border-stone-200 bg-white p-1 shadow-xl animate-in fade-in slide-in-from-top-1">
           <div className="my-1 px-2 text-sm text-stone-500">Color</div>
           {TEXT_COLORS.map(({ name, color }, index) => (
             <button
@@ -135,7 +135,7 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
                   editor.chain().focus().setColor(color).run();
                 setIsOpen(false);
               }}
-              className="flex items-center justify-between rounded-sm px-2 py-1 text-sm text-stone-600 hover:bg-stone-100 dark:text-dark-text dark:hover:bg-dark-primary"
+              className="flex items-center justify-between rounded-sm px-2 py-1 text-sm text-stone-600 hover:bg-stone-100"
             >
               <div className="flex items-center space-x-2">
                 <div
