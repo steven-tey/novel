@@ -29,9 +29,9 @@ export default function Providers({ children }: { children: ReactNode }) {
       >
         <Toaster className="dark:hidden" />
         <Toaster theme="dark" className="hidden dark:block" />
-        <body className={cn(displayFontMapper[font], defaultFontMapper[font])}>
+        <div className={cn(displayFontMapper[font], defaultFontMapper[font])}>
           {children}
-        </body>
+        </div>
         <Analytics />
       </AppContext.Provider>
     </ThemeProvider>

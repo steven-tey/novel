@@ -8,7 +8,7 @@ export default function Page() {
       <a
         href="/github"
         target="_blank"
-        className="absolute bottom-5 left-5 z-10 max-h-fit rounded-lg p-2 transition-colors duration-200 hover:bg-stone-100 sm:bottom-auto sm:top-5"
+        className="absolute bottom-5 left-5 z-10 max-h-fit rounded-lg p-2 transition-colors duration-200 hover:bg-stone-100 dark:hover:bg-stone-800 sm:bottom-auto sm:top-5"
       >
         <Github className="dark:text-white" />
       </a>
