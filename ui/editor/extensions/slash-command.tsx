@@ -28,7 +28,7 @@ import LoadingCircle from "@/ui/icons/loading-circle";
 import { toast } from "sonner";
 import va from "@vercel/analytics";
 import Magic from "@/ui/icons/magic";
-import { handleImageUpload } from "@/lib/editor";
+import { startImageUpload } from "@/ui/editor/plugins/upload-images";
 
 interface CommandItemProps {
   title: string;
@@ -204,10 +204,10 @@ const getSuggestionItems = ({ query }: { query: string }) => {
         const input = document.createElement("input");
         input.type = "file";
         input.accept = "image/*";
-        input.onchange = async (event) => {
+        input.onchange = async () => {
           if (input.files?.length) {
             const file = input.files[0];
-            return handleImageUpload(file, editor.view, event);
+            startImageUpload(file, editor.view);
           }
         };
         input.click();

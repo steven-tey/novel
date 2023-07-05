@@ -1,5 +1,5 @@
-import { handleImageUpload } from "@/lib/editor";
 import { EditorProps } from "@tiptap/pm/view";
+import { startImageUpload } from "@/ui/editor/plugins/upload-images";
 
 export const TiptapEditorProps: EditorProps = {
   attributes: {
@@ -24,7 +24,9 @@ export const TiptapEditorProps: EditorProps = {
     ) {
       event.preventDefault();
       const file = event.clipboardData.files[0];
-      return handleImageUpload(file, view, event);
+
+      startImageUpload(file, view);
+      return true;
     }
     return false;
   },
@@ -37,7 +39,8 @@ export const TiptapEditorProps: EditorProps = {
     ) {
       event.preventDefault();
       const file = event.dataTransfer.files[0];
-      return handleImageUpload(file, view, event);
+      startImageUpload(file, view);
+      return true;
     }
     return false;
   },
