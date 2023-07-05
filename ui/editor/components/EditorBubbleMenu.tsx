@@ -11,6 +11,9 @@ import {
 import { NodeSelector } from "./node-selector";
 import { ColorSelector } from "./color-selector";
 import { LinkSelector } from "./link-selector";
+import { SelectorType, SelectorTypes } from "./selectorTypes";
+
+import useEscapeKeyListener from "@/lib/hooks/use-escape-key-listener";
 import { cn } from "@/lib/utils";
 
 export interface BubbleMenuItem {
@@ -68,16 +71,22 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
     tippyOptions: {
       moveTransition: "transform 0.15s ease-out",
       onHidden: () => {
-        setIsNodeSelectorOpen(false);
-        setIsColorSelectorOpen(false);
-        setIsLinkSelectorOpen(false);
+        setOpenSelector(null);
       },
     },
   };
 
-  const [isNodeSelectorOpen, setIsNodeSelectorOpen] = useState(false);
-  const [isColorSelectorOpen, setIsColorSelectorOpen] = useState(false);
-  const [isLinkSelectorOpen, setIsLinkSelectorOpen] = useState(false);
+  const [openSelector, setOpenSelector] = useState<SelectorType>(
+    SelectorTypes.NONE,
+  );
+
+  const toggleSelector = (selectorType: SelectorType) => {
+    setOpenSelector(
+      openSelector === selectorType ? SelectorTypes.NONE : selectorType,
+    );
+  };
+
+  useEscapeKeyListener(() => setOpenSelector(null));
 
   return (
     <BubbleMenu
@@ -86,20 +95,17 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
     >
       <NodeSelector
         editor={props.editor}
-        isOpen={isNodeSelectorOpen}
+        isOpen={openSelector === SelectorTypes.NODE}
         setIsOpen={() => {
-          setIsNodeSelectorOpen(!isNodeSelectorOpen);
-          setIsColorSelectorOpen(false);
-          setIsLinkSelectorOpen(false);
+          toggleSelector(SelectorTypes.NODE);
         }}
       />
+
       <LinkSelector
         editor={props.editor}
-        isOpen={isLinkSelectorOpen}
+        isOpen={openSelector === SelectorTypes.LINK}
         setIsOpen={() => {
-          setIsLinkSelectorOpen(!isLinkSelectorOpen);
-          setIsColorSelectorOpen(false);
-          setIsNodeSelectorOpen(false);
+          toggleSelector(SelectorTypes.LINK);
         }}
       />
       <div className="flex">
@@ -119,11 +125,9 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
       </div>
       <ColorSelector
         editor={props.editor}
-        isOpen={isColorSelectorOpen}
+        isOpen={openSelector === SelectorTypes.COLOR}
         setIsOpen={() => {
-          setIsColorSelectorOpen(!isColorSelectorOpen);
-          setIsNodeSelectorOpen(false);
-          setIsLinkSelectorOpen(false);
+          toggleSelector(SelectorTypes.COLOR);
         }}
       />
     </BubbleMenu>
