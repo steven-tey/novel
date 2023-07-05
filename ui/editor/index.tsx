@@ -139,7 +139,7 @@ export default function Editor() {
       }}
       className="relative min-h-[500px] w-full max-w-screen-lg border-stone-200 p-12 px-8 sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:px-12 sm:shadow-lg"
     >
-      <div className="absolute right-5 top-5 mb-5 rounded-lg bg-stone-100 dark:bg-dark-primary px-2 py-1 text-sm text-stone-400 dark:text-dark-text">
+      <div className="absolute right-5 top-5 mb-5 rounded-lg bg-stone-100 px-2 py-1 text-sm text-stone-400 dark:bg-dark-primary dark:text-dark-text">
         {saveStatus}
       </div>
       {editor && <EditorBubbleMenu editor={editor} />}
