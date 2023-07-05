@@ -1,13 +1,9 @@
 import "@/styles/tailwind.css";
 import "@/styles/prosemirror.css";
 
-import cx from "classnames";
-import { cal, inter } from "@/styles/fonts";
-import { Analytics } from "@vercel/analytics/react";
 import { Metadata } from "next";
-import Toaster from "./toaster";
 import { ReactNode } from "react";
-import { cookies } from "next/headers";
+import Providers from "./providers";
 
 const title =
   "Novel – Notion-style WYSIWYG editor with AI-powered autocompletions";
@@ -32,12 +28,9 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
-  const theme = cookies().get("theme")
   return (
-    <html lang="en" className={theme?.value}>
-      <Toaster />
-      <body className={cx(cal.variable, inter.variable)}>{children}</body>
-      <Analytics />
+    <html lang="en">
+      <Providers>{children}</Providers>
     </html>
   );
 }
