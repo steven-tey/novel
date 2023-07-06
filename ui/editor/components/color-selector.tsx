@@ -55,39 +55,39 @@ const TEXT_COLORS: BubbleColorMenuItem[] = [
 const HIGHLIGHT_COLORS: BubbleColorMenuItem[] = [
   {
     name: "Default",
-    color: "#ffffff",
+    color: "var(--novel-highlight-default)",
   },
   {
     name: "Purple",
-    color: "#F6F3F8",
+    color: "var(--novel-highlight-purple)",
   },
   {
     name: "Red",
-    color: "#FDEBEB",
+    color: "var(--novel-highlight-red)",
   },
   {
     name: "Yellow",
-    color: "#FEF9C3",
+    color: "var(--novel-highlight-yellow)",
   },
   {
     name: "Blue",
-    color: "#E6F3F7",
+    color: "var(--novel-highlight-blue)",
   },
   {
     name: "Green",
-    color: "#EDF3EC",
+    color: "var(--novel-highlight-green)",
   },
   {
     name: "Orange",
-    color: "#FAEBDD",
+    color: "var(--novel-highlight-orange)",
   },
   {
     name: "Pink",
-    color: "#FAF1F5",
+    color: "var(--novel-highlight-pink)",
   },
   {
     name: "Gray",
-    color: "#F1F1EF",
+    color: "var(--novel-highlight-gray)",
   },
 ];
 

@@ -122,7 +122,7 @@ export const TiptapExtensions = [
     nested: true,
   }),
   Markdown.configure({
-    linkify: true,
+    html: false,
     transformCopiedText: true,
   }),
 ];

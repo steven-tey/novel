@@ -52,7 +52,7 @@ export const LinkSelector: FC<LinkSelectorProps> = ({
             ref={inputRef}
             type="url"
             placeholder="Paste a link"
-            className="flex-1 p-1 text-sm outline-none"
+            className="flex-1 bg-white p-1 text-sm outline-none"
             defaultValue={editor.getAttributes("link").href || ""}
           />
           {editor.getAttributes("link").href ? (
