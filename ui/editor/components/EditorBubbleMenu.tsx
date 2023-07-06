@@ -7,11 +7,11 @@ import {
   StrikethroughIcon,
   CodeIcon,
 } from "lucide-react";
-
 import { NodeSelector } from "./node-selector";
 import { ColorSelector } from "./color-selector";
 import { LinkSelector } from "./link-selector";
 import { cn } from "@/lib/utils";
+import { PopoverContent, PopoverTrigger } from "@/ui/primitives/popover";
 
 export interface BubbleMenuItem {
   name: string;
