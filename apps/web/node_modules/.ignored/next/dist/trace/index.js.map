@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../src/trace/index.ts"],"names":["trace","flushAllTraces","SpanId","Span","SpanStatus","setGlobal"],"mappings":";;;;;;;;;;;;;;;;;;;IAGSA,KAAK;eAALA,YAAK;;IAAEC,cAAc;eAAdA,qBAAc;;IAAEC,MAAM;eAANA,cAAM;;IAAEC,IAAI;eAAJA,WAAI;;IAAEC,UAAU;eAAVA,iBAAU;;IAAEC,SAAS;eAATA,iBAAS;;;uBAHX;wBACtB"}

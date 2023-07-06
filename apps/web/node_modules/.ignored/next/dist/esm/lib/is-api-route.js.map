@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../src/lib/is-api-route.ts"],"names":["isAPIRoute","value","Boolean","startsWith"],"mappings":"AAAA,OAAO,SAASA,WAAWC,KAAc,EAAE;IACzC,OAAOA,UAAU,UAAUC,QAAQD,gBAAAA,KAAAA,IAAAA,MAAOE,UAAU,CAAC;AACvD,CAAC"}

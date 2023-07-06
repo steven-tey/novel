@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../../../../src/client/components/router-reducer/reducers/get-segment-value.ts"],"names":["getSegmentValue","segment","Array","isArray"],"mappings":";;;;+BAEgBA;;;eAAAA;;;AAAT,SAASA,gBAAgBC,OAAgB,EAAE;IAChD,OAAOC,MAAMC,OAAO,CAACF,WAAWA,OAAO,CAAC,EAAE,GAAGA,OAAO;AACtD"}

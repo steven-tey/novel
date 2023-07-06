@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../../../src/build/polyfills/object.assign/shim.ts"],"names":["module","exports","Object","assign"],"mappings":"AAAAA,OAAOC,OAAO,GAAG,WAAY;IAC3B,OAAOC,OAAOC,MAAM;AACtB"}

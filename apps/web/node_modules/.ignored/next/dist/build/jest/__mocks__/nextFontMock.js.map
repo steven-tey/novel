@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../../../src/build/jest/__mocks__/nextFontMock.ts"],"names":["module","exports","Proxy","get","getter","className","variable","style","fontFamily"],"mappings":";AAAAA,OAAOC,OAAO,GAAG,IAAIC,MACnB,CAAC,GACD;IACEC,KAAK,SAASC,SAAS;QACrB,OAAO,IAAO,CAAA;gBACZC,WAAW;gBACXC,UAAU;gBACVC,OAAO;oBAAEC,YAAY;gBAAa;YACpC,CAAA;IACF;AACF"}

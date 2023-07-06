@@ -3,6 +3,9 @@
 /.pnp
 .pnp.js
 
+node_modules
+.next
+
 # next.js
 /.next/
 /out/

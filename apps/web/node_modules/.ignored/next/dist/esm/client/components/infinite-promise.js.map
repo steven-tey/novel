@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../../src/client/components/infinite-promise.ts"],"names":["infinitePromise","createInfinitePromise","Promise"],"mappings":"AAAA;;CAEC,GACD,IAAIA;AAEJ;;CAEC,GACD,OAAO,SAASC,wBAAwB;IACtC,IAAI,CAACD,iBAAiB;QACpB,+BAA+B;QAC/BA,kBAAkB,IAAIE,QAAQ,IAAmB;QAC/C,6DAA6D;QAC7D,qBAAqB;QACrB,oDAAoD;QACpD,cAAc;QACd,WAAW;QACb;IACF,CAAC;IAED,OAAOF;AACT,CAAC"}
