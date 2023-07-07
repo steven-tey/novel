@@ -24,8 +24,9 @@ export const TiptapEditorProps: EditorProps = {
     ) {
       event.preventDefault();
       const file = event.clipboardData.files[0];
+      const pos = view.state.selection.from;
 
-      startImageUpload(file, view);
+      startImageUpload(file, view, pos);
       return true;
     }
     return false;
@@ -39,7 +40,12 @@ export const TiptapEditorProps: EditorProps = {
     ) {
       event.preventDefault();
       const file = event.dataTransfer.files[0];
-      startImageUpload(file, view);
+      const coordinates = view.posAtCoords({
+        left: event.clientX,
+        top: event.clientY,
+      });
+      // here we deduct 1 from the pos or else the image will create an extra node
+      startImageUpload(file, view, coordinates.pos - 1);
       return true;
     }
     return false;
