@@ -38,11 +38,7 @@ export async function POST(req: Request): Promise<Response> {
     }
   }
 
-  let { prompt: content } = await req.json();
-
-  // remove trailing slash,
-  // slice the content from the end to prioritize later characters
-  content = content.replace(/\/$/, "").slice(-5000);
+  let { prompt } = await req.json();
 
   const response = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
@@ -58,7 +54,7 @@ export async function POST(req: Request): Promise<Response> {
       },
       {
         role: "user",
-        content,
+        content: prompt,
       },
     ],
     temperature: 0.7,

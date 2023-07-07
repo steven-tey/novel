@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import va from "@vercel/analytics";
 import DEFAULT_EDITOR_CONTENT from "./default-content";
 import { EditorBubbleMenu } from "./components";
+import { getPrevText } from "@/lib/editor";
 
 export default function Editor() {
   const [content, setContent] = useLocalStorage(
@@ -37,18 +38,19 @@ export default function Editor() {
     onUpdate: (e) => {
       setSaveStatus("Unsaved");
       const selection = e.editor.state.selection;
-      const lastTwo = e.editor.state.doc.textBetween(
-        selection.from - 2,
-        selection.from,
-        "\n",
-      );
+      const lastTwo = getPrevText(e.editor, {
+        chars: 2,
+      });
       if (lastTwo === "++" && !isLoading) {
         e.editor.commands.deleteRange({
           from: selection.from - 2,
           to: selection.from,
         });
-        // we're using this for now until we can figure out a way to stream markdown text with proper formatting: https://github.com/steven-tey/novel/discussions/7
-        complete(e.editor.getText());
+        complete(
+          getPrevText(e.editor, {
+            chars: 5000,
+          }),
+        );
         // complete(e.editor.storage.markdown.getMarkdown());
         va.track("Autocomplete Shortcut Used");
       } else {
