@@ -1,12 +1,9 @@
-import "@/styles/tailwind.css";
+import "@/styles/globals.css";
 import "@/styles/prosemirror.css";
 
-import { cal, inter } from "@/styles/fonts";
-import { Analytics } from "@vercel/analytics/react";
 import { Metadata } from "next";
-import Toaster from "./toaster";
 import { ReactNode } from "react";
-import clsx from "clsx";
+import Providers from "./providers";
 
 const title =
   "Novel – Notion-style WYSIWYG editor with AI-powered autocompletions";
@@ -32,10 +29,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
-      <Toaster />
-      <body className={clsx(cal.variable, inter.variable)}>{children}</body>
-      <Analytics />
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
