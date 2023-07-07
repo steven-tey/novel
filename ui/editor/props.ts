@@ -24,7 +24,8 @@ export const TiptapEditorProps: EditorProps = {
     ) {
       event.preventDefault();
       const file = event.clipboardData.files[0];
-      return handleImageUpload(file, view, event);
+      handleImageUpload(file, view, event);
+      return true;
     }
     return false;
   },
@@ -37,7 +38,8 @@ export const TiptapEditorProps: EditorProps = {
     ) {
       event.preventDefault();
       const file = event.dataTransfer.files[0];
-      return handleImageUpload(file, view, event);
+      handleImageUpload(file, view, event);
+      return true;
     }
     return false;
   },
