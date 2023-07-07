@@ -17,15 +17,13 @@ export default function Menu() {
       <PopoverTrigger className="absolute bottom-5 right-5 z-10 flex h-8 w-8 items-center justify-center rounded-lg transition-colors duration-200 hover:bg-stone-100 active:bg-stone-200 sm:bottom-auto sm:top-5">
         <MenuIcon className="text-stone-600" width={16} />
       </PopoverTrigger>
-      <PopoverContent className="w-52" align="end">
-        <div className="grid p-2">
-          <div className="p-2">
-            <p className="text-sm font-medium text-stone-500">Font Style</p>
-          </div>
-          {["Sans Serif", "Serif"].map((font) => (
+      <PopoverContent className="w-52 divide-y divide-stone-200" align="end">
+        <div className="p-2">
+          <p className="text-sm font-medium text-stone-500">Style</p>
+          {["Default", "Serif", "Mono"].map((font) => (
             <button
               key={font}
-              className="flex items-center justify-between rounded px-2 py-1 text-sm text-stone-600 hover:bg-stone-100"
+              className="flex w-full items-center justify-between rounded px-2 py-1 text-sm text-stone-600 hover:bg-stone-100"
               onClick={() => {
                 setFont(font);
               }}

@@ -12,12 +12,12 @@ export const AppContext = createContext<{
   font: string;
   setFont: Dispatch<SetStateAction<string>>;
 }>({
-  font: "Sans Serif",
+  font: "Default",
   setFont: () => {},
 });
 
 export default function Providers({ children }: { children: ReactNode }) {
-  const [font, setFont] = useLocalStorage<string>("novel__font", "Sans Serif");
+  const [font, setFont] = useLocalStorage<string>("novel__font", "Default");
 
   return (
     <ThemeProvider
