@@ -28,6 +28,7 @@ import LoadingCircle from "@/ui/icons/loading-circle";
 import { toast } from "sonner";
 import va from "@vercel/analytics";
 import Magic from "@/ui/icons/magic";
+import { getPrevText } from "@/lib/editor";
 import { startImageUpload } from "@/ui/editor/plugins/upload-images";
 
 interface CommandItemProps {
@@ -77,7 +78,7 @@ const getSuggestionItems = ({ query }: { query: string }) => {
       title: "Continue writing",
       description: "Use AI to expand your thoughts.",
       searchTerms: ["gpt"],
-      icon: <Magic className="w-7 text-black" />,
+      icon: <Magic className="w-7" />,
     },
     {
       title: "Send Feedback",
@@ -285,9 +286,12 @@ const CommandList = ({
       });
       if (item) {
         if (item.title === "Continue writing") {
-          // we're using this for now until we can figure out a way to stream markdown text with proper formatting: https://github.com/steven-tey/novel/discussions/7
-          complete(editor.getText());
-          // complete(editor.storage.markdown.getMarkdown());
+          complete(
+            getPrevText(editor, {
+              chars: 5000,
+              offset: 1,
+            }),
+          );
         } else {
           command(item);
         }
@@ -340,7 +344,7 @@ const CommandList = ({
     <div
       id="slash-command"
       ref={commandListContainer}
-      className="z-50 h-auto max-h-[330px] w-72 overflow-y-auto scroll-smooth rounded-md border border-stone-200 bg-white px-1 py-2 shadow-md transition-all"
+      className="z-50 h-auto max-h-[330px] w-72 overflow-y-auto rounded-md border border-stone-200 bg-white px-1 py-2 shadow-md transition-all"
     >
       {items.map((item: CommandItemProps, index: number) => {
         return (

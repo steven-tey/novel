@@ -52,12 +52,12 @@ export const LinkSelector: FC<LinkSelectorProps> = ({
             ref={inputRef}
             type="url"
             placeholder="Paste a link"
-            className="flex-1 p-1 text-sm outline-none"
+            className="flex-1 bg-white p-1 text-sm outline-none"
             defaultValue={editor.getAttributes("link").href || ""}
           />
           {editor.getAttributes("link").href ? (
             <button
-              className="flex items-center rounded-sm p-1 text-red-600 transition-all hover:bg-red-100"
+              className="flex items-center rounded-sm p-1 text-red-600 transition-all hover:bg-red-100 dark:hover:bg-red-800"
               onClick={() => {
                 editor.chain().focus().unsetLink().run();
                 setIsOpen(false);
