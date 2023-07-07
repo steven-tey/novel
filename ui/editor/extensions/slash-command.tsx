@@ -208,7 +208,8 @@ const getSuggestionItems = ({ query }: { query: string }) => {
         input.onchange = async () => {
           if (input.files?.length) {
             const file = input.files[0];
-            startImageUpload(file, editor.view);
+            const pos = editor.view.state.selection.from;
+            startImageUpload(file, editor.view, pos);
           }
         };
         input.click();
