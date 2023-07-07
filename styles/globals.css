@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 :root {
+  --novel-black: rgb(0 0 0);
   --novel-white: rgb(255 255 255);
   --novel-stone-50: rgb(250 250 249);
   --novel-stone-100: rgb(245 245 244);
@@ -27,17 +28,18 @@
 }
 
 .dark-theme {
+  --novel-black: rgb(255 255 255);
   --novel-white: rgb(25 25 25);
-  --novel-stone-50: rgb(30 30 29);
-  --novel-stone-100: rgb(35 35 34);
-  --novel-stone-200: rgb(41 37 36);
-  --novel-stone-300: rgb(66 69 71);
-  --novel-stone-400: rgb(112 118 123);
-  --novel-stone-500: rgb(160 167 173);
-  --novel-stone-600: rgb(193 199 204);
-  --novel-stone-700: rgb(212 217 221);
-  --novel-stone-800: rgb(229 232 235);
-  --novel-stone-900: rgb(232 234 235);
+  --novel-stone-50: rgb(35 35 34);
+  --novel-stone-100: rgb(41 37 36);
+  --novel-stone-200: rgb(66 69 71);
+  --novel-stone-300: rgb(112 118 123);
+  --novel-stone-400: rgb(160 167 173);
+  --novel-stone-500: rgb(193 199 204);
+  --novel-stone-600: rgb(212 217 221);
+  --novel-stone-700: rgb(229 232 235);
+  --novel-stone-800: rgb(232 234 235);
+  --novel-stone-900: rgb(240, 240, 241);
 
   --novel-highlight-default: #000000;
   --novel-highlight-purple: #3f2c4b;
