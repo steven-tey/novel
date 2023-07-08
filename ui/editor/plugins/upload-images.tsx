@@ -19,13 +19,16 @@ const UploadImagesPlugin = () =>
         if (action && action.add) {
           const { id, pos, src } = action.add;
 
+          const placeholder = document.createElement("div");
+          placeholder.setAttribute("class", "img-placeholder");
           const image = document.createElement("img");
           image.setAttribute(
             "class",
             "opacity-40 rounded-lg border border-stone-200",
           );
           image.src = src;
-          const deco = Decoration.widget(pos + 1, image, {
+          placeholder.appendChild(image);
+          const deco = Decoration.widget(pos + 1, placeholder, {
             id,
           });
           set = set.add(tr.doc, [deco]);
