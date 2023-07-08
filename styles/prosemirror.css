@@ -29,6 +29,30 @@
   }
 }
 
+.img-placeholder {
+  position: relative;
+
+  &:before {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 3px solid var(--novel-stone-200);
+    border-top-color: var(--novel-stone-800);
+    animation: spinning 0.6s linear infinite;
+  }
+}
+
+@keyframes spinning {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* Custom TODO list checkboxes – shoutout to this awesome tutorial: https://moderncss.dev/pure-css-custom-checkbox-style/ */
 
 ul[data-type="taskList"] li > label {
