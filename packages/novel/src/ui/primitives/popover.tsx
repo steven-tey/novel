@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import * as PopoverPrimitive from "@radix-ui/react-popover";
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 
 const Popover = PopoverPrimitive.Root;
 
@@ -17,8 +17,8 @@ const PopoverContent = React.forwardRef<
       ref={ref}
       align={align}
       sideOffset={sideOffset}
-      className={clsx(
-        "z-50 items-center rounded-md border border-stone-200 bg-white shadow-md animate-in zoom-in-95",
+      className={cn(
+        "z-50 items-center rounded-md border border-stone-200 bg-white shadow-md animate-in fade-in-20 slide-in-from-top-1",
         className,
       )}
       {...props}

@@ -46,7 +46,7 @@ You can deploy your own version of Novel to Vercel with one click:
 To set up Novel locally, you'll need to clone the repository and set up the following environment variables:
 
 - `OPENAI_API_KEY` – your OpenAI API key (you can get one [here](https://platform.openai.com/account/api-keys))
-- `BLOB_READ_WRITE_TOKEN` – your Vercel Blob read/write token (you can get one [here](https://vercel.com/docs/storage/vercel-blob/quickstart#quickstart))
+- `BLOB_READ_WRITE_TOKEN` – your Vercel Blob read/write token (currently [still in beta](https://vercel.com/docs/storage/vercel-blob/quickstart#quickstart), but feel free to [DM me on Twitter](https://twitter.com/steventey) for access)
 
 If you've deployed this to Vercel, you can also use [`vc env pull`](https://vercel.com/docs/cli/env#exporting-development-environment-variables) to pull the environment variables from your Vercel project.
 

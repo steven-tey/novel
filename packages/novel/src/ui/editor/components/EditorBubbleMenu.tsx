@@ -10,7 +10,8 @@ import {
 
 import { NodeSelector } from "./node-selector";
 import { ColorSelector } from "./color-selector";
-import clsx from "clsx";
+import { LinkSelector } from "./link-selector";
+import { cn } from "@/lib/utils";
 
 export interface BubbleMenuItem {
   name: string;
@@ -69,17 +70,19 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
       onHidden: () => {
         setIsNodeSelectorOpen(false);
         setIsColorSelectorOpen(false);
+        setIsLinkSelectorOpen(false);
       },
     },
   };
 
   const [isNodeSelectorOpen, setIsNodeSelectorOpen] = useState(false);
   const [isColorSelectorOpen, setIsColorSelectorOpen] = useState(false);
+  const [isLinkSelectorOpen, setIsLinkSelectorOpen] = useState(false);
 
   return (
     <BubbleMenu
       {...bubbleMenuProps}
-      className="flex overflow-hidden rounded border border-stone-200 bg-white shadow-xl"
+      className="flex w-fit divide-x divide-stone-200 rounded border border-stone-200 bg-white shadow-xl"
     >
       <NodeSelector
         editor={props.editor}
@@ -87,28 +90,40 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
         setIsOpen={() => {
           setIsNodeSelectorOpen(!isNodeSelectorOpen);
           setIsColorSelectorOpen(false);
+          setIsLinkSelectorOpen(false);
         }}
       />
-
-      {items.map((item, index) => (
-        <button
-          key={index}
-          onClick={item.command}
-          className="p-2 text-stone-600 hover:bg-stone-100 active:bg-stone-200"
-        >
-          <item.icon
-            className={clsx("h-4 w-4", {
-              "text-blue-500": item.isActive(),
-            })}
-          />
-        </button>
-      ))}
+      <LinkSelector
+        editor={props.editor}
+        isOpen={isLinkSelectorOpen}
+        setIsOpen={() => {
+          setIsLinkSelectorOpen(!isLinkSelectorOpen);
+          setIsColorSelectorOpen(false);
+          setIsNodeSelectorOpen(false);
+        }}
+      />
+      <div className="flex">
+        {items.map((item, index) => (
+          <button
+            key={index}
+            onClick={item.command}
+            className="p-2 text-stone-600 hover:bg-stone-100 active:bg-stone-200"
+          >
+            <item.icon
+              className={cn("h-4 w-4", {
+                "text-blue-500": item.isActive(),
+              })}
+            />
+          </button>
+        ))}
+      </div>
       <ColorSelector
         editor={props.editor}
         isOpen={isColorSelectorOpen}
         setIsOpen={() => {
           setIsColorSelectorOpen(!isColorSelectorOpen);
           setIsNodeSelectorOpen(false);
+          setIsLinkSelectorOpen(false);
         }}
       />
     </BubbleMenu>

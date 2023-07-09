@@ -1,4 +1,4 @@
-import "@/styles/tailwind.css";
+import "@/styles/globals.css";
 import "@/styles/prosemirror.css";
 
 import { Metadata } from "next";
@@ -29,8 +29,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
-      <Providers>{children}</Providers>
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
