@@ -1,4 +1,3 @@
-import Editor from "@/ui/editor";
 import Github from "@/ui/icons/github";
 import Menu from "./menu";
 import Novel from "novel";

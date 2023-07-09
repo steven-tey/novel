@@ -11,12 +11,14 @@ import { toast } from "sonner";
 import va from "@vercel/analytics";
 import DEFAULT_EDITOR_CONTENT from "./default-content";
 import { EditorBubbleMenu } from "./components";
+import { getPrevText } from "@/lib/editor";
 
 export default function Editor() {
   const [content, setContent] = useLocalStorage(
     "content",
     DEFAULT_EDITOR_CONTENT
   );
+  console.log(content);
   const [saveStatus, setSaveStatus] = useState("Saved");
 
   const [hydrated, setHydrated] = useState(false);
@@ -37,18 +39,19 @@ export default function Editor() {
     onUpdate: (e) => {
       setSaveStatus("Unsaved");
       const selection = e.editor.state.selection;
-      const lastTwo = e.editor.state.doc.textBetween(
-        selection.from - 2,
-        selection.from,
-        "\n"
-      );
+      const lastTwo = getPrevText(e.editor, {
+        chars: 2,
+      });
       if (lastTwo === "++" && !isLoading) {
         e.editor.commands.deleteRange({
           from: selection.from - 2,
           to: selection.from,
         });
-        // we're using this for now until we can figure out a way to stream markdown text with proper formatting: https://github.com/steven-tey/novel/discussions/7
-        complete(e.editor.getText());
+        complete(
+          getPrevText(e.editor, {
+            chars: 5000,
+          })
+        );
         // complete(e.editor.storage.markdown.getMarkdown());
         va.track("Autocomplete Shortcut Used");
       } else {
@@ -61,21 +64,17 @@ export default function Editor() {
   const { complete, completion, isLoading, stop } = useCompletion({
     id: "novel",
     api: "/api/generate",
-    onResponse: (response) => {
-      if (response.status === 429) {
-        toast.error("You have reached your request limit for the day.");
-        va.track("Rate Limit Reached");
-        return;
-      }
-    },
     onFinish: (_prompt, completion) => {
       editor?.commands.setTextSelection({
         from: editor.state.selection.from - completion.length,
         to: editor.state.selection.from,
       });
     },
-    onError: () => {
-      toast.error("Something went wrong.");
+    onError: (err) => {
+      toast.error(err.message);
+      if (err.message === "You have reached your request limit for the day.") {
+        va.track("Rate Limit Reached");
+      }
     },
   });
 
@@ -137,7 +136,7 @@ export default function Editor() {
       onClick={() => {
         editor?.chain().focus().run();
       }}
-      className="relative min-h-[500px] w-full max-w-screen-lg border-stone-200 p-12 px-8 sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:px-12 sm:shadow-lg"
+      className="relative min-h-[500px] w-full max-w-screen-lg border-stone-200 bg-white p-12 px-8 sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:px-12 sm:shadow-lg"
     >
       <div className="absolute right-5 top-5 mb-5 rounded-lg bg-stone-100 px-2 py-1 text-sm text-stone-400">
         {saveStatus}
