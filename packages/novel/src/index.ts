@@ -1,3 +1,1 @@
-export function add() {
-  return 1 + 2;
-}
+export { default } from "./ui/editor";

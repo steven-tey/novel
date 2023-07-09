@@ -11,7 +11,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "novel": "workspace:*",
+    "novel": "*",
     "@radix-ui/react-popover": "^1.0.6",
     "@tiptap/core": "^2.0.3",
     "@tiptap/extension-color": "^2.0.3",

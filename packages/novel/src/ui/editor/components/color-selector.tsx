@@ -4,7 +4,7 @@ import { Dispatch, FC, SetStateAction } from "react";
 
 export interface BubbleColorMenuItem {
   name: string;
-  color: string | null;
+  color: string;
 }
 
 interface ColorSelectorProps {
@@ -97,11 +97,11 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
   setIsOpen,
 }) => {
   const activeColorItem = TEXT_COLORS.find(({ color }) =>
-    editor.isActive("textStyle", { color }),
+    editor.isActive("textStyle", { color })
   );
 
   const activeHighlightItem = HIGHLIGHT_COLORS.find(({ color }) =>
-    editor.isActive("highlight", { color }),
+    editor.isActive("highlight", { color })
   );
 
   return (
@@ -132,7 +132,11 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
               onClick={() => {
                 editor.commands.unsetColor();
                 name !== "Default" &&
-                  editor.chain().focus().setColor(color).run();
+                  editor
+                    .chain()
+                    .focus()
+                    .setColor(color || "")
+                    .run();
                 setIsOpen(false);
               }}
               className="flex items-center justify-between rounded-sm px-2 py-1 text-sm text-stone-600 hover:bg-stone-100"

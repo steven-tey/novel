@@ -1,9 +1,7 @@
 import Editor from "@/ui/editor";
 import Github from "@/ui/icons/github";
 import Menu from "./menu";
-import novel from "novel";
-
-console.log(novel(1, 2));
+import Novel from "novel";
 
 export default function Page() {
   return (
@@ -16,7 +14,7 @@ export default function Page() {
         <Github />
       </a>
       <Menu />
-      <Editor />
+      <Novel />
     </div>
   );
 }

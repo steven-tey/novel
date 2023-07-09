@@ -4,7 +4,7 @@ import { Dispatch, FC, SetStateAction } from "react";
 
 export interface BubbleColorMenuItem {
   name: string;
-  color: string | null;
+  color: string;
 }
 
 interface ColorSelectorProps {
