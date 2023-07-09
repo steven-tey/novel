@@ -11,6 +11,12 @@ const openai = new OpenAIApi(config);
 export const runtime = "edge";
 
 export async function POST(req: Request): Promise<Response> {
+  // Check if the OPENAI_API_KEY is set
+  if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === "") {
+    return new Response("OPENAI_API_KEY is not set", {
+      status: 500,
+    });
+  }
   if (
     process.env.NODE_ENV != "development" &&
     process.env.KV_REST_API_URL &&
@@ -65,6 +71,12 @@ export async function POST(req: Request): Promise<Response> {
     n: 1,
   });
 
+  // If the response is unauthorized, return a 500 error
+  if (response.status === 401) {
+    return new Response("Error: You are unauthorized to perform this action", {
+      status: 500,
+    });
+  }
   // Convert the response into a friendly text-stream
   const stream = OpenAIStream(response);
 
