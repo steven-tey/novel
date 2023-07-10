@@ -47,7 +47,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-markdown": "^8.0.7",
-    "sonner": "^0.6.0",
+    "sonner": "^0.6.1",
     "tailwind-merge": "^1.13.2",
     "tippy.js": "^6.3.7",
     "tiptap-markdown": "^0.8.1",
