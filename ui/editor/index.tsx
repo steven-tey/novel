@@ -1,7 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { useEditor, EditorContent } from "@tiptap/react";
+import {
+  useEffect,
+  useRef,
+  useState
+} from "react";
+import {
+  EditorContent,
+  useEditor
+} from "@tiptap/react";
 import { TiptapEditorProps } from "./props";
 import { TiptapExtensions } from "./extensions";
 import useLocalStorage from "@/lib/hooks/use-local-storage";
@@ -12,6 +19,11 @@ import va from "@vercel/analytics";
 import DEFAULT_EDITOR_CONTENT from "./default-content";
 import { EditorBubbleMenu } from "./components";
 import { getPrevText } from "@/lib/editor";
+import {
+  Card,
+  CardContent
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 export default function Editor() {
   const [content, setContent] = useLocalStorage(
@@ -19,10 +31,10 @@ export default function Editor() {
     DEFAULT_EDITOR_CONTENT,
   );
   const [saveStatus, setSaveStatus] = useState("Saved");
-
+  
   const [hydrated, setHydrated] = useState(false);
-
-  const debouncedUpdates = useDebouncedCallback(async ({ editor }) => {
+  
+  const debouncedUpdates = useDebouncedCallback(async ({editor}) => {
     const json = editor.getJSON();
     setSaveStatus("Saving...");
     setContent(json);
@@ -31,7 +43,7 @@ export default function Editor() {
       setSaveStatus("Saved");
     }, 500);
   }, 750);
-
+  
   const editor = useEditor({
     extensions: TiptapExtensions,
     editorProps: TiptapEditorProps,
@@ -59,8 +71,8 @@ export default function Editor() {
     },
     autofocus: "end",
   });
-
-  const { complete, completion, isLoading, stop } = useCompletion({
+  
+  const {complete, completion, isLoading, stop} = useCompletion({
     id: "novel",
     api: "/api/generate",
     onFinish: (_prompt, completion) => {
@@ -76,16 +88,16 @@ export default function Editor() {
       }
     },
   });
-
+  
   const prev = useRef("");
-
+  
   // Insert chunks of the generated text
   useEffect(() => {
     const diff = completion.slice(prev.current.length);
     prev.current = completion;
     editor?.commands.insertContent(diff);
   }, [isLoading, editor, completion]);
-
+  
   useEffect(() => {
     // if user presses escape or cmd + z and it's loading,
     // stop the request, delete the completion, and insert back the "++"
@@ -121,7 +133,7 @@ export default function Editor() {
       window.removeEventListener("mousedown", mousedownHandler);
     };
   }, [stop, isLoading, editor, complete, completion.length]);
-
+  
   // Hydrate the editor with the content from localStorage.
   useEffect(() => {
     if (editor && content && !hydrated) {
@@ -129,19 +141,20 @@ export default function Editor() {
       setHydrated(true);
     }
   }, [editor, content, hydrated]);
-
+  
   return (
-    <div
+    <Card
       onClick={() => {
         editor?.chain().focus().run();
       }}
-      className="relative min-h-[500px] w-full max-w-screen-lg border-stone-200 bg-white p-12 px-8 sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:px-12 sm:shadow-lg"
     >
-      <div className="absolute right-5 top-5 mb-5 rounded-lg bg-stone-100 px-2 py-1 text-sm text-stone-400">
-        {saveStatus}
-      </div>
-      {editor && <EditorBubbleMenu editor={editor} />}
-      <EditorContent editor={editor} />
-    </div>
+      <CardContent
+        className="relative pt-8 min-h-[50vh]"
+      >
+        <Badge className="absolute top-3 right-3">{saveStatus}</Badge>
+        {editor && <EditorBubbleMenu editor={editor}/>}
+        <EditorContent editor={editor}/>
+      </CardContent>
+    </Card>
   );
 }
