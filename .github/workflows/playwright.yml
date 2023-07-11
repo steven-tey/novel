@@ -22,10 +22,15 @@ jobs:
         run: pnpm exec playwright install --with-deps
       - run: pnpm build
       - name: Run Playwright tests
-        run: pnpm exec playwright test
+        run: pnpm exec playwright test --project replay-chromium --reporter=@replayio/playwright/reporter,line
       - uses: actions/upload-artifact@v3
         if: always()
         with:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
+      - name: Upload replays
+        if: ${{ always() }}
+        uses: replayio/action-upload@v0.5.1
+        with:
+          api-key: rwk_it0M3XJ0w4NYjEZtc72dd3BHI4pQEoChgy5u1sLZUs9
