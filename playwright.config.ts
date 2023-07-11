@@ -1,4 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
+import { devices as replayDevices } from "@replayio/playwright";
+
 
 /**
  * Read environment variables from file.
@@ -66,6 +68,10 @@ export default defineConfig({
     //   name: 'Google Chrome',
     //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
     // },
+    {
+      name: "replay-chromium",
+      use: { ...replayDevices["Replay Chromium"] },
+    },
   ],
 
   /* Run your local dev server before starting the tests */
