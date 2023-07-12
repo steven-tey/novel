@@ -151,7 +151,7 @@ export default function Editor() {
       <CardContent
         className="relative pt-8 min-h-[50vh]"
       >
-        <Badge className="absolute top-3 right-3">{saveStatus}</Badge>
+        <Badge className="sticky top-5 right-5 w-auto z-[5] float-right">{saveStatus}</Badge>
         {editor && <EditorBubbleMenu editor={editor}/>}
         <EditorContent editor={editor}/>
       </CardContent>
