@@ -33,6 +33,7 @@ jobs:
         if: ${{ always() }}
         uses: replayio/action-upload@v0.5.1
         with:
+          public: true
           # TODO: Replace with a secret before merging
           # api-key: ${{ secrets.RECORD_REPLAY_API_KEY }}
           api-key: rwk_it0M3XJ0w4NYjEZtc72dd3BHI4pQEoChgy5u1sLZUs9

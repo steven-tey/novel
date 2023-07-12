@@ -22,19 +22,6 @@ test('pressing `/` should open the slash menu', async ({ page }) => {
   await expect(page.locator("#slash-command")).toHaveCount(1)
 });
 
-// test('Pressing ++ should trigger AI autocomplete', async ({ page }) => {
-//   await page.goto('http://localhost:3000/');
-  
-//   await page.getByRole('heading', { name: 'Introducing Novel' }).click();
-//   await page.keyboard.press('Enter');
-//   await page.keyboard.type('My favorite snack is');
-//   await page.keyboard.press('+');
-//   await page.keyboard.press('+');
-  
-//   // Add timeout here
-//   // Add assertion here
-// });
-
 test('highlighting text should open the bubble menu', async ({ page }) => {
   await page.goto('http://localhost:3000/');
   await expect(page.locator(".tippy-box")).toHaveCount(0)
