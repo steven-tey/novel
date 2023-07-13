@@ -14,6 +14,7 @@ import Highlight from "@tiptap/extension-highlight";
 import SlashCommand from "./slash-command";
 import { InputRule } from "@tiptap/core";
 import UploadImagesPlugin from "@/ui/editor/plugins/upload-images";
+import UpdatedImage from "./updated-image";
 
 const CustomImage = TiptapImage.extend({
   addProseMirrorPlugins() {
@@ -131,5 +132,8 @@ export const TiptapExtensions = [
   Markdown.configure({
     html: false,
     transformCopiedText: true,
+  }),
+  UpdatedImage.configure({
+    inline: true,
   }),
 ];

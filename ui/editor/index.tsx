@@ -12,6 +12,7 @@ import va from "@vercel/analytics";
 import DEFAULT_EDITOR_CONTENT from "./default-content";
 import { EditorBubbleMenu } from "./components";
 import { getPrevText } from "@/lib/editor";
+import ImageResize from "./components/image-resizer";
 
 export default function Editor() {
   const [content, setContent] = useLocalStorage(
@@ -141,6 +142,7 @@ export default function Editor() {
         {saveStatus}
       </div>
       {editor && <EditorBubbleMenu editor={editor} />}
+      {editor?.isActive("image") && <ImageResize editor={editor} />}
       <EditorContent editor={editor} />
     </div>
   );
