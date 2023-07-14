@@ -50,6 +50,8 @@ const ImageResize = ({ editor }) => {
         /* Only one of resizable, scalable, warpable can be used. */
         scalable={true}
         throttleScale={0}
+        /* Set the direction of resizable */
+        renderDirections={["w", "e"]}
         onScale={({
           target,
           // scale,
