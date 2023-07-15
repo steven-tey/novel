@@ -84,48 +84,52 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
       {...bubbleMenuProps}
       className="flex w-fit divide-x divide-stone-200 rounded border border-stone-200 bg-white shadow-xl"
     >
-      <NodeSelector
-        editor={props.editor}
-        isOpen={isNodeSelectorOpen}
-        setIsOpen={() => {
-          setIsNodeSelectorOpen(!isNodeSelectorOpen);
-          setIsColorSelectorOpen(false);
-          setIsLinkSelectorOpen(false);
-        }}
-      />
-      <LinkSelector
-        editor={props.editor}
-        isOpen={isLinkSelectorOpen}
-        setIsOpen={() => {
-          setIsLinkSelectorOpen(!isLinkSelectorOpen);
-          setIsColorSelectorOpen(false);
-          setIsNodeSelectorOpen(false);
-        }}
-      />
-      <div className="flex">
-        {items.map((item, index) => (
-          <button
-            key={index}
-            onClick={item.command}
-            className="p-2 text-stone-600 hover:bg-stone-100 active:bg-stone-200"
-          >
-            <item.icon
-              className={cn("h-4 w-4", {
-                "text-blue-500": item.isActive(),
-              })}
-            />
-          </button>
-        ))}
-      </div>
-      <ColorSelector
-        editor={props.editor}
-        isOpen={isColorSelectorOpen}
-        setIsOpen={() => {
-          setIsColorSelectorOpen(!isColorSelectorOpen);
-          setIsNodeSelectorOpen(false);
-          setIsLinkSelectorOpen(false);
-        }}
-      />
+      {props.editor.isEditable && (
+        <>
+          <NodeSelector
+            editor={props.editor}
+            isOpen={isNodeSelectorOpen}
+            setIsOpen={() => {
+              setIsNodeSelectorOpen(!isNodeSelectorOpen);
+              setIsColorSelectorOpen(false);
+              setIsLinkSelectorOpen(false);
+            }}
+          />
+          <LinkSelector
+            editor={props.editor}
+            isOpen={isLinkSelectorOpen}
+            setIsOpen={() => {
+              setIsLinkSelectorOpen(!isLinkSelectorOpen);
+              setIsColorSelectorOpen(false);
+              setIsNodeSelectorOpen(false);
+            }}
+          />
+          <div className="flex">
+            {items.map((item, index) => (
+              <button
+                key={index}
+                onClick={item.command}
+                className="p-2 text-stone-600 hover:bg-stone-100 active:bg-stone-200"
+              >
+                <item.icon
+                  className={cn("h-4 w-4", {
+                    "text-blue-500": item.isActive(),
+                  })}
+                />
+              </button>
+            ))}
+          </div>
+          <ColorSelector
+            editor={props.editor}
+            isOpen={isColorSelectorOpen}
+            setIsOpen={() => {
+              setIsColorSelectorOpen(!isColorSelectorOpen);
+              setIsNodeSelectorOpen(false);
+              setIsLinkSelectorOpen(false);
+            }}
+          />
+        </>
+      )}
     </BubbleMenu>
   );
 };
