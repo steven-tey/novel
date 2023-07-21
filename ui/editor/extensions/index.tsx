@@ -133,7 +133,5 @@ export const TiptapExtensions = [
     html: false,
     transformCopiedText: true,
   }),
-  UpdatedImage.configure({
-    inline: true,
-  }),
+  UpdatedImage,
 ];
