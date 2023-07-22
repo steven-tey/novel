@@ -43,3 +43,5 @@ next-env.d.ts
 dist/**
 /dist
 packages/*/dist
+
+.turbo

@@ -1,6 +1,7 @@
 import Github from "@/ui/icons/github";
 import Menu from "./menu";
 import Novel from "novel";
+import "novel/styles.css";
 
 export default function Page() {
   return (

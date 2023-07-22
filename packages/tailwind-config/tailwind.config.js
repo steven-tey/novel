@@ -5,6 +5,9 @@ module.exports = {
     "./app/**/*.{js,ts,jsx,tsx}", // Note the addition of the `app` directory.
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./ui/**/*.{js,ts,jsx,tsx}",
+    `src/**/*.{js,ts,jsx,tsx}`,
+
+    "../../packages/novel/src/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {

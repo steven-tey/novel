@@ -2,9 +2,16 @@
   "name": "novel",
   "version": "0.0.0",
   "types": "./dist/index.d.ts",
+  "sideEffects": [
+    "**/*.css"
+  ],
   "exports": {
-    ".": "./dist"
+    ".": "./dist",
+    "./styles.css": "./dist/index.css"
   },
+  "files": [
+    "dist/**"
+  ],
   "license": "MIT",
   "scripts": {
     "build": "tsup",
