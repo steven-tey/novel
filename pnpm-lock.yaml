@@ -4,7 +4,133 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-importers:
+dependencies:
+  '@radix-ui/react-popover':
+    specifier: ^1.0.6
+    version: 1.0.6(@types/react-dom@18.0.11)(@types/react@18.0.28)(react-dom@18.2.0)(react@18.2.0)
+  '@tiptap/core':
+    specifier: ^2.0.3
+    version: 2.0.3(@tiptap/pm@2.0.3)
+  '@tiptap/extension-color':
+    specifier: ^2.0.3
+    version: 2.0.3(@tiptap/core@2.0.3)(@tiptap/extension-text-style@2.0.3)
+  '@tiptap/extension-highlight':
+    specifier: ^2.0.3
+    version: 2.0.3(@tiptap/core@2.0.3)
+  '@tiptap/extension-horizontal-rule':
+    specifier: ^2.0.3
+    version: 2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3)
+  '@tiptap/extension-image':
+    specifier: ^2.0.3
+    version: 2.0.3(@tiptap/core@2.0.3)
+  '@tiptap/extension-link':
+    specifier: ^2.0.3
+    version: 2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3)
+  '@tiptap/extension-placeholder':
+    specifier: 2.0.3
+    version: 2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3)
+  '@tiptap/extension-task-item':
+    specifier: ^2.0.3
+    version: 2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3)
+  '@tiptap/extension-task-list':
+    specifier: ^2.0.3
+    version: 2.0.3(@tiptap/core@2.0.3)
+  '@tiptap/extension-text-style':
+    specifier: ^2.0.3
+    version: 2.0.3(@tiptap/core@2.0.3)
+  '@tiptap/extension-underline':
+    specifier: ^2.0.3
+    version: 2.0.3(@tiptap/core@2.0.3)
+  '@tiptap/pm':
+    specifier: ^2.0.3
+    version: 2.0.3(@tiptap/core@2.0.3)
+  '@tiptap/react':
+    specifier: ^2.0.3
+    version: 2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3)(react-dom@18.2.0)(react@18.2.0)
+  '@tiptap/starter-kit':
+    specifier: ^2.0.3
+    version: 2.0.3(@tiptap/pm@2.0.3)
+  '@tiptap/suggestion':
+    specifier: ^2.0.3
+    version: 2.0.3(@tiptap/core@2.0.3)(@tiptap/pm@2.0.3)
+  '@types/node':
+    specifier: 18.15.3
+    version: 18.15.3
+  '@types/react':
+    specifier: 18.0.28
+    version: 18.0.28
+  '@types/react-dom':
+    specifier: 18.0.11
+    version: 18.0.11
+  '@upstash/ratelimit':
+    specifier: ^0.4.3
+    version: 0.4.3
+  '@vercel/analytics':
+    specifier: ^1.0.1
+    version: 1.0.1
+  '@vercel/blob':
+    specifier: ^0.9.2
+    version: 0.9.2
+  '@vercel/kv':
+    specifier: ^0.2.2
+    version: 0.2.2
+  ai:
+    specifier: ^2.1.16
+    version: 2.1.16(react@18.2.0)(svelte@3.59.2)(vue@3.3.4)
+  clsx:
+    specifier: ^1.2.1
+    version: 1.2.1
+  eslint:
+    specifier: 8.36.0
+    version: 8.36.0
+  eslint-config-next:
+    specifier: 13.2.4
+    version: 13.2.4(eslint@8.36.0)(typescript@4.9.5)
+  eventsource-parser:
+    specifier: ^0.1.0
+    version: 0.1.0
+  framer-motion:
+    specifier: ^10.12.18
+    version: 10.12.18(react-dom@18.2.0)(react@18.2.0)
+  lucide-react:
+    specifier: ^0.244.0
+    version: 0.244.0(react@18.2.0)
+  next:
+    specifier: 13.4.10-canary.0
+    version: 13.4.10-canary.0(@babel/core@7.22.8)(react-dom@18.2.0)(react@18.2.0)
+  next-themes:
+    specifier: ^0.2.1
+    version: 0.2.1(next@13.4.10-canary.0)(react-dom@18.2.0)(react@18.2.0)
+  openai-edge:
+    specifier: ^1.2.0
+    version: 1.2.0
+  react:
+    specifier: 18.2.0
+    version: 18.2.0
+  react-dom:
+    specifier: 18.2.0
+    version: 18.2.0(react@18.2.0)
+  react-markdown:
+    specifier: ^8.0.7
+    version: 8.0.7(@types/react@18.0.28)(react@18.2.0)
+  sonner:
+    specifier: ^0.6.1
+    version: 0.6.1(react-dom@18.2.0)(react@18.2.0)
+  tailwind-merge:
+    specifier: ^1.13.2
+    version: 1.13.2
+  tippy.js:
+    specifier: ^6.3.7
+    version: 6.3.7
+  tiptap-markdown:
+    specifier: ^0.8.1
+    version: 0.8.1(@tiptap/core@2.0.3)
+  typescript:
+    specifier: 4.9.5
+    version: 4.9.5
+  use-debounce:
+    specifier: ^9.0.4
+    version: 9.0.4(react@18.2.0)
 
   .:
     dependencies:
@@ -6110,8 +6236,8 @@ packages:
     engines: {node: '>=12'}
     dev: false
 
-  /sonner@0.5.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-V5L4918wScYxpe3x1H92MV0vSkUqRREu8dwFf7dDTQmRMQ58r1vzSKCsULZ5HCTqxNkfCdhQXHf7rRMaj/MukQ==}
+  /sonner@0.6.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-4LdrhmFQp+ytQCWc1sTAG4oVsA1c+iFuYsl9XOvZtMjQR5ytxIe1Rislq0sUHeHpC1oReX6j0/XfMDzZy1WysQ==}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0
