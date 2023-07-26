@@ -1,21 +1,10 @@
 "use client";
 
-import {
-  createContext,
-  Dispatch,
-  ReactNode,
-  SetStateAction
-} from "react";
-import {
-  ThemeProvider,
-  useTheme
-} from "next-themes";
+import { Dispatch, ReactNode, SetStateAction, createContext } from "react";
+import { ThemeProvider, useTheme } from "next-themes";
 import { Toaster } from "sonner";
 import { Analytics } from "@vercel/analytics/react";
-import {
-  defaultFontMapper,
-  displayFontMapper
-} from "@/styles/fonts";
+import { displayFontMapper, defaultFontMapper } from "@/styles/fonts";
 import useLocalStorage from "@/lib/hooks/use-local-storage";
 import { cn } from "@/lib/utils";
 
@@ -28,28 +17,34 @@ export const AppContext = createContext<{
 });
 
 const ToasterProvider = () => {
-  const {theme} = useTheme() as {
+  const { theme } = useTheme() as {
     theme: "light" | "dark" | "system";
   };
-  return <Toaster theme={theme}/>;
+  return <Toaster theme={theme} />;
 };
 
-export default function Providers({children}: { children: ReactNode }) {
+export default function Providers({ children }: { children: ReactNode }) {
   const [font, setFont] = useLocalStorage<string>("novel__font", "Default");
-  
+
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+    <ThemeProvider
+      attribute="class"
+      value={{
+        light: "light-theme",
+        dark: "dark-theme",
+      }}
+    >
       <AppContext.Provider
         value={{
           font,
           setFont,
         }}
       >
-        <ToasterProvider/>
+        <ToasterProvider />
         <div className={cn(displayFontMapper[font], defaultFontMapper[font])}>
           {children}
         </div>
-        <Analytics/>
+        <Analytics />
       </AppContext.Provider>
     </ThemeProvider>
   );

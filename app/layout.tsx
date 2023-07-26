@@ -4,7 +4,6 @@ import "@/styles/prosemirror.css";
 import { Metadata } from "next";
 import { ReactNode } from "react";
 import Providers from "./providers";
-import { TailwindIndicator } from "@/components/tailwind-indicator";
 
 const title =
   "Novel – Notion-style WYSIWYG editor with AI-powered autocompletions";
@@ -28,13 +27,12 @@ export const metadata: Metadata = {
   themeColor: "#ffffff",
 };
 
-export default function RootLayout({children}: { children: ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-    <body>
-    <Providers>{children}</Providers>
-    <TailwindIndicator/>
-    </body>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
