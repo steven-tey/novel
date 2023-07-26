@@ -1,11 +1,14 @@
-import { BubbleMenu, BubbleMenuProps } from "@tiptap/react";
-import { FC, useState } from "react";
+import {
+  BubbleMenu,
+  BubbleMenuProps
+} from "@tiptap/react";
+import { FC } from "react";
 import {
   BoldIcon,
-  ItalicIcon,
-  UnderlineIcon,
-  StrikethroughIcon,
   CodeIcon,
+  ItalicIcon,
+  StrikethroughIcon,
+  UnderlineIcon,
 } from "lucide-react";
 
 import { NodeSelector } from "./node-selector";
@@ -55,10 +58,10 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
       icon: CodeIcon,
     },
   ];
-
+  
   const bubbleMenuProps: EditorBubbleMenuProps = {
     ...props,
-    shouldShow: ({ editor }) => {
+    shouldShow: ({editor}) => {
       // don't show if image is selected
       if (editor.isActive("image")) {
         return false;
@@ -67,41 +70,16 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
     },
     tippyOptions: {
       moveTransition: "transform 0.15s ease-out",
-      onHidden: () => {
-        setIsNodeSelectorOpen(false);
-        setIsColorSelectorOpen(false);
-        setIsLinkSelectorOpen(false);
-      },
     },
   };
-
-  const [isNodeSelectorOpen, setIsNodeSelectorOpen] = useState(false);
-  const [isColorSelectorOpen, setIsColorSelectorOpen] = useState(false);
-  const [isLinkSelectorOpen, setIsLinkSelectorOpen] = useState(false);
-
+  
   return (
     <BubbleMenu
       {...bubbleMenuProps}
-      className="flex w-fit divide-x divide-stone-200 rounded border border-stone-200 bg-white shadow-xl"
+      className="relative flex w-fit divide-x divide-stone-200 rounded border border-stone-200 bg-white shadow-xl"
     >
-      <NodeSelector
-        editor={props.editor}
-        isOpen={isNodeSelectorOpen}
-        setIsOpen={() => {
-          setIsNodeSelectorOpen(!isNodeSelectorOpen);
-          setIsColorSelectorOpen(false);
-          setIsLinkSelectorOpen(false);
-        }}
-      />
-      <LinkSelector
-        editor={props.editor}
-        isOpen={isLinkSelectorOpen}
-        setIsOpen={() => {
-          setIsLinkSelectorOpen(!isLinkSelectorOpen);
-          setIsColorSelectorOpen(false);
-          setIsNodeSelectorOpen(false);
-        }}
-      />
+      <NodeSelector editor={props.editor}/>
+      <LinkSelector editor={props.editor}/>
       <div className="flex">
         {items.map((item, index) => (
           <button
@@ -117,15 +95,7 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
           </button>
         ))}
       </div>
-      <ColorSelector
-        editor={props.editor}
-        isOpen={isColorSelectorOpen}
-        setIsOpen={() => {
-          setIsColorSelectorOpen(!isColorSelectorOpen);
-          setIsNodeSelectorOpen(false);
-          setIsLinkSelectorOpen(false);
-        }}
-      />
+      <ColorSelector editor={props.editor}/>
     </BubbleMenu>
   );
 };
