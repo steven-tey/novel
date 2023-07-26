@@ -1,17 +1,11 @@
-import {
-  BubbleMenu,
-  BubbleMenuProps
-} from "@tiptap/react";
-import {
-  FC,
-  useState
-} from "react";
+import { BubbleMenu, BubbleMenuProps } from "@tiptap/react";
+import { FC, useState } from "react";
 import {
   BoldIcon,
-  CodeIcon,
   ItalicIcon,
-  StrikethroughIcon,
   UnderlineIcon,
+  StrikethroughIcon,
+  CodeIcon,
 } from "lucide-react";
 
 import { NodeSelector } from "./node-selector";
@@ -61,10 +55,10 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
       icon: CodeIcon,
     },
   ];
-  
+
   const bubbleMenuProps: EditorBubbleMenuProps = {
     ...props,
-    shouldShow: ({editor}) => {
+    shouldShow: ({ editor }) => {
       // don't show if image is selected
       if (editor.isActive("image")) {
         return false;
@@ -80,15 +74,15 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
       },
     },
   };
-  
+
   const [isNodeSelectorOpen, setIsNodeSelectorOpen] = useState(false);
   const [isColorSelectorOpen, setIsColorSelectorOpen] = useState(false);
   const [isLinkSelectorOpen, setIsLinkSelectorOpen] = useState(false);
-  
+
   return (
     <BubbleMenu
       {...bubbleMenuProps}
-      className="flex w-fit divide-x rounded border bg-background shadow-xl"
+      className="flex w-fit divide-x divide-stone-200 rounded border border-stone-200 bg-white shadow-xl"
     >
       <NodeSelector
         editor={props.editor}
@@ -113,7 +107,7 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
           <button
             key={index}
             onClick={item.command}
-            className="p-2 hover:bg-muted active:bg-muted"
+            className="p-2 text-stone-600 hover:bg-stone-100 active:bg-stone-200"
           >
             <item.icon
               className={cn("h-4 w-4", {
