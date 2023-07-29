@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useEditor, EditorContent } from "@tiptap/react";
+import { useEditor, EditorContent, JSONContent } from "@tiptap/react";
 import { TiptapEditorProps } from "./props";
 import { TiptapExtensions } from "./extensions";
 import useLocalStorage from "@/lib/hooks/use-local-storage";
@@ -13,12 +13,21 @@ import DEFAULT_EDITOR_CONTENT from "./default-content";
 import { EditorBubbleMenu } from "./components";
 import { getPrevText } from "@/lib/editor";
 
-export default function Editor() {
+const DEFAULT_DEBOUNCE_DURATION = 750;
+
+export default function Editor({
+  onUpdate,
+  onDebouncedUpdate,
+  debounceDuration,
+}: {
+  onUpdate: (content: JSONContent) => void;
+  onDebouncedUpdate: (content: JSONContent) => void;
+  debounceDuration?: number;
+}) {
   const [content, setContent] = useLocalStorage(
     "content",
     DEFAULT_EDITOR_CONTENT
   );
-  console.log(content);
   const [saveStatus, setSaveStatus] = useState("Saved");
 
   const [hydrated, setHydrated] = useState(false);
@@ -31,7 +40,9 @@ export default function Editor() {
     setTimeout(() => {
       setSaveStatus("Saved");
     }, 500);
-  }, 750);
+
+    onDebouncedUpdate?.(json);
+  }, debounceDuration || DEFAULT_DEBOUNCE_DURATION);
 
   const editor = useEditor({
     extensions: TiptapExtensions,
@@ -55,6 +66,7 @@ export default function Editor() {
         // complete(e.editor.storage.markdown.getMarkdown());
         va.track("Autocomplete Shortcut Used");
       } else {
+        onUpdate?.(e.editor.getJSON());
         debouncedUpdates(e);
       }
     },
