@@ -1,6 +1,6 @@
 import Moveable from "react-moveable";
 
-const ImageResize = ({ editor }) => {
+export const ImageResizer = ({ editor }) => {
   const updateMediaSize = () => {
     const imageInfo = document.querySelector(
       ".ProseMirror-selectednode",
@@ -69,5 +69,3 @@ const ImageResize = ({ editor }) => {
     </>
   );
 };
-
-export default ImageResize;

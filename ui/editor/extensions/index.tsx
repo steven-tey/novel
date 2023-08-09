@@ -10,7 +10,6 @@ import TaskItem from "@tiptap/extension-task-item";
 import TaskList from "@tiptap/extension-task-list";
 import { Markdown } from "tiptap-markdown";
 import Highlight from "@tiptap/extension-highlight";
-
 import SlashCommand from "./slash-command";
 import { InputRule } from "@tiptap/core";
 import UploadImagesPlugin from "@/ui/editor/plugins/upload-images";
@@ -102,6 +101,11 @@ export const TiptapExtensions = [
       class: "rounded-lg border border-stone-200",
     },
   }),
+  UpdatedImage.configure({
+    HTMLAttributes: {
+      class: "rounded-lg border border-stone-200",
+    },
+  }),
   Placeholder.configure({
     placeholder: ({ node }) => {
       if (node.type.name === "heading") {
@@ -133,5 +137,4 @@ export const TiptapExtensions = [
     html: false,
     transformCopiedText: true,
   }),
-  UpdatedImage,
 ];
