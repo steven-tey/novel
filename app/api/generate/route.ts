@@ -11,11 +11,14 @@ const openai = new OpenAIApi(config);
 export const runtime = "edge";
 
 export async function POST(req: Request): Promise<Response> {
-  // Check if the OPENAI_API_KEY is set
+  // Check if the OPENAI_API_KEY is set, if not return 400
   if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === "") {
-    return new Response("OPENAI_API_KEY is not set", {
-      status: 500,
-    });
+    return new Response(
+      "Missing OPENAI_API_KEY – make sure to add it to your .env file.",
+      {
+        status: 400,
+      },
+    );
   }
   if (
     process.env.NODE_ENV != "development" &&
@@ -71,10 +74,10 @@ export async function POST(req: Request): Promise<Response> {
     n: 1,
   });
 
-  // If the response is unauthorized, return a 500 error
+  // If the response is unauthorized, return a 401 error
   if (response.status === 401) {
     return new Response("Error: You are unauthorized to perform this action", {
-      status: 500,
+      status: 401,
     });
   }
   // Convert the response into a friendly text-stream
