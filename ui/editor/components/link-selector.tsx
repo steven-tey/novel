@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn, getUrlFromString } from "@/lib/utils";
 import { Editor } from "@tiptap/core";
 import { Check, Trash } from "lucide-react";
 import { Dispatch, FC, SetStateAction, useEffect, useRef } from "react";
@@ -43,14 +43,15 @@ export const LinkSelector: FC<LinkSelectorProps> = ({
           onSubmit={(e) => {
             e.preventDefault();
             const input = e.target[0] as HTMLInputElement;
-            editor.chain().focus().setLink({ href: input.value }).run();
+            const url = getUrlFromString(input.value);
+            url && editor.chain().focus().setLink({ href: url }).run();
             setIsOpen(false);
           }}
           className="fixed top-full z-[99999] mt-1 flex w-60 overflow-hidden rounded border border-stone-200 bg-white p-1 shadow-xl animate-in fade-in slide-in-from-top-1"
         >
           <input
             ref={inputRef}
-            type="url"
+            type="text"
             placeholder="Paste a link"
             className="flex-1 bg-white p-1 text-sm outline-none"
             defaultValue={editor.getAttributes("link").href || ""}
