@@ -10,10 +10,10 @@ import TaskItem from "@tiptap/extension-task-item";
 import TaskList from "@tiptap/extension-task-list";
 import { Markdown } from "tiptap-markdown";
 import Highlight from "@tiptap/extension-highlight";
-
 import SlashCommand from "./slash-command";
 import { InputRule } from "@tiptap/core";
 import UploadImagesPlugin from "@/ui/editor/plugins/upload-images";
+import UpdatedImage from "./updated-image";
 
 const CustomImage = TiptapImage.extend({
   addProseMirrorPlugins() {
@@ -97,6 +97,11 @@ export const TiptapExtensions = [
   }),
   CustomImage.configure({
     allowBase64: true,
+    HTMLAttributes: {
+      class: "rounded-lg border border-stone-200",
+    },
+  }),
+  UpdatedImage.configure({
     HTMLAttributes: {
       class: "rounded-lg border border-stone-200",
     },
