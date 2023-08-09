@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import { Dispatch, FC, SetStateAction } from "react";
 
-import { BubbleMenuItem } from "./EditorBubbleMenu";
+import { BubbleMenuItem } from "./bubble-menu";
 
 interface NodeSelectorProps {
   editor: Editor;

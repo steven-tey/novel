@@ -44,10 +44,15 @@ export const LinkSelector: FC<LinkSelectorProps> = ({
             e.preventDefault();
             const input = e.target[0] as HTMLInputElement;
             let link: string = input.value.trim();
-            if (link && !link.startsWith("http://") && !link.startsWith("https://")) {
+            if (
+              link &&
+              !link.startsWith("http://") &&
+              !link.startsWith("https://")
+            ) {
               link = "http://" + link;
             }
-            editor.chain().focus().setLink({ href: link }).run();
+            input.value &&
+              editor.chain().focus().setLink({ href: input.value }).run();
             setIsOpen(false);
           }}
           className="fixed top-full z-[99999] mt-1 flex w-60 overflow-hidden rounded border border-stone-200 bg-white p-1 shadow-xl animate-in fade-in slide-in-from-top-1"
