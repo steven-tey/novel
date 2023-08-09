@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useEditor, EditorContent, JSONContent } from "@tiptap/react";
+import { useEditor, EditorContent } from "@tiptap/react";
 import { TiptapEditorProps } from "./props";
 import { TiptapExtensions } from "./extensions";
 import useLocalStorage from "@/lib/hooks/use-local-storage";
@@ -21,8 +21,8 @@ export default function Editor({
   onDebouncedUpdate,
   debounceDuration,
 }: {
-  onUpdate: (content: JSONContent) => void;
-  onDebouncedUpdate: (content: JSONContent) => void;
+  onUpdate: () => void;
+  onDebouncedUpdate: () => void;
   debounceDuration?: number;
 }) {
   const [content, setContent] = useLocalStorage(
