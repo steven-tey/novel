@@ -6,6 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:replay": "playwright test --project replay-chromium --reporter=@replayio/playwright/reporter,line",
     "format:write": "prettier --write \"**/*.{css,js,json,jsx,ts,tsx}\"",
     "format": "prettier \"**/*.{css,js,json,jsx,ts,tsx}\"",
     "lint": "next lint"
@@ -56,6 +59,8 @@
     "use-debounce": "^9.0.4"
   },
   "devDependencies": {
+    "@playwright/test": "^1.36.0",
+    "@replayio/playwright": "^1.0.4",
     "@tailwindcss/typography": "^0.5.9",
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.25",
