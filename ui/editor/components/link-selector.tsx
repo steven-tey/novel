@@ -1,4 +1,4 @@
-import { cn, getUrlFromString } from "@/lib/utils";
+import { cn, getUrlFromString } from "@/utils/editor";
 import { Editor } from "@tiptap/core";
 import { Check, Trash } from "lucide-react";
 import { Dispatch, FC, SetStateAction, useEffect, useRef } from "react";
@@ -16,10 +16,17 @@ export const LinkSelector: FC<LinkSelectorProps> = ({
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Autofocus on input by default
   useEffect(() => {
     inputRef.current && inputRef.current?.focus();
-  });
+  }, [isOpen]);
+
+  const handleLinkSubmission = () => {
+    const url = getUrlFromString(inputRef.current?.value || "");
+    if (url) {
+      editor.chain().focus().setLink({ href: url }).run();
+      setIsOpen(false);
+    }
+  };
 
   return (
     <div className="relative">
@@ -28,6 +35,7 @@ export const LinkSelector: FC<LinkSelectorProps> = ({
         onClick={() => {
           setIsOpen(!isOpen);
         }}
+        type="button"
       >
         <p className="text-base">↗</p>
         <p
@@ -39,16 +47,7 @@ export const LinkSelector: FC<LinkSelectorProps> = ({
         </p>
       </button>
       {isOpen && (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            const input = e.target[0] as HTMLInputElement;
-            const url = getUrlFromString(input.value);
-            url && editor.chain().focus().setLink({ href: url }).run();
-            setIsOpen(false);
-          }}
-          className="fixed top-full z-[99999] mt-1 flex w-60 overflow-hidden rounded border border-stone-200 bg-white p-1 shadow-xl animate-in fade-in slide-in-from-top-1"
-        >
+        <div className="fixed top-full z-[99999] mt-1 flex w-60 overflow-hidden rounded border border-stone-200 bg-white p-1 shadow-xl animate-in fade-in slide-in-from-top-1">
           <input
             ref={inputRef}
             type="text"
@@ -63,15 +62,20 @@ export const LinkSelector: FC<LinkSelectorProps> = ({
                 editor.chain().focus().unsetLink().run();
                 setIsOpen(false);
               }}
+              type="button"
             >
               <Trash className="h-4 w-4" />
             </button>
           ) : (
-            <button className="flex items-center rounded-sm p-1 text-stone-600 transition-all hover:bg-stone-100">
+            <button 
+              className="flex items-center rounded-sm p-1 text-stone-600 transition-all hover:bg-stone-100"
+              onClick={handleLinkSubmission}
+              type="button"
+            >
               <Check className="h-4 w-4" />
             </button>
           )}
-        </form>
+        </div>
       )}
     </div>
   );
