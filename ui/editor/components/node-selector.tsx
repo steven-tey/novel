@@ -103,6 +103,7 @@ export const NodeSelector: FC<NodeSelectorProps> = ({
       <button
         className="flex h-full items-center gap-1 whitespace-nowrap p-2 text-sm font-medium text-stone-600 hover:bg-stone-100 active:bg-stone-200"
         onClick={() => setIsOpen(!isOpen)}
+        type="button"
       >
         <span>{activeItem?.name}</span>
         <ChevronDown className="h-4 w-4" />
@@ -118,6 +119,7 @@ export const NodeSelector: FC<NodeSelectorProps> = ({
                 setIsOpen(false);
               }}
               className="flex items-center justify-between rounded-sm px-2 py-1 text-sm text-stone-600 hover:bg-stone-100"
+              type="button"
             >
               <div className="flex items-center space-x-2">
                 <div className="rounded-sm border border-stone-200 p-1">
