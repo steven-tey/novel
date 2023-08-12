@@ -109,6 +109,7 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
       <button
         className="flex h-full items-center gap-1 p-2 text-sm font-medium text-stone-600 hover:bg-stone-100 active:bg-stone-200"
         onClick={() => setIsOpen(!isOpen)}
+        type="button"
       >
         <span
           className="rounded-sm px-1"
@@ -136,6 +137,7 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
                 setIsOpen(false);
               }}
               className="flex items-center justify-between rounded-sm px-2 py-1 text-sm text-stone-600 hover:bg-stone-100"
+              type="button"
             >
               <div className="flex items-center space-x-2">
                 <div
@@ -165,6 +167,7 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
                 setIsOpen(false);
               }}
               className="flex items-center justify-between rounded-sm px-2 py-1 text-sm text-stone-600 hover:bg-stone-100"
+              type="button"
             >
               <div className="flex items-center space-x-2">
                 <div
