@@ -45,3 +45,5 @@ export const defaultFontMapper = {
   Serif: crimson.variable,
   Mono: inconsolata.variable,
 };
+
+export type FontType = "Default" | "Serif" | "Mono";

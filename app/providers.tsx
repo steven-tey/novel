@@ -1,16 +1,16 @@
 "use client";
 
-import { Dispatch, ReactNode, SetStateAction, createContext } from "react";
+import { Dispatch, ReactNode, createContext } from "react";
 import { ThemeProvider, useTheme } from "next-themes";
 import { Toaster } from "sonner";
 import { Analytics } from "@vercel/analytics/react";
-import { displayFontMapper, defaultFontMapper } from "@/styles/fonts";
+import { displayFontMapper, defaultFontMapper, FontType } from "@/styles/fonts";
 import useLocalStorage from "@/lib/hooks/use-local-storage";
 import { cn } from "@/lib/utils";
 
 export const AppContext = createContext<{
-  font: string;
-  setFont: Dispatch<SetStateAction<string>>;
+  font: FontType;
+  setFont: Dispatch<FontType>;
 }>({
   font: "Default",
   setFont: () => {},
@@ -24,7 +24,7 @@ const ToasterProvider = () => {
 };
 
 export default function Providers({ children }: { children: ReactNode }) {
-  const [font, setFont] = useLocalStorage<string>("novel__font", "Default");
+  const [font, setFont] = useLocalStorage<FontType>("novel__font", "Default");
 
   return (
     <ThemeProvider
