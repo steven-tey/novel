@@ -42,7 +42,9 @@ export const LinkSelector: FC<LinkSelectorProps> = ({
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            const input = e.target[0] as HTMLInputElement;
+            // TODO
+            // const input = e.target[0] as HTMLInputElement;
+            const input = e.target as HTMLInputElement;
             const url = getUrlFromString(input.value);
             url && editor.chain().focus().setLink({ href: url }).run();
             setIsOpen(false);

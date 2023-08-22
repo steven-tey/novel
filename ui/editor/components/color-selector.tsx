@@ -113,8 +113,8 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
         <span
           className="rounded-sm px-1"
           style={{
-            color: activeColorItem?.color,
-            backgroundColor: activeHighlightItem?.color,
+            color: activeColorItem?.color as string,
+            backgroundColor: activeHighlightItem?.color as string,
           }}
         >
           A
@@ -132,7 +132,11 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
               onClick={() => {
                 editor.commands.unsetColor();
                 name !== "Default" &&
-                  editor.chain().focus().setColor(color).run();
+                  editor
+                    .chain()
+                    .focus()
+                    .setColor(color as string)
+                    .run();
                 setIsOpen(false);
               }}
               className="flex items-center justify-between rounded-sm px-2 py-1 text-sm text-stone-600 hover:bg-stone-100"
@@ -140,7 +144,7 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
               <div className="flex items-center space-x-2">
                 <div
                   className="rounded-sm border border-stone-200 px-1 py-px font-medium"
-                  style={{ color }}
+                  style={{ color } as { color: string }}
                 >
                   A
                 </div>
@@ -161,7 +165,8 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
               key={index}
               onClick={() => {
                 editor.commands.unsetHighlight();
-                name !== "Default" && editor.commands.setHighlight({ color });
+                name !== "Default" &&
+                  editor.commands.setHighlight({ color } as { color: string });
                 setIsOpen(false);
               }}
               className="flex items-center justify-between rounded-sm px-2 py-1 text-sm text-stone-600 hover:bg-stone-100"
@@ -169,7 +174,7 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
               <div className="flex items-center space-x-2">
                 <div
                   className="rounded-sm border border-stone-200 px-1 py-px font-medium"
-                  style={{ backgroundColor: color }}
+                  style={{ backgroundColor: color as string }}
                 >
                   A
                 </div>
