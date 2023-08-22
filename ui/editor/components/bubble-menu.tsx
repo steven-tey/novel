@@ -12,6 +12,7 @@ import { NodeSelector } from "./node-selector";
 import { ColorSelector } from "./color-selector";
 import { LinkSelector } from "./link-selector";
 import { cn } from "@/lib/utils";
+import { TextAlignSelector } from "./text-align-selector";
 
 export interface BubbleMenuItem {
   name: string;
@@ -78,6 +79,7 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
   const [isNodeSelectorOpen, setIsNodeSelectorOpen] = useState(false);
   const [isColorSelectorOpen, setIsColorSelectorOpen] = useState(false);
   const [isLinkSelectorOpen, setIsLinkSelectorOpen] = useState(false);
+  const [isTextAlignSelectorOpen, setIsTextAlignSelectorOpen] = useState(false);
 
   return (
     <BubbleMenu
@@ -91,6 +93,7 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
           setIsNodeSelectorOpen(!isNodeSelectorOpen);
           setIsColorSelectorOpen(false);
           setIsLinkSelectorOpen(false);
+          setIsTextAlignSelectorOpen(false);
         }}
       />
       <LinkSelector
@@ -116,7 +119,18 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
             />
           </button>
         ))}
+        <TextAlignSelector
+          editor={props.editor}
+          isOpen={isTextAlignSelectorOpen}
+          setIsOpen={() => {
+            setIsTextAlignSelectorOpen(!isTextAlignSelectorOpen);
+            setIsColorSelectorOpen(false);
+            setIsNodeSelectorOpen(false);
+            setIsLinkSelectorOpen(false);
+          }}
+        />
       </div>
+
       <ColorSelector
         editor={props.editor}
         isOpen={isColorSelectorOpen}
@@ -124,6 +138,7 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
           setIsColorSelectorOpen(!isColorSelectorOpen);
           setIsNodeSelectorOpen(false);
           setIsLinkSelectorOpen(false);
+          setIsTextAlignSelectorOpen(false);
         }}
       />
     </BubbleMenu>
