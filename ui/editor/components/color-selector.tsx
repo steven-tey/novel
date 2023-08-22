@@ -4,7 +4,7 @@ import { Dispatch, FC, SetStateAction } from "react";
 
 export interface BubbleColorMenuItem {
   name: string;
-  color: string | null;
+  color: string;
 }
 
 interface ColorSelectorProps {
@@ -113,8 +113,8 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
         <span
           className="rounded-sm px-1"
           style={{
-            color: activeColorItem?.color as string,
-            backgroundColor: activeHighlightItem?.color as string,
+            color: activeColorItem?.color,
+            backgroundColor: activeHighlightItem?.color,
           }}
         >
           A
@@ -132,11 +132,7 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
               onClick={() => {
                 editor.commands.unsetColor();
                 name !== "Default" &&
-                  editor
-                    .chain()
-                    .focus()
-                    .setColor(color as string)
-                    .run();
+                  editor.chain().focus().setColor(color).run();
                 setIsOpen(false);
               }}
               className="flex items-center justify-between rounded-sm px-2 py-1 text-sm text-stone-600 hover:bg-stone-100"
@@ -144,7 +140,7 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
               <div className="flex items-center space-x-2">
                 <div
                   className="rounded-sm border border-stone-200 px-1 py-px font-medium"
-                  style={{ color } as { color: string }}
+                  style={{ color }}
                 >
                   A
                 </div>
@@ -174,7 +170,7 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
               <div className="flex items-center space-x-2">
                 <div
                   className="rounded-sm border border-stone-200 px-1 py-px font-medium"
-                  style={{ backgroundColor: color as string }}
+                  style={{ backgroundColor: color }}
                 >
                   A
                 </div>

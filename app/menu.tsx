@@ -12,7 +12,12 @@ import { Check, Menu as MenuIcon, Monitor, Moon, SunDim } from "lucide-react";
 import { useTheme } from "next-themes";
 import { FontType } from "@/styles/fonts";
 
-const fonts = [
+type FontsArrayType = {
+  font: FontType;
+  icon: React.ReactNode;
+};
+
+const fonts: FontsArrayType[] = [
   {
     font: "Default",
     icon: <FontDefault className="h-4 w-4" />,
@@ -26,6 +31,7 @@ const fonts = [
     icon: <FontMono className="h-4 w-4" />,
   },
 ];
+
 const appearances = [
   {
     theme: "System",
@@ -58,7 +64,7 @@ export default function Menu() {
               key={font}
               className="flex w-full items-center justify-between rounded px-2 py-1 text-sm text-stone-600 hover:bg-stone-100"
               onClick={() => {
-                setFont(font as FontType);
+                setFont(font);
               }}
             >
               <div className="flex items-center space-x-2">
