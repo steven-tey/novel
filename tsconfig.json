@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "strict": false,
+    "strict": true,
     "noEmit": true,
     "allowJs": true,
     "jsx": "preserve",
