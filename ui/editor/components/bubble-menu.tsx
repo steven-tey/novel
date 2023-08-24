@@ -78,6 +78,8 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
   const [isNodeSelectorOpen, setIsNodeSelectorOpen] = useState(false);
   const [isColorSelectorOpen, setIsColorSelectorOpen] = useState(false);
   const [isLinkSelectorOpen, setIsLinkSelectorOpen] = useState(false);
+  const isCodeActive = props.editor.isActive("code");
+  const isCodeBlockActive = props.editor.isActive("codeBlock");
 
   return (
     <BubbleMenu
@@ -93,39 +95,43 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
           setIsLinkSelectorOpen(false);
         }}
       />
-      <LinkSelector
-        editor={props.editor}
-        isOpen={isLinkSelectorOpen}
-        setIsOpen={() => {
-          setIsLinkSelectorOpen(!isLinkSelectorOpen);
-          setIsColorSelectorOpen(false);
-          setIsNodeSelectorOpen(false);
-        }}
-      />
-      <div className="flex">
-        {items.map((item, index) => (
-          <button
-            key={index}
-            onClick={item.command}
-            className="p-2 text-stone-600 hover:bg-stone-100 active:bg-stone-200"
-          >
-            <item.icon
-              className={cn("h-4 w-4", {
-                "text-blue-500": item.isActive(),
-              })}
-            />
-          </button>
-        ))}
-      </div>
-      <ColorSelector
-        editor={props.editor}
-        isOpen={isColorSelectorOpen}
-        setIsOpen={() => {
-          setIsColorSelectorOpen(!isColorSelectorOpen);
-          setIsNodeSelectorOpen(false);
-          setIsLinkSelectorOpen(false);
-        }}
-      />
+      {!(isCodeActive || isCodeBlockActive) && (
+        <>
+          <LinkSelector
+            editor={props.editor}
+            isOpen={isLinkSelectorOpen}
+            setIsOpen={() => {
+              setIsLinkSelectorOpen(!isLinkSelectorOpen);
+              setIsColorSelectorOpen(false);
+              setIsNodeSelectorOpen(false);
+            }}
+          />
+          <div className="flex">
+            {items.map((item, index) => (
+              <button
+                key={index}
+                onClick={item.command}
+                className="p-2 text-stone-600 hover:bg-stone-100 active:bg-stone-200"
+              >
+                <item.icon
+                  className={cn("h-4 w-4", {
+                    "text-blue-500": item.isActive(),
+                  })}
+                />
+              </button>
+            ))}
+          </div>
+          <ColorSelector
+            editor={props.editor}
+            isOpen={isColorSelectorOpen}
+            setIsOpen={() => {
+              setIsColorSelectorOpen(!isColorSelectorOpen);
+              setIsNodeSelectorOpen(false);
+              setIsLinkSelectorOpen(false);
+            }}
+          />
+        </>
+      )}
     </BubbleMenu>
   );
 };
