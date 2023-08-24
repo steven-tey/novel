@@ -34,8 +34,6 @@ const UploadImagesPlugin = () =>
           set = set.add(tr.doc, [deco]);
         } else if (action && action.remove) {
           set = set.remove(
-            // TODO
-            // set.find(null, null, (spec) => spec.id == action.remove.id),
             set.find(
               undefined,
               undefined,
