@@ -1,6 +1,7 @@
 import { Editor } from "@tiptap/core";
 import { Check, ChevronDown } from "lucide-react";
 import { Dispatch, FC, SetStateAction } from "react";
+import * as Popover from "@radix-ui/react-popover";
 
 export interface BubbleColorMenuItem {
   name: string;
@@ -105,27 +106,29 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
   );
 
   return (
-    <div className="relative h-full">
-      <button
-        className="flex h-full items-center gap-1 p-2 text-sm font-medium text-stone-600 hover:bg-stone-100 active:bg-stone-200"
-        onClick={() => setIsOpen(!isOpen)}
-        type="button"
-      >
-        <span
-          className="rounded-sm px-1"
-          style={{
-            color: activeColorItem?.color,
-            backgroundColor: activeHighlightItem?.color,
-          }}
+    <Popover.Root open={isOpen}>
+      <div className="relative h-full">
+        <Popover.Trigger
+          className="flex h-full items-center gap-1 p-2 text-sm font-medium text-stone-600 hover:bg-stone-100 active:bg-stone-200"
+          onClick={() => setIsOpen(!isOpen)}
         >
-          A
-        </span>
+          <span
+            className="rounded-sm px-1"
+            style={{
+              color: activeColorItem?.color,
+              backgroundColor: activeHighlightItem?.color,
+            }}
+          >
+            A
+          </span>
 
-        <ChevronDown className="h-4 w-4" />
-      </button>
+          <ChevronDown className="h-4 w-4" />
+        </Popover.Trigger>
 
-      {isOpen && (
-        <section className="fixed top-full z-[99999] mt-1 flex w-48 flex-col overflow-hidden rounded border border-stone-200 bg-white p-1 shadow-xl animate-in fade-in slide-in-from-top-1">
+        <Popover.Content
+          align="start"
+          className="z-[99999] my-1 flex max-h-80 w-48 flex-col overflow-hidden overflow-y-auto rounded border border-stone-200 bg-white p-1 shadow-xl animate-in fade-in slide-in-from-top-1"
+        >
           <div className="my-1 px-2 text-sm text-stone-500">Color</div>
           {TEXT_COLORS.map(({ name, color }, index) => (
             <button
@@ -183,8 +186,8 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
               )}
             </button>
           ))}
-        </section>
-      )}
-    </div>
+        </Popover.Content>
+      </div>
+    </Popover.Root>
   );
 };
