@@ -24,6 +24,7 @@ export const LinkSelector: FC<LinkSelectorProps> = ({
   return (
     <div className="relative">
       <button
+        type="button"
         className="flex h-full items-center space-x-2 px-3 py-1.5 text-sm font-medium text-stone-600 hover:bg-stone-100 active:bg-stone-200"
         onClick={() => {
           setIsOpen(!isOpen);
@@ -58,6 +59,7 @@ export const LinkSelector: FC<LinkSelectorProps> = ({
           />
           {editor.getAttributes("link").href ? (
             <button
+              type="button"
               className="flex items-center rounded-sm p-1 text-red-600 transition-all hover:bg-red-100 dark:hover:bg-red-800"
               onClick={() => {
                 editor.chain().focus().unsetLink().run();
