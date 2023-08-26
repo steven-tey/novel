@@ -132,20 +132,18 @@ export default function Editor() {
   }, [editor, content, hydrated]);
 
   return (
-    <div>
-      {editor && <EditorBubbleMenu editor={editor} />}
-      <div
-        onClick={() => {
-          editor?.chain().focus().run();
-        }}
-        className="relative min-h-[500px] w-full max-w-screen-lg border-stone-200 bg-white p-12 px-8 sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:px-12 sm:shadow-lg"
-      >
-        <div className="absolute right-5 top-5 mb-5 rounded-lg bg-stone-100 px-2 py-1 text-sm text-stone-400">
-          {saveStatus}
-        </div>
-        {editor?.isActive("image") && <ImageResizer editor={editor} />}
-        <EditorContent editor={editor} />
+    <div
+      onClick={() => {
+        editor?.chain().focus().run();
+      }}
+      className="relative min-h-[500px] w-full max-w-screen-lg border-stone-200 bg-white p-12 px-8 sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:px-12 sm:shadow-lg"
+    >
+      <div className="absolute right-5 top-5 mb-5 rounded-lg bg-stone-100 px-2 py-1 text-sm text-stone-400">
+        {saveStatus}
       </div>
+      {editor && <EditorBubbleMenu editor={editor} />}
+      {editor?.isActive("image") && <ImageResizer editor={editor} />}
+      <EditorContent editor={editor} />
     </div>
   );
 }
