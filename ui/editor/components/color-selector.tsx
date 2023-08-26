@@ -125,7 +125,10 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
           <ChevronDown className="h-4 w-4" />
         </Popover.Trigger>
 
-        <Popover.Content className="z-[99999] my-1 flex h-80 w-48 flex-col overflow-hidden overflow-y-auto rounded border border-stone-200 bg-white p-1 shadow-xl animate-in fade-in slide-in-from-top-1">
+        <Popover.Content
+          align="start"
+          className="z-[99999] my-1 flex max-h-80 w-48 flex-col overflow-hidden overflow-y-auto rounded border border-stone-200 bg-white p-1 shadow-xl animate-in fade-in slide-in-from-top-1"
+        >
           <div className="my-1 px-2 text-sm text-stone-500">Color</div>
           {TEXT_COLORS.map(({ name, color }, index) => (
             <button

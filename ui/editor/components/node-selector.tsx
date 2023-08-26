@@ -11,8 +11,8 @@ import {
   Code,
   CheckSquare,
 } from "lucide-react";
+import * as Popover from "@radix-ui/react-popover";
 import { Dispatch, FC, SetStateAction } from "react";
-
 import { BubbleMenuItem } from "./bubble-menu";
 
 interface NodeSelectorProps {
@@ -99,17 +99,20 @@ export const NodeSelector: FC<NodeSelectorProps> = ({
   };
 
   return (
-    <div className="relative h-full">
-      <button
-        className="flex h-full items-center gap-1 whitespace-nowrap p-2 text-sm font-medium text-stone-600 hover:bg-stone-100 active:bg-stone-200"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        <span>{activeItem?.name}</span>
-        <ChevronDown className="h-4 w-4" />
-      </button>
+    <Popover.Root open={isOpen}>
+      <div className="relative h-full">
+        <Popover.Trigger
+          className="flex h-full items-center gap-1 whitespace-nowrap p-2 text-sm font-medium text-stone-600 hover:bg-stone-100 active:bg-stone-200"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          <span>{activeItem?.name}</span>
+          <ChevronDown className="h-4 w-4" />
+        </Popover.Trigger>
 
-      {isOpen && (
-        <section className="fixed top-full z-[99999] mt-1 flex w-48 flex-col overflow-hidden rounded border border-stone-200 bg-white p-1 shadow-xl animate-in fade-in slide-in-from-top-1">
+        <Popover.Content
+          align="start"
+          className="z-[99999] my-1 flex max-h-80 w-48 flex-col overflow-hidden overflow-y-auto rounded border border-stone-200 bg-white p-1 shadow-xl animate-in fade-in slide-in-from-top-1"
+        >
           {items.map((item, index) => (
             <button
               key={index}
@@ -128,8 +131,8 @@ export const NodeSelector: FC<NodeSelectorProps> = ({
               {activeItem.name === item.name && <Check className="h-4 w-4" />}
             </button>
           ))}
-        </section>
-      )}
-    </div>
+        </Popover.Content>
+      </div>
+    </Popover.Root>
   );
 };
