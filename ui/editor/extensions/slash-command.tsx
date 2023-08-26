@@ -274,8 +274,8 @@ const CommandList = ({
         to: range.from + completion.length,
       });
     },
-    onError: () => {
-      toast.error("Something went wrong.");
+    onError: (e) => {
+      toast.error(e.message);
     },
   });
 
