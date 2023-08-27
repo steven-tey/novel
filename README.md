@@ -69,8 +69,8 @@ Here's how you can contribute:
 - [Open an issue](https://github.com/steven-tey/novel/issues) if you believe you've encountered a bug.
 - Make a [pull request](https://github.com/steven-tey/novel/pull) to add new features/make quality-of-life improvements/fix bugs.
 
-<a href="https://github.com/steven-tey/dub/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=steven-tey/dub" />
+<a href="https://github.com/steven-tey/novel/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=steven-tey/novel" />
 </a>
 
 ## Repo Activity
