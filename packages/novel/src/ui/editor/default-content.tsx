@@ -1,4 +1,4 @@
-const DEFAULT_EDITOR_CONTENT = {
+export const defaultEditorContent = {
   type: "doc",
   content: [
     {
@@ -199,5 +199,3 @@ const DEFAULT_EDITOR_CONTENT = {
     },
   ],
 };
-
-export default DEFAULT_EDITOR_CONTENT;

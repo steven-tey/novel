@@ -1,7 +1,7 @@
 import { EditorProps } from "@tiptap/pm/view";
 import { startImageUpload } from "@/ui/editor/plugins/upload-images";
 
-export const TiptapEditorProps: EditorProps = {
+export const defaultEditorProps: EditorProps = {
   attributes: {
     class: `prose-lg prose-stone dark:prose-invert prose-headings:font-display font-default focus:outline-none max-w-full`,
   },

@@ -7,7 +7,6 @@ import {
   StrikethroughIcon,
   CodeIcon,
 } from "lucide-react";
-
 import { NodeSelector } from "./node-selector";
 import { ColorSelector } from "./color-selector";
 import { LinkSelector } from "./link-selector";

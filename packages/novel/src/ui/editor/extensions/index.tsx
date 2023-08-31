@@ -15,13 +15,7 @@ import { InputRule } from "@tiptap/core";
 import UploadImagesPlugin from "@/ui/editor/plugins/upload-images";
 import UpdatedImage from "./updated-image";
 
-const CustomImage = TiptapImage.extend({
-  addProseMirrorPlugins() {
-    return [UploadImagesPlugin()];
-  },
-});
-
-export const TiptapExtensions = [
+export const defaultExtensions = [
   StarterKit.configure({
     bulletList: {
       HTMLAttributes: {
@@ -78,7 +72,7 @@ export const TiptapExtensions = [
 
             tr.insert(start - 1, this.type.create(attributes)).delete(
               tr.mapping.map(start),
-              tr.mapping.map(end),
+              tr.mapping.map(end)
             );
           },
         }),
@@ -95,7 +89,11 @@ export const TiptapExtensions = [
         "text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer",
     },
   }),
-  CustomImage.configure({
+  TiptapImage.extend({
+    addProseMirrorPlugins() {
+      return [UploadImagesPlugin()];
+    },
+  }).configure({
     allowBase64: true,
     HTMLAttributes: {
       class: "rounded-lg border border-stone-200",
