@@ -47,7 +47,7 @@
     "react-dom": "18.2.0",
     "react-markdown": "^8.0.7",
     "react-moveable": "^0.54.1",
-    "sonner": "^0.6.2",
+    "sonner": "^0.7.0",
     "tailwind-merge": "^1.14.0",
     "tippy.js": "^6.3.7",
     "tiptap-markdown": "^0.8.2",
@@ -59,12 +59,12 @@
     "@replayio/playwright": "^1.0.10",
     "@tailwindcss/typography": "^0.5.9",
     "autoprefixer": "^10.4.14",
+    "eslint": "^7.32.0",
     "postcss": "^8.4.27",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.3.0",
     "tailwindcss": "^3.3.3",
     "tailwindcss-animate": "^1.0.6",
-    "eslint": "^7.32.0",
     "turbo": "^1.9.3"
   }
 }

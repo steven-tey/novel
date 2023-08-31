@@ -20,9 +20,9 @@ export default function Editor({
   debounceDuration = 750,
 }: {
   // eslint-disable-next-line no-unused-vars
-  onUpdate: (content: JSONContent) => void;
+  onUpdate?: (content: JSONContent) => void;
   // eslint-disable-next-line no-unused-vars
-  onDebouncedUpdate: (content: JSONContent) => void;
+  onDebouncedUpdate?: (content: JSONContent) => void;
   debounceDuration?: number;
 }) {
   const [content, setContent] = useLocalStorage(
