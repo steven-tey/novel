@@ -55,8 +55,6 @@
     "use-debounce": "^9.0.4"
   },
   "devDependencies": {
-    "@playwright/test": "^1.36.2",
-    "@replayio/playwright": "^1.0.10",
     "@tailwindcss/typography": "^0.5.9",
     "autoprefixer": "^10.4.14",
     "eslint": "^7.32.0",

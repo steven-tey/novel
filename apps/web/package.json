@@ -6,9 +6,6 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "playwright test",
-    "test:ui": "playwright test --ui",
-    "test:replay": "playwright test --project replay-chromium --reporter=@replayio/playwright/reporter,line",
     "format:write": "prettier --write \"**/*.{css,js,json,jsx,ts,tsx}\"",
     "format": "prettier \"**/*.{css,js,json,jsx,ts,tsx}\"",
     "lint": "next lint"
