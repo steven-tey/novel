@@ -15,20 +15,19 @@ import { getPrevText } from "@/lib/editor";
 import { ImageResizer } from "./components/image-resizer";
 
 export default function Editor({
+  defaultValue = DEFAULT_EDITOR_CONTENT,
   onUpdate = () => {},
   onDebouncedUpdate = () => {},
   debounceDuration = 750,
 }: {
+  defaultValue?: JSONContent;
   // eslint-disable-next-line no-unused-vars
   onUpdate?: (content: JSONContent) => void;
   // eslint-disable-next-line no-unused-vars
   onDebouncedUpdate?: (content: JSONContent) => void;
   debounceDuration?: number;
 }) {
-  const [content, setContent] = useLocalStorage(
-    "content",
-    DEFAULT_EDITOR_CONTENT
-  );
+  const [content, setContent] = useLocalStorage("content", defaultValue);
   const [saveStatus, setSaveStatus] = useState("Saved");
 
   const [hydrated, setHydrated] = useState(false);

@@ -1,4 +1,4 @@
-import Github from "@/ui/icons/github";
+import { Github } from "@/ui/icons";
 import Menu from "./menu";
 import Novel from "novel";
 import "novel/styles.css";

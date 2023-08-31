@@ -24,10 +24,10 @@ import {
   Code,
   CheckSquare,
 } from "lucide-react";
-import LoadingCircle from "@/ui/icons/loading-circle";
+import { LoadingCircle } from "@/ui/icons";
 import { toast } from "sonner";
 import va from "@vercel/analytics";
-import Magic from "@/ui/icons/magic";
+import { Magic } from "@/ui/icons";
 import { getPrevText } from "@/lib/editor";
 import { startImageUpload } from "@/ui/editor/plugins/upload-images";
 
@@ -292,14 +292,14 @@ const CommandList = ({
             getPrevText(editor, {
               chars: 5000,
               offset: 1,
-            }),
+            })
           );
         } else {
           command(item);
         }
       }
     },
-    [complete, isLoading, command, editor, items],
+    [complete, isLoading, command, editor, items]
   );
 
   useEffect(() => {
