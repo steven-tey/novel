@@ -274,8 +274,8 @@ const CommandList = ({
         to: range.from + completion.length,
       });
     },
-    onError: () => {
-      toast.error("Something went wrong.");
+    onError: (e) => {
+      toast.error(e.message);
     },
   });
 
@@ -287,6 +287,7 @@ const CommandList = ({
       });
       if (item) {
         if (item.title === "Continue writing") {
+          if (isLoading) return;
           complete(
             getPrevText(editor, {
               chars: 5000,
@@ -298,7 +299,7 @@ const CommandList = ({
         }
       }
     },
-    [complete, command, editor, items],
+    [complete, isLoading, command, editor, items],
   );
 
   useEffect(() => {
