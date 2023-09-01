@@ -5,7 +5,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["../../packages/novel/src/*"]
+      "@/*": ["src/*"]
     }
   }
 }

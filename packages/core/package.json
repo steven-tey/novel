@@ -1,6 +1,7 @@
 {
   "name": "novel",
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
   "types": "./dist/index.d.ts",
   "sideEffects": [
     "**/*.css"
@@ -12,7 +13,6 @@
   "files": [
     "dist/**"
   ],
-  "license": "MIT",
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
@@ -73,5 +73,21 @@
     "tsconfig": "workspace:*",
     "tsup": "^7.1.0",
     "typescript": "^4.9.4"
-  }
+  },
+  "homepage": "https://novel.sh",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/steven-tey/novel.git"
+  },
+  "bugs": {
+    "url": "https://github.com/steven-tey/novel/issues"
+  },
+  "keywords": [
+    "ai",
+    "novel",
+    "editor",
+    "markdown",
+    "nextjs",
+    "react"
+  ]
 }

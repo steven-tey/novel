@@ -259,8 +259,8 @@ importers:
         specifier: 13.4.8-canary.14
         version: 13.4.8-canary.14(react-dom@18.2.0)(react@18.2.0)
       novel:
-        specifier: '*'
-        version: link:../../packages/novel
+        specifier: workspace:^
+        version: link:../../packages/core
       openai-edge:
         specifier: ^1.0.0
         version: 1.2.2
@@ -293,7 +293,7 @@ importers:
         specifier: workspace:*
         version: link:../../packages/tailwind-config
 
-  packages/novel:
+  packages/core:
     dependencies:
       '@radix-ui/react-popover':
         specifier: ^1.0.6
