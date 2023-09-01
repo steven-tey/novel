@@ -67,6 +67,8 @@ The `Edtior` is a React component that takes in the following props:
 | `onDebouncedUpdate` | `(content: JSONContent) => void` | A callback function that is called whenever the editor's value is updated, but only after the defined debounce duration.                                                                   | `() => {}`                                                                                                              |
 | `debounceDuration`  | `number`                         | The duration (in milliseconds) to debounce the `onDebouncedUpdate` callback.                                                                                                               | `750`                                                                                                                   |
 
+Here's an example application: https://github.com/steven-tey/novella
+
 ## Deploy Your Own
 
 You can deploy your own version of Novel to Vercel with one click:
