@@ -1,5 +1,5 @@
 <a href="https://novel.sh">
-  <img alt="Novel is a Notion-style WYSIWYG editor with AI-powered autocompletions." src="/app/opengraph-image.png">
+  <img alt="Novel is a Notion-style WYSIWYG editor with AI-powered autocompletions." src="https://novel.sh/opengraph-image.png">
   <h1 align="center">Novel</h1>
 </a>
 
