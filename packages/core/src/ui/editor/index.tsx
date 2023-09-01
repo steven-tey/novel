@@ -20,6 +20,7 @@ import { EditorBubbleMenu } from "./bubble-menu";
 import { getPrevText } from "@/lib/editor";
 import { ImageResizer } from "./extensions/image-resizer";
 import { EditorProps } from "@tiptap/pm/view";
+import { Editor as EditorClass } from "@tiptap/core";
 
 export default function Editor({
   completionApi = "/api/generate",
@@ -52,15 +53,15 @@ export default function Editor({
    */
   editorProps?: EditorProps;
   /**
-   * A callback function that is called whenever the editor's value is updated.
+   * A callback function that is called whenever the editor is updated.
    * Defaults to () => {}.
    */
-  onUpdate?: (content?: JSONContent) => void | Promise<void>;
+  onUpdate?: (editor?: EditorClass) => void | Promise<void>;
   /**
-   * A callback function that is called whenever the editor's value is updated, but only after the defined debounce duration.
+   * A callback function that is called whenever the editor is updated, but only after the defined debounce duration.
    * Defaults to () => {}.
    */
-  onDebouncedUpdate?: (content?: JSONContent) => void | Promise<void>;
+  onDebouncedUpdate?: (editor?: EditorClass) => void | Promise<void>;
   /**
    * The duration (in milliseconds) to debounce the onDebouncedUpdate callback.
    * Defaults to 750.
@@ -79,7 +80,7 @@ export default function Editor({
   const debouncedUpdates = useDebouncedCallback(async ({ editor }) => {
     const json = editor.getJSON();
     setContent(json);
-    onDebouncedUpdate(json);
+    onDebouncedUpdate(editor);
   }, debounceDuration);
 
   const editor = useEditor({
@@ -106,7 +107,7 @@ export default function Editor({
         // complete(e.editor.storage.markdown.getMarkdown());
         va.track("Autocomplete Shortcut Used");
       } else {
-        onUpdate(e.editor.getJSON());
+        onUpdate(e.editor);
         debouncedUpdates(e);
       }
     },
