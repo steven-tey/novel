@@ -3,6 +3,11 @@
 /.pnp
 .pnp.js
 
+node_modules
+packages/*/node_modules
+apps/*/node_modules
+.next
+
 # next.js
 /.next/
 /out/
@@ -34,6 +39,12 @@ next-env.d.ts
 
 # vscode
 .vscode
+
+dist/**
+/dist
+packages/*/dist
+
+.turbo
 /test-results/
 /playwright-report/
 /playwright/.cache/

@@ -1,17 +1,13 @@
 {
   "name": "novel",
-  "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "test": "playwright test",
-    "test:ui": "playwright test --ui",
-    "test:replay": "playwright test --project replay-chromium --reporter=@replayio/playwright/reporter,line",
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "clean": "turbo clean",
     "format:write": "prettier --write \"**/*.{css,js,json,jsx,ts,tsx}\"",
-    "format": "prettier \"**/*.{css,js,json,jsx,ts,tsx}\"",
-    "lint": "next lint"
+    "format": "prettier \"**/*.{css,js,json,jsx,ts,tsx}\""
   },
   "dependencies": {
     "@radix-ui/react-popover": "^1.0.6",
@@ -51,7 +47,7 @@
     "react-dom": "18.2.0",
     "react-markdown": "^8.0.7",
     "react-moveable": "^0.54.1",
-    "sonner": "^0.6.2",
+    "sonner": "^0.7.0",
     "tailwind-merge": "^1.14.0",
     "tippy.js": "^6.3.7",
     "tiptap-markdown": "^0.8.2",
@@ -59,14 +55,14 @@
     "use-debounce": "^9.0.4"
   },
   "devDependencies": {
-    "@playwright/test": "^1.36.2",
-    "@replayio/playwright": "^1.0.10",
     "@tailwindcss/typography": "^0.5.9",
     "autoprefixer": "^10.4.14",
+    "eslint": "^7.32.0",
     "postcss": "^8.4.27",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.3.0",
     "tailwindcss": "^3.3.3",
-    "tailwindcss-animate": "^1.0.6"
+    "tailwindcss-animate": "^1.0.6",
+    "turbo": "^1.9.3"
   }
 }
