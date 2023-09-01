@@ -1,5 +1,5 @@
 <a href="https://novel.sh">
-  <img alt="Novel is a Notion-style WYSIWYG editor with AI-powered autocompletions." src="https://novel.sh/opengraph-image.png">
+  <img alt="Novel is a Notion-style WYSIWYG editor with AI-powered autocompletions." src="/app/opengraph-image.png">
   <h1 align="center">Novel</h1>
 </a>
 
@@ -17,6 +17,7 @@
 
 <p align="center">
   <a href="#introduction"><strong>Introduction</strong></a> ·
+  <a href="#installation"><strong>Installation</strong></a> ·
   <a href="#deploy-your-own"><strong>Deploy Your Own</strong></a> ·
   <a href="#setting-up-locally"><strong>Setting Up Locally</strong></a> ·
   <a href="#tech-stack"><strong>Tech Stack</strong></a> ·
@@ -29,11 +30,42 @@
 
 [Novel](https://novel.sh/) is a Notion-style WYSIWYG editor with AI-powered autocompletions.
 
-Here's a quick 30-second demo:
-
 https://github.com/steven-tey/novel/assets/28986134/2099877f-4f2b-4b1c-8782-5d803d63be5c
 
 <br />
+
+## Installation
+
+To use Novel in a project, you can run the following command to install the `novel` NPM package:
+
+```
+npm i novel
+```
+
+Then, you can use it in your code like this:
+
+```
+import { Editor } from "novel";
+import "novel/styles.css";
+
+export default function App() {
+  return (
+     <Editor />
+  )
+}
+```
+
+The `Edtior` is a React component that takes in the following props:
+
+| Prop                | Type                             | Description                                                                                                                                                                                | Default                                                                                                                 |
+| ------------------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
+| `completionApi`     | `string`                         | The API route to use for the OpenAI completion API.                                                                                                                                        | `/api/generate`                                                                                                         |
+| `defaultValue`      | `string`                         | The default value to use for the editor.                                                                                                                                                   | [`defaultEditorContent`](https://github.com/steven-tey/novel/blob/main/packages/core/src/ui/editor/default-content.tsx) |
+| `extensions`        | `Extension[]`                    | A list of extensions to use for the editor, in addition to the [default Novel extensions](https://github.com/steven-tey/novel/blob/main/packages/core/src/ui/editor/extensions/index.tsx). | `[]`                                                                                                                    |
+| `editorProps`       | `EditorProps`                    | Props to pass to the underlying Tiptap editor, in addition to the [default Novel editor props](https://github.com/steven-tey/novel/blob/main/packages/core/src/ui/editor/props.ts).        | `{}`                                                                                                                    |
+| `onUpdate`          | `(content: JSONContent) => void` | A callback function that is called whenever the editor's value is updated.                                                                                                                 | `() => {}`                                                                                                              |
+| `onDebouncedUpdate` | `(content: JSONContent) => void` | A callback function that is called whenever the editor's value is updated, but only after the defined debounce duration.                                                                   | `() => {}`                                                                                                              |
+| `debounceDuration`  | `number`                         | The duration (in milliseconds) to debounce the `onDebouncedUpdate` callback.                                                                                                               | `750`                                                                                                                   |
 
 ## Deploy Your Own
 

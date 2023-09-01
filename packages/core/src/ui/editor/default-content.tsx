@@ -11,7 +11,22 @@ export const defaultEditorContent = {
       content: [
         {
           type: "text",
-          text: "Novel is a Notion-style WYSIWYG editor with AI-powered autocompletion. Built with ",
+          marks: [
+            {
+              type: "link",
+              attrs: {
+                href: "https://github.com/steven-tey/novel",
+                target: "_blank",
+                class:
+                  "text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer",
+              },
+            },
+          ],
+          text: "Novel",
+        },
+        {
+          type: "text",
+          text: " is a Notion-style WYSIWYG editor with AI-powered autocompletion. Built with ",
         },
         {
           type: "text",
@@ -28,7 +43,7 @@ export const defaultEditorContent = {
           ],
           text: "Tiptap",
         },
-        { type: "text", text: " and " },
+        { type: "text", text: " + " },
         {
           type: "text",
           marks: [
@@ -45,6 +60,31 @@ export const defaultEditorContent = {
           text: "Vercel AI SDK",
         },
         { type: "text", text: "." },
+      ],
+    },
+    {
+      type: "heading",
+      attrs: { level: 3 },
+      content: [{ type: "text", text: "Installation" }],
+    },
+    {
+      type: "codeBlock",
+      attrs: { language: null },
+      content: [{ type: "text", text: "npm i novel" }],
+    },
+    {
+      type: "heading",
+      attrs: { level: 3 },
+      content: [{ type: "text", text: "Usage" }],
+    },
+    {
+      type: "codeBlock",
+      attrs: { language: null },
+      content: [
+        {
+          type: "text",
+          text: 'import { Editor } from "novel";\nimport "novel/styles.css";\n\nexport default function App() {\n  return (\n     <Editor />\n  )\n}',
+        },
       ],
     },
     {
@@ -89,7 +129,7 @@ export const defaultEditorContent = {
               content: [
                 {
                   type: "text",
-                  text: "Image uploads (drag & drop / copy & paste, or select from slash menu)",
+                  text: "Image uploads (drag & drop / copy & paste, or select from slash menu) ",
                 },
               ],
             },
@@ -103,6 +143,8 @@ export const defaultEditorContent = {
         src: "https://public.blob.vercel-storage.com/pJrjXbdONOnAeZAZ/banner-2wQk82qTwyVgvlhTW21GIkWgqPGD2C.png",
         alt: "banner.png",
         title: "banner.png",
+        width: null,
+        height: null,
       },
     },
     { type: "horizontalRule" },
@@ -114,33 +156,6 @@ export const defaultEditorContent = {
     {
       type: "taskList",
       content: [
-        {
-          type: "taskItem",
-          attrs: { checked: false },
-          content: [
-            {
-              type: "paragraph",
-              content: [
-                { type: "text", text: "Check out the " },
-                {
-                  type: "text",
-                  marks: [
-                    {
-                      type: "link",
-                      attrs: {
-                        href: "https://twitter.com/steventey/status/1669762868416512000",
-                        target: "_blank",
-                        class:
-                          "text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer",
-                      },
-                    },
-                  ],
-                  text: "launch video",
-                },
-              ],
-            },
-          ],
-        },
         {
           type: "taskItem",
           attrs: { checked: false },
@@ -163,6 +178,33 @@ export const defaultEditorContent = {
                     },
                   ],
                   text: "GitHub",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: "taskItem",
+          attrs: { checked: false },
+          content: [
+            {
+              type: "paragraph",
+              content: [
+                { type: "text", text: "Install the " },
+                {
+                  type: "text",
+                  marks: [
+                    {
+                      type: "link",
+                      attrs: {
+                        href: "https://www.npmjs.com/package/novel",
+                        target: "_blank",
+                        class:
+                          "text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer",
+                      },
+                    },
+                  ],
+                  text: "NPM package",
                 },
               ],
             },

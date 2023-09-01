@@ -21,7 +21,7 @@ import { ImageResizer } from "./extensions/image-resizer";
 import { EditorProps } from "@tiptap/pm/view";
 
 export default function Editor({
-  apiRoute = "/api/generate",
+  completionApi = "/api/generate",
   defaultValue = defaultEditorContent,
   extensions = [],
   editorProps = {},
@@ -29,7 +29,7 @@ export default function Editor({
   onDebouncedUpdate = () => {},
   debounceDuration = 750,
 }: {
-  apiRoute?: string;
+  completionApi?: string;
   defaultValue?: JSONContent;
   extensions?: Extension[];
   editorProps?: EditorProps;
@@ -39,7 +39,7 @@ export default function Editor({
   onDebouncedUpdate?: (content: JSONContent) => void;
   debounceDuration?: number;
 }) {
-  const [content, setContent] = useLocalStorage("content", defaultValue);
+  const [content, setContent] = useLocalStorage("novel__content", defaultValue);
 
   const [hydrated, setHydrated] = useState(false);
 
@@ -82,7 +82,7 @@ export default function Editor({
 
   const { complete, completion, isLoading, stop } = useCompletion({
     id: "novel",
-    api: apiRoute,
+    api: completionApi,
     onFinish: (_prompt, completion) => {
       editor?.commands.setTextSelection({
         from: editor.state.selection.from - completion.length,
