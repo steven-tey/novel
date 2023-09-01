@@ -61,7 +61,7 @@ function DragHandle(options: DragHandleOptions) {
     if (!(node instanceof Element)) return;
 
     const nodePos = nodePosAtDOM(node, view);
-    if (!nodePos || nodePos < 0) return;
+    if (nodePos == null || nodePos < 0) return;
 
     view.dispatch(
       view.state.tr.setSelection(NodeSelection.create(view.state.doc, nodePos)),
