@@ -47,7 +47,7 @@ export default function Editor({
    * The default value to use for the editor.
    * Defaults to defaultEditorContent.
    */
-  defaultValue?: JSONContent;
+  defaultValue?: JSONContent | string;
   /**
    * A list of extensions to use for the editor, in addition to the default Novel extensions.
    * Defaults to [].

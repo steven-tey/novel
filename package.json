@@ -7,7 +7,8 @@
     "lint": "turbo lint",
     "clean": "turbo clean",
     "format:write": "prettier --write \"**/*.{css,js,json,jsx,ts,tsx}\"",
-    "format": "prettier \"**/*.{css,js,json,jsx,ts,tsx}\""
+    "format": "prettier \"**/*.{css,js,json,jsx,ts,tsx}\"",
+    "publish": "turbo build && cd packages/core && npm publish && cd ../../"
   },
   "dependencies": {
     "@radix-ui/react-popover": "^1.0.6",
