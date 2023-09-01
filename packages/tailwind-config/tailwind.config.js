@@ -11,7 +11,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        display: ["var(--font-display)", "system-ui", "sans-serif"],
+        title: ["var(--font-title)", "system-ui", "sans-serif"],
         default: ["var(--font-default)", "system-ui", "sans-serif"],
       },
       colors: {

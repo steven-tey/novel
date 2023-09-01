@@ -3,12 +3,12 @@ import { Crimson_Text, Inconsolata, Inter } from "next/font/google";
 
 export const cal = localFont({
   src: "./CalSans-SemiBold.otf",
-  variable: "--font-display",
+  variable: "--font-title",
 });
 
 export const crimsonBold = Crimson_Text({
   weight: "700",
-  variable: "--font-display",
+  variable: "--font-title",
   subsets: ["latin"],
 });
 
@@ -19,7 +19,7 @@ export const inter = Inter({
 
 export const inconsolataBold = Inconsolata({
   weight: "700",
-  variable: "--font-display",
+  variable: "--font-title",
   subsets: ["latin"],
 });
 
