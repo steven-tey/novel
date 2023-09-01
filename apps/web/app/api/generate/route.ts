@@ -1,13 +1,14 @@
-import { Configuration, OpenAIApi } from "openai-edge";
+import OpenAI from "openai";
 import { OpenAIStream, StreamingTextResponse } from "ai";
 import { kv } from "@vercel/kv";
 import { Ratelimit } from "@upstash/ratelimit";
 
-const config = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
+// Create an OpenAI API client (that's edge friendly!)
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY || "",
 });
-const openai = new OpenAIApi(config);
 
+// IMPORTANT! Set the runtime to edge: https://vercel.com/docs/functions/edge-functions/edge-runtime
 export const runtime = "edge";
 
 export async function POST(req: Request): Promise<Response> {
@@ -49,7 +50,7 @@ export async function POST(req: Request): Promise<Response> {
 
   let { prompt } = await req.json();
 
-  const response = await openai.createChatCompletion({
+  const response = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
     messages: [
       {
@@ -74,12 +75,6 @@ export async function POST(req: Request): Promise<Response> {
     n: 1,
   });
 
-  // If the response is unauthorized, return a 401 error
-  if (response.status === 401) {
-    return new Response("Error: You are unauthorized to perform this action", {
-      status: 401,
-    });
-  }
   // Convert the response into a friendly text-stream
   const stream = OpenAIStream(response);
 

@@ -65,6 +65,8 @@ The `Edtior` is a React component that takes in the following props:
 | `debounceDuration`  | `number`                         | The duration (in milliseconds) to debounce the `onDebouncedUpdate` callback.                                                                                                               | `750`                                                                                                                   |
 | `storageKey`        | `string`                         | The key to use for storing the editor's value in local storage.                                                                                                                            | `novel__content`                                                                                                        |
 
+> **Note**: Make sure to define an API endpoint that matches the `completionApi` prop (default is `/api/generate`). This is needed for the AI autocompletions to work. Here's an example: https://github.com/steven-tey/novel/blob/main/apps/web/app/api/generate/route.ts
+
 Here's an example application: https://github.com/steven-tey/novella
 
 ## Deploy Your Own
