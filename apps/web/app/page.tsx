@@ -1,6 +1,6 @@
 import { Github } from "@/ui/icons";
 import Menu from "./menu";
-import Novel from "novel";
+import { Editor } from "novel";
 import "novel/styles.css";
 
 export default function Page() {
@@ -14,7 +14,7 @@ export default function Page() {
         <Github />
       </a>
       <Menu />
-      <Novel />
+      <Editor />
     </div>
   );
 }
