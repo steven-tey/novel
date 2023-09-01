@@ -8,6 +8,16 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: "/sdk",
+        destination: "https://www.npmjs.com/package/novel",
+        permanent: true,
+      },
+      {
+        source: "/npm",
+        destination: "https://www.npmjs.com/package/novel",
+        permanent: true,
+      },
+      {
         source: "/feedback",
         destination: "https://github.com/steven-tey/novel/issues",
         permanent: true,
