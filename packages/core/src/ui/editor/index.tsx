@@ -21,11 +21,10 @@ import { getPrevText } from "@/lib/editor";
 import { ImageResizer } from "./extensions/image-resizer";
 import { EditorProps } from "@tiptap/pm/view";
 import { Editor as EditorClass } from "@tiptap/core";
-import { cn } from "@/lib/utils";
 
 export default function Editor({
   completionApi = "/api/generate",
-  className = "",
+  className = "relative min-h-[500px] w-full max-w-screen-lg border-stone-200 bg-white p-12 px-8 sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:px-12 sm:shadow-lg",
   defaultValue = defaultEditorContent,
   extensions = [],
   editorProps = {},
@@ -41,6 +40,7 @@ export default function Editor({
   completionApi?: string;
   /**
    * Additional classes to add to the editor container.
+   * Defaults to "relative min-h-[500px] w-full max-w-screen-lg border-stone-200 bg-white p-12 px-8 sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:px-12 sm:shadow-lg".
    */
   className?: string;
   /**
@@ -195,10 +195,7 @@ export default function Editor({
       onClick={() => {
         editor?.chain().focus().run();
       }}
-      className={cn(
-        "relative min-h-[500px] w-full max-w-screen-lg border-stone-200 bg-white p-12 px-8 sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:px-12 sm:shadow-lg",
-        className
-      )}
+      className={className}
     >
       {editor && <EditorBubbleMenu editor={editor} />}
       {editor?.isActive("image") && <ImageResizer editor={editor} />}

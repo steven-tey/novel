@@ -1,6 +1,6 @@
 {
   "name": "novel",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "description": "Notion-style WYSIWYG editor with AI-powered autocompletions",
   "license": "Apache-2.0",
   "main": "./dist/index.js",
