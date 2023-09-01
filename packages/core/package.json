@@ -1,9 +1,8 @@
 {
   "name": "novel",
-  "version": "0.1.6",
+  "version": "0.1.8",
   "description": "Notion-style WYSIWYG editor with AI-powered autocompletions",
   "license": "Apache-2.0",
-  "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -16,8 +15,7 @@
       "import": "./dist/index.mjs",
       "module": "./dist/index.mjs",
       "require": "./dist/index.js"
-    },
-    "./styles.css": "./dist/index.css"
+    }
   },
   "scripts": {
     "build": "tsup",

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -28,18 +29,50 @@ export default function Editor({
   onUpdate = () => {},
   onDebouncedUpdate = () => {},
   debounceDuration = 750,
+  storageKey = "novel__content",
 }: {
+  /**
+   * The API route to use for the OpenAI completion API.
+   * Defaults to "/api/generate".
+   */
   completionApi?: string;
+  /**
+   * The default value to use for the editor.
+   * Defaults to defaultEditorContent.
+   */
   defaultValue?: JSONContent;
+  /**
+   * A list of extensions to use for the editor, in addition to the default Novel extensions.
+   * Defaults to [].
+   */
   extensions?: Extension[];
+  /**
+   * Props to pass to the underlying Tiptap editor, in addition to the default Novel editor props.
+   * Defaults to {}.
+   */
   editorProps?: EditorProps;
-  // eslint-disable-next-line no-unused-vars
-  onUpdate?: (content: JSONContent) => void;
-  // eslint-disable-next-line no-unused-vars
-  onDebouncedUpdate?: (content: JSONContent) => void;
+  /**
+   * A callback function that is called whenever the editor's value is updated.
+   * Defaults to () => {}.
+   */
+  onUpdate?: (content?: JSONContent) => void | Promise<void>;
+  /**
+   * A callback function that is called whenever the editor's value is updated, but only after the defined debounce duration.
+   * Defaults to () => {}.
+   */
+  onDebouncedUpdate?: (content?: JSONContent) => void | Promise<void>;
+  /**
+   * The duration (in milliseconds) to debounce the onDebouncedUpdate callback.
+   * Defaults to 750.
+   */
   debounceDuration?: number;
+  /**
+   * The key to use for storing the editor's value in local storage.
+   * Defaults to "novel__content".
+   */
+  storageKey?: string;
 }) {
-  const [content, setContent] = useLocalStorage("novel__content", defaultValue);
+  const [content, setContent] = useLocalStorage(storageKey, defaultValue);
 
   const [hydrated, setHydrated] = useState(false);
 

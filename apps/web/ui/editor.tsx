@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Editor as NovelEditor } from "novel";
-import "novel/styles.css";
 
 export default function Editor() {
   const [saveStatus, setSaveStatus] = useState("Saved");

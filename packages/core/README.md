@@ -44,14 +44,11 @@ npm i novel
 
 Then, you can use it in your code like this:
 
-```
+```jsx
 import { Editor } from "novel";
-import "novel/styles.css";
 
 export default function App() {
-  return (
-     <Editor />
-  )
+  return <Editor />;
 }
 ```
 
@@ -66,6 +63,7 @@ The `Edtior` is a React component that takes in the following props:
 | `onUpdate`          | `(content: JSONContent) => void` | A callback function that is called whenever the editor's value is updated.                                                                                                                 | `() => {}`                                                                                                              |
 | `onDebouncedUpdate` | `(content: JSONContent) => void` | A callback function that is called whenever the editor's value is updated, but only after the defined debounce duration.                                                                   | `() => {}`                                                                                                              |
 | `debounceDuration`  | `number`                         | The duration (in milliseconds) to debounce the `onDebouncedUpdate` callback.                                                                                                               | `750`                                                                                                                   |
+| `storageKey`        | `string`                         | The key to use for storing the editor's value in local storage.                                                                                                                            | `novel__content`                                                                                                        |
 
 Here's an example application: https://github.com/steven-tey/novella
 
@@ -83,6 +81,14 @@ To set up Novel locally, you'll need to clone the repository and set up the foll
 - `BLOB_READ_WRITE_TOKEN` – your Vercel Blob read/write token (currently [still in beta](https://vercel.com/docs/storage/vercel-blob/quickstart#quickstart), but feel free to [sign up on this form](https://vercel.fyi/blob-beta) for access)
 
 If you've deployed this to Vercel, you can also use [`vc env pull`](https://vercel.com/docs/cli/env#exporting-development-environment-variables) to pull the environment variables from your Vercel project.
+
+To run the app locally, you can run the following commands:
+
+```
+pnpm i
+pnpm build
+pnpm dev
+```
 
 ## Tech Stack
 
