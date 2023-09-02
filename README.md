@@ -93,6 +93,12 @@ pnpm build
 pnpm dev
 ```
 
+## VSCode Extension
+
+Thanks to @bennykok, Novel also has a VSCode Extension: https://novel.sh/vscode
+
+https://github.com/steven-tey/novel/assets/28986134/58ebf7e3-cdb3-43df-878b-119e304f7373
+
 ## Tech Stack
 
 Novel is built on the following stack:
