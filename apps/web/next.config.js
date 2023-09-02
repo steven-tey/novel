@@ -18,6 +18,12 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: "/vscode",
+        destination:
+          "https://marketplace.visualstudio.com/items?itemName=bennykok.novel-vscode",
+        permanent: false,
+      },
+      {
         source: "/feedback",
         destination: "https://github.com/steven-tey/novel/issues",
         permanent: true,
