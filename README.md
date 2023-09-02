@@ -1,1 +1,0 @@
-./packages/core/README.md
