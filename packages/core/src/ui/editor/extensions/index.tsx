@@ -14,6 +14,7 @@ import SlashCommand from "./slash-command";
 import { InputRule } from "@tiptap/core";
 import UploadImagesPlugin from "@/ui/editor/plugins/upload-images";
 import UpdatedImage from "./updated-image";
+import CustomKeymap from "./custom-keymap";
 
 export const defaultExtensions = [
   StarterKit.configure({
@@ -135,4 +136,5 @@ export const defaultExtensions = [
     html: false,
     transformCopiedText: true,
   }),
+  CustomKeymap
 ];
