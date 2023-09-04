@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -62,11 +61,13 @@ export default function Editor({
    * A callback function that is called whenever the editor is updated.
    * Defaults to () => {}.
    */
+  // eslint-disable-next-line no-unused-vars
   onUpdate?: (editor?: EditorClass) => void | Promise<void>;
   /**
    * A callback function that is called whenever the editor is updated, but only after the defined debounce duration.
    * Defaults to () => {}.
    */
+  // eslint-disable-next-line no-unused-vars
   onDebouncedUpdate?: (editor?: EditorClass) => void | Promise<void>;
   /**
    * The duration (in milliseconds) to debounce the onDebouncedUpdate callback.

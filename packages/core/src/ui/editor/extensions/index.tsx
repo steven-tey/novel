@@ -137,6 +137,6 @@ export const defaultExtensions = [
     html: false,
     transformCopiedText: true,
   }),
-  CustomKeymap
+  CustomKeymap,
   DragAndDrop,
 ];
