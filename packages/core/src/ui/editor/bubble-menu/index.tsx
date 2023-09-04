@@ -60,7 +60,7 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
     shouldShow: ({ view, state, editor }) => {
       const { selection } = state;
       const { empty } = selection;
-      const hasEditorFocus = view.hasFocus()
+      const hasEditorFocus = view.hasFocus();
 
       // don't show if image is selected
       if (

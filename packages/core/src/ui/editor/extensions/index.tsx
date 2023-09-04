@@ -136,5 +136,5 @@ export const defaultExtensions = [
     html: false,
     transformCopiedText: true,
   }),
-  DragAndDrop
+  DragAndDrop,
 ];
