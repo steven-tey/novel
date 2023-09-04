@@ -1,4 +1,4 @@
-import { BubbleMenu, BubbleMenuProps } from "@tiptap/react";
+import { BubbleMenu, BubbleMenuProps, isNodeSelection } from "@tiptap/react";
 import { FC, useState } from "react";
 import {
   BoldIcon,
@@ -57,12 +57,21 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
 
   const bubbleMenuProps: EditorBubbleMenuProps = {
     ...props,
-    shouldShow: ({ editor }) => {
+    shouldShow: ({ view, state, editor }) => {
+      const { selection } = state;
+      const { empty } = selection;
+      const hasEditorFocus = view.hasFocus();
+
       // don't show if image is selected
-      if (editor.isActive("image")) {
+      if (
+        editor.isActive("image") ||
+        !hasEditorFocus ||
+        empty ||
+        isNodeSelection(selection)
+      ) {
         return false;
       }
-      return editor.view.state.selection.content().size > 0;
+      return true;
     },
     tippyOptions: {
       moveTransition: "transform 0.15s ease-out",
