@@ -34,7 +34,7 @@ export const inconsolata = Inconsolata({
   subsets: ["latin"],
 });
 
-export const displayFontMapper = {
+export const titleFontMapper = {
   Default: cal.variable,
   Serif: crimsonBold.variable,
   Mono: inconsolataBold.variable,

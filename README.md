@@ -52,12 +52,12 @@ export default function App() {
 }
 ```
 
-The `Edtior` is a React component that takes in the following props:
+The `Editor` is a React component that takes in the following props:
 
 | Prop                | Type                        | Description                                                                                                                                                                                | Default                                                                                                                                                |
 | ------------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `completionApi`     | `string`                    | The API route to use for the OpenAI completion API.                                                                                                                                        | `/api/generate`                                                                                                                                        |
-| `className`         | `string`                    | Additional classes to add to the editor container.                                                                                                                                         | `"relative min-h-[500px] w-full max-w-screen-lg border-stone-200 bg-white p-12 px-8 sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:px-12 sm:shadow-lg"` |
+| `className`         | `string`                    | Editor container classname.                                                                                                                                                                | `"relative min-h-[500px] w-full max-w-screen-lg border-stone-200 bg-white p-12 px-8 sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:px-12 sm:shadow-lg"` |
 | `defaultValue`      | `JSONContent` or `string`   | The default value to use for the editor.                                                                                                                                                   | [`defaultEditorContent`](https://github.com/steven-tey/novel/blob/main/packages/core/src/ui/editor/default-content.tsx)                                |
 | `extensions`        | `Extension[]`               | A list of extensions to use for the editor, in addition to the [default Novel extensions](https://github.com/steven-tey/novel/blob/main/packages/core/src/ui/editor/extensions/index.tsx). | `[]`                                                                                                                                                   |
 | `editorProps`       | `EditorProps`               | Props to pass to the underlying Tiptap editor, in addition to the [default Novel editor props](https://github.com/steven-tey/novel/blob/main/packages/core/src/ui/editor/props.ts).        | `{}`                                                                                                                                                   |
@@ -93,6 +93,12 @@ pnpm build
 pnpm dev
 ```
 
+## VSCode Extension
+
+Thanks to @bennykok, Novel also has a VSCode Extension: https://novel.sh/vscode
+
+https://github.com/steven-tey/novel/assets/28986134/58ebf7e3-cdb3-43df-878b-119e304f7373
+
 ## Tech Stack
 
 Novel is built on the following stack:
@@ -122,4 +128,4 @@ Here's how you can contribute:
 
 ## License
 
-Licensed under the [MIT license](https://github.com/steven-tey/novel/blob/main/LICENSE.md).
+Licensed under the [Apache-2.0 license](https://github.com/steven-tey/novel/blob/main/LICENSE.md).
