@@ -93,6 +93,13 @@ pnpm build
 pnpm dev
 ```
 
+## Cross-framework support
+
+While Novel is built for React, we also have a few community-maintained packages for non-React frameworks:
+
+- Svelte: https://novel.sh/svelte
+- Vue: https://novel.sh/vue
+
 ## VSCode Extension
 
 Thanks to @bennykok, Novel also has a VSCode Extension: https://novel.sh/vscode
