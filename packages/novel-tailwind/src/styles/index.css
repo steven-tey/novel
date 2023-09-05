@@ -1,0 +1,56 @@
+:root {
+  --novel-black: rgb(0 0 0);
+  --novel-white: rgb(255 255 255);
+  --novel-stone-50: rgb(250 250 249);
+  --novel-stone-100: rgb(245 245 244);
+  --novel-stone-200: rgb(231 229 228);
+  --novel-stone-300: rgb(214 211 209);
+  --novel-stone-400: rgb(168 162 158);
+  --novel-stone-500: rgb(120 113 108);
+  --novel-stone-600: rgb(87 83 78);
+  --novel-stone-700: rgb(68 64 60);
+  --novel-stone-800: rgb(41 37 36);
+  --novel-stone-900: rgb(28 25 23);
+
+  --novel-highlight-default: #ffffff;
+  --novel-highlight-purple: #f6f3f8;
+  --novel-highlight-red: #fdebeb;
+  --novel-highlight-yellow: #fbf4a2;
+  --novel-highlight-blue: #c1ecf9;
+  --novel-highlight-green: #acf79f;
+  --novel-highlight-orange: #faebdd;
+  --novel-highlight-pink: #faf1f5;
+  --novel-highlight-gray: #f1f1ef;
+
+  --font-title: "Cal Sans", sans-serif;
+}
+
+.dark-theme {
+  --novel-black: rgb(255 255 255);
+  --novel-white: rgb(25 25 25);
+  --novel-stone-50: rgb(35 35 34);
+  --novel-stone-100: rgb(41 37 36);
+  --novel-stone-200: rgb(66 69 71);
+  --novel-stone-300: rgb(112 118 123);
+  --novel-stone-400: rgb(160 167 173);
+  --novel-stone-500: rgb(193 199 204);
+  --novel-stone-600: rgb(212 217 221);
+  --novel-stone-700: rgb(229 232 235);
+  --novel-stone-800: rgb(232 234 235);
+  --novel-stone-900: rgb(240, 240, 241);
+
+  --novel-highlight-default: #000000;
+  --novel-highlight-purple: #3f2c4b;
+  --novel-highlight-red: #5c1a1a;
+  --novel-highlight-yellow: #5c4b1a;
+  --novel-highlight-blue: #1a3d5c;
+  --novel-highlight-green: #1a5c20;
+  --novel-highlight-orange: #5c3a1a;
+  --novel-highlight-pink: #5c1a3a;
+  --novel-highlight-gray: #3a3a3a;
+}
+
+@font-face {
+  font-family: "Cal Sans";
+  src: local("Cal Sans"), url(CalSans-SemiBold.otf) format("otf");
+}

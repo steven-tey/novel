@@ -6,5 +6,8 @@
     "next": {
       "rootDir": ["apps/*/"]
     }
+  },
+  "rules": {
+    "no-unused-vars": "off"
   }
 }

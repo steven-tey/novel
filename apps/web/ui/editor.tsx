@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Editor as NovelEditor } from "novel";
 
 export default function Editor() {
   const [saveStatus, setSaveStatus] = useState("Saved");
@@ -11,7 +10,7 @@ export default function Editor() {
       <div className="absolute right-5 top-5 z-10 mb-5 rounded-lg bg-stone-100 px-2 py-1 text-sm text-stone-400">
         {saveStatus}
       </div>
-      <NovelEditor
+      {/* <EditorProvider
         onUpdate={() => {
           setSaveStatus("Unsaved");
         }}
@@ -22,7 +21,7 @@ export default function Editor() {
             setSaveStatus("Saved");
           }, 500);
         }}
-      />
+      /> */}
     </div>
   );
 }

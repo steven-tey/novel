@@ -1,5 +1,5 @@
 {
-  "name": "novel",
+  "name": "@novel/headless",
   "version": "0.1.19",
   "description": "Notion-style WYSIWYG editor with AI-powered autocompletions",
   "license": "Apache-2.0",
@@ -19,6 +19,7 @@
   },
   "scripts": {
     "build": "tsup",
+    "dev": "tsup --watch",
     "check-types": "tsc --noEmit"
   },
   "peerDependencies": {
@@ -26,6 +27,7 @@
   },
   "dependencies": {
     "@radix-ui/react-popover": "^1.0.6",
+    "@radix-ui/react-slot": "^1.0.2",
     "@tiptap/core": "^2.1.7",
     "@tiptap/extension-color": "^2.1.7",
     "@tiptap/extension-highlight": "^2.1.7",
