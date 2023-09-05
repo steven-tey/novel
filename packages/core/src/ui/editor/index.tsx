@@ -31,6 +31,7 @@ export default function Editor({
   onDebouncedUpdate = () => {},
   debounceDuration = 750,
   storageKey = "novel__content",
+  disableStorage = false,
 }: {
   /**
    * The API route to use for the OpenAI completion API.
@@ -79,6 +80,11 @@ export default function Editor({
    * Defaults to "novel__content".
    */
   storageKey?: string;
+  /**
+   * Disable local storage read/save.
+   * Defaults to false.
+   */
+  disableStorage?: boolean,
 }) {
   const [content, setContent] = useLocalStorage(storageKey, defaultValue);
 
@@ -86,8 +92,11 @@ export default function Editor({
 
   const debouncedUpdates = useDebouncedCallback(async ({ editor }) => {
     const json = editor.getJSON();
-    setContent(json);
     onDebouncedUpdate(editor);
+
+    if (!disableStorage) {
+      setContent(json);
+    }
   }, debounceDuration);
 
   const editor = useEditor({
@@ -183,13 +192,17 @@ export default function Editor({
     };
   }, [stop, isLoading, editor, complete, completion.length]);
 
-  // Hydrate the editor with the content from localStorage.
+  // Hydrate the editor with the content from localStorage or defaultValue.
   useEffect(() => {
-    if (editor && content && !hydrated) {
-      editor.commands.setContent(content);
+    if (!editor || hydrated) return;
+
+    const value = disableStorage ? defaultValue : content;
+
+    if (value) {
+      editor.commands.setContent(value);
       setHydrated(true);
     }
-  }, [editor, content, hydrated]);
+  }, [editor, defaultValue, content, hydrated]);
 
   return (
     <div
