@@ -11,6 +11,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@novel/headless": "workspace:^",
+    "@novel/tailwind": "workspace:^",
     "@radix-ui/react-popover": "^1.0.6",
     "@tiptap/core": "^2.0.3",
     "@tiptap/extension-color": "^2.0.3",
@@ -41,8 +43,6 @@
     "eventsource-parser": "^0.1.0",
     "lucide-react": "^0.244.0",
     "next": "13.4.8-canary.14",
-    "@novel/tailwind": "workspace:^",
-    "@novel/headless": "workspace:^",
     "openai": "^4.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",

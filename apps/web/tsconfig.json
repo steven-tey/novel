@@ -21,8 +21,7 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"],
-      "@novel/tailwind/*": ["../../packages/@novel/tailwind/*"]
+      "@/*": ["./*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

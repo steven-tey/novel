@@ -79,7 +79,7 @@ interface EditorProps {
 
 const EditorProvider = ({
   completionApi = "/api/generate",
-  className = "relative min-h-[500px] w-full max-w-screen-lg border-stone-200 bg-white sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:shadow-lg",
+  className = "",
   defaultValue = defaultEditorContent,
   extensions = [],
   editorProps = {},

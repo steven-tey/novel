@@ -1,7 +1,11 @@
 import { BubbleMenuProps, BubbleMenu as Menu } from "@tiptap/react";
 import useEditor from "../../hooks/useEditor";
 
-const BubbleMenu = ({ children, ...props }: BubbleMenuProps) => {
+type Props = {
+  onHidden: () => void;
+} & BubbleMenuProps;
+
+const BubbleMenu = ({ children, onHidden, ...props }: Props) => {
   const { editor } = useEditor();
 
   if (!editor) return null;
@@ -17,11 +21,7 @@ const BubbleMenu = ({ children, ...props }: BubbleMenuProps) => {
     },
     tippyOptions: {
       moveTransition: "transform 0.15s ease-out",
-      onHidden: () => {
-        // setIsNodeSelectorOpen(false);
-        // setIsColorSelectorOpen(false);
-        // setIsLinkSelectorOpen(false);
-      },
+      onHidden,
     },
   };
 

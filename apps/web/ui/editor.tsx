@@ -28,6 +28,7 @@ export default function Editor() {
         {saveStatus}
       </div>
       <EditorProvider
+        className="relative min-h-[500px] w-full max-w-screen-lg border-stone-200 bg-white sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:shadow-lg"
         extensions={[createEditorSlashCommand(EditorCommandList)]}
         editorProps={{
           attributes: {
@@ -46,7 +47,14 @@ export default function Editor() {
         }}
         defaultStylingOptions={defaultExtensionsStylingOptions}
       >
-        <EditorBubble className="flex w-fit divide-x divide-stone-200 rounded border border-stone-200 bg-white shadow-xl">
+        <EditorBubble
+          onHidden={() => {
+            setIsColorSelectorOpen(false);
+            setIsNodeSelectorOpen(false);
+            setIsLinkSelectorOpen(false);
+          }}
+          className="flex w-fit divide-x divide-stone-200 rounded border border-stone-200 bg-white shadow-xl"
+        >
           <NodeSelector
             isOpen={isNodeSelectorOpen}
             setIsOpen={() => {

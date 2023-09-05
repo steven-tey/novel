@@ -1,5 +1,5 @@
 import LoadingCircle from "./loading-circle";
-import { CommandListItemProps, EditorCommandItem, EditorCommandList } from "@novel/headless";
+import { CommandListItemProps, EditorCommandItem } from "@novel/headless";
 
 const CommandItem = (props: CommandListItemProps) => {
   const { title, isLoading, icon, active, description } = props;
