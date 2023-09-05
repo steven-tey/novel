@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -24,7 +23,7 @@ import { Editor as EditorClass } from "@tiptap/core";
 
 export default function Editor({
   completionApi = "/api/generate",
-  className = "relative min-h-[500px] w-full max-w-screen-lg border-stone-200 bg-white p-12 px-8 sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:px-12 sm:shadow-lg",
+  className = "relative min-h-[500px] w-full max-w-screen-lg border-stone-200 bg-white sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:shadow-lg",
   defaultValue = defaultEditorContent,
   extensions = [],
   editorProps = {},
@@ -40,7 +39,7 @@ export default function Editor({
   completionApi?: string;
   /**
    * Additional classes to add to the editor container.
-   * Defaults to "relative min-h-[500px] w-full max-w-screen-lg border-stone-200 bg-white p-12 px-8 sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:px-12 sm:shadow-lg".
+   * Defaults to "relative min-h-[500px] w-full max-w-screen-lg border-stone-200 bg-white sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:shadow-lg".
    */
   className?: string;
   /**
@@ -62,11 +61,13 @@ export default function Editor({
    * A callback function that is called whenever the editor is updated.
    * Defaults to () => {}.
    */
+  // eslint-disable-next-line no-unused-vars
   onUpdate?: (editor?: EditorClass) => void | Promise<void>;
   /**
    * A callback function that is called whenever the editor is updated, but only after the defined debounce duration.
    * Defaults to () => {}.
    */
+  // eslint-disable-next-line no-unused-vars
   onDebouncedUpdate?: (editor?: EditorClass) => void | Promise<void>;
   /**
    * The duration (in milliseconds) to debounce the onDebouncedUpdate callback.

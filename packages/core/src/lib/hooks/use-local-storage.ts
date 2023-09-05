@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 const useLocalStorage = <T>(
   key: string,
-  initialValue: T,
+  initialValue: T
   // eslint-disable-next-line no-unused-vars
 ): [T, (value: T) => void] => {
   const [storedValue, setStoredValue] = useState(initialValue);
