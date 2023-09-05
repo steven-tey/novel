@@ -14,7 +14,7 @@ import { InputRule } from "@tiptap/core";
 import UpdatedImage from "./updated-image";
 import CustomKeymap from "./custom-keymap";
 import DragAndDrop from "./drag-and-drop";
-import UploadImagesPlugin from "plugins/upload-images";
+import UploadImagesPlugin from "@/plugins/upload-images";
 
 export type DefaultExtensionsStylingOptions = {
   starterKit: {

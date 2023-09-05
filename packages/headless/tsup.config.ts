@@ -6,7 +6,7 @@ export default defineConfig((options: Options) => ({
     js: "'use client'",
   },
   format: ["cjs", "esm"],
-  dts: true,
+  dts: false,
   clean: true,
   external: ["react"],
   injectStyle: true,

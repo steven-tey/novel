@@ -2,8 +2,7 @@ import { useCompletion } from "ai/react";
 import { ReactNode, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import va from "@vercel/analytics";
-import CommandItem from "../../../../novel-tailwind/src/components/command/command-item";
-import { getPrevText } from "utils/utils";
+import { getPrevText } from "@/utils/utils";
 
 export const updateScrollView = (container: HTMLElement, item: HTMLElement) => {
   const containerHeight = container.offsetHeight;
@@ -30,11 +29,13 @@ const CommandList = ({
   command,
   editor,
   range,
+  children,
 }: {
   items: Items[];
   command: any;
   editor: any;
   range: any;
+  children: ReactNode;
 }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -129,7 +130,7 @@ const CommandList = ({
       id='slash-command'
       ref={commandListContainer}
       className='z-50 h-auto max-h-[330px] w-72 overflow-y-auto rounded-md border border-stone-200 bg-white px-1 py-2 shadow-md transition-all'>
-      {items.map((item, index: number) => (
+      {/* {items.map((item, index: number) => (
         <CommandItem
           key={index}
           title={item.title}
@@ -139,7 +140,7 @@ const CommandList = ({
           icon={item.icon}
           onSelect={() => selectItem(index)}
         />
-      ))}
+      ))} */}
     </div>
   ) : null;
 };

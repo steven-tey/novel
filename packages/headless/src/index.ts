@@ -7,6 +7,7 @@ export { default as EditorBubble } from "./components/bubble/editor-bubble";
 
 export { default as EditorCommandList } from "./components/command/command-list";
 export { createEditorSlashCommand } from "./extensions/slash-command";
-export { useCurrentEditor as useEditor } from "@tiptap/react";
-export type { Editor as Editor } from "@tiptap/react";
+
+export type { Editor as Editor } from "@tiptap/core";
+export { default as useEditor } from "./hooks/useEditor";
 export type { DefaultExtensionsStylingOptions } from "./extensions";

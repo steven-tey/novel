@@ -14,12 +14,12 @@ import { toast } from "sonner";
 import va from "@vercel/analytics";
 import { EditorProps as TipTapEditorProps } from "@tiptap/pm/view";
 import { Editor as EditorClass } from "@tiptap/core";
-import useLocalStorage from "hooks/use-local-storage";
-import { defaultEditorContent } from "defaults/default-editor-content";
-import { DefaultExtensionsStylingOptions, createDefaultExensions } from "extensions";
 import { defaultEditorProps } from "./defaultProps";
-import { getPrevText } from "utils/utils";
-import { ImageResizer } from "extensions/image-resizer";
+import { DefaultExtensionsStylingOptions, createDefaultExensions } from "@/extensions";
+import { defaultEditorContent } from "@/defaults/default-editor-content";
+import { getPrevText } from "@/utils/utils";
+import { ImageResizer } from "@/extensions/image-resizer";
+import useLocalStorage from "@/hooks/use-local-storage";
 
 interface EditorProps {
   /**

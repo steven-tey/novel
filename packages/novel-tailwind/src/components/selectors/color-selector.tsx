@@ -1,15 +1,13 @@
 import { Check, ChevronDown } from "lucide-react";
 import { Dispatch, FC, SetStateAction } from "react";
 import * as Popover from "@radix-ui/react-popover";
-import { Editor, useEditor } from "@novel/headless";
-
+import { useEditor } from "@novel/headless";
 export interface BubbleColorMenuItem {
   name: string;
   color: string;
 }
 
 interface ColorSelectorProps {
-  editor: Editor;
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
@@ -94,6 +92,7 @@ const HIGHLIGHT_COLORS: BubbleColorMenuItem[] = [
 
 export const ColorSelector: FC<ColorSelectorProps> = ({ isOpen, setIsOpen }) => {
   const { editor } = useEditor();
+
   if (!editor) return null;
   const activeColorItem = TEXT_COLORS.find(({ color }) => editor.isActive("textStyle", { color }));
 

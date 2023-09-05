@@ -1,6 +1,7 @@
 import { ComponentPropsWithoutRef, ReactNode } from "react";
-import { Editor, useCurrentEditor } from "@tiptap/react";
 import { Slot } from "@radix-ui/react-slot";
+import { Editor } from "@tiptap/core";
+import useEditor from "@/hooks/useEditor";
 
 interface EditorBubbleItemProps extends ComponentPropsWithoutRef<"button"> {
   children: ReactNode;
@@ -21,7 +22,7 @@ const EditorBubbleItem = ({
   command,
   ...props
 }: EditorBubbleItemProps) => {
-  const { editor } = useCurrentEditor();
+  const { editor } = useEditor();
   const Comp = asChild ? Slot : "button";
 
   if (!editor) return null;

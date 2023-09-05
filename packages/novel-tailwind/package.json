@@ -19,15 +19,15 @@
   },
   "scripts": {
     "build": "tsup",
-    "dev": "tsup --watch",
+    "dev": "tsup --watch ",
     "check-types": "tsc --noEmit"
   },
   "peerDependencies": {
     "react": "^18.2.0"
   },
   "dependencies": {
-    "@radix-ui/react-popover": "^1.0.6",
     "@novel/headless": "workspace:*",
+    "@radix-ui/react-popover": "^1.0.6",
     "clsx": "^1.2.1",
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",

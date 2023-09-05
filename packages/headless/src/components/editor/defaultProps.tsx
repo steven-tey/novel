@@ -1,5 +1,5 @@
+import { startImageUpload } from "@/plugins/upload-images";
 import { EditorProps } from "@tiptap/pm/view";
-import { startImageUpload } from "plugins/upload-images";
 
 export const defaultEditorProps: EditorProps = {
   attributes: {

@@ -16,6 +16,13 @@ import {
   Code,
   CheckSquare,
 } from "lucide-react";
+import Magic from "@/components/icons/magic";
+import { startImageUpload } from "@/plugins/upload-images";
+
+interface CommandProps {
+  editor: Editor;
+  range: Range;
+}
 
 const Command = Extension.create({
   name: "slash-command",
