@@ -1,15 +1,9 @@
 {
   "extends": "tsconfig/react.json",
-  "include": [
-    ".",
-    "../../novel-tailwind/src/components/selectors",
-    "../../novel-tailwind/src/components/command"
-  ],
+  "include": ["./src/**/*"],
   "exclude": ["dist", "build", "node_modules"],
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    }
+    "declarationMap": false,
+    "outDir": "dist"
   }
 }

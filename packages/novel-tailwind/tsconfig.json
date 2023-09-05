@@ -1,11 +1,5 @@
 {
   "extends": "tsconfig/react.json",
-  "include": [".", "src/components/command"],
-  "exclude": ["dist", "build", "node_modules"],
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    }
-  }
+  "include": ["./src/**/*"],
+  "exclude": ["dist", "build", "node_modules"]
 }

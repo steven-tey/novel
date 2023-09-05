@@ -1,4 +1,4 @@
-import React, { ReactNode, ComponentType } from "react";
+import React, { ReactNode, ComponentType, FunctionComponent } from "react";
 import { Editor, Range, Extension } from "@tiptap/core";
 import Suggestion from "@tiptap/suggestion";
 import { ReactRenderer } from "@tiptap/react";
@@ -16,8 +16,8 @@ import {
   Code,
   CheckSquare,
 } from "lucide-react";
-import Magic from "@/components/icons/magic";
-import { startImageUpload } from "@/plugins/upload-images";
+import Magic from "../components/icons/magic";
+import { startImageUpload } from "../plugins/upload-images";
 
 interface CommandProps {
   editor: Editor;
@@ -182,13 +182,13 @@ const getSuggestionItems = ({ query }: { query: string }) => {
   });
 };
 
-const renderItems = (List: ComponentType<any>) => () => {
+const renderItems = (List: FunctionComponent) => () => {
   let component: ReactRenderer | null = null;
   let popup: any | null = null;
 
   return {
     onStart: (props: { editor: Editor; clientRect: DOMRect }) => {
-      component = new ReactRenderer(List, {
+      component = new ReactRenderer(List as FunctionComponent, {
         props,
         editor: props.editor,
       });
@@ -229,7 +229,7 @@ const renderItems = (List: ComponentType<any>) => () => {
   };
 };
 
-export const createEditorSlashCommand = (list: ComponentType) =>
+export const createEditorSlashCommand = (list: FunctionComponent) =>
   Command.configure({
     suggestion: {
       items: getSuggestionItems,

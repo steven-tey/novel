@@ -1,10 +1,9 @@
-import { cn, getUrlFromString } from "@/utils";
 import { Editor, useEditor } from "@novel/headless";
 import { Check, Trash } from "lucide-react";
 import { Dispatch, FC, SetStateAction, useEffect, useRef } from "react";
+import { cn, getUrlFromString } from "../../utils";
 
 interface LinkSelectorProps {
-  editor: Editor;
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }

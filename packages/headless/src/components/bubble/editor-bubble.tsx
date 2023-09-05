@@ -1,5 +1,5 @@
-import useEditor from "@/hooks/useEditor";
 import { BubbleMenuProps, BubbleMenu as Menu } from "@tiptap/react";
+import useEditor from "../../hooks/useEditor";
 
 const BubbleMenu = ({ children, ...props }: BubbleMenuProps) => {
   const { editor } = useEditor();

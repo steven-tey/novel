@@ -83,10 +83,10 @@ export const NodeSelector: FC<NodeSelectorProps> = ({ isOpen, setIsOpen }) => {
   ];
 
   const { editor } = useEditor();
-  const activeItem = { name: "test" };
-  //   const activeItem = items.filter((item) => item.isActive()).pop() ?? {
-  //     name: "Multiple",
-  //   };
+  if (!editor) return null;
+  const activeItem = items.filter((item) => item.isActive(editor)).pop() ?? {
+    name: "Multiple",
+  };
 
   return (
     <Popover.Root open={isOpen}>

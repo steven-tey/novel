@@ -1,8 +1,17 @@
 import { useCompletion } from "ai/react";
-import { ReactNode, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import {
+  FunctionComponent,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { toast } from "sonner";
 import va from "@vercel/analytics";
-import { getPrevText } from "@/utils/utils";
+import { getPrevText } from "../../utils/utils";
+import { CommandListItemProps } from "./command-list-item";
 
 export const updateScrollView = (container: HTMLElement, item: HTMLElement) => {
   const containerHeight = container.offsetHeight;
@@ -24,19 +33,15 @@ interface Items {
   icon: ReactNode;
 }
 
-const CommandList = ({
-  items,
-  command,
-  editor,
-  range,
-  children,
-}: {
+export type CommandListProps = {
   items: Items[];
   command: any;
   editor: any;
   range: any;
-  children: ReactNode;
-}) => {
+  Element: FunctionComponent<any>;
+  className: string;
+};
+const CommandList = ({ items, command, editor, range, Element, className }: CommandListProps) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const { complete, isLoading } = useCompletion({
@@ -126,12 +131,9 @@ const CommandList = ({
   }, [selectedIndex]);
 
   return items.length > 0 ? (
-    <div
-      id='slash-command'
-      ref={commandListContainer}
-      className='z-50 h-auto max-h-[330px] w-72 overflow-y-auto rounded-md border border-stone-200 bg-white px-1 py-2 shadow-md transition-all'>
-      {/* {items.map((item, index: number) => (
-        <CommandItem
+    <div id='slash-command' ref={commandListContainer} className={className}>
+      {items.map((item, index: number) => (
+        <Element
           key={index}
           title={item.title}
           description={item.description}
@@ -140,7 +142,7 @@ const CommandList = ({
           icon={item.icon}
           onSelect={() => selectItem(index)}
         />
-      ))} */}
+      ))}
     </div>
   ) : null;
 };

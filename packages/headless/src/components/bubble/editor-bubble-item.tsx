@@ -1,8 +1,7 @@
 import { ComponentPropsWithoutRef, ReactNode } from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { Editor } from "@tiptap/core";
-import useEditor from "@/hooks/useEditor";
-
+import useEditor from "../../hooks/useEditor";
 interface EditorBubbleItemProps extends ComponentPropsWithoutRef<"button"> {
   children: ReactNode;
   asChild?: boolean;

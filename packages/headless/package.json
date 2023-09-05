@@ -3,23 +3,8 @@
   "version": "0.1.19",
   "description": "Notion-style WYSIWYG editor with AI-powered autocompletions",
   "license": "Apache-2.0",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist/**/*"
-  ],
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "module": "./dist/index.mjs",
-      "require": "./dist/index.js"
-    }
-  },
+  "main": "src/index.ts",
   "scripts": {
-    "build": "tsup  && tsc --emitDeclarationOnly --declaration",
-    "dev": "tsup --watch",
     "check-types": "tsc --noEmit"
   },
   "peerDependencies": {

@@ -7,6 +7,8 @@ module.exports = {
     "./ui/**/*.{js,ts,jsx,tsx}",
     `src/**/*.{js,ts,jsx,tsx}`,
     "../../packages/core/src/*.{js,ts,jsx,tsx}",
+    "../../packages/headless/src/**/*.{js,ts,jsx,tsx}",
+    "../../packages/novel-tailwind/src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
