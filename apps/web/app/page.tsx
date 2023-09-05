@@ -1,6 +1,6 @@
 import { Github } from "@/ui/icons";
 import Menu from "@/ui/menu";
-import Editor from "@/ui/editor";
+import { Editor } from "@novel/tailwind";
 
 export default function Page() {
   return (

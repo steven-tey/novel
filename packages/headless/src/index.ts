@@ -1,5 +1,3 @@
-import "./styles/prosemirror.css";
-
 export { default as EditorProvider } from "./components/editor/editor-provider";
 export { default as EditorBubbleItem } from "./components/bubble/editor-bubble-item";
 export type { BubbleMenuItem } from "./components/bubble/editor-bubble-item";

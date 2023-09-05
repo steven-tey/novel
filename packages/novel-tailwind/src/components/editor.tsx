@@ -3,17 +3,16 @@
 import { useState } from "react";
 import {
   EditorBubble,
+  EditorCommandList,
   EditorProvider,
   createEditorSlashCommand,
 } from "@novel/headless";
-import {
-  ColorSelector,
-  EditorCommandList,
-  LinkSelector,
-  NodeSelector,
-  TextButtons,
-  defaultExtensionsStylingOptions,
-} from "@novel/tailwind";
+import { defaultExtensionsStylingOptions } from "../defaultExtensionStyles";
+import CommandList from "./command/command-list";
+import { NodeSelector } from "./selectors/node-selector";
+import { LinkSelector } from "./selectors/link-selector";
+import TextButtons from "./selectors/text-buttons";
+import { ColorSelector } from "./selectors/color-selector";
 
 export default function Editor() {
   const [saveStatus, setSaveStatus] = useState("Saved");
@@ -23,13 +22,13 @@ export default function Editor() {
   const [isLinkSelectorOpen, setIsLinkSelectorOpen] = useState(false);
 
   return (
-    <div className="relative w-full max-w-screen-lg">
-      <div className="absolute right-5 top-5 z-10 mb-5 rounded-lg bg-stone-100 px-2 py-1 text-sm text-stone-400">
+    <div className='relative w-full max-w-screen-lg'>
+      <div className='absolute right-5 top-5 z-10 mb-5 rounded-lg bg-stone-100 px-2 py-1 text-sm text-stone-400'>
         {saveStatus}
       </div>
       <EditorProvider
-        className="relative min-h-[500px] w-full max-w-screen-lg border-stone-200 bg-white sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:shadow-lg"
-        extensions={[createEditorSlashCommand(EditorCommandList)]}
+        className='relative min-h-[500px] w-full max-w-screen-lg border-stone-200 bg-white sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:shadow-lg'
+        extensions={[createEditorSlashCommand(CommandList as any)]}
         editorProps={{
           attributes: {
             class: `prose-lg prose-stone dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full`,
@@ -45,16 +44,14 @@ export default function Editor() {
             setSaveStatus("Saved");
           }, 500);
         }}
-        defaultStylingOptions={defaultExtensionsStylingOptions}
-      >
+        defaultStylingOptions={defaultExtensionsStylingOptions}>
         <EditorBubble
           onHidden={() => {
             setIsColorSelectorOpen(false);
             setIsNodeSelectorOpen(false);
             setIsLinkSelectorOpen(false);
           }}
-          className="flex w-fit divide-x divide-stone-200 rounded border border-stone-200 bg-white shadow-xl"
-        >
+          className='flex w-fit divide-x divide-stone-200 rounded border border-stone-200 bg-white shadow-xl'>
           <NodeSelector
             isOpen={isNodeSelectorOpen}
             setIsOpen={() => {
