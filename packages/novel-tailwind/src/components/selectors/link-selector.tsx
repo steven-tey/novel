@@ -37,7 +37,7 @@ export const LinkSelector: FC<LinkSelectorProps> = ({ isOpen, setIsOpen }) => {
       {isOpen && (
         <form
           onSubmit={(e) => {
-            const target = e.target as HTMLFormElement;
+            const target = e.currentTarget as HTMLFormElement;
             e.preventDefault();
             const input = target[0] as HTMLInputElement;
             const url = getUrlFromString(input.value);
