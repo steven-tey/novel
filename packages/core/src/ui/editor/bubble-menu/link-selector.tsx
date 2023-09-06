@@ -26,8 +26,7 @@ export const LinkSelector: FC<LinkSelectorProps> = ({
       <button
         type="button"
         className="flex h-full items-center space-x-2 px-3 py-1.5 text-sm font-medium text-stone-600 hover:bg-stone-100 active:bg-stone-200"
-        onClick={(e) => {
-          e.stopPropagation()
+        onClick={() => {
           setIsOpen(!isOpen);
         }}
       >
@@ -44,7 +43,7 @@ export const LinkSelector: FC<LinkSelectorProps> = ({
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            const input = e.target[0] as HTMLInputElement;
+            const input = e.currentTarget[0] as HTMLInputElement;
             const url = getUrlFromString(input.value);
             url && editor.chain().focus().setLink({ href: url }).run();
             setIsOpen(false);
