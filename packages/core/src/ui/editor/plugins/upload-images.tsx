@@ -104,7 +104,7 @@ export function startImageUpload(file: File, view: EditorView, pos: number) {
 
     const node = schema.nodes.image.create({ src: imageSrc });
     const transaction = view.state.tr
-      .replaceWith(pos, pos, node)
+      .replaceSelectionWith(node)
       .setMeta(uploadKey, { remove: { id } });
     view.dispatch(transaction);
   });
