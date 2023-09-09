@@ -87,7 +87,7 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
   return (
     <BubbleMenu
       {...bubbleMenuProps}
-      className="flex w-fit divide-x divide-stone-200 rounded border border-stone-200 bg-white shadow-xl"
+      className="flex w-fit max-w-[97vw] overflow-x-auto divide-x divide-stone-200 rounded border border-stone-200 bg-white shadow-xl"
     >
       <NodeSelector
         editor={props.editor}
@@ -107,17 +107,17 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
           setIsNodeSelectorOpen(false);
         }}
       />
-      <div className="flex">
+      <div className='flex'>
         {items.map((item, index) => (
           <button
             key={index}
             onClick={item.command}
-            className="p-2 text-stone-600 hover:bg-stone-100 active:bg-stone-200"
-            type="button"
+            className='p-2 text-stone-600 hover:bg-stone-100 active:bg-stone-200'
+            type='button'
           >
             <item.icon
-              className={cn("h-4 w-4", {
-                "text-blue-500": item.isActive(),
+              className={cn('h-4 w-4', {
+                'text-blue-500': item.isActive(),
               })}
             />
           </button>
