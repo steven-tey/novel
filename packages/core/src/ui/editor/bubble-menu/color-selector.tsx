@@ -107,13 +107,13 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
 
   return (
     <Popover.Root open={isOpen}>
-      <div className="relative h-full">
+      <div className="novel-relative novel-h-full">
         <Popover.Trigger
-          className="flex h-full items-center gap-1 p-2 text-sm font-medium text-stone-600 hover:bg-stone-100 active:bg-stone-200"
+          className="novel-flex novel-h-full novel-items-center novel-gap-1 novel-p-2 novel-text-sm novel-font-medium novel-text-stone-600 hover:novel-bg-stone-100 active:novel-bg-stone-200"
           onClick={() => setIsOpen(!isOpen)}
         >
           <span
-            className="rounded-sm px-1"
+            className="novel-rounded-sm novel-px-1"
             style={{
               color: activeColorItem?.color,
               backgroundColor: activeHighlightItem?.color,
@@ -122,14 +122,16 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
             A
           </span>
 
-          <ChevronDown className="h-4 w-4" />
+          <ChevronDown className="novel-h-4 novel-w-4" />
         </Popover.Trigger>
 
         <Popover.Content
           align="start"
-          className="z-[99999] my-1 flex max-h-80 w-48 flex-col overflow-hidden overflow-y-auto rounded border border-stone-200 bg-white p-1 shadow-xl animate-in fade-in slide-in-from-top-1"
+          className="novel-z-[99999] novel-my-1 novel-flex novel-max-h-80 novel-w-48 novel-flex-col novel-overflow-hidden novel-overflow-y-auto novel-rounded novel-border novel-border-stone-200 novel-bg-white novel-p-1 novel-shadow-xl novel-animate-in novel-fade-in novel-slide-in-from-top-1"
         >
-          <div className="my-1 px-2 text-sm text-stone-500">Color</div>
+          <div className="novel-my-1 novel-px-2 novel-text-sm novel-text-stone-500">
+            Color
+          </div>
           {TEXT_COLORS.map(({ name, color }, index) => (
             <button
               key={index}
@@ -143,12 +145,12 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
                     .run();
                 setIsOpen(false);
               }}
-              className="flex items-center justify-between rounded-sm px-2 py-1 text-sm text-stone-600 hover:bg-stone-100"
+              className="novel-flex novel-items-center novel-justify-between novel-rounded-sm novel-px-2 novel-py-1 novel-text-sm novel-text-stone-600 hover:novel-bg-stone-100"
               type="button"
             >
-              <div className="flex items-center space-x-2">
+              <div className="novel-flex novel-items-center novel-space-x-2">
                 <div
-                  className="rounded-sm border border-stone-200 px-1 py-px font-medium"
+                  className="novel-rounded-sm novel-border novel-border-stone-200 novel-px-1 novel-py-px novel-font-medium"
                   style={{ color }}
                 >
                   A
@@ -156,12 +158,12 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
                 <span>{name}</span>
               </div>
               {editor.isActive("textStyle", { color }) && (
-                <Check className="h-4 w-4" />
+                <Check className="novel-h-4 novel-w-4" />
               )}
             </button>
           ))}
 
-          <div className="mb-1 mt-2 px-2 text-sm text-stone-500">
+          <div className="novel-mb-1 novel-mt-2 novel-px-2 novel-text-sm novel-text-stone-500">
             Background
           </div>
 
@@ -173,12 +175,12 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
                 name !== "Default" && editor.commands.setHighlight({ color });
                 setIsOpen(false);
               }}
-              className="flex items-center justify-between rounded-sm px-2 py-1 text-sm text-stone-600 hover:bg-stone-100"
+              className="novel-flex novel-items-center novel-justify-between novel-rounded-sm novel-px-2 novel-py-1 novel-text-sm novel-text-stone-600 hover:novel-bg-stone-100"
               type="button"
             >
-              <div className="flex items-center space-x-2">
+              <div className="novel-flex novel-items-center novel-space-x-2">
                 <div
-                  className="rounded-sm border border-stone-200 px-1 py-px font-medium"
+                  className="novel-rounded-sm novel-border novel-border-stone-200 novel-px-1 novel-py-px novel-font-medium"
                   style={{ backgroundColor: color }}
                 >
                   A
@@ -186,7 +188,7 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
                 <span>{name}</span>
               </div>
               {editor.isActive("highlight", { color }) && (
-                <Check className="h-4 w-4" />
+                <Check className="novel-h-4 novel-w-4" />
               )}
             </button>
           ))}

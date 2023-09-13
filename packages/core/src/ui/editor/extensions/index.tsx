@@ -129,7 +129,7 @@ export const defaultExtensions = [
   }),
   TaskItem.configure({
     HTMLAttributes: {
-      class: "flex items-start my-4",
+      class: "novel-flex novel-items-start my-4",
     },
     nested: true,
   }),
