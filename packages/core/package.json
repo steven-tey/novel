@@ -1,5 +1,5 @@
 {
-  "name": "novel",
+  "name": "rubydev-novel",
   "version": "0.1.20",
   "description": "Notion-style WYSIWYG editor with AI-powered autocompletions",
   "license": "Apache-2.0",
@@ -76,14 +76,14 @@
     "tsup": "^7.2.0",
     "typescript": "^4.9.4"
   },
-  "author": "Steven Tey <stevensteel97@gmail.com>",
-  "homepage": "https://novel.sh",
+  "author": "Ruby Dev <info@rubydev.ca>",
+  "homepage": "https://www.rubydev.ca/",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/steven-tey/novel.git"
+    "url": "git+https://github.com/rubydevco/novel.git"
   },
   "bugs": {
-    "url": "https://github.com/steven-tey/novel/issues"
+    "url": "https://github.com/rubydevco/novel/issues"
   },
   "keywords": [
     "ai",
