@@ -5,7 +5,6 @@ import {
   useEditor,
   EditorContent,
   JSONContent,
-  Extension,
 } from "@tiptap/react";
 import { defaultEditorProps } from "./props";
 import { defaultExtensions } from "./extensions";
@@ -19,7 +18,7 @@ import { EditorBubbleMenu } from "./bubble-menu";
 import { getPrevText } from "@/lib/editor";
 import { ImageResizer } from "./extensions/image-resizer";
 import { EditorProps } from "@tiptap/pm/view";
-import { Editor as EditorClass } from "@tiptap/core";
+import { Editor as EditorClass, Extensions } from "@tiptap/core";
 
 export default function Editor({
   completionApi = "/api/generate",
@@ -51,7 +50,7 @@ export default function Editor({
    * A list of extensions to use for the editor, in addition to the default Novel extensions.
    * Defaults to [].
    */
-  extensions?: Extension[];
+  extensions?: Extensions;
   /**
    * Props to pass to the underlying Tiptap editor, in addition to the default Novel editor props.
    * Defaults to {}.
