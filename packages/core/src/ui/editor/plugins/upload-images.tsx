@@ -28,7 +28,7 @@ const UploadImagesPlugin = () =>
           );
           image.src = src;
           placeholder.appendChild(image);
-          const deco = Decoration.widget(pos + 1, placeholder, {
+          const deco = Decoration.widget(pos, placeholder, {
             id,
           });
           set = set.add(tr.doc, [deco]);
