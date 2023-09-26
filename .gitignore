@@ -40,6 +40,9 @@ next-env.d.ts
 # vscode
 .vscode
 
+# intellij
+.idea
+
 dist/**
 /dist
 packages/*/dist
