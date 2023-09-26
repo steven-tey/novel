@@ -57,18 +57,15 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
 
   const bubbleMenuProps: EditorBubbleMenuProps = {
     ...props,
-    shouldShow: ({ view, state, editor }) => {
+    shouldShow: ({ state, editor }) => {
       const { selection } = state;
       const { empty } = selection;
-      const hasEditorFocus = view.hasFocus();
 
-      // don't show if image is selected
-      if (
-        editor.isActive("image") ||
-        !hasEditorFocus ||
-        empty ||
-        isNodeSelection(selection)
-      ) {
+      // don't show bubble menu if:
+      // - the selected node is an image
+      // - the selection is empty
+      // - the selection is a node selection (for drag handles)
+      if (editor.isActive("image") || empty || isNodeSelection(selection)) {
         return false;
       }
       return true;
