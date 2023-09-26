@@ -12,7 +12,6 @@ export default function Editor() {
         {saveStatus}
       </div>
       <NovelEditor
-        disableLocalStorage={true}
         onUpdate={() => {
           setSaveStatus("Unsaved");
         }}

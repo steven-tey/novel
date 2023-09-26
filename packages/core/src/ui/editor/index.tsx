@@ -192,7 +192,8 @@ export default function Editor({
     };
   }, [stop, isLoading, editor, complete, completion.length]);
 
-  // Hydrate the editor with the content from localStorage or defaultValue.
+  // Default: Hydrate the editor with the content from localStorage.
+  // If disableLocalStorage is true, hydrate the editor with the defaultValue.
   useEffect(() => {
     if (!editor || hydrated) return;
 
@@ -202,7 +203,7 @@ export default function Editor({
       editor.commands.setContent(value);
       setHydrated(true);
     }
-  }, [editor, defaultValue, content, hydrated]);
+  }, [editor, defaultValue, content, hydrated, disableLocalStorage]);
 
   return (
     <div
