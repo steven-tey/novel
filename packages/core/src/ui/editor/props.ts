@@ -1,5 +1,7 @@
 import { EditorProps } from "@tiptap/pm/view";
 import { startImageUpload } from "@/ui/editor/plugins/upload-images";
+import { convertMarkdownToHTML, isMarkdown } from "@/lib/utils";
+import { DOMParser, Slice } from 'prosemirror-model';
 
 export const defaultEditorProps: EditorProps = {
   attributes: {
@@ -28,6 +30,23 @@ export const defaultEditorProps: EditorProps = {
 
       startImageUpload(file, view, pos);
       return true;
+    } else if (event.clipboardData && event.clipboardData.getData('Text')) {
+      const text = event.clipboardData.getData('Text');
+      if (isMarkdown(text)) {
+        const html = convertMarkdownToHTML(text);
+        const { state, dispatch } = view;
+        const { schema } = state;
+        
+        const domParser = new window.DOMParser();
+        const doc = domParser.parseFromString(html, 'text/html');
+        const node = DOMParser.fromSchema(schema).parse(doc.body);
+        const slice = new Slice(node.content, 0, 0);
+
+        dispatch(state.tr.replaceSelection(slice));
+
+        event.preventDefault();
+        return true;
+      }
     }
     return false;
   },
