@@ -239,6 +239,7 @@ export const convertMarkdownToHTML = (markdown: string): string => {
 
   handleAccumulatingLines(parsedElements, accumulatingLines);
   handleChecklistItems(parsedElements, checklistItems);
+  handleFencedCodeBlock(parsedElements, codeLines);
 
   let html = '';
   parsedElements.forEach((item) => {
