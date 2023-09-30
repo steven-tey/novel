@@ -65,9 +65,13 @@ export const convertMarkdownToHTML = (markdown: string): string => {
     text: string;
     checked: boolean;
   };
-  type Content = string | string[] | ImageContent | LinkContent | ChecklistItemContent[];
+  type HeadingContent = {
+    text: string;
+    level: number;
+  };
+  type Content = string | string[] | ImageContent | LinkContent | ChecklistItemContent[] | HeadingContent;
   type ParsedElement = {
-    type: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote" | "multilineBlockquote" | "checklist" | "ul" | "ol" | "strong" | "em" | "img" | "a" | "code" | "pre" | "paragraph" | "strikethrough" | "inline";
+    type: "heading" | "blockquote" | "multilineBlockquote" | "checklist" | "ul" | "ol" | "strong" | "em" | "img" | "a" | "code" | "pre" | "paragraph" | "strikethrough" | "inline";
     content: Content;
   };
   type Appender<T> = {
@@ -85,12 +89,10 @@ export const convertMarkdownToHTML = (markdown: string): string => {
   };
 
   const appenders: Appender<Content> = {
-    h1: (content) => `<h1>${content}</h1>`,
-    h2: (content) => `<h2>${content}</h2>`,
-    h3: (content) => `<h3>${content}</h3>`,
-    h4: (content) => `<h4>${content}</h4>`,
-    h5: (content) => `<h5>${content}</h5>`,
-    h6: (content) => `<h6>${content}</h6>`,
+    heading: (content) => {
+      const headingContent = content as HeadingContent;
+      return `<h${headingContent.level}>${headingContent.text}</h${headingContent.level}>`;  // Use HeadingContent type
+    },
     blockquote: (content) => `<blockquote><p>${content}</p></blockquote>`,
     ul: (content) => `<ul><li>${content}</li></ul>`,
     ol: (content) => `<ol><li>${content}</li></ol>`,
@@ -128,12 +130,11 @@ export const convertMarkdownToHTML = (markdown: string): string => {
     replacer: (match: string, ...groups: string[]) => Content;
   }[] = [
       { regex: /^> .+/, type: 'blockquote', replacer: (match) => match.replace(/^> /, '') },
-      { regex: /^###### .+/, type: 'h6', replacer: (match) => match.replace(/^###### /, '') },
-      { regex: /^##### .+/, type: 'h5', replacer: (match) => match.replace(/^##### /, '') },
-      { regex: /^#### .+/, type: 'h4', replacer: (match) => match.replace(/^#### /, '') },
-      { regex: /^### .+/, type: 'h3', replacer: (match) => match.replace(/^### /, '') },
-      { regex: /^## .+/, type: 'h2', replacer: (match) => match.replace(/^## /, '') },
-      { regex: /^# .+/, type: 'h1', replacer: (match) => match.replace(/^# /, '') },
+      {
+        regex: /^(#{1,6}) (.+)/,
+        type: 'heading',
+        replacer: (match, hashes, content) => ({ text: content, level: hashes.length })
+      },
       { regex: /^\* .+/, type: 'ul', replacer: (match) => match.replace(/^[\*\-] /, '') },
       { regex: /^- .+/, type: 'ul', replacer: (match) => match.replace(/^[\*\-] /, '') },
       { regex: /^\d+\. .+/, type: 'ol', replacer: (match) => match.replace(/^\d+\. /, '') },
@@ -146,7 +147,6 @@ export const convertMarkdownToHTML = (markdown: string): string => {
       },
       { regex: /\[(.+)\]\((.+)\)/, type: 'a', replacer: (match, text, href) => ({ text, href }) },
       { regex: /`([^`]+)`/, type: 'code', replacer: (match, content) => content },
-      { regex: /```.+```/, type: 'pre', replacer: (match, content) => content.match(/```(.+)```/)?.[1] || '' },
       { regex: /~~(.+?)~~/, type: 'strikethrough', replacer: (match, content) => content },
     ];
 
@@ -173,44 +173,67 @@ export const convertMarkdownToHTML = (markdown: string): string => {
     return { type: 'paragraph', content: inlineParsed };
   };
 
+  const handleChecklistItems = (parsedElements: ParsedElement[], checklistItems: ChecklistItemContent[]) => {
+    if (checklistItems.length > 0) {
+      parsedElements.push({ type: 'checklist', content: checklistItems });
+      return [];
+    }
+    return checklistItems;
+  };
+
+  const handleAccumulatingLines = (parsedElements: ParsedElement[], accumulatingLines: string[]) => {
+    if (accumulatingLines.length > 0) {
+      parsedElements.push(parseLine(accumulatingLines));
+      return [];
+    }
+    return accumulatingLines;
+  };
+
+  function handleFencedCodeBlock(parsedElements: ParsedElement[], codeLines: string[]) {
+    const codeBlock = codeLines.join('\n');
+    const patternCodeBlock = /```(?:\w*\r?\n)?([\s\S]+?)```/;
+  
+    if (patternCodeBlock.test(codeBlock)) {
+      const match = codeBlock.match(patternCodeBlock);
+      if (match) {
+        const content = match[1].trim();
+        parsedElements.push({ type: 'pre', content });
+      }
+      codeLines.length = 0;  // Clear the codeLines array
+    }
+  }
+
   const lines = markdown.split('\n');
   const parsedElements: ParsedElement[] = [];
   let accumulatingLines: string[] = [];
   let checklistItems: ChecklistItemContent[] = [];
+  let codeLines: string[] = [];
+
 
   lines.forEach(line => {
-    const match = line.match(/^- \[(x| )\] (.+)/);
-    if (match) {
+    const checkboxMatch = line.match(/^- \[(x| )\] (.+)/);
+    if (line.startsWith('```')) {
+      codeLines.push(line);
+    } else if (codeLines.length) {
+      codeLines.push(line);
+      handleFencedCodeBlock(parsedElements, codeLines);
+    } else if (checkboxMatch) {
       checklistItems.push({
-        text: match[2],
-        checked: match[1] === 'x'
+        text: parseInlineElements(checkboxMatch[2]),
+        checked: checkboxMatch[1] === 'x'
       });
     } else if (line.startsWith('>')) {
-      if (checklistItems.length > 0) {
-        parsedElements.push({ type: 'checklist', content: checklistItems });
-        checklistItems = [];
-      }
-      accumulatingLines.push(line);
+      checklistItems = handleChecklistItems(parsedElements, checklistItems);
+      accumulatingLines.push(parseInlineElements(line));
     } else {
-      if (accumulatingLines.length > 0) {
-        parsedElements.push(parseLine(accumulatingLines));
-        accumulatingLines = [];
-      }
-      if (checklistItems.length > 0) {
-        parsedElements.push({ type: 'checklist', content: checklistItems });
-        checklistItems = [];
-      }
+      accumulatingLines = handleAccumulatingLines(parsedElements, accumulatingLines);
+      checklistItems = handleChecklistItems(parsedElements, checklistItems);
       parsedElements.push(parseLine([line]));
     }
   });
 
-  if (accumulatingLines.length > 0) {
-    parsedElements.push(parseLine(accumulatingLines));
-  }
-
-  if (checklistItems.length > 0) {
-    parsedElements.push({ type: 'checklist', content: checklistItems });
-  }
+  handleAccumulatingLines(parsedElements, accumulatingLines);
+  handleChecklistItems(parsedElements, checklistItems);
 
   let html = '';
   parsedElements.forEach((item) => {
