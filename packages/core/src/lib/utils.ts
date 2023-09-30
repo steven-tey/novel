@@ -71,7 +71,7 @@ export const convertMarkdownToHTML = (markdown: string): string => {
   };
   type Content = string | string[] | ImageContent | LinkContent | ChecklistItemContent[] | HeadingContent;
   type ParsedElement = {
-    type: "heading" | "blockquote" | "multilineBlockquote" | "checklist" | "ul" | "ol" | "strong" | "em" | "img" | "a" | "code" | "pre" | "paragraph" | "strikethrough" | "inline";
+    type: "heading" | "blockquote" | "multilineBlockquote" | "checklist" | "ul" | "ol" | "strong" | "em" | "img" | "a" | "code" | "pre" | "paragraph" | "strikethrough" | "inline" | "horizontalRule";
     content: Content;
   };
   type Appender<T> = {
@@ -122,6 +122,7 @@ export const convertMarkdownToHTML = (markdown: string): string => {
 
       return `<ul data-type="taskList">${itemsHtml}</ul>`;
     },
+    horizontalRule: () => '<hr>',
   };
 
   const patterns: {
@@ -148,6 +149,7 @@ export const convertMarkdownToHTML = (markdown: string): string => {
       { regex: /\[(.+)\]\((.+)\)/, type: 'a', replacer: (match, text, href) => ({ text, href }) },
       { regex: /`([^`]+)`/, type: 'code', replacer: (match, content) => content },
       { regex: /~~(.+?)~~/, type: 'strikethrough', replacer: (match, content) => content },
+      { regex: /^---$|^\*\*\*$/, type: 'horizontalRule', replacer: () => '' },
     ];
 
   const parseLine = (lines: string[]): ParsedElement => {
@@ -192,7 +194,7 @@ export const convertMarkdownToHTML = (markdown: string): string => {
   function handleFencedCodeBlock(parsedElements: ParsedElement[], codeLines: string[]) {
     const codeBlock = codeLines.join('\n');
     const patternCodeBlock = /```(?:\w*\r?\n)?([\s\S]+?)```/;
-  
+
     if (patternCodeBlock.test(codeBlock)) {
       const match = codeBlock.match(patternCodeBlock);
       if (match) {
@@ -212,7 +214,10 @@ export const convertMarkdownToHTML = (markdown: string): string => {
 
   lines.forEach(line => {
     const checkboxMatch = line.match(/^- \[(x| )\] (.+)/);
-    if (line.startsWith('```')) {
+    if (/^---$|^\*\*\*$/.test(line.trim())) {
+      parsedElements.push({ type: 'horizontalRule', content: '' });
+      return;
+    } else if (line.startsWith('```')) {
       codeLines.push(line);
     } else if (codeLines.length) {
       codeLines.push(line);
