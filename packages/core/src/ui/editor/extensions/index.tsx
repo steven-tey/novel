@@ -10,14 +10,14 @@ import TaskItem from "@tiptap/extension-task-item";
 import TaskList from "@tiptap/extension-task-list";
 import { Markdown } from "tiptap-markdown";
 import Highlight from "@tiptap/extension-highlight";
-import SlashCommand from "./slash-command";
+import { CreateSlashCommand } from "./slash-command";
 import { InputRule } from "@tiptap/core";
 import UploadImagesPlugin from "@/ui/editor/plugins/upload-images";
 import UpdatedImage from "./updated-image";
 import CustomKeymap from "./custom-keymap";
 import DragAndDrop from "./drag-and-drop";
 
-export const defaultExtensions = [
+export const defaultExtensions = (completionApi: string) => [
   StarterKit.configure({
     bulletList: {
       HTMLAttributes: {
@@ -115,7 +115,7 @@ export const defaultExtensions = [
     },
     includeChildren: true,
   }),
-  SlashCommand,
+  CreateSlashCommand(completionApi),
   TiptapUnderline,
   TextStyle,
   Color,

@@ -248,17 +248,19 @@ const CommandList = ({
   command,
   editor,
   range,
+  completionApi,
 }: {
   items: CommandItemProps[];
   command: any;
   editor: any;
   range: any;
+  completionApi: string;
 }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const { complete, isLoading } = useCompletion({
     id: "novel",
-    api: "/api/generate",
+    api: completionApi,
     onResponse: (response) => {
       if (response.status === 429) {
         toast.error("You have reached your request limit for the day.");
@@ -375,14 +377,17 @@ const CommandList = ({
   ) : null;
 };
 
-const renderItems = () => {
+const renderItems = (completionApi: string) => {
   let component: ReactRenderer | null = null;
   let popup: any | null = null;
 
   return {
     onStart: (props: { editor: Editor; clientRect: DOMRect }) => {
       component = new ReactRenderer(CommandList, {
-        props,
+        props: {
+          completionApi,
+          ...props,
+        },
         editor: props.editor,
       });
 
@@ -422,11 +427,9 @@ const renderItems = () => {
   };
 };
 
-const SlashCommand = Command.configure({
+export const CreateSlashCommand = (completionApi: string) => Command.configure({
   suggestion: {
     items: getSuggestionItems,
-    render: renderItems,
+    render: () => renderItems(completionApi),
   },
 });
-
-export default SlashCommand;

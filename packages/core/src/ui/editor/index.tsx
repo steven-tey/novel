@@ -100,7 +100,7 @@ export default function Editor({
   }, debounceDuration);
 
   const editor = useEditor({
-    extensions: [...defaultExtensions, ...extensions],
+    extensions: [...defaultExtensions(completionApi), ...extensions],
     editorProps: {
       ...defaultEditorProps,
       ...editorProps,
