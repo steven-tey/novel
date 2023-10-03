@@ -137,6 +137,7 @@ export const defaultExtensions = [
   Markdown.configure({
     html: false,
     transformCopiedText: true,
+    transformPastedText: true,
   }),
   CustomKeymap,
   DragAndDrop,
