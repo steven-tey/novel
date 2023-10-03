@@ -150,7 +150,7 @@ ul[data-type="taskList"] li[data-checked="true"] > div > p {
   }
 
   &:active {
-    background-color: var(--nnovel-stone-200);
+    background-color: var(--novel-stone-200);
     transition: background-color 0.2s;
   }
 
