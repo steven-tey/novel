@@ -5,6 +5,7 @@ import React, {
   ReactNode,
   useRef,
   useLayoutEffect,
+  useContext,
 } from "react";
 import { Editor, Range, Extension } from "@tiptap/core";
 import Suggestion from "@tiptap/suggestion";
@@ -30,6 +31,7 @@ import va from "@vercel/analytics";
 import { Magic } from "@/ui/icons";
 import { getPrevText } from "@/lib/editor";
 import { startImageUpload } from "@/ui/editor/plugins/upload-images";
+import { NovelContext } from "../provider";
 
 interface CommandItemProps {
   title: string;
@@ -256,9 +258,11 @@ const CommandList = ({
 }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
+  const { completionApi } = useContext(NovelContext);
+
   const { complete, isLoading } = useCompletion({
     id: "novel",
-    api: "/api/generate",
+    api: completionApi,
     onResponse: (response) => {
       if (response.status === 429) {
         toast.error("You have reached your request limit for the day.");
