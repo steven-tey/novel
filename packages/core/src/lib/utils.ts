@@ -71,7 +71,7 @@ export const convertMarkdownToHTML = (markdown: string): string => {
   };
   type Content = string | string[] | ImageContent | LinkContent | ChecklistItemContent[] | HeadingContent;
   type ParsedElement = {
-    type: "heading" | "blockquote" | "multilineBlockquote" | "checklist" | "ul" | "ol" | "strong" | "em" | "img" | "a" | "code" | "pre" | "paragraph" | "strikethrough" | "inline" | "horizontalRule";
+    type: "heading" | "blockquote" | "checklist" | "ul" | "ol" | "strong" | "em" | "img" | "a" | "code" | "pre" | "paragraph" | "strikethrough" | "inline" | "horizontalRule";
     content: Content;
   };
   type Appender<T> = {
@@ -93,7 +93,6 @@ export const convertMarkdownToHTML = (markdown: string): string => {
       const headingContent = content as HeadingContent;
       return `<h${headingContent.level}>${headingContent.text}</h${headingContent.level}>`;  // Use HeadingContent type
     },
-    blockquote: (content) => `<blockquote><p>${content}</p></blockquote>`,
     ul: (content) => `<ul><li>${content}</li></ul>`,
     ol: (content) => `<ol><li>${content}</li></ol>`,
     strong: (content) => `<strong>${content}</strong>`,
@@ -105,7 +104,7 @@ export const convertMarkdownToHTML = (markdown: string): string => {
     paragraph: (content) => `<p>${content}</p>`,
     strikethrough: (content) => `<del>${content}</del>`,
     inline: (content) => `${content}`,
-    multilineBlockquote: (content) => `<blockquote><p>${(content as string[]).join('</p><p>')}</p></blockquote>`,
+    blockquote: (content) => `<blockquote><p>${(content as string[]).join('</p><p>')}</p></blockquote>`,
     checklist: (content) => {
       const items = content as ChecklistItemContent[];
       const itemsHtml = items.map(item => `
@@ -130,7 +129,6 @@ export const convertMarkdownToHTML = (markdown: string): string => {
     type: ParsedElement['type'];
     replacer: (match: string, ...groups: string[]) => Content;
   }[] = [
-      { regex: /^> .+/, type: 'blockquote', replacer: (match) => match.replace(/^> /, '') },
       {
         regex: /^(#{1,6}) (.+)/,
         type: 'heading',
@@ -154,7 +152,7 @@ export const convertMarkdownToHTML = (markdown: string): string => {
 
   const parseLine = (lines: string[]): ParsedElement => {
     if (lines.every(line => line.startsWith('>'))) {
-      return { type: 'multilineBlockquote', content: lines.map(line => line.replace(/^> /, '')) };
+      return { type: 'blockquote', content: lines.map(line => line.replace(/^> /, '')) };
     }
 
     const inlineParsed = parseInlineElements(lines[0]);
@@ -228,7 +226,6 @@ export const convertMarkdownToHTML = (markdown: string): string => {
         checked: checkboxMatch[1] === 'x'
       });
     } else if (line.startsWith('>')) {
-      checklistItems = handleChecklistItems(parsedElements, checklistItems);
       accumulatingLines.push(parseInlineElements(line));
     } else {
       accumulatingLines = handleAccumulatingLines(parsedElements, accumulatingLines);
