@@ -1,11 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import {
-  useEditor,
-  EditorContent,
-  JSONContent,
-} from "@tiptap/react";
+import { useEditor, EditorContent, JSONContent } from "@tiptap/react";
 import { defaultEditorProps } from "./props";
 import { defaultExtensions } from "./extensions";
 import useLocalStorage from "@/lib/hooks/use-local-storage";
@@ -19,6 +15,7 @@ import { getPrevText } from "@/lib/editor";
 import { ImageResizer } from "./extensions/image-resizer";
 import { EditorProps } from "@tiptap/pm/view";
 import { Editor as EditorClass, Extensions } from "@tiptap/core";
+import { NovelContext } from "./provider";
 
 export default function Editor({
   completionApi = "/api/generate",
@@ -205,15 +202,21 @@ export default function Editor({
   }, [editor, defaultValue, content, hydrated, disableLocalStorage]);
 
   return (
-    <div
-      onClick={() => {
-        editor?.chain().focus().run();
+    <NovelContext.Provider
+      value={{
+        completionApi,
       }}
-      className={className}
     >
-      {editor && <EditorBubbleMenu editor={editor} />}
-      {editor?.isActive("image") && <ImageResizer editor={editor} />}
-      <EditorContent editor={editor} />
-    </div>
+      <div
+        onClick={() => {
+          editor?.chain().focus().run();
+        }}
+        className={className}
+      >
+        {editor && <EditorBubbleMenu editor={editor} />}
+        {editor?.isActive("image") && <ImageResizer editor={editor} />}
+        <EditorContent editor={editor} />
+      </div>
+    </NovelContext.Provider>
   );
 }
