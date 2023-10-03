@@ -12,11 +12,6 @@ export default function Editor() {
         {saveStatus}
       </div>
       <NovelEditor
-        editorProps={{
-          attributes: {
-            class: `prose-lg prose-stone dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full`,
-          },
-        }}
         onUpdate={() => {
           setSaveStatus("Unsaved");
         }}

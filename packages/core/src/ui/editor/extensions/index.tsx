@@ -21,34 +21,35 @@ export const defaultExtensions = [
   StarterKit.configure({
     bulletList: {
       HTMLAttributes: {
-        class: "list-disc list-outside leading-3 -mt-2",
+        class: "novel-list-disc novel-list-outside novel-leading-3 novel--mt-2",
       },
     },
     orderedList: {
       HTMLAttributes: {
-        class: "list-decimal list-outside leading-3 -mt-2",
+        class:
+          "novel-list-decimal novel-list-outside novel-leading-3 novel--mt-2",
       },
     },
     listItem: {
       HTMLAttributes: {
-        class: "leading-normal -mb-2",
+        class: "novel-leading-normal novel--mb-2",
       },
     },
     blockquote: {
       HTMLAttributes: {
-        class: "border-l-4 border-stone-700",
+        class: "novel-border-l-4 novel-border-stone-700",
       },
     },
     codeBlock: {
       HTMLAttributes: {
         class:
-          "rounded-sm bg-stone-100 p-5 font-mono font-medium text-stone-800",
+          "novel-rounded-sm novel-bg-stone-100 novel-p-5 novel-font-mono novel-font-medium novel-text-stone-800",
       },
     },
     code: {
       HTMLAttributes: {
         class:
-          "rounded-md bg-stone-200 px-1.5 py-1 font-mono font-medium text-stone-900",
+          "novel-rounded-md novel-bg-stone-200 novel-px-1.5 novel-py-1 novel-font-mono novel-font-medium novel-text-stone-900",
         spellcheck: "false",
       },
     },
@@ -82,13 +83,13 @@ export const defaultExtensions = [
     },
   }).configure({
     HTMLAttributes: {
-      class: "mt-4 mb-6 border-t border-stone-300",
+      class: "novel-mt-4 novel-mb-6 novel-border-t novel-border-stone-300",
     },
   }),
   TiptapLink.configure({
     HTMLAttributes: {
       class:
-        "text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer",
+        "novel-text-stone-400 novel-underline novel-underline-offset-[3px] hover:novel-text-stone-600 novel-transition-colors novel-cursor-pointer",
     },
   }),
   TiptapImage.extend({
@@ -98,12 +99,12 @@ export const defaultExtensions = [
   }).configure({
     allowBase64: true,
     HTMLAttributes: {
-      class: "rounded-lg border border-stone-200",
+      class: "novel-rounded-lg novel-border novel-border-stone-200",
     },
   }),
   UpdatedImage.configure({
     HTMLAttributes: {
-      class: "rounded-lg border border-stone-200",
+      class: "novel-rounded-lg novel-border novel-border-stone-200",
     },
   }),
   Placeholder.configure({
@@ -124,12 +125,12 @@ export const defaultExtensions = [
   }),
   TaskList.configure({
     HTMLAttributes: {
-      class: "not-prose pl-2",
+      class: "novel-not-prose novel-pl-2",
     },
   }),
   TaskItem.configure({
     HTMLAttributes: {
-      class: "novel-flex novel-items-start my-4",
+      class: "novel-flex novel-items-start novel-my-4",
     },
     nested: true,
   }),
