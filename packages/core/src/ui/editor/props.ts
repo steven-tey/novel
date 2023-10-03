@@ -27,7 +27,7 @@ export const defaultEditorProps: EditorProps = {
       const file = event.clipboardData.files[0];
       const pos = view.state.selection.from;
 
-      startImageUpload(file, view, pos);
+      startImageUpload(file, view, pos + 1);
       return true;
     }
     return false;
@@ -46,7 +46,11 @@ export const defaultEditorProps: EditorProps = {
         top: event.clientY,
       });
       // here we deduct 1 from the pos or else the image will create an extra node
-      startImageUpload(file, view, coordinates && isNumber(coordinates?.pos) ? coordinates.pos : 0 - 1);
+      startImageUpload(
+        file,
+        view,
+        coordinates && isNumber(coordinates?.pos) ? coordinates.pos : 0 - 1
+      );
       return true;
     }
     return false;
