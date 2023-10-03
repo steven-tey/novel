@@ -24,7 +24,7 @@ import { NovelContext } from "./provider";
 
 export default function Editor({
   completionApi = "/api/generate",
-  className = "relative min-h-[500px] w-full max-w-screen-lg border-stone-200 bg-white sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:shadow-lg",
+  className = "novel-relative novel-min-h-[500px] novel-w-full novel-max-w-screen-lg novel-border-stone-200 novel-bg-white sm:novel-mb-[calc(20vh)] sm:novel-rounded-lg sm:novel-border sm:novel-shadow-lg",
   defaultValue = defaultEditorContent,
   extensions = [],
   editorProps = {},
