@@ -100,9 +100,9 @@ export const NodeSelector: FC<NodeSelectorProps> = ({
 
   return (
     <Popover.Root open={isOpen}>
-      <div className="relative h-full">
+      <div className="novel-relative novel-h-full">
         <Popover.Trigger
-          className="flex h-full items-center gap-1 whitespace-nowrap p-2 text-sm font-medium text-stone-600 hover:bg-stone-100 active:bg-stone-200"
+          className="novel-flex novel-h-full novel-items-center novel-gap-1 novel-whitespace-nowrap novel-p-2 novel-text-sm novel-font-medium novel-text-stone-600 hover:novel-bg-stone-100 active:novel-bg-stone-200"
           onClick={() => setIsOpen(!isOpen)}
         >
           <span>{activeItem?.name}</span>
@@ -111,7 +111,7 @@ export const NodeSelector: FC<NodeSelectorProps> = ({
 
         <Popover.Content
           align="start"
-          className="z-[99999] my-1 flex max-h-80 w-48 flex-col overflow-hidden overflow-y-auto rounded border border-stone-200 bg-white p-1 shadow-xl animate-in fade-in slide-in-from-top-1"
+          className="novel-z-[99999] novel-my-1 novel-flex novel-max-h-80 novel-w-48 novel-flex-col novel-overflow-hidden novel-overflow-y-auto novel-rounded novel-border novel-border-stone-200 novel-bg-white novel-p-1 novel-shadow-xl novel-animate-in novel-fade-in novel-slide-in-from-top-1"
         >
           {items.map((item, index) => (
             <button
@@ -120,16 +120,19 @@ export const NodeSelector: FC<NodeSelectorProps> = ({
                 item.command();
                 setIsOpen(false);
               }}
-              className="flex items-center justify-between rounded-sm px-2 py-1 text-sm text-stone-600 hover:bg-stone-100"
+              className="novel-flex novel-items-center novel-justify-between novel-rounded-sm novel-px-2 novel-py-1 novel-text-sm novel-text-stone-600 hover:novel-bg-stone-100"
               type="button"
             >
               <div className="flex items-center space-x-2">
-                <div className="rounded-sm border border-stone-200 p-1">
-                  <item.icon className="h-3 w-3" />
+                <div className="novel-flex novel-items-center novel-space-x-2">
+                  {" "}
+                  <item.icon className="novel-h-3 novel-w-3" />
                 </div>
                 <span>{item.name}</span>
               </div>
-              {activeItem.name === item.name && <Check className="h-4 w-4" />}
+              {activeItem.name === item.name && (
+                <Check className="novel-h-4 novel-w-4" />
+              )}
             </button>
           ))}
         </Popover.Content>
