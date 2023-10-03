@@ -1,7 +1,8 @@
 import { EditorProps } from "@tiptap/pm/view";
 import { startImageUpload } from "@/ui/editor/plugins/upload-images";
-import { convertMarkdownToHTML, isMarkdown } from "@/lib/utils";
+import { isMarkdown } from "@/lib/utils";
 import { DOMParser, Slice } from 'prosemirror-model';
+import { markdownToHtml } from "@/lib/markdown-to-html";
 
 export const defaultEditorProps: EditorProps = {
   attributes: {
@@ -33,10 +34,10 @@ export const defaultEditorProps: EditorProps = {
     } else if (event.clipboardData && event.clipboardData.getData('Text')) {
       const text = event.clipboardData.getData('Text');
       if (isMarkdown(text)) {
-        const html = convertMarkdownToHTML(text);
+        const html = markdownToHtml(text);
         const { state, dispatch } = view;
         const { schema } = state;
-        
+
         const domParser = new window.DOMParser();
         const doc = domParser.parseFromString(html, 'text/html');
         const node = DOMParser.fromSchema(schema).parse(doc.body);
