@@ -16,6 +16,7 @@ import UploadImagesPlugin from "@/ui/editor/plugins/upload-images";
 import UpdatedImage from "./updated-image";
 import CustomKeymap from "./custom-keymap";
 import DragAndDrop from "./drag-and-drop";
+import Glyphs from "./glyphs";
 
 export const defaultExtensions = [
   StarterKit.configure({
@@ -141,4 +142,5 @@ export const defaultExtensions = [
   }),
   CustomKeymap,
   DragAndDrop,
+  Glyphs,
 ];
