@@ -23,6 +23,7 @@ export default function Editor({
   defaultValue = defaultEditorContent,
   extensions = [],
   editorProps = {},
+  onInit = () => {},
   onUpdate = () => {},
   onDebouncedUpdate = () => {},
   debounceDuration = 750,
@@ -55,6 +56,12 @@ export default function Editor({
    */
   editorProps?: EditorProps;
   /**
+   * A callback function that is called whenever the editor is initialized.
+   * Defaults to () => {}.
+   */
+  // eslint-disable-next-line no-unused-vars
+  onInit?: (editor?: EditorClass) => void | Promise<void>;
+  /**
    * A callback function that is called whenever the editor is updated.
    * Defaults to () => {}.
    */
@@ -85,6 +92,7 @@ export default function Editor({
   const [content, setContent] = useLocalStorage(storageKey, defaultValue);
 
   const [hydrated, setHydrated] = useState(false);
+  const [initialized, setInitialized] = useState(false);
 
   const debouncedUpdates = useDebouncedCallback(async ({ editor }) => {
     const json = editor.getJSON();
@@ -125,6 +133,13 @@ export default function Editor({
     },
     autofocus: "end",
   });
+
+  useEffect(() => {
+    if (!editor || initialized) return;
+
+    onInit(editor);
+    setInitialized(true);
+  }, [editor, initialized, onInit]);
 
   const { complete, completion, isLoading, stop } = useCompletion({
     id: "novel",
