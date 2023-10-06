@@ -20,7 +20,7 @@ import { NovelContext } from './provider';
 export default function Editor({
   completionApi = '/api/generate',
   className = 'novel-relative novel-min-h-[500px] novel-w-full novel-max-w-screen-lg novel-border-stone-200 novel-bg-white sm:novel-mb-[calc(20vh)] sm:novel-rounded-lg sm:novel-border sm:novel-shadow-lg',
-  defaultValue = defaultEditorContent,
+  defaultValue = "Press '/' for commands",
   extensions = [],
   editorProps = {},
   onUpdate = () => {},
