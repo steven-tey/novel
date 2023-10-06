@@ -44,6 +44,7 @@
     "next": "13.4.20-canary.9",
     "next-themes": "^0.2.1",
     "openai-edge": "^1.2.2",
+    "prosemirror-model": "^1.19.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-markdown": "^8.0.7",

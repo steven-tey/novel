@@ -107,6 +107,9 @@ importers:
       openai-edge:
         specifier: ^1.2.2
         version: 1.2.2
+      prosemirror-model:
+        specifier: ^1.19.3
+        version: 1.19.3
       react:
         specifier: 18.2.0
         version: 18.2.0

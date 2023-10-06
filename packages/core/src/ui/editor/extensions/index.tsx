@@ -1,61 +1,61 @@
-import StarterKit from "@tiptap/starter-kit";
-import HorizontalRule from "@tiptap/extension-horizontal-rule";
-import TiptapLink from "@tiptap/extension-link";
-import TiptapImage from "@tiptap/extension-image";
-import Placeholder from "@tiptap/extension-placeholder";
-import TiptapUnderline from "@tiptap/extension-underline";
-import TextStyle from "@tiptap/extension-text-style";
-import { Color } from "@tiptap/extension-color";
-import TaskItem from "@tiptap/extension-task-item";
-import TaskList from "@tiptap/extension-task-list";
-import { Markdown } from "tiptap-markdown";
-import Highlight from "@tiptap/extension-highlight";
-import SlashCommand from "./slash-command";
-import { InputRule } from "@tiptap/core";
-import UploadImagesPlugin from "@/ui/editor/plugins/upload-images";
-import UpdatedImage from "./updated-image";
-import CustomKeymap from "./custom-keymap";
-import DragAndDrop from "./drag-and-drop";
+import StarterKit from '@tiptap/starter-kit';
+import HorizontalRule from '@tiptap/extension-horizontal-rule';
+import TiptapLink from '@tiptap/extension-link';
+import TiptapImage from '@tiptap/extension-image';
+import Placeholder from '@tiptap/extension-placeholder';
+import TiptapUnderline from '@tiptap/extension-underline';
+import TextStyle from '@tiptap/extension-text-style';
+import { Color } from '@tiptap/extension-color';
+import TaskItem from '@tiptap/extension-task-item';
+import TaskList from '@tiptap/extension-task-list';
+import { Markdown } from 'tiptap-markdown';
+import Highlight from '@tiptap/extension-highlight';
+import SlashCommand from './slash-command';
+import { InputRule } from '@tiptap/core';
+import UploadImagesPlugin from '@/ui/editor/plugins/upload-images';
+import UpdatedImage from './updated-image';
+import CustomKeymap from './custom-keymap';
+import DragAndDrop from './drag-and-drop';
+import InsertHTMLExtension from './insert-html';
 
 export const defaultExtensions = [
   StarterKit.configure({
     bulletList: {
       HTMLAttributes: {
-        class: "novel-list-disc novel-list-outside novel-leading-3 novel--mt-2",
+        class: 'novel-list-disc novel-list-outside novel-leading-3 novel--mt-2',
       },
     },
     orderedList: {
       HTMLAttributes: {
-        class:
-          "novel-list-decimal novel-list-outside novel-leading-3 novel--mt-2",
+        class: 'novel-list-decimal novel-list-outside novel-leading-3 novel--mt-2',
       },
     },
     listItem: {
       HTMLAttributes: {
-        class: "novel-leading-normal novel--mb-2",
+        class: 'novel-leading-normal novel--mb-2',
       },
     },
     blockquote: {
       HTMLAttributes: {
-        class: "novel-border-l-4 novel-border-stone-700",
+        class: 'novel-border-l-4 novel-border-stone-700',
       },
     },
     codeBlock: {
       HTMLAttributes: {
         class:
-          "novel-rounded-sm novel-bg-stone-100 novel-p-5 novel-font-mono novel-font-medium novel-text-stone-800",
+          'novel-rounded-sm novel-bg-stone-100 novel-p-5 novel-font-mono novel-font-medium novel-text-stone-800',
       },
     },
     code: {
       HTMLAttributes: {
         class:
-          "novel-rounded-md novel-bg-stone-200 novel-px-1.5 novel-py-1 novel-font-mono novel-font-medium novel-text-stone-900",
-        spellcheck: "false",
+          'novel-rounded-md novel-bg-stone-200 novel-px-1.5 novel-py-1 novel-font-mono novel-font-medium novel-text-stone-900',
+        spellcheck: 'false',
       },
     },
     horizontalRule: false,
     dropcursor: {
-      color: "#DBEAFE",
+      color: '#DBEAFE',
       width: 4,
     },
     gapcursor: false,
@@ -75,7 +75,7 @@ export const defaultExtensions = [
 
             tr.insert(start - 1, this.type.create(attributes)).delete(
               tr.mapping.map(start),
-              tr.mapping.map(end)
+              tr.mapping.map(end),
             );
           },
         }),
@@ -83,13 +83,13 @@ export const defaultExtensions = [
     },
   }).configure({
     HTMLAttributes: {
-      class: "novel-mt-4 novel-mb-6 novel-border-t novel-border-stone-300",
+      class: 'novel-mt-4 novel-mb-6 novel-border-t novel-border-stone-300',
     },
   }),
   TiptapLink.configure({
     HTMLAttributes: {
       class:
-        "novel-text-stone-400 novel-underline novel-underline-offset-[3px] hover:novel-text-stone-600 novel-transition-colors novel-cursor-pointer",
+        'novel-text-stone-400 novel-underline novel-underline-offset-[3px] hover:novel-text-stone-600 novel-transition-colors novel-cursor-pointer',
     },
   }),
   TiptapImage.extend({
@@ -99,17 +99,17 @@ export const defaultExtensions = [
   }).configure({
     allowBase64: true,
     HTMLAttributes: {
-      class: "novel-rounded-lg novel-border novel-border-stone-200",
+      class: 'novel-rounded-lg novel-border novel-border-stone-200',
     },
   }),
   UpdatedImage.configure({
     HTMLAttributes: {
-      class: "novel-rounded-lg novel-border novel-border-stone-200",
+      class: 'novel-rounded-lg novel-border novel-border-stone-200',
     },
   }),
   Placeholder.configure({
     placeholder: ({ node }) => {
-      if (node.type.name === "heading") {
+      if (node.type.name === 'heading') {
         return `Heading ${node.attrs.level}`;
       }
       return "Press '/' for commands, or '++' for AI autocomplete...";
@@ -125,12 +125,12 @@ export const defaultExtensions = [
   }),
   TaskList.configure({
     HTMLAttributes: {
-      class: "novel-not-prose novel-pl-2",
+      class: 'novel-not-prose novel-pl-2',
     },
   }),
   TaskItem.configure({
     HTMLAttributes: {
-      class: "novel-flex novel-items-start novel-my-4",
+      class: 'novel-flex novel-items-start novel-my-4',
     },
     nested: true,
   }),
@@ -141,4 +141,5 @@ export const defaultExtensions = [
   }),
   CustomKeymap,
   DragAndDrop,
+  InsertHTMLExtension,
 ];
