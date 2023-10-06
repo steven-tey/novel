@@ -1,5 +1,5 @@
 {
-  "name": "@pisacode/novel",
+  "name": "@patikadev/novel",
   "version": "0.1.22",
   "description": "Notion-style WYSIWYG editor with AI-powered autocompletions",
   "license": "Apache-2.0",
@@ -80,7 +80,7 @@
   "homepage": "https://novel.sh",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/steven-tey/novel.git"
+    "url": "git+https://github.com/patikadev/novel.git"
   },
   "bugs": {
     "url": "https://github.com/steven-tey/novel/issues"
