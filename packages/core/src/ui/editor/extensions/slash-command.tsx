@@ -5,6 +5,7 @@ import React, {
   ReactNode,
   useRef,
   useLayoutEffect,
+  useContext,
 } from "react";
 import { Editor, Range, Extension } from "@tiptap/core";
 import Suggestion from "@tiptap/suggestion";
@@ -30,6 +31,7 @@ import va from "@vercel/analytics";
 import { Magic } from "@/ui/icons";
 import { getPrevText } from "@/lib/editor";
 import { startImageUpload } from "@/ui/editor/plugins/upload-images";
+import { NovelContext } from "../provider";
 
 interface CommandItemProps {
   title: string;
@@ -78,7 +80,7 @@ const getSuggestionItems = ({ query }: { query: string }) => {
       title: "Continue writing",
       description: "Use AI to expand your thoughts.",
       searchTerms: ["gpt"],
-      icon: <Magic className="w-7" />,
+      icon: <Magic className="novel-w-7" />,
     },
     {
       title: "Send Feedback",
@@ -256,9 +258,11 @@ const CommandList = ({
 }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
+  const { completionApi } = useContext(NovelContext);
+
   const { complete, isLoading } = useCompletion({
     id: "novel",
-    api: "/api/generate",
+    api: completionApi,
     onResponse: (response) => {
       if (response.status === 429) {
         toast.error("You have reached your request limit for the day.");
@@ -346,18 +350,20 @@ const CommandList = ({
     <div
       id="slash-command"
       ref={commandListContainer}
-      className="z-50 h-auto max-h-[330px] w-72 overflow-y-auto rounded-md border border-stone-200 bg-white px-1 py-2 shadow-md transition-all"
+      className="novel-z-50 novel-h-auto novel-max-h-[330px] novel-w-72 novel-overflow-y-auto novel-rounded-md novel-border novel-border-stone-200 novel-bg-white novel-px-1 novel-py-2 novel-shadow-md novel-transition-all"
     >
       {items.map((item: CommandItemProps, index: number) => {
         return (
           <button
-            className={`flex w-full items-center space-x-2 rounded-md px-2 py-1 text-left text-sm text-stone-900 hover:bg-stone-100 ${
-              index === selectedIndex ? "bg-stone-100 text-stone-900" : ""
+            className={`novel-flex novel-w-full novel-items-center novel-space-x-2 novel-rounded-md novel-px-2 novel-py-1 novel-text-left novel-text-sm novel-text-stone-900 hover:novel-bg-stone-100 ${
+              index === selectedIndex
+                ? "novel-bg-stone-100 novel-text-stone-900"
+                : ""
             }`}
             key={index}
             onClick={() => selectItem(index)}
           >
-            <div className="flex h-10 w-10 items-center justify-center rounded-md border border-stone-200 bg-white">
+            <div className="novel-flex novel-h-10 novel-w-10 novel-items-center novel-justify-center novel-rounded-md novel-border novel-border-stone-200 novel-bg-white">
               {item.title === "Continue writing" && isLoading ? (
                 <LoadingCircle />
               ) : (
@@ -365,8 +371,10 @@ const CommandList = ({
               )}
             </div>
             <div>
-              <p className="font-medium">{item.title}</p>
-              <p className="text-xs text-stone-500">{item.description}</p>
+              <p className="novel-font-medium">{item.title}</p>
+              <p className="novel-text-xs novel-text-stone-500">
+                {item.description}
+              </p>
             </div>
           </button>
         );

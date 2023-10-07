@@ -1,12 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import {
-  useEditor,
-  EditorContent,
-  JSONContent,
-  Extension,
-} from "@tiptap/react";
+import { useEditor, EditorContent, JSONContent } from "@tiptap/react";
 import { defaultEditorProps } from "./props";
 import { defaultExtensions } from "./extensions";
 import useLocalStorage from "@/lib/hooks/use-local-storage";
@@ -19,11 +14,12 @@ import { EditorBubbleMenu } from "./bubble-menu";
 import { getPrevText } from "@/lib/editor";
 import { ImageResizer } from "./extensions/image-resizer";
 import { EditorProps } from "@tiptap/pm/view";
-import { Editor as EditorClass } from "@tiptap/core";
+import { Editor as EditorClass, Extensions } from "@tiptap/core";
+import { NovelContext } from "./provider";
 
 export default function Editor({
   completionApi = "/api/generate",
-  className = "relative min-h-[500px] w-full max-w-screen-lg border-stone-200 bg-white sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:shadow-lg",
+  className = "novel-relative novel-min-h-[500px] novel-w-full novel-max-w-screen-lg novel-border-stone-200 novel-bg-white sm:novel-mb-[calc(20vh)] sm:novel-rounded-lg sm:novel-border sm:novel-shadow-lg",
   defaultValue = defaultEditorContent,
   extensions = [],
   editorProps = {},
@@ -31,6 +27,7 @@ export default function Editor({
   onDebouncedUpdate = () => {},
   debounceDuration = 750,
   storageKey = "novel__content",
+  disableLocalStorage = false,
 }: {
   /**
    * The API route to use for the OpenAI completion API.
@@ -51,7 +48,7 @@ export default function Editor({
    * A list of extensions to use for the editor, in addition to the default Novel extensions.
    * Defaults to [].
    */
-  extensions?: Extension[];
+  extensions?: Extensions;
   /**
    * Props to pass to the underlying Tiptap editor, in addition to the default Novel editor props.
    * Defaults to {}.
@@ -79,6 +76,11 @@ export default function Editor({
    * Defaults to "novel__content".
    */
   storageKey?: string;
+  /**
+   * Disable local storage read/save.
+   * Defaults to false.
+   */
+  disableLocalStorage?: boolean;
 }) {
   const [content, setContent] = useLocalStorage(storageKey, defaultValue);
 
@@ -86,8 +88,11 @@ export default function Editor({
 
   const debouncedUpdates = useDebouncedCallback(async ({ editor }) => {
     const json = editor.getJSON();
-    setContent(json);
     onDebouncedUpdate(editor);
+
+    if (!disableLocalStorage) {
+      setContent(json);
+    }
   }, debounceDuration);
 
   const editor = useEditor({
@@ -183,24 +188,35 @@ export default function Editor({
     };
   }, [stop, isLoading, editor, complete, completion.length]);
 
-  // Hydrate the editor with the content from localStorage.
+  // Default: Hydrate the editor with the content from localStorage.
+  // If disableLocalStorage is true, hydrate the editor with the defaultValue.
   useEffect(() => {
-    if (editor && content && !hydrated) {
-      editor.commands.setContent(content);
+    if (!editor || hydrated) return;
+
+    const value = disableLocalStorage ? defaultValue : content;
+
+    if (value) {
+      editor.commands.setContent(value);
       setHydrated(true);
     }
-  }, [editor, content, hydrated]);
+  }, [editor, defaultValue, content, hydrated, disableLocalStorage]);
 
   return (
-    <div
-      onClick={() => {
-        editor?.chain().focus().run();
+    <NovelContext.Provider
+      value={{
+        completionApi,
       }}
-      className={className}
     >
-      {editor && <EditorBubbleMenu editor={editor} />}
-      {editor?.isActive("image") && <ImageResizer editor={editor} />}
-      <EditorContent editor={editor} />
-    </div>
+      <div
+        onClick={() => {
+          editor?.chain().focus().run();
+        }}
+        className={className}
+      >
+        {editor && <EditorBubbleMenu editor={editor} />}
+        {editor?.isActive("image") && <ImageResizer editor={editor} />}
+        <EditorContent editor={editor} />
+      </div>
+    </NovelContext.Provider>
   );
 }
