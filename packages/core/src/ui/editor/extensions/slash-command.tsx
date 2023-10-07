@@ -209,7 +209,7 @@ const getSuggestionItems = ({ query }: { query: string }) => {
           if (input.files?.length) {
             const file = input.files[0];
             const pos = editor.view.state.selection.from;
-            startImageUpload(file, editor.view, pos);
+            startImageUpload(file, editor.view, pos - 1);
           }
         };
         input.click();
