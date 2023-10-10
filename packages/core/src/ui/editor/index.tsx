@@ -198,6 +198,7 @@ export default function Editor({
     const value = disableLocalStorage ? defaultValue : content;
 
     if (value) {
+      // @ts-ignore
       editor.commands.insertHTML(value);
       setHydrated(true);
     }
