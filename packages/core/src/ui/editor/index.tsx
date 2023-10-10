@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useEditor, EditorContent, JSONContent } from "@tiptap/react";
+import { useEditor, EditorContent, JSONContent, FocusPosition } from "@tiptap/react";
 import { defaultEditorProps } from "./props";
 import { defaultExtensions } from "./extensions";
 import useLocalStorage from "@/lib/hooks/use-local-storage";
@@ -28,6 +28,7 @@ export default function Editor({
   debounceDuration = 750,
   storageKey = "novel__content",
   disableLocalStorage = false,
+  autofocus = 'start',
 }: {
   /**
    * The API route to use for the OpenAI completion API.
@@ -81,6 +82,11 @@ export default function Editor({
    * Defaults to false.
    */
   disableLocalStorage?: boolean;
+  /**
+   * The autofocus behavior for the editor.
+   * Defaults to 'start'.
+   */
+  autofocus?: FocusPosition | undefined;
 }) {
   const [content, setContent] = useLocalStorage(storageKey, defaultValue);
 
@@ -123,7 +129,7 @@ export default function Editor({
         debouncedUpdates(e);
       }
     },
-    autofocus: "end",
+    autofocus
   });
 
   const { complete, completion, isLoading, stop } = useCompletion({
