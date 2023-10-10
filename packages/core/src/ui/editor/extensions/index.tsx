@@ -15,7 +15,7 @@ import { InputRule } from '@tiptap/core';
 import UploadImagesPlugin from '@/ui/editor/plugins/upload-images';
 import UpdatedImage from './updated-image';
 import CustomKeymap from './custom-keymap';
-import DragAndDrop from './drag-and-drop';
+// import DragAndDrop from './drag-and-drop';
 import InsertHTMLExtension from './insert-html';
 
 export const defaultExtensions = [
@@ -140,6 +140,6 @@ export const defaultExtensions = [
     transformPastedText: true,
   }),
   CustomKeymap,
-  DragAndDrop,
+  // DragAndDrop,
   InsertHTMLExtension,
 ];

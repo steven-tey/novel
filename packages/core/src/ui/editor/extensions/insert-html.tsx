@@ -18,9 +18,15 @@ const InsertHTMLExtension = Extension.create({
       insertHTML:
         (value: any) =>
         ({ state, dispatch }: { state: any; dispatch: any }) => {
+          // check if value is string
+          if (typeof value !== 'string') {
+            return false;
+          }
           const { selection } = state;
           const element = document.createElement('div');
+
           element.innerHTML = value.trim();
+
           const slice = DOMParser.fromSchema(state.schema).parseSlice(element);
           const transaction = state.tr.insert(selection.anchor, slice.content);
           dispatch(transaction);

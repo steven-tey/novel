@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { Editor as NovelEditor } from 'novel';
+import { Editor as NovelEditor } from '@patikadev/novel';
 import { Editor as EditorClass } from '@tiptap/core';
 
 export default function Editor() {
