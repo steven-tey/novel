@@ -22,7 +22,7 @@
   --novel-highlight-pink: #faf1f5;
   --novel-highlight-gray: #f1f1ef;
 
-  --font-title: "Cal Sans", sans-serif;
+  --font-title: 'Cal Sans', sans-serif;
 }
 
 .dark-theme {
@@ -51,6 +51,10 @@
 }
 
 @font-face {
-  font-family: "Cal Sans";
-  src: local("Cal Sans"), url(CalSans-SemiBold.otf) format("otf");
+  font-family: 'Cal Sans';
+  src: local('Cal Sans'), url(CalSans-SemiBold.otf) format('otf');
+}
+
+button {
+  background-color: initial !important
 }
