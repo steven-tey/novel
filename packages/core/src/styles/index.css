@@ -54,7 +54,3 @@
   font-family: 'Cal Sans';
   src: local('Cal Sans'), url(CalSans-SemiBold.otf) format('otf');
 }
-
-button {
-  background-color: initial !important
-}
