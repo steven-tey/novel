@@ -28,7 +28,8 @@ const InsertHTMLExtension = Extension.create({
           element.innerHTML = value.trim();
 
           const slice = DOMParser.fromSchema(state.schema).parseSlice(element);
-          const transaction = state.tr.insert(selection.anchor, slice.content);
+          const transaction = state.tr.insert(null, slice.content);
+
           dispatch(transaction);
         },
     };
