@@ -13,6 +13,7 @@ import Highlight from '@tiptap/extension-highlight';
 import SlashCommand from './slash-command';
 import { InputRule } from '@tiptap/core';
 import UploadImagesPlugin from '@/ui/editor/plugins/upload-images';
+import UploadVideosPlugin from '@/ui/editor/plugins/upload-videos';
 import UpdatedImage from './updated-image';
 import CustomKeymap from './custom-keymap';
 // import DragAndDrop from './drag-and-drop';
@@ -95,7 +96,7 @@ export const defaultExtensions = [
   }),
   TiptapImage.extend({
     addProseMirrorPlugins() {
-      return [UploadImagesPlugin()];
+      return [UploadImagesPlugin(), UploadVideosPlugin()];
     },
   }).configure({
     allowBase64: true,

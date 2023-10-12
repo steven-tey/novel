@@ -3,9 +3,9 @@ import { toast } from 'sonner';
 import { EditorState, Plugin, PluginKey } from '@tiptap/pm/state';
 import { Decoration, DecorationSet, EditorView } from '@tiptap/pm/view';
 
-const uploadKey = new PluginKey('upload-image');
+const uploadKey = new PluginKey('upload-video');
 
-const UploadImagesPlugin = () =>
+const UploadVideos = () =>
   new Plugin({
     key: uploadKey,
     state: {
@@ -21,10 +21,10 @@ const UploadImagesPlugin = () =>
 
           const placeholder = document.createElement('div');
           placeholder.setAttribute('class', 'img-placeholder');
-          const image = document.createElement('img');
-          image.setAttribute('class', 'opacity-40 rounded-lg border border-stone-200');
-          image.src = src;
-          placeholder.appendChild(image);
+          const video = document.createElement('video');
+          video.setAttribute('class', 'opacity-40 rounded-lg border border-stone-200');
+          video.src = src;
+          placeholder.appendChild(video);
           const deco = Decoration.widget(pos + 1, placeholder, {
             id,
           });
@@ -42,7 +42,7 @@ const UploadImagesPlugin = () =>
     },
   });
 
-export default UploadImagesPlugin;
+export default UploadVideos;
 
 function findPlaceholder(state: EditorState, id: {}) {
   const decos = uploadKey.getState(state);
