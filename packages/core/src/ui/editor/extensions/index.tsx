@@ -19,6 +19,7 @@ import CustomKeymap from './custom-keymap';
 // import DragAndDrop from './drag-and-drop';
 import InsertHTMLExtension from './insert-html';
 import Youtube from '@tiptap/extension-youtube';
+import InsertVideoExtension from './insert-video';
 
 export const defaultExtensions = [
   StarterKit.configure({
@@ -96,7 +97,7 @@ export const defaultExtensions = [
   }),
   TiptapImage.extend({
     addProseMirrorPlugins() {
-      return [UploadImagesPlugin(), UploadVideosPlugin()];
+      return [UploadImagesPlugin()];
     },
   }).configure({
     allowBase64: true,
@@ -144,6 +145,16 @@ export const defaultExtensions = [
   CustomKeymap,
   // DragAndDrop,
   InsertHTMLExtension,
+  InsertVideoExtension.extend({
+    addProseMirrorPlugins() {
+      return [UploadVideosPlugin()];
+    },
+  }).configure({
+    allowBase64: true,
+    HTMLAttributes: {
+      class: 'novel-rounded-lg novel-border novel-border-stone-200',
+    },
+  }),
   Youtube.configure({
     controls: true,
   }),
