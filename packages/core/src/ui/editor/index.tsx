@@ -84,7 +84,7 @@ export default function Editor({
    */
   disableLocalStorage?: boolean;
   setEditor?: (editor?: EditorClass) => void | Promise<void>;
-  imageUploader?: (file: File) => Promise<string>;
+  imageUploader?: (file: File) => null | Promise<string>;
 }) {
   const [content, setContent] = useLocalStorage(storageKey, defaultValue);
 
