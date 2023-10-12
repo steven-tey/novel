@@ -220,9 +220,8 @@ const getSuggestionItems = ({ query }: { query: string }) => {
         input.onchange = async () => {
           if (input.files?.length) {
             const file = input.files[0];
-            console.log({ file });
             const pos = editor.view.state.selection.from;
-            startVideoUpload(file, editor.view, pos, editor.videoUploader);
+            startVideoUpload(file, editor.view, pos, editor);
           }
         };
         input.click();

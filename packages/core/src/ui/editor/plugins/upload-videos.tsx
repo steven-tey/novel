@@ -50,12 +50,7 @@ function findPlaceholder(state: EditorState, id: {}) {
   return found.length ? found[0].from : null;
 }
 
-export function startVideoUpload(
-  file: File,
-  view: EditorView,
-  pos: number,
-  videoUploader: (file: File) => Promise<string>,
-) {
+export function startVideoUpload(file: File, view: EditorView, pos: number, editor: EditorClass) {
   // check if the file is an image
   const allowedTypes = ['image/gif', 'video/mp4', 'video/quicktime'];
   if (!allowedTypes.includes(file.type)) {
@@ -88,8 +83,8 @@ export function startVideoUpload(
     view.dispatch(tr);
   };
 
-  if (videoUploader) {
-    videoUploader(file).then((src) => {
+  if (editor.videoUploader) {
+    editor.videoUploader(file).then((src) => {
       const { schema } = view.state;
 
       let pos = findPlaceholder(view.state, id);
@@ -102,13 +97,8 @@ export function startVideoUpload(
 
       // When BLOB_READ_WRITE_TOKEN is not valid or unavailable, read
       // the image locally
-      const imageSrc = typeof src === 'object' ? reader.result : src;
-
-      const node = schema.nodes.video.create({ src: imageSrc });
-      const transaction = view.state.tr
-        .replaceWith(pos, pos, node)
-        .setMeta(uploadKey, { remove: { id } });
-      view.dispatch(transaction);
+      const videoSource = typeof src === 'object' ? reader.result : src;
+      editor.commands.insertVideo(videoSource);
     });
   } else {
     handleImageUpload(file).then((src) => {
