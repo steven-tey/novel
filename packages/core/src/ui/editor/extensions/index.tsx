@@ -17,6 +17,7 @@ import UpdatedImage from './updated-image';
 import CustomKeymap from './custom-keymap';
 // import DragAndDrop from './drag-and-drop';
 import InsertHTMLExtension from './insert-html';
+import Youtube from '@tiptap/extension-youtube';
 
 export const defaultExtensions = [
   StarterKit.configure({
@@ -142,4 +143,7 @@ export const defaultExtensions = [
   CustomKeymap,
   // DragAndDrop,
   InsertHTMLExtension,
+  Youtube.configure({
+    controls: true,
+  }),
 ];

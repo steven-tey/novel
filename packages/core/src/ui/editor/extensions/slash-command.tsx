@@ -24,6 +24,7 @@ import {
   Image as ImageIcon,
   Code,
   CheckSquare,
+  Video,
 } from 'lucide-react';
 import { LoadingCircle } from '@/ui/icons';
 import { toast } from 'sonner';
@@ -32,6 +33,7 @@ import { Magic } from '@/ui/icons';
 import { getPrevText } from '@/lib/editor';
 import { startImageUpload } from '@/ui/editor/plugins/upload-images';
 import { NovelContext } from '../provider';
+import { startVideoUpload } from '../plugins/upload-videos';
 
 interface CommandItemProps {
   title: string;
@@ -200,6 +202,51 @@ const getSuggestionItems = ({ query }: { query: string }) => {
         if (url) {
           editor.chain().focus().deleteRange(range).setImage({ src: url }).run();
         }
+      },
+    },
+    {
+      title: 'Upload Video',
+      description: 'Upload a video up to 25 mb from your computer.',
+      searchTerms: ['video', 'upload', 'media'],
+      icon: <Video size={18} />,
+      command: ({ editor, range }: CommandProps) => {
+        editor.chain().focus().deleteRange(range).run();
+        // upload image
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'image/gif, video/mp4, video/quicktime';
+        console.log({ input });
+
+        input.onchange = async () => {
+          if (input.files?.length) {
+            const file = input.files[0];
+            console.log({ file });
+            const pos = editor.view.state.selection.from;
+            startVideoUpload(file, editor.view, pos, editor.videoUploader);
+          }
+        };
+        input.click();
+      },
+    },
+    {
+      title: 'Youtube video',
+      description: 'Add a youtube video.',
+      searchTerms: ['photo', 'picture', 'media'],
+      icon: <Video size={18} />,
+      command: ({ editor, range }: CommandProps) => {
+        // insert image with a url
+        const url = prompt('Enter an image URL');
+        /// check if url is valid youtube url
+        const test = new RegExp('^(https?://)?(www.youtube.com|youtu.?be)/.+$');
+        if (url && !test.test(url)) {
+          toast.error('Invalid Youtube URL');
+          return;
+        }
+        editor.commands.setYoutubeVideo({
+          src: url,
+          width: 640,
+          height: 480,
+        });
       },
     },
   ].filter((item) => {

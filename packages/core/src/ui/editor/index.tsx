@@ -30,6 +30,7 @@ export default function Editor({
   disableLocalStorage = false,
   setEditor = () => {},
   imageUploader = () => null,
+  videoUploader = () => null,
 }: {
   /**
    * The API route to use for the OpenAI completion API.
@@ -85,6 +86,7 @@ export default function Editor({
   disableLocalStorage?: boolean;
   setEditor?: (editor?: EditorClass) => void | Promise<void>;
   imageUploader?: (file: File) => null | Promise<string>;
+  videoUploader?: (file: File) => null | Promise<string>;
 }) {
   const [content, setContent] = useLocalStorage(storageKey, defaultValue);
 
@@ -100,6 +102,7 @@ export default function Editor({
   }, debounceDuration);
 
   const editor = useEditor({
+    // @ts-ignore
     extensions: [...defaultExtensions, ...extensions],
     editorProps: {
       ...defaultEditorProps,
@@ -209,9 +212,10 @@ export default function Editor({
   useEffect(() => {
     if (editor) {
       editor.imageUploader = imageUploader;
+      editor.videoUploader = videoUploader;
       setEditor(editor);
     }
-  }, [editor, setEditor, imageUploader]);
+  }, [editor, setEditor, imageUploader, videoUploader]);
 
   return (
     <NovelContext.Provider
