@@ -2,6 +2,7 @@ import { BlobResult } from '@vercel/blob';
 import { toast } from 'sonner';
 import { EditorState, Plugin, PluginKey } from '@tiptap/pm/state';
 import { Decoration, DecorationSet, EditorView } from '@tiptap/pm/view';
+import { Editor } from '@tiptap/core';
 
 const uploadKey = new PluginKey('upload-video');
 
@@ -50,7 +51,7 @@ function findPlaceholder(state: EditorState, id: {}) {
   return found.length ? found[0].from : null;
 }
 
-export function startVideoUpload(file: File, view: EditorView, pos: number, editor: EditorClass) {
+export function startVideoUpload(file: File, view: EditorView, pos: number, editor: Editor) {
   // check if the file is an image
   const allowedTypes = ['image/gif', 'video/mp4', 'video/quicktime'];
   if (!allowedTypes.includes(file.type)) {
