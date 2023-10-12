@@ -104,7 +104,7 @@ export function startVideoUpload(
       // the image locally
       const imageSrc = typeof src === 'object' ? reader.result : src;
 
-      const node = schema.nodes.image.create({ src: imageSrc });
+      const node = schema.nodes.video.create({ src: imageSrc });
       const transaction = view.state.tr
         .replaceWith(pos, pos, node)
         .setMeta(uploadKey, { remove: { id } });
