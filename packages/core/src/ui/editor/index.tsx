@@ -29,6 +29,7 @@ export default function Editor({
   storageKey = 'novel__content',
   disableLocalStorage = false,
   setEditor = () => {},
+  imageUploader = () => null,
 }: {
   /**
    * The API route to use for the OpenAI completion API.
@@ -83,6 +84,7 @@ export default function Editor({
    */
   disableLocalStorage?: boolean;
   setEditor?: (editor?: EditorClass) => void | Promise<void>;
+  imageUploader?: (file: File) => Promise<string>;
 }) {
   const [content, setContent] = useLocalStorage(storageKey, defaultValue);
 
@@ -206,9 +208,10 @@ export default function Editor({
 
   useEffect(() => {
     if (editor) {
+      editor.imageUploader = imageUploader;
       setEditor(editor);
     }
-  }, [editor, setEditor]);
+  }, [editor, setEditor, imageUploader]);
 
   return (
     <NovelContext.Provider

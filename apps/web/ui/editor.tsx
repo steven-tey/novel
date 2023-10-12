@@ -27,6 +27,10 @@ export default function Editor() {
             setSaveStatus('Saved');
           }, 500);
         }}
+        imageUploader={async (file: File) => {
+          console.log('Uploading image...', file);
+          return 'https://s19538.pcdn.co/wp-content/uploads/2020/03/passion.jpg';
+        }}
       />
     </div>
   );
