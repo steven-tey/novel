@@ -1,5 +1,9 @@
 import { Editor, SingleCommands } from "@tiptap/core";
-import Moveable from "react-moveable";
+import Moveable, {
+  MoveableRefTargetType,
+  OnResize,
+  OnScale,
+} from "react-moveable";
 
 interface ImageResizeProps {
   editor: Editor & {
@@ -34,7 +38,11 @@ export const ImageResizer = ({ editor }: ImageResizeProps) => {
   return (
     <>
       <Moveable
-        target={document.querySelector(".ProseMirror-selectednode") as any}
+        target={
+          document.querySelector(
+            ".ProseMirror-selectednode",
+          ) as MoveableRefTargetType
+        }
         container={null}
         origin={false}
         /* Resize event edges */
@@ -55,7 +63,7 @@ export const ImageResizer = ({ editor }: ImageResizeProps) => {
         }: // direction,
         // clientX,
         // clientY,
-        any) => {
+        OnResize) => {
           delta[0] && (target!.style.width = `${width}px`);
           delta[1] && (target!.style.height = `${height}px`);
         }}
@@ -77,7 +85,7 @@ export const ImageResizer = ({ editor }: ImageResizeProps) => {
           transform,
         }: // clientX,
         // clientY,
-        any) => {
+        OnScale) => {
           target!.style.transform = transform;
         }}
       />

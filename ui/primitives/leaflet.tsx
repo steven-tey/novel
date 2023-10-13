@@ -8,7 +8,7 @@ import {
   SetStateAction,
   useMemo,
 } from "react";
-import { AnimatePresence, motion, useAnimation } from "framer-motion";
+import { AnimatePresence, PanInfo, motion, useAnimation } from "framer-motion";
 
 export default function Leaflet({
   setOpen,
@@ -30,7 +30,10 @@ export default function Leaflet({
     });
   }, [controls, transitionProps]);
 
-  async function handleDragEnd(_: any, info: any) {
+  async function handleDragEnd(
+    _: MouseEvent | PointerEvent | TouchEvent,
+    info: PanInfo,
+  ) {
     const offset = info.offset.y;
     const velocity = info.velocity.y;
     const height = leafletRef.current?.getBoundingClientRect().height || 0;

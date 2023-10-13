@@ -10,7 +10,7 @@ import { Editor, Range, Extension } from "@tiptap/core";
 import Suggestion from "@tiptap/suggestion";
 import { ReactRenderer } from "@tiptap/react";
 import { useCompletion } from "ai/react";
-import tippy from "tippy.js";
+import tippy, { GetReferenceClientRect, Instance, Props } from "tippy.js";
 import {
   Heading1,
   Heading2,
@@ -55,7 +55,9 @@ const Command = Extension.create({
         }: {
           editor: Editor;
           range: Range;
-          props: any;
+          props: {
+            command: ({ editor, range }: CommandProps) => void;
+          };
         }) => {
           props.command({ editor, range });
         },
@@ -250,9 +252,9 @@ const CommandList = ({
   range,
 }: {
   items: CommandItemProps[];
-  command: any;
-  editor: any;
-  range: any;
+  command: (item: CommandItemProps) => void;
+  editor: Editor;
+  range: Range;
 }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -376,7 +378,7 @@ const CommandList = ({
 
 const renderItems = () => {
   let component: ReactRenderer | null = null;
-  let popup: any | null = null;
+  let popup: Instance<Props>[] | null = null;
 
   return {
     onStart: (props: { editor: Editor; clientRect: DOMRect }) => {
@@ -401,7 +403,8 @@ const renderItems = () => {
 
       popup &&
         popup[0].setProps({
-          getReferenceClientRect: props.clientRect,
+          getReferenceClientRect:
+            props.clientRect as unknown as GetReferenceClientRect,
         });
     },
     onKeyDown: (props: { event: KeyboardEvent }) => {

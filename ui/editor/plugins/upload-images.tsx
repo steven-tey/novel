@@ -15,7 +15,7 @@ const UploadImagesPlugin = () =>
       apply(tr, set) {
         set = set.map(tr.mapping, tr.doc);
         // See if the transaction adds or removes any placeholders
-        const action = tr.getMeta(this as unknown as PluginKey<any>);
+        const action = tr.getMeta(this as unknown as PluginKey);
         if (action && action.add) {
           const { id, pos, src } = action.add;
 
@@ -55,7 +55,7 @@ export default UploadImagesPlugin;
 
 function findPlaceholder(state: EditorState, id: {}) {
   const decos = uploadKey.getState(state);
-  const found = decos.find(null, null, (spec: { id: any }) => spec.id == id);
+  const found = decos.find(null, null, (spec: { id: {} }) => spec.id == id);
   return found.length ? found[0].from : null;
 }
 
