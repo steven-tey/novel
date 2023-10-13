@@ -215,7 +215,6 @@ const getSuggestionItems = ({ query }: { query: string }) => {
         const input = document.createElement('input');
         input.type = 'file';
         input.accept = 'image/gif, video/mp4, video/quicktime';
-        console.log({ input });
 
         input.onchange = async () => {
           if (input.files?.length) {

@@ -6,7 +6,8 @@ declare module '@tiptap/core' {
   // eslint-disable-next-line no-unused-vars
   interface Commands<ReturnType> {
     InsertVideoExtension: {
-      insertVideo: () => ReturnType;
+      // eslint-disable-next-line no-unused-vars
+      insertVideo: (value: string) => ReturnType;
     };
   }
 }
@@ -25,14 +26,10 @@ const InsertVideoExtension = Extension.create({
           const { selection } = state;
           const element = document.createElement('video');
           // video will be fullwidth with controls on
-          element.setAttribute('controls', 'true');
-          element.setAttribute('width', '100%');
-          element.setAttribute('height', 'auto');
           element.setAttribute('src', value);
-
+          // insert video at current cursor position
           const slice = DOMParser.fromSchema(state.schema).parseSlice(element);
-          const transaction = state.tr.insert(selection.anchor, slice.content);
-
+          const transaction = state.tr.insert(selection.from, slice.content);
           dispatch(transaction);
         },
     };

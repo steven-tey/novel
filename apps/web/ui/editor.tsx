@@ -14,6 +14,8 @@ export default function Editor() {
         {saveStatus}
       </div>
       <NovelEditor
+        defaultValue={''}
+        disableLocalStorage={true}
         setEditor={(e: any) => {
           editorRef.current = e;
         }}
@@ -30,6 +32,11 @@ export default function Editor() {
         imageUploader={async (file: File) => {
           console.log('Uploading image...', file);
           return 'https://s19538.pcdn.co/wp-content/uploads/2020/03/passion.jpg';
+        }}
+        videoUploader={async (file: File) => {
+          console.log('Uploading image...', file);
+          // video chosen by copilot
+          return 'https://www.youtube.com/watch?v=9bZkp7q19f0';
         }}
       />
     </div>

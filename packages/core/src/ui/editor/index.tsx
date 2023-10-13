@@ -16,6 +16,7 @@ import { ImageResizer } from './extensions/image-resizer';
 import { EditorProps } from '@tiptap/pm/view';
 import { Editor as EditorClass, Extensions } from '@tiptap/core';
 import { NovelContext } from './provider';
+import VideoNode from './nodes/video';
 
 export default function Editor({
   completionApi = '/api/generate',
@@ -103,7 +104,7 @@ export default function Editor({
 
   const editor = useEditor({
     // @ts-ignore
-    extensions: [...defaultExtensions, ...extensions],
+    extensions: [...defaultExtensions, ...extensions, VideoNode],
     editorProps: {
       ...defaultEditorProps,
       ...editorProps,
@@ -201,7 +202,6 @@ export default function Editor({
     if (!editor || hydrated) return;
 
     const value = disableLocalStorage ? defaultValue : content;
-
     if (value) {
       // @ts-ignore
       editor.commands.insertHTML(value);

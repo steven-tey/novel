@@ -13,7 +13,6 @@ import Highlight from '@tiptap/extension-highlight';
 import SlashCommand from './slash-command';
 import { InputRule } from '@tiptap/core';
 import UploadImagesPlugin from '@/ui/editor/plugins/upload-images';
-import UploadVideosPlugin from '@/ui/editor/plugins/upload-videos';
 import UpdatedImage from './updated-image';
 import CustomKeymap from './custom-keymap';
 // import DragAndDrop from './drag-and-drop';
@@ -111,13 +110,13 @@ export const defaultExtensions = [
     },
   }),
   Placeholder.configure({
-    placeholder: ({ node }) => {
-      if (node.type.name === 'heading') {
-        return `Heading ${node.attrs.level}`;
+    placeholder: ({ editor }) => {
+      if (editor?.isFocused) {
+        return "Press '/' for commands";
       }
-      return "Press '/' for commands";
+      return '';
     },
-    includeChildren: true,
+    includeChildren: false,
   }),
   SlashCommand,
   TiptapUnderline,
@@ -145,16 +144,7 @@ export const defaultExtensions = [
   CustomKeymap,
   // DragAndDrop,
   InsertHTMLExtension,
-  InsertVideoExtension.extend({
-    addProseMirrorPlugins() {
-      return [UploadVideosPlugin()];
-    },
-  }).configure({
-    allowBase64: true,
-    HTMLAttributes: {
-      class: 'novel-rounded-lg novel-border novel-border-stone-200',
-    },
-  }),
+  InsertVideoExtension,
   Youtube.configure({
     controls: true,
   }),

@@ -2,7 +2,6 @@ import { BlobResult } from '@vercel/blob';
 import { toast } from 'sonner';
 import { EditorState, Plugin, PluginKey } from '@tiptap/pm/state';
 import { Decoration, DecorationSet, EditorView } from '@tiptap/pm/view';
-import { Editor } from '@tiptap/core';
 
 const uploadKey = new PluginKey('upload-video');
 
@@ -18,14 +17,11 @@ const UploadVideos = () =>
         // See if the transaction adds or removes any placeholders
         const action = tr.getMeta(this);
         if (action && action.add) {
-          const { id, pos, src } = action.add;
+          const { id, pos } = action.add;
 
           const placeholder = document.createElement('div');
           placeholder.setAttribute('class', 'img-placeholder');
-          const video = document.createElement('video');
-          video.setAttribute('class', 'opacity-40 rounded-lg border border-stone-200');
-          video.src = src;
-          placeholder.appendChild(video);
+          placeholder.setAttribute('class', 'opacity-40 rounded-lg border border-stone-200');
           const deco = Decoration.widget(pos + 1, placeholder, {
             id,
           });
@@ -51,7 +47,7 @@ function findPlaceholder(state: EditorState, id: {}) {
   return found.length ? found[0].from : null;
 }
 
-export function startVideoUpload(file: File, view: EditorView, pos: number, editor: Editor) {
+export function startVideoUpload(file: File, view: EditorView, pos: number, editor: any) {
   // check if the file is an image
   const allowedTypes = ['image/gif', 'video/mp4', 'video/quicktime'];
   if (!allowedTypes.includes(file.type)) {
@@ -88,18 +84,19 @@ export function startVideoUpload(file: File, view: EditorView, pos: number, edit
     editor.videoUploader(file).then((src) => {
       const { schema } = view.state;
 
-      let pos = findPlaceholder(view.state, id);
-      // If the content around the placeholder has been deleted, drop
-      // the image
-      if (pos == null) return;
-
       // Otherwise, insert it at the placeholder's position, and remove
       // the placeholder
 
       // When BLOB_READ_WRITE_TOKEN is not valid or unavailable, read
       // the image locally
+
       const videoSource = typeof src === 'object' ? reader.result : src;
-      editor.commands.insertVideo(videoSource);
+
+      const node = schema.nodes.video.create({ src: videoSource });
+      const transaction = view.state.tr
+        .replaceWith(pos, pos, node)
+        .setMeta(uploadKey, { remove: { id } });
+      view.dispatch(transaction);
     });
   } else {
     handleImageUpload(file).then((src) => {
