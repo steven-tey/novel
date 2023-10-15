@@ -1,6 +1,7 @@
 import { Github } from "@/ui/icons";
 import Menu from "@/ui/menu";
 import Editor from "@/ui/editor";
+import PdfTextExtractor from "@/ui/upload";
 
 export default function Page() {
   return (
@@ -12,6 +13,7 @@ export default function Page() {
       >
         <Github />
       </a>
+        <PdfTextExtractor />
       <Menu />
       <Editor />
     </div>
