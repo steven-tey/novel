@@ -5,7 +5,7 @@ import PdfTextExtractor from "@/ui/upload";
 
 import { PdfDataProvider } from "@/ui/components/pdfdatacontext";
 
-export default function Page({...pageProps}) {
+export default function Page() {
   return (
 
     <div className="flex min-h-screen flex-col items-center sm:px-5 sm:pt-[calc(20vh)]">
