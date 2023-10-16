@@ -3,8 +3,11 @@ import Menu from "@/ui/menu";
 import Editor from "@/ui/editor";
 import PdfTextExtractor from "@/ui/upload";
 
-export default function Page() {
+import { PdfDataProvider } from "@/ui/components/pdfdatacontext";
+
+export default function Page({...pageProps}) {
   return (
+
     <div className="flex min-h-screen flex-col items-center sm:px-5 sm:pt-[calc(20vh)]">
       <a
         href="https://github.com/steven-tey/novel"
@@ -13,9 +16,13 @@ export default function Page() {
       >
         <Github />
       </a>
+    <PdfDataProvider>
         <PdfTextExtractor />
       <Menu />
-      <Editor />
+        <Editor />
+    </PdfDataProvider>
+
     </div>
+
   );
 }

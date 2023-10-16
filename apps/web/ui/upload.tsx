@@ -1,12 +1,12 @@
-// pages/PdfUploader.tsx
 "use client"
 
-// pages/PdfUploader.tsx
 
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { PdfDataContext } from './components/pdfdatacontext';
 
 const PdfUploader: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
+  const { setPdfData } = useContext(PdfDataContext);
 
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const uploadedFile = event.target.files?.[0];
@@ -76,6 +76,8 @@ const PdfUploader: React.FC = () => {
             }
 
             console.log(pdfData);
+            setPdfData(pdfData); // set the value 
+
           });
         };
         

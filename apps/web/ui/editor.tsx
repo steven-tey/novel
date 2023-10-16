@@ -2,9 +2,13 @@
 
 import { useState } from "react";
 import { Editor as NovelEditor } from "novel";
+import { useContext } from "react";
+import { PdfDataContext } from "./components/pdfdatacontext";
+
 
 export default function Editor() {
   const [saveStatus, setSaveStatus] = useState("Saved");
+  const { pdfData } = useContext(PdfDataContext);
 
   return (
     <div className="relative w-full max-w-screen-lg">
