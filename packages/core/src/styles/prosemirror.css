@@ -1,15 +1,11 @@
-.ProseMirror {
-  @apply novel-p-12 novel-px-8 sm:novel-px-12;
-}
-
-.ProseMirror .is-editor-empty:first-child::before {
+.novel-tiptap .is-editor-empty:first-child::before {
   content: attr(data-placeholder);
   float: left;
   color: var(--novel-stone-400);
   pointer-events: none;
   height: 0;
 }
-.ProseMirror .is-empty::before {
+.novel-tiptap .is-empty::before {
   content: attr(data-placeholder);
   float: left;
   color: var(--novel-stone-400);
@@ -19,7 +15,7 @@
 
 /* Custom image styles */
 
-.ProseMirror img {
+.novel-tiptap img {
   transition: filter 0.1s ease-in-out;
 
   &:hover {

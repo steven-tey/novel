@@ -3,7 +3,7 @@ import { startImageUpload } from "@/ui/editor/plugins/upload-images";
 
 export const defaultEditorProps: EditorProps = {
   attributes: {
-    class: `novel-prose-lg novel-prose-stone dark:novel-prose-invert prose-headings:novel-font-title novel-font-default focus:novel-outline-none novel-max-w-full`,
+    class: `novel-tiptap novel-p-12 novel-px-8 sm:novel-px-12 novel-prose-lg novel-prose-stone dark:novel-prose-invert prose-headings:novel-font-title novel-font-default focus:novel-outline-none novel-max-w-full`,
   },
   handleDOMEvents: {
     keydown: (_view, event) => {
