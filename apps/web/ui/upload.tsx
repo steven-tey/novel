@@ -24,30 +24,61 @@ const PdfUploader: React.FC = () => {
 
           pdfjsLib.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist/build/pdf.worker.min.js`;
 
-          pdfjsLib.getDocument(typedArray).promise.then((pdf: any) => {
-            let pdfText = '';
+          // pdfjsLib.getDocument(typedArray).promise.then((pdf: any) => {
+          //   let pdfText = '';
 
-            const maxPages = pdf.numPages;
-            const getPageText = (pageNumber: number) => {
-              pdf.getPage(pageNumber).then((page: any) => {
-                page.getTextContent().then((textContent: any) => {
-                  textContent.items.forEach((item: any) => {
-                    pdfText += item.str + ' ';
-                  });
+          //   const maxPages = pdf.numPages;
+          //   const getPageText = (pageNumber: number) => {
+          //     pdf.getPage(pageNumber).then((page: any) => {
+          //       page.getTextContent().then((textContent: any) => {
+          //         textContent.items.forEach((item: any) => {
+          //           pdfText += item.str + ' ';
+          //         });
 
-                  if (pageNumber < maxPages) {
-                    getPageText(pageNumber + 1);
-                  } else {
-                    console.log(pdfText);
-                  }
-                });
+          //         if (pageNumber < maxPages) {
+          //           getPageText(pageNumber + 1);
+          //         } else {
+          //           console.log(pdfText);
+          //         }
+          //       });
+          //     });
+          //   };
+
+          //   getPageText(1);
+          // });
+
+          pdfjsLib.getDocument(typedArray).promise.then(async (pdf: any) => {
+            const maxPages = pdf._pdfInfo.numPages;
+            const pdfData: any[] = [];
+
+            for (let i = 1; i <= maxPages; i++) {
+              const page = await pdf.getPage(i);
+              const content = await page.getTextContent();
+              const pageData: any = { paragraphs: [] };
+
+              let currentParagraph: any = { text: '' };
+
+              content.items.forEach((textItem: any) => {
+                if (textItem.str === '\n') {
+                  // If a newline character is found, consider it as a new paragraph
+                  pageData.paragraphs.push(currentParagraph);
+                  currentParagraph = { text: '' };
+                } else {
+                  // Append text to the current paragraph
+                  currentParagraph.text += textItem.str + ' ';
+                }
               });
-            };
 
-            getPageText(1);
+              // Add the last paragraph
+              pageData.paragraphs.push(currentParagraph);
+
+              pdfData.push(pageData);
+            }
+
+            console.log(pdfData);
           });
         };
-
+        
         document.head.appendChild(script);
       };
 
