@@ -17,18 +17,22 @@ import { EditorProps } from "@tiptap/pm/view";
 import { Editor as EditorClass, Extensions } from "@tiptap/core";
 import { NovelContext } from "./provider";
 
+// import { useContext } from "react";
+// import { PdfDataContext } from '../../../../../apps/web/ui/components/pdfdatacontext';
+
+
 export default function Editor({
   completionApi = "/api/generate",
   className = "novel-relative novel-min-h-[500px] novel-w-full novel-max-w-screen-lg novel-border-stone-200 novel-bg-white sm:novel-mb-[calc(20vh)] sm:novel-rounded-lg sm:novel-border sm:novel-shadow-lg",
   defaultValue = defaultEditorContent,
-  pdfValue = {},
+  pdfValue={},
   extensions = [],
   editorProps = {},
   onUpdate = () => {},
   onDebouncedUpdate = () => {},
   debounceDuration = 750,
   storageKey = "novel__content",
-  disableLocalStorage = false,
+  disableLocalStorage = true,
 }: {
   /**
    * The API route to use for the OpenAI completion API.
@@ -46,6 +50,7 @@ export default function Editor({
    */
   defaultValue?: JSONContent | string;
   pdfValue?: JSONContent | string;
+
   /**
    * A list of extensions to use for the editor, in addition to the default Novel extensions.
    * Defaults to [].
@@ -85,6 +90,9 @@ export default function Editor({
   disableLocalStorage?: boolean;
 }) {
   // const [content, setContent] = useLocalStorage(storageKey, defaultValue);
+  // const pdfValue = useContext(PdfDataContext);
+  console.log(pdfValue, 'azaz')
+
   const [content, setContent] = useLocalStorage(storageKey, pdfValue);
 
   const [hydrated, setHydrated] = useState(false);
@@ -104,6 +112,7 @@ export default function Editor({
       ...defaultEditorProps,
       ...editorProps,
     },
+    content: pdfValue,
     onUpdate: (e) => {
       const selection = e.editor.state.selection;
       const lastTwo = getPrevText(e.editor, {
@@ -127,7 +136,21 @@ export default function Editor({
       }
     },
     autofocus: "end",
-  }, [pdfValue]);
+  });
+  function sleep(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  useEffect(() => {
+    const temp = async () => {
+    // Update the editor content when the context variable changes
+    if (editor){
+    await sleep(2000);
+    editor.commands.setContent(pdfValue);
+    console.log('pdfvalue has changed so will change editor text', pdfValue)
+  }}
+  temp()
+}, [pdfValue, editor]);
 
   const { complete, completion, isLoading, stop } = useCompletion({
     id: "novel",

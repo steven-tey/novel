@@ -49,20 +49,34 @@ const PdfUploader: React.FC = () => {
 
           pdfjsLib.getDocument(typedArray).promise.then(async (pdf: any) => {
             const maxPages = pdf._pdfInfo.numPages;
-            const pdfData: any[] = [];
+            const pdfData = {
+              type: "doc", 
+              content: [
+                {
+                type: "heading",
+                attrs: { level: 2 },
+                content: [{ type: "text", text: "Introducing Novel" }],
+                },
+                {
+                  type: "paragraph",
+                  content: [],
+                },
+            
+            ]};
 
             for (let i = 1; i <= maxPages; i++) {
               const page = await pdf.getPage(i);
               const content = await page.getTextContent();
-              const pageData: any = { paragraphs: [] };
+              // const pageData: any = { paragraphs: [] };
 
-              let currentParagraph: any = { text: '' };
+              let currentParagraph: any = {type: 'text', text: ''};
 
               content.items.forEach((textItem: any) => {
                 if (textItem.str === '\n') {
                   // If a newline character is found, consider it as a new paragraph
-                  pageData.paragraphs.push(currentParagraph);
-                  currentParagraph = { text: '' };
+                  // pageData.paragraphs.push(currentParagraph);
+                  pdfData.content[1].content.push(currentParagraph);
+                  currentParagraph = {type: 'text', text: ''};
                 } else {
                   // Append text to the current paragraph
                   currentParagraph.text += textItem.str + ' ';
@@ -70,9 +84,10 @@ const PdfUploader: React.FC = () => {
               });
 
               // Add the last paragraph
-              pageData.paragraphs.push(currentParagraph);
+              // pageData.paragraphs.push(currentParagraph);
+              pdfData.content[1].content.push(currentParagraph);
 
-              pdfData.push(pageData);
+              // pdfData.push(pageData);
             }
 
             console.log(pdfData);

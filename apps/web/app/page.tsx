@@ -9,6 +9,7 @@ export default function Page() {
   return (
 
     <div className="flex min-h-screen flex-col items-center sm:px-5 sm:pt-[calc(20vh)]">
+    <PdfDataProvider>
       <a
         href="https://github.com/steven-tey/novel"
         target="_blank"
@@ -16,7 +17,6 @@ export default function Page() {
       >
         <Github />
       </a>
-    <PdfDataProvider>
         <PdfTextExtractor />
       <Menu />
         <Editor />
