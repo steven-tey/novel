@@ -21,6 +21,7 @@ export default function Editor({
   completionApi = "/api/generate",
   className = "novel-relative novel-min-h-[500px] novel-w-full novel-max-w-screen-lg novel-border-stone-200 novel-bg-white sm:novel-mb-[calc(20vh)] sm:novel-rounded-lg sm:novel-border sm:novel-shadow-lg",
   defaultValue = defaultEditorContent,
+  pdfValue = {},
   extensions = [],
   editorProps = {},
   onUpdate = () => {},
@@ -44,6 +45,7 @@ export default function Editor({
    * Defaults to defaultEditorContent.
    */
   defaultValue?: JSONContent | string;
+  pdfValue?: JSONContent | string;
   /**
    * A list of extensions to use for the editor, in addition to the default Novel extensions.
    * Defaults to [].
@@ -82,7 +84,8 @@ export default function Editor({
    */
   disableLocalStorage?: boolean;
 }) {
-  const [content, setContent] = useLocalStorage(storageKey, defaultValue);
+  // const [content, setContent] = useLocalStorage(storageKey, defaultValue);
+  const [content, setContent] = useLocalStorage(storageKey, pdfValue);
 
   const [hydrated, setHydrated] = useState(false);
 
@@ -124,7 +127,7 @@ export default function Editor({
       }
     },
     autofocus: "end",
-  });
+  }, [pdfValue]);
 
   const { complete, completion, isLoading, stop } = useCompletion({
     id: "novel",
@@ -193,13 +196,15 @@ export default function Editor({
   useEffect(() => {
     if (!editor || hydrated) return;
 
-    const value = disableLocalStorage ? defaultValue : content;
+    // const value = disableLocalStorage ? defaultValue : content;
+    const value = disableLocalStorage ? pdfValue : content;
 
     if (value) {
       editor.commands.setContent(value);
       setHydrated(true);
     }
-  }, [editor, defaultValue, content, hydrated, disableLocalStorage]);
+  // }, [editor, defaultValue, content, hydrated, disableLocalStorage]);
+}, [editor, pdfValue, content, hydrated, disableLocalStorage]);
 
   return (
     <NovelContext.Provider

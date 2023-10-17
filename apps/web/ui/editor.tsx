@@ -16,6 +16,7 @@ export default function Editor() {
         {saveStatus}
       </div>
       <NovelEditor
+        pdfValue={pdfData}
         onUpdate={() => {
           setSaveStatus("Unsaved");
         }}
