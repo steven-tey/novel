@@ -90,7 +90,7 @@ export default function Editor({
   videoUploader?: (file: File) => null | Promise<string>;
 }) {
   const [content, setContent] = useLocalStorage(storageKey, defaultValue);
-
+  const valueSetRef = useRef(false);
   const [hydrated, setHydrated] = useState(false);
 
   const debouncedUpdates = useDebouncedCallback(async ({ editor }) => {
@@ -203,10 +203,18 @@ export default function Editor({
 
     const value = disableLocalStorage ? defaultValue : content;
     if (value) {
+      if (valueSetRef.current) {
+        return;
+      }
+      valueSetRef.current = true;
       // @ts-ignore
       editor.commands.insertHTML(value);
       setHydrated(true);
     }
+
+    return () => {
+      valueSetRef.current = false;
+    };
   }, [editor, defaultValue, content, hydrated, disableLocalStorage]);
 
   useEffect(() => {
