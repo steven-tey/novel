@@ -1,6 +1,6 @@
 {
   "name": "@patikadev/novel",
-  "version": "0.1.38",
+  "version": "0.1.39",
   "description": "Notion-style WYSIWYG editor with AI-powered autocompletions",
   "license": "Apache-2.0",
   "main": "./dist/index.js",

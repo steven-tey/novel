@@ -1,16 +1,10 @@
-import { BubbleMenu, BubbleMenuProps, isNodeSelection } from "@tiptap/react";
-import { FC, useState } from "react";
-import {
-  BoldIcon,
-  ItalicIcon,
-  UnderlineIcon,
-  StrikethroughIcon,
-  CodeIcon,
-} from "lucide-react";
-import { NodeSelector } from "./node-selector";
-import { ColorSelector } from "./color-selector";
-import { LinkSelector } from "./link-selector";
-import { cn } from "@/lib/utils";
+import { BubbleMenu, BubbleMenuProps, isNodeSelection } from '@tiptap/react';
+import { FC, useState } from 'react';
+import { BoldIcon, ItalicIcon, UnderlineIcon, StrikethroughIcon, CodeIcon } from 'lucide-react';
+import { NodeSelector } from './node-selector';
+import { ColorSelector } from './color-selector';
+import { LinkSelector } from './link-selector';
+import { cn } from '@/lib/utils';
 
 export interface BubbleMenuItem {
   name: string;
@@ -19,37 +13,37 @@ export interface BubbleMenuItem {
   icon: typeof BoldIcon;
 }
 
-type EditorBubbleMenuProps = Omit<BubbleMenuProps, "children">;
+type EditorBubbleMenuProps = Omit<BubbleMenuProps, 'children'>;
 
 export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
   const items: BubbleMenuItem[] = [
     {
-      name: "bold",
-      isActive: () => props.editor.isActive("bold"),
+      name: 'bold',
+      isActive: () => props.editor.isActive('bold'),
       command: () => props.editor.chain().focus().toggleBold().run(),
       icon: BoldIcon,
     },
     {
-      name: "italic",
-      isActive: () => props.editor.isActive("italic"),
+      name: 'italic',
+      isActive: () => props.editor.isActive('italic'),
       command: () => props.editor.chain().focus().toggleItalic().run(),
       icon: ItalicIcon,
     },
     {
-      name: "underline",
-      isActive: () => props.editor.isActive("underline"),
+      name: 'underline',
+      isActive: () => props.editor.isActive('underline'),
       command: () => props.editor.chain().focus().toggleUnderline().run(),
       icon: UnderlineIcon,
     },
     {
-      name: "strike",
-      isActive: () => props.editor.isActive("strike"),
+      name: 'strike',
+      isActive: () => props.editor.isActive('strike'),
       command: () => props.editor.chain().focus().toggleStrike().run(),
       icon: StrikethroughIcon,
     },
     {
-      name: "code",
-      isActive: () => props.editor.isActive("code"),
+      name: 'code',
+      isActive: () => props.editor.isActive('code'),
       command: () => props.editor.chain().focus().toggleCode().run(),
       icon: CodeIcon,
     },
@@ -65,13 +59,13 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
       // - the selected node is an image
       // - the selection is empty
       // - the selection is a node selection (for drag handles)
-      if (editor.isActive("image") || empty || isNodeSelection(selection)) {
+      if (editor.isActive('image') || empty || isNodeSelection(selection)) {
         return false;
       }
       return true;
     },
     tippyOptions: {
-      moveTransition: "transform 0.15s ease-out",
+      moveTransition: 'transform 0.15s ease-out',
       onHidden: () => {
         setIsNodeSelectorOpen(false);
         setIsColorSelectorOpen(false);
@@ -116,8 +110,8 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
             type="button"
           >
             <item.icon
-              className={cn("novel-h-4 novel-w-4", {
-                "novel-text-blue-500": item.isActive(),
+              className={cn('novel-h-4 novel-w-4', {
+                'novel-text-blue-500': item.isActive(),
               })}
             />
           </button>

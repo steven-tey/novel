@@ -219,7 +219,9 @@ export default function Editor({
 
   useEffect(() => {
     if (editor) {
+      // @ts-ignore
       editor.imageUploader = imageUploader;
+      // @ts-ignore
       editor.videoUploader = videoUploader;
       setEditor(editor);
     }
