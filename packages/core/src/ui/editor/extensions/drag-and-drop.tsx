@@ -104,13 +104,13 @@ function DragHandle(options: DragHandleOptions) {
 
   function hideDragHandle() {
     if (dragHandleElement) {
-      dragHandleElement.classList.add("hidden");
+      dragHandleElement.classList.add("hide");
     }
   }
 
   function showDragHandle() {
     if (dragHandleElement) {
-      dragHandleElement.classList.remove("hidden");
+      dragHandleElement.classList.remove("hide");
     }
   }
 
