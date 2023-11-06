@@ -115,6 +115,20 @@ ul[data-type="taskList"] li[data-checked="true"] > div > p {
   text-decoration-thickness: 2px;
 }
 
+#novel-editor button {
+  background-color: var(--novel-white);
+  border: transparent;
+}
+
+#novel-ediotr [type=button] {
+  background-color: var(--novel-white);
+  border: transparent;
+}
+
+#novel-editor button:hover {
+  background-color: var(--novel-stone-100);
+}
+
 /* Overwrite tippy-box original max-width */
 
 .tippy-box {

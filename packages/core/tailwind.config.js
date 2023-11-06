@@ -4,4 +4,7 @@ module.exports = {
   // prefix ui lib classes to avoid conflicting with the app
   ...sharedConfig,
   prefix: "novel-",
+  corePlugins: {
+    preflight: false,
+  },
 };
