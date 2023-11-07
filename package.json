@@ -1,6 +1,6 @@
 {
-  "name": "novel",
-  "private": true,
+  "name": "novel-editor",
+  "private": false,
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",

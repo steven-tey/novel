@@ -102,7 +102,7 @@ export const NodeSelector: FC<NodeSelectorProps> = ({
     <Popover.Root open={isOpen}>
       <div className="novel-relative novel-h-full">
         <Popover.Trigger
-          className="novel-flex novel-h-full novel-items-center novel-gap-1 novel-whitespace-nowrap novel-p-2 novel-text-sm novel-font-medium novel-text-stone-600 hover:novel-bg-stone-100 active:novel-bg-stone-200"
+          className="novel-bg-white novel-border-transparent novel-flex novel-h-full novel-items-center novel-gap-1 novel-whitespace-nowrap novel-p-2 novel-text-sm novel-font-medium novel-text-stone-600 hover:novel-bg-stone-100 active:novel-bg-stone-200"
           onClick={() => setIsOpen(!isOpen)}
         >
           <span>{activeItem?.name}</span>
@@ -120,7 +120,7 @@ export const NodeSelector: FC<NodeSelectorProps> = ({
                 item.command();
                 setIsOpen(false);
               }}
-              className="novel-flex novel-items-center novel-justify-between novel-rounded-sm novel-px-2 novel-py-1 novel-text-sm novel-text-stone-600 hover:novel-bg-stone-100"
+              className="novel-flex novel-items-center novel-justify-between novel-rounded-sm novel-px-2 novel-py-1 novel-text-sm novel-text-stone-600 novel-bg-white novel-border-transparent hover:novel-bg-stone-100"
               type="button"
             >
               <div className="flex items-center space-x-2">

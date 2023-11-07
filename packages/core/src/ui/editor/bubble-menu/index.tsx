@@ -112,7 +112,7 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
           <button
             key={index}
             onClick={item.command}
-            className="novel-p-2 novel-text-stone-600 hover:novel-bg-stone-100 active:novel-bg-stone-200"
+            className="novel-p-2 novel-text-stone-600 novel-bg-white novel-border-transparent hover:novel-bg-stone-100 active:novel-bg-stone-200"
             type="button"
           >
             <item.icon
