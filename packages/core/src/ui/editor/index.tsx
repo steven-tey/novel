@@ -208,7 +208,6 @@ export default function Editor({
       }}
     >
       <div
-        id={"novel-editor"}
         onClick={() => {
           editor?.chain().focus().run();
         }}
