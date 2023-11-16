@@ -11,7 +11,7 @@ import TaskList from "@tiptap/extension-task-list";
 import { Markdown } from "tiptap-markdown";
 import Highlight from "@tiptap/extension-highlight";
 import SlashCommand from "./slash-command";
-import { InputRule } from "@tiptap/core";
+import { Extension, InputRule } from "@tiptap/core";
 import UploadImagesPlugin from "@/ui/editor/plugins/upload-images";
 import UpdatedImage from "./updated-image";
 import CustomKeymap from "./custom-keymap";
@@ -141,4 +141,20 @@ export const defaultExtensions = [
   }),
   CustomKeymap,
   DragAndDrop,
+  Extension.create({
+    addKeyboardShortcuts() {
+      return {
+        Tab: () => {
+          this.editor
+            .chain()
+            .command(({ tr }) => {
+              tr.insertText('\t');
+              return true;
+            })
+            .run();
+          return true;
+        },
+      };
+    },
+  }),
 ];
