@@ -95,6 +95,15 @@ export default function Editor({
     }
   }, debounceDuration);
 
+  const fakeEditor = useEditor({
+    extensions: [...defaultExtensions, ...extensions],
+    editorProps: {
+      ...defaultEditorProps,
+      ...editorProps,
+    },
+    editable: false,
+  });
+
   const editor = useEditor({
     extensions: [...defaultExtensions, ...extensions],
     editorProps: {
@@ -130,9 +139,15 @@ export default function Editor({
     id: "novel",
     api: completionApi,
     onFinish: (_prompt, completion) => {
+      fakeEditor?.commands.clearContent();
+      editor?.commands.insertContent(completion, {
+        parseOptions: {
+          preserveWhitespace: false,
+        },
+      });
       editor?.commands.setTextSelection({
-        from: editor.state.selection.from - completion.length,
-        to: editor.state.selection.from,
+        from: editor.state.selection.from,
+        to: editor.state.selection.from + completion.length,
       });
     },
     onError: (err) => {
@@ -143,14 +158,18 @@ export default function Editor({
     },
   });
 
-  const prev = useRef("");
+  // const prev = useRef("");
 
   // Insert chunks of the generated text
+  // useEffect(() => {
+  //   const diff = completion.slice(prev.current.length);
+  //   prev.current = completion;
+  //   editor?.commands.insertContent(diff);
+  // }, [isLoading, editor, completion]);
+
   useEffect(() => {
-    const diff = completion.slice(prev.current.length);
-    prev.current = completion;
-    editor?.commands.insertContent(diff);
-  }, [isLoading, editor, completion]);
+    fakeEditor?.commands.setContent(completion);
+  }, [isLoading, fakeEditor, completion]);
 
   useEffect(() => {
     // if user presses escape or cmd + z and it's loading,
@@ -216,6 +235,7 @@ export default function Editor({
         {editor && <EditorBubbleMenu editor={editor} />}
         {editor?.isActive("image") && <ImageResizer editor={editor} />}
         <EditorContent editor={editor} />
+        {isLoading && <EditorContent editor={fakeEditor} />}
       </div>
     </NovelContext.Provider>
   );
