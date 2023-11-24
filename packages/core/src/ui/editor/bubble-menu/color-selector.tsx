@@ -109,7 +109,7 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
     <Popover.Root open={isOpen}>
       <div className="novel-relative novel-h-full">
         <Popover.Trigger
-          className="novel-flex novel-h-full novel-items-center novel-gap-1 novel-p-2 novel-text-sm novel-font-medium novel-text-stone-600 novel-bg-wite novel-border-transparent hover:novel-bg-stone-100 active:novel-bg-stone-200"
+          className="novel-flex novel-h-full novel-items-center novel-gap-1 novel-p-2 novel-text-sm novel-font-medium novel-text-stone-600 novel-bg-white novel-border-transparent hover:novel-bg-stone-100 active:novel-bg-stone-200"
           onClick={() => setIsOpen(!isOpen)}
         >
           <span
