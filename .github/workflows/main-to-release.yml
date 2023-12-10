@@ -23,7 +23,7 @@ jobs:
         id: render_template
         uses: chuhlomin/render-template@v1.8
         with:
-          template: .github/PR_BODY_FOR_PRODUCTION_RELEASE.md
+          template: .github/pr_body_for_production_release
 
       - name: Create PullRequest to release
         run: |
