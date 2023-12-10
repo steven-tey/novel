@@ -38,10 +38,12 @@ jobs:
         run: pnpm version patch --no-git-tag-version
       
       - name: Commit version
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: Update version
-          branch: main
+        run: |
+          git add .
+          git commit -m "chore: release"
+          git push origin HEAD:${GITHUB_REF}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish package
         run: pnpm run release
