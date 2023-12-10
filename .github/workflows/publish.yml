@@ -37,14 +37,17 @@ jobs:
       - name: Update version
         run: pnpm version patch --no-git-tag-version
       
-      - name: Commit version
+      - name: Create a pull request
         run: |
+          git checkout -b feature/update-version
           git add .
-          git commit -m "chore: release"
-          git push origin HEAD:${GITHUB_REF}
-        env:
-          GITHUB_TOKEN: ${{ secrets.PACKAGE_GITHUB_TOKEN }}
+          git commit -m "chore: update version"
+          git push origin feature/update-version
+          gh pr create --title "chore: release" --body "chore: release" --base main --head feature/update-version
 
+      - name: Merge pull request
+        run: gh pr merge --auto --squash --merge --delete-branch
+        
       - name: Publish package
         run: pnpm run release
         env:
