@@ -64,15 +64,12 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.PACKAGE_GITHUB_TOKEN }}
 
       - name: Create release
-        uses: actions/create-release@v1
+        uses: release-drafter/release-drafter@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: "v${{ steps.get_version.outputs.version }}"
         with:
-          tag_name: v${{ steps.get_version.outputs.version }}
-          release_name: v${{ steps.get_version.outputs.version }}
-          commitish: release
-          body: |
-            ## Changelog
-            ${{ steps.get_version.outputs.version }}
-          draft: false
-          prerelease: false
+          tag: ${{ env.RELEASE_TAG }}
+          name: Release ${{ env.RELEASE_TAG }}
+          version: ${{ env.RELEASE_TAG }}
+          publish: true
