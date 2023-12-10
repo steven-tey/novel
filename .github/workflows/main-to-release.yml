@@ -48,10 +48,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_BODY: ${{ env.PR_BODY }}
-
-      - name: Merge PullRequest to release
-        shell: bash
-        run: |
-          gh pr merge main --merge || exit 0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
