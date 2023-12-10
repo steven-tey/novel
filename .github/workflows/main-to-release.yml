@@ -11,7 +11,7 @@ defaults:
 
 jobs:
   create_pull_request_to_release:
-    name: Execute main to release
+    name: Execute she-main to release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -44,7 +44,7 @@ jobs:
 
       - name: Create PullRequest to release
         run: |
-          gh pr create --base release --head main --title "Production release v${{ steps.get_version.outputs.verison }}" --body "${{ steps.render_template.outputs.result }}" --reviewer ${{ github.event.sender.login }} || exit 0
+          gh pr create --base release --head she-main --title "Production release v${{ steps.get_version.outputs.verison }}" --body "${{ steps.render_template.outputs.result }}" --reviewer ${{ github.event.sender.login }} || exit 0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_BODY: ${{ env.PR_BODY }}
