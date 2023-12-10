@@ -69,6 +69,7 @@ jobs:
         with:
           tag_name: v${{ steps.get_version.outputs.version }}
           release_name: v${{ steps.get_version.outputs.version }}
+          commitish: release
           body: |
             ## Changelog
             ${{ steps.get_version.outputs.version }}
