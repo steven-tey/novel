@@ -1,11 +1,9 @@
 name: Publish
 
 on:
-  release:
-    types: [created]
   push:
     branches:
-      - master
+      - main
 
 jobs:
   publish:
@@ -13,16 +11,10 @@ jobs:
     permissions:
       packages: write
       contents: read
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Collect semantic-release-info
-        id: semantic_release_info
-        uses: fingerprintjs/action-semantic-release-info@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -34,34 +26,24 @@ jobs:
         with:
           version: 8
 
+      - name: git config
+        run: |
+          git config user.name "${GITHUB_ACTOR}"
+          git config user.email "${GITHUB_ACTOR}"
+
       - name: Package install
         run: pnpm install --frozen-lockfile
 
-      - name: Update package.json version
-        uses: jossef/action-set-json-field@v2.1
+      - name: Update version
+        run: pnpm version patch --no-git-tag-version
+      
+      - name: Commit version
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          file: packages/core/package.json
-          field: version
-          value: ${{ steps.semantic_release_info.outputs.git_tag }}
-
-      - name: Push changes
-        uses: ad-m/github-push-action@v0.6.0
-        with:
-          github_token: ${{ secrets.PACKAGE_GITHUB_TOKEN }}
-          tags: true
+          commit_message: Update version
+          branch: main
 
       - name: Publish package
         run: pnpm run release
         env:
           NODE_AUTH_TOKEN: ${{ secrets.PACKAGE_GITHUB_TOKEN }}
-
-      - name: Create GitHub Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.PACKAGE_GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.semantic_release_info.outputs.git_tag }}
-          release_name: ${{ steps.semantic_release_info.outputs.git_tag }}
-          body: ${{ steps.semantic_release_info.outputs.notes }}
-          draft: false
-          prerelease: false
