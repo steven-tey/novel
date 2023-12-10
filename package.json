@@ -65,5 +65,14 @@
     "tailwindcss": "^3.3.3",
     "tailwindcss-animate": "^1.0.6",
     "turbo": "^1.9.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sheinc/novel.git"
+  },
+  "release": {
+    "branches": [
+      "master"
+    ]
   }
 }

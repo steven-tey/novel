@@ -92,5 +92,10 @@
   "publishConfig": {
     "access": "restricted",
     "registry": "https://npm.pkg.github.com/sheinc"
+  },
+  "release": {
+    "branches": [
+      "master"
+    ]
   }
 }

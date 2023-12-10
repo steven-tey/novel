@@ -15,10 +15,12 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-      - name: Gets semantic release info
+      - name: Collect semantic-release-info
         id: semantic_release_info
-        uses: jossef/action-semantic-release-info@v2.1.0
+        uses: fingerprintjs/action-semantic-release-info@v1
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
@@ -45,18 +47,18 @@ jobs:
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0
         with:
-          github_token: ${{ github.token }}
+          github_token: ${{ secrets.PACKAGE_GITHUB_TOKEN }}
           tags: true
 
       - name: Publish package
         run: pnpm run release
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.PACKAGE_GITHUB_TOKEN }}
 
       - name: Create GitHub Release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ secrets.PACKAGE_GITHUB_TOKEN }}
         with:
           tag_name: ${{ steps.semantic_release_info.outputs.git_tag }}
           release_name: ${{ steps.semantic_release_info.outputs.git_tag }}
