@@ -1,0 +1,39 @@
+name: Create PR to release
+
+on:
+  push:
+    branches:
+      - main
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  create_pull_request_to_release:
+    name: Execute main to release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: release
+
+      - name: Create a PR Body
+        run: |
+          PR_BODY=$(cat .github/PR_BODY_FOR_PRODUCTION_RELEASE.md)
+          echo "PR_BODY=$PR_BODY" >> $GITHUB_ENV
+
+      - name: Create PullRequest to release
+        run: |
+          gh pr create --base release --head main --title "Production release" --body ${{ env.PR_BODY }} --reviewer ${{ github.event.sender.login }} || exit 0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_BODY: ${{ env.PR_BODY }}
+
+      - name: Merge PullRequest to release
+        shell: bash
+        run: |
+          gh pr merge main --merge || exit 0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
