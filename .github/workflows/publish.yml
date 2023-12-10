@@ -1,0 +1,34 @@
+name: Publish
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          registry-url: https://npm.pkg.github.com/
+
+      - name: Package install
+        run: pnpm install --frozen-lockfile
+
+      - name: Update package.json version
+        uses: jossef/action-set-json-field@v1
+        with:
+          file: packages/core/package.json
+          field: version
+          value: ${{ github.event.release.name }}
+
+      - name: Publish package
+        run: pnpm run release
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
