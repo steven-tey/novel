@@ -62,11 +62,10 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
       const { empty } = selection;
 
       // don't show bubble menu if:
-      // - the editor is not editable
       // - the selected node is an image
       // - the selection is empty
       // - the selection is a node selection (for drag handles)
-      if (!editor.isEditable || editor.isActive("image") || empty || isNodeSelection(selection)) {
+      if (editor.isActive("image") || empty || isNodeSelection(selection)) {
         return false;
       }
       return true;
