@@ -44,12 +44,7 @@ jobs:
 
       - name: Create PullRequest to release
         run: |
-          gh pr create \
-            --base release \
-            --head main \
-            --title "Production release v${{ steps.get_version.outputs.verison }}" \
-            --body ${{ steps.render_template.outputs.result }} \
-            --reviewer ${{ github.event.sender.login }} || exit 0
+          gh pr create --base release --head main --title "Production release v${{ steps.get_version.outputs.verison }}" --body ${{ steps.render_template.outputs.result }} --reviewer ${{ github.event.sender.login }} || exit 0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_BODY: ${{ env.PR_BODY }}
