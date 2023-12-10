@@ -56,8 +56,8 @@ jobs:
           git add .
           git commit -m "chore: update version"
           git tag v${{ steps.get_version.outputs.version }}
-          git push origin release
-          git switch main
+          git push origin release --tags
+          git switch she-main
           git merge release
           git push
 
