@@ -37,7 +37,7 @@ jobs:
           template: .github/pr_body_for_production_release
 
       - name: Update version
-        run: pnpm version patch --no-git-tag-version
+        run: npm version patch --no-git-tag-version
 
       - name: Get version
         id: get_version
