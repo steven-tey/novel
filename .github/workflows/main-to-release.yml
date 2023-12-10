@@ -19,14 +19,20 @@ jobs:
         with:
           ref: release
 
-      - name: Create a PR Body
-        run: |
-          PR_BODY=$(cat .github/PR_BODY_FOR_PRODUCTION_RELEASE.md)
-          echo "PR_BODY=$PR_BODY" >> $GITHUB_ENV
+      - name: Render template
+        id: render_template
+        uses: chuhlomin/render-template@v1.8
+        with:
+          template: .github/PR_BODY_FOR_PRODUCTION_RELEASE.md
 
       - name: Create PullRequest to release
         run: |
-          gh pr create --base release --head main --title "Production release" --body ${{ env.PR_BODY }} --reviewer ${{ github.event.sender.login }} || exit 0
+          gh pr create \
+            --base release \
+            --head main \
+            --title "Production release" \
+            --body ${{ steps.render_template.outputs.result }} \
+            --reviewer ${{ github.event.sender.login }} || exit 0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_BODY: ${{ env.PR_BODY }}
