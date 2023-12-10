@@ -19,6 +19,10 @@ jobs:
         with:
           ref: release
 
+      - name: Check
+        run: |
+          ls -la .github
+
       - name: Render template
         id: render_template
         uses: chuhlomin/render-template@v1.8
