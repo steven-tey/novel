@@ -20,7 +20,7 @@ jobs:
         id: semantic_release_info
         uses: jossef/action-semantic-release-info@v2.1.0
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PACKAGE_GITHUB_TOKEN }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -45,18 +45,18 @@ jobs:
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.PACKAGE_GITHUB_TOKEN }}
           tags: true
 
       - name: Publish package
         run: pnpm run release
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.PACKAGE_GITHUB_TOKEN }}
 
       - name: Create GitHub Release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PACKAGE_GITHUB_TOKEN }}
         with:
           tag_name: ${{ steps.semantic_release_info.outputs.git_tag }}
           release_name: ${{ steps.semantic_release_info.outputs.git_tag }}
