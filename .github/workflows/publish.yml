@@ -43,18 +43,23 @@ jobs:
 
       - name: Update version
         run: pnpm version patch --no-git-tag-version
-      
-      - name: Create a pull request
+
+      - name: Get version
+        id: get_version
         run: |
-          git checkout -b feature/update-version
+          CURRENT_VERSION=$(node -e "console.log(require('./package.json').version)")
+          echo "version=$CURRENT_VERSION" >> $GITHUB_ENV
+
+      - name: Commit version
+        run: |
           git add .
           git commit -m "chore: update version"
-          git push origin feature/update-version || exit 0
-          gh pr create --title "chore: release" --body "chore: release" --base main --head feature/update-version || exit 0
+          git tag -d v${{ steps.get_version.outputs.version }}
+          git push
 
-      - name: Merge pull request
-        run: gh pr merge --auto --squash --delete-branch
-        
+      - name: Add tag
+        run: git tag -a v${{ steps.get_version.outputs.version }} -m "v${{ steps.get_version.outputs.version }}"
+
       - name: Publish package
         run: pnpm run -w release
         env:
