@@ -3,6 +3,9 @@ name: Publish
 on:
   release:
     types: [created]
+  push:
+    branches:
+      - main
 
 jobs:
   publish:
@@ -17,6 +20,10 @@ jobs:
         with:
           node-version: 18
           registry-url: https://npm.pkg.github.com/
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
 
       - name: Package install
         run: pnpm install --frozen-lockfile
