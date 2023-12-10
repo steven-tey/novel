@@ -49,7 +49,7 @@ jobs:
           git checkout -b feature/update-version
           git add .
           git commit -m "chore: update version"
-          git push origin feature/update-version
+          git push origin feature/update-version || exit 0
           gh pr create --title "chore: release" --body "chore: release" --base main --head feature/update-version || exit 0
 
       - name: Merge pull request
