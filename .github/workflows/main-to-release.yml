@@ -19,6 +19,12 @@ jobs:
         with:
           ref: release
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          registry-url: https://npm.pkg.github.com/
+
       - name: Check
         run: |
           git branch
@@ -30,12 +36,18 @@ jobs:
         with:
           template: .github/pr_body_for_production_release
 
+      - name: Get version
+        id: get_version
+        run: |
+          CURRENT_VERSION=$(node -e "console.log(require('./package.json').version)")
+          echo "version=$CURRENT_VERSION" >> "$GITHUB_OUTPUT"
+
       - name: Create PullRequest to release
         run: |
           gh pr create \
             --base release \
             --head main \
-            --title "Production release" \
+            --title "Production release v${{ steps.get_version.outputs.verison }}" \
             --body ${{ steps.render_template.outputs.result }} \
             --reviewer ${{ github.event.sender.login }} || exit 0
         env:
