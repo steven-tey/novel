@@ -3,7 +3,7 @@ name: Create PR to release
 on:
   push:
     branches:
-      - main
+      - she-main
 
 defaults:
   run:
