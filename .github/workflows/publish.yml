@@ -1,5 +1,10 @@
 name: Publish
 
+defaults:
+  run:
+    shell: bash
+    working-directory: ./packages/core
+
 on:
   push:
     branches:
