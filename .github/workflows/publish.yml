@@ -10,7 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       packages: write
-      contents: read
+      contents: write
+      actions: write
+      pull-requests: write
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
