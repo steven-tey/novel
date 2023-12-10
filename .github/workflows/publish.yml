@@ -42,7 +42,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Update version
-        run: pnpm version patch --no-git-tag-version
+        run: pnpm version patch
 
       - name: Get version
         id: get_version
