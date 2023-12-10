@@ -15,6 +15,13 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v3
+
+      - name: Gets semantic release info
+        id: semantic_release_info
+        uses: jossef/action-semantic-release-info@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -33,9 +40,26 @@ jobs:
         with:
           file: packages/core/package.json
           field: version
-          value: ${{ github.event.release.name }}
+          value: ${{ steps.semantic_release_info.outputs.git_tag }}
+
+      - name: Push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ github.token }}
+          tags: true
 
       - name: Publish package
         run: pnpm run release
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          tag_name: ${{ steps.semantic_release_info.outputs.git_tag }}
+          release_name: ${{ steps.semantic_release_info.outputs.git_tag }}
+          body: ${{ steps.semantic_release_info.outputs.notes }}
+          draft: false
+          prerelease: false
