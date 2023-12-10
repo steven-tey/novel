@@ -50,10 +50,10 @@ jobs:
           git add .
           git commit -m "chore: update version"
           git push origin feature/update-version
-          gh pr create --title "chore: release" --body "chore: release" --base main --head feature/update-version
+          gh pr create --title "chore: release" --body "chore: release" --base main --head feature/update-version || true
 
       - name: Merge pull request
-        run: gh pr merge --auto --squash --merge --delete-branch
+        run: gh pr merge --auto --squash --delete-branch
         
       - name: Publish package
         run: pnpm run release
