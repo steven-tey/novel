@@ -1,0 +1,53 @@
+name: Create PR to release
+
+on:
+  push:
+    branches:
+      - she-main
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  create_pull_request_to_release:
+    name: Execute she-main to release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: release
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          registry-url: https://npm.pkg.github.com/
+
+      - name: Check
+        run: |
+          git branch
+          ls -la .github
+
+      - name: Render template
+        id: render_template
+        uses: chuhlomin/render-template@v1.8
+        with:
+          template: .github/pr_body_for_production_release
+
+      - name: Update version
+        run: cd packages/core && npm version patch --no-git-tag-version
+
+      - name: Get version
+        id: get_version
+        run: |
+          CURRENT_VERSION=$(node -e "console.log(require('./packages/core/package.json').version)")
+          echo "version=$CURRENT_VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Create PullRequest to release
+        run: |
+          gh pr create --base release --head she-main --title "Production release v${{ steps.get_version.outputs.version }}" --body "${{ steps.render_template.outputs.result }}" --reviewer ${{ github.event.sender.login }} || exit 0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_BODY: ${{ env.PR_BODY }}

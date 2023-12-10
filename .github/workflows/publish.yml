@@ -1,0 +1,75 @@
+name: Publish
+
+defaults:
+  run:
+    shell: bash
+    working-directory: ./packages/core
+
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: write
+      actions: write
+      pull-requests: write
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          registry-url: https://npm.pkg.github.com/
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: git config
+        run: |
+          git config user.name "${GITHUB_ACTOR}"
+          git config user.email "${GITHUB_ACTOR}"
+
+      - name: Package install
+        run: pnpm install --frozen-lockfile
+
+      - name: Update version
+        run: pnpm version patch --no-git-tag-version
+
+      - name: Get version
+        id: get_version
+        run: |
+          CURRENT_VERSION=$(node -e "console.log(require('./package.json').version)")
+          echo "version=$CURRENT_VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Commit version
+        run: |
+          git switch release
+          git add .
+          git commit -m "chore: update version"
+          git tag v${{ steps.get_version.outputs.version }}
+          git push origin release --tags
+
+      - name: Publish package
+        run: pnpm run -w release
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.PACKAGE_GITHUB_TOKEN }}
+
+      - name: Create release
+        uses: release-drafter/release-drafter@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: "v${{ steps.get_version.outputs.version }}"
+        with:
+          tag: ${{ env.RELEASE_TAG }}
+          name: Release ${{ env.RELEASE_TAG }}
+          version: ${{ env.RELEASE_TAG }}
+          publish: true

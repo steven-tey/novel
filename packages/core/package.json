@@ -1,8 +1,8 @@
 {
-  "name": "novel",
-  "version": "0.1.22",
-  "description": "Notion-style WYSIWYG editor with AI-powered autocompletions",
-  "license": "Apache-2.0",
+  "name": "@sheinc/novel",
+  "version": "0.1.29",
+  "description": "Notion-style WYSIWYG editor with AI-powered autocompletion",
+  "license": "UNLICENSED",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -76,14 +76,10 @@
     "tsup": "^7.2.0",
     "typescript": "^4.9.4"
   },
-  "author": "Steven Tey <stevensteel97@gmail.com>",
   "homepage": "https://novel.sh",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/steven-tey/novel.git"
-  },
-  "bugs": {
-    "url": "https://github.com/steven-tey/novel/issues"
+    "url": "git+https://github.com/sheinc/novel.git"
   },
   "keywords": [
     "ai",
@@ -92,5 +88,9 @@
     "markdown",
     "nextjs",
     "react"
-  ]
+  ],
+  "publishConfig": {
+    "access": "restricted",
+    "registry": "https://npm.pkg.github.com/sheinc"
+  }
 }
