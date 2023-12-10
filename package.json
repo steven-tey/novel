@@ -69,5 +69,10 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sheinc/novel.git"
+  },
+  "release": {
+    "branches": [
+      "master"
+    ]
   }
 }
