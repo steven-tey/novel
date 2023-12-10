@@ -43,7 +43,7 @@ jobs:
           git commit -m "chore: release"
           git push origin HEAD:${GITHUB_REF}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PACKAGE_GITHUB_TOKEN }}
 
       - name: Publish package
         run: pnpm run release
