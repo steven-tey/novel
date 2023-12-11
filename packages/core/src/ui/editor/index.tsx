@@ -114,7 +114,7 @@ export default function Editor({
         complete(
           getPrevText(e.editor, {
             chars: 5000,
-          })
+          }),
         );
         // complete(e.editor.storage.markdown.getMarkdown());
         va.track("Autocomplete Shortcut Used");
