@@ -13,7 +13,6 @@ import Highlight from "@tiptap/extension-highlight";
 import SlashCommand from "./slash-command";
 import { InputRule } from "@tiptap/core";
 import UploadImagesPlugin from "@/ui/editor/plugins/upload-images";
-import UpdatedImage from "./updated-image";
 import CustomKeymap from "./custom-keymap";
 import DragAndDrop from "./drag-and-drop";
 
@@ -75,7 +74,7 @@ export const defaultExtensions = [
 
             tr.insert(start - 1, this.type.create(attributes)).delete(
               tr.mapping.map(start),
-              tr.mapping.map(end)
+              tr.mapping.map(end),
             );
           },
         }),
@@ -93,16 +92,25 @@ export const defaultExtensions = [
     },
   }),
   TiptapImage.extend({
+    HTMLAttributes: {
+      class: "novel-rounded-lg novel-border novel-border-stone-200",
+    },
+    addAttributes() {
+      return {
+        ...this.parent?.(),
+        width: {
+          default: null,
+        },
+        height: {
+          default: null,
+        },
+      };
+    },
     addProseMirrorPlugins() {
       return [UploadImagesPlugin()];
     },
   }).configure({
     allowBase64: true,
-    HTMLAttributes: {
-      class: "novel-rounded-lg novel-border novel-border-stone-200",
-    },
-  }),
-  UpdatedImage.configure({
     HTMLAttributes: {
       class: "novel-rounded-lg novel-border novel-border-stone-200",
     },
