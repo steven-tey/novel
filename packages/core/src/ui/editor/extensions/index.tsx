@@ -1,7 +1,7 @@
 import StarterKit from "@tiptap/starter-kit";
 import HorizontalRule from "@tiptap/extension-horizontal-rule";
 import TiptapLink from "@tiptap/extension-link";
-import TiptapImage from "@tiptap/extension-image";
+// import TiptapImage from "@tiptap/extension-image";
 import Placeholder from "@tiptap/extension-placeholder";
 import TiptapUnderline from "@tiptap/extension-underline";
 import TextStyle from "@tiptap/extension-text-style";
@@ -10,9 +10,9 @@ import TaskItem from "@tiptap/extension-task-item";
 import TaskList from "@tiptap/extension-task-list";
 import { Markdown } from "tiptap-markdown";
 import Highlight from "@tiptap/extension-highlight";
-import SlashCommand from "./slash-command";
+// import SlashCommand from "./slash-command";
 import { InputRule } from "@tiptap/core";
-import UploadImagesPlugin from "@/ui/editor/plugins/upload-images";
+// import UploadImagesPlugin from "@/ui/editor/plugins/upload-images";
 import CustomKeymap from "./custom-keymap";
 import DragAndDrop from "./drag-and-drop";
 
@@ -91,30 +91,31 @@ export const defaultExtensions = [
         "novel-text-stone-400 novel-underline novel-underline-offset-[3px] hover:novel-text-stone-600 novel-transition-colors novel-cursor-pointer",
     },
   }),
-  TiptapImage.extend({
-    HTMLAttributes: {
-      class: "novel-rounded-lg novel-border novel-border-stone-200",
-    },
-    addAttributes() {
-      return {
-        ...this.parent?.(),
-        width: {
-          default: null,
-        },
-        height: {
-          default: null,
-        },
-      };
-    },
-    addProseMirrorPlugins() {
-      return [UploadImagesPlugin()];
-    },
-  }).configure({
-    allowBase64: true,
-    HTMLAttributes: {
-      class: "novel-rounded-lg novel-border novel-border-stone-200",
-    },
-  }),
+  // Expect TiptapImage to be is explicitly set from the extensions(not as defaultExtensions)
+  // TiptapImage.extend({
+  //   HTMLAttributes: {
+  //     class: "novel-rounded-lg novel-border novel-border-stone-200",
+  //   },
+  //   addAttributes() {
+  //     return {
+  //       ...this.parent?.(),
+  //       width: {
+  //         default: null,
+  //       },
+  //       height: {
+  //         default: null,
+  //       },
+  //     };
+  //   },
+  //   addProseMirrorPlugins() {
+  //     return [UploadImagesPlugin()];
+  //   },
+  // }).configure({
+  //   allowBase64: true,
+  //   HTMLAttributes: {
+  //     class: "novel-rounded-lg novel-border novel-border-stone-200",
+  //   },
+  // }),
   Placeholder.configure({
     placeholder: ({ node }) => {
       if (node.type.name === "heading") {
@@ -124,7 +125,8 @@ export const defaultExtensions = [
     },
     includeChildren: true,
   }),
-  SlashCommand,
+  // Expect SlashCommand to be is explicitly set from the extensions(not as defaultExtensions)
+  // SlashCommand,
   TiptapUnderline,
   TextStyle,
   Color,
