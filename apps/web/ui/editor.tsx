@@ -1,10 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { Editor as NovelEditor } from "novel";
+import { Editor as NovelEditor, createSlashCommand } from "novel";
 
 export default function Editor() {
   const [saveStatus, setSaveStatus] = useState("Saved");
+
+  const slashCommandExtension = createSlashCommand({
+    sugggestionItems: [],
+  });
 
   return (
     <div className="relative w-full max-w-screen-lg">
@@ -15,6 +19,7 @@ export default function Editor() {
         onUpdate={() => {
           setSaveStatus("Unsaved");
         }}
+        extensions={[slashCommandExtension]}
         onDebouncedUpdate={() => {
           setSaveStatus("Saving...");
           // Simulate a delay in saving.
