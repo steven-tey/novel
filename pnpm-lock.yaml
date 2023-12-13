@@ -316,6 +316,18 @@ importers:
       '@tiptap/extension-placeholder':
         specifier: 2.0.3
         version: 2.0.3(@tiptap/core@2.1.7)(@tiptap/pm@2.1.7)
+      '@tiptap/extension-table':
+        specifier: ^2.1.13
+        version: 2.1.13(@tiptap/core@2.1.7)(@tiptap/pm@2.1.7)
+      '@tiptap/extension-table-cell':
+        specifier: ^2.1.13
+        version: 2.1.13(@tiptap/core@2.1.7)
+      '@tiptap/extension-table-header':
+        specifier: ^2.1.13
+        version: 2.1.13(@tiptap/core@2.1.7)
+      '@tiptap/extension-table-row':
+        specifier: ^2.1.13
+        version: 2.1.13(@tiptap/core@2.1.7)
       '@tiptap/extension-task-item':
         specifier: ^2.1.7
         version: 2.1.7(@tiptap/core@2.1.7)(@tiptap/pm@2.1.7)
@@ -364,6 +376,9 @@ importers:
       ai:
         specifier: ^2.2.11
         version: 2.2.11(react@18.2.0)(solid-js@1.7.11)(svelte@4.2.0)(vue@3.3.4)
+      classnames:
+        specifier: ^2.3.2
+        version: 2.3.2
       clsx:
         specifier: ^1.2.1
         version: 1.2.1
@@ -2102,6 +2117,40 @@ packages:
       '@tiptap/core': 2.1.7(@tiptap/pm@2.1.7)
     dev: false
 
+  /@tiptap/extension-table-cell@2.1.13(@tiptap/core@2.1.7):
+    resolution: {integrity: sha512-30pyVt2PxGAk8jmsXKxDheql8K/xIRA9FiDo++kS2Kr6Y7I42/kNPQttJ2W+Q1JdRJvedNfQtziQfKWDRLLCNA==}
+    peerDependencies:
+      '@tiptap/core': ^2.0.0
+    dependencies:
+      '@tiptap/core': 2.1.7(@tiptap/pm@2.1.7)
+    dev: false
+
+  /@tiptap/extension-table-header@2.1.13(@tiptap/core@2.1.7):
+    resolution: {integrity: sha512-FwIV5iso5kmpu01QyvrPCjJqZfqxRTjtjMsDyut2uIgx9v5TXk0V5XvMWobx435ANIDJoGTYCMRlIqcgtyqwAQ==}
+    peerDependencies:
+      '@tiptap/core': ^2.0.0
+    dependencies:
+      '@tiptap/core': 2.1.7(@tiptap/pm@2.1.7)
+    dev: false
+
+  /@tiptap/extension-table-row@2.1.13(@tiptap/core@2.1.7):
+    resolution: {integrity: sha512-27Mb9/oYbiLd+/BUFMhQzRIqMd2Z5j1BZMYsktwtDG8vGdYVlaW257UVaoNR9TmiXyIzd3Dh1mOil8G35+HRHg==}
+    peerDependencies:
+      '@tiptap/core': ^2.0.0
+    dependencies:
+      '@tiptap/core': 2.1.7(@tiptap/pm@2.1.7)
+    dev: false
+
+  /@tiptap/extension-table@2.1.13(@tiptap/core@2.1.7)(@tiptap/pm@2.1.7):
+    resolution: {integrity: sha512-yMWt2LqotOsWJhLwFNo8fyTwJNLPtnk+eCUxKLlMXP23mJ/lpF+jvTihhHVVic5GqV9vLYZFU2Tn+5k/Vd5P1w==}
+    peerDependencies:
+      '@tiptap/core': ^2.0.0
+      '@tiptap/pm': ^2.0.0
+    dependencies:
+      '@tiptap/core': 2.1.7(@tiptap/pm@2.1.7)
+      '@tiptap/pm': 2.1.7
+    dev: false
+
   /@tiptap/extension-task-item@2.0.4(@tiptap/core@2.0.4)(@tiptap/pm@2.0.4):
     resolution: {integrity: sha512-0FfYWrOslDzzN7Ehnt3yBekOSH45tiB/3gzFRvGdLBUv0PiYQolUpyfHGsdNzeKYuWLF1yiacJkCeLgNDgCLDw==}
     peerDependencies:
@@ -3140,6 +3189,10 @@ packages:
   /ci-info@3.8.0:
     resolution: {integrity: sha512-eXTggHWSooYhq49F2opQhuHWgzucfF2YgODK4e1566GQs5BIfP30B0oenwBJHfWxAs2fyPB1s7Mg949zLf61Yw==}
     engines: {node: '>=8'}
+    dev: false
+
+  /classnames@2.3.2:
+    resolution: {integrity: sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==}
     dev: false
 
   /client-only@0.0.1:

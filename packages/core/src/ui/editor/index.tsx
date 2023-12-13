@@ -8,6 +8,7 @@ import useLocalStorage from "@/lib/hooks/use-local-storage";
 import { useDebouncedCallback } from "use-debounce";
 import { defaultEditorContent } from "./default-content";
 import { EditorBubbleMenu } from "./bubble-menu";
+import { TableMenu } from "./table";
 import { ImageResizer } from "./extensions/image-resizer";
 import { EditorProps } from "@tiptap/pm/view";
 import { Editor as EditorClass, Extensions } from "@tiptap/core";
@@ -131,6 +132,7 @@ export default function Editor({
       >
         {editor && <EditorBubbleMenu editor={editor} />}
         {editor?.isActive("image") && <ImageResizer editor={editor} />}
+        {editor?.isActive("table") && <TableMenu editor={editor} />}
         <EditorContent editor={editor} />
       </div>
     </NovelContext.Provider>
