@@ -20,6 +20,7 @@ import {
   TextQuote,
   Code,
   CheckSquare,
+  Table,
 } from "lucide-react";
 
 interface CommandItemProps {
@@ -333,6 +334,20 @@ export const createSlashCommand = ({
       icon: <Code size={18} />,
       command: ({ editor, range }: CommandProps) =>
         editor.chain().focus().deleteRange(range).toggleCodeBlock().run(),
+    },
+    {
+      title: "Table",
+      description: "Add a table view to organize data.",
+      searchTerms: ["table"],
+      icon: <Table size={18} />,
+      command: ({ editor, range }: CommandProps) => {
+        editor
+          .chain()
+          .focus()
+          .deleteRange(range)
+          .insertTable({ rows: 3, cols: 3, withHeaderRow: true })
+          .run();
+      },
     },
   ];
   const SlashCommand = Command.configure({
