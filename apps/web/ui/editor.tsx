@@ -7,7 +7,7 @@ export default function Editor() {
   const [saveStatus, setSaveStatus] = useState("Saved");
 
   const slashCommandExtension = createSlashCommand({
-    sugggestionItems: [],
+    suggestionItems: [],
   });
 
   return (

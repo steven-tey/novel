@@ -223,11 +223,11 @@ const renderItems = () => {
 };
 
 interface CreateSlashCommandProps {
-  sugggestionItems?: CommandItemProps[];
+  suggestionItems?: CommandItemProps[];
 }
 
 export const createSlashCommand = ({
-  sugggestionItems = [],
+  suggestionItems = [],
 }: CreateSlashCommandProps) => {
   const defaultSuggestionItems: CommandItemProps[] = [
     {
@@ -353,7 +353,7 @@ export const createSlashCommand = ({
   const SlashCommand = Command.configure({
     suggestion: {
       items: ({ query }: { query: string }) => {
-        return [...defaultSuggestionItems, ...sugggestionItems].filter(
+        return [...defaultSuggestionItems, ...suggestionItems].filter(
           (item) => {
             if (typeof query === "string" && query.length > 0) {
               const search = query.toLowerCase();
