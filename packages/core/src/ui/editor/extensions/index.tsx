@@ -8,6 +8,10 @@ import TextStyle from "@tiptap/extension-text-style";
 import { Color } from "@tiptap/extension-color";
 import TaskItem from "@tiptap/extension-task-item";
 import TaskList from "@tiptap/extension-task-list";
+import Table from "@tiptap/extension-table";
+import TableCell from "@tiptap/extension-table-cell";
+import TableHeader from "@tiptap/extension-table-header";
+import TableRow from "@tiptap/extension-table-row";
 import { Markdown } from "tiptap-markdown";
 import Highlight from "@tiptap/extension-highlight";
 // import SlashCommand from "./slash-command";
@@ -124,6 +128,31 @@ export const defaultExtensions = [
       return "Press '/' for commands, or '++' for AI autocomplete...";
     },
     includeChildren: true,
+  }),
+  Table.configure({
+    HTMLAttributes: {
+      class:
+        "novel-table-fixed novel-m-0 novel-overflow-hidden novel-w-[98%] novel-mx-auto novel-my-3 novel-border-collapse",
+    },
+    allowTableNodeSelection: true,
+  }),
+  TableRow.configure({
+    HTMLAttributes: {
+      class:
+        "novel-border novel-box-border novel-min-w-[1em] novel-py-2 novel-px-1 novel-relative novel-align-top novel-text-start !novel-py-1",
+    },
+  }),
+  TableCell.configure({
+    HTMLAttributes: {
+      class:
+        "novel-border novel-box-border novel-min-w-[1em] novel-py-2 novel-px-1 novel-relative novel-align-top novel-text-start !novel-py-1",
+    },
+  }),
+  TableHeader.configure({
+    HTMLAttributes: {
+      class:
+        "novel-bg-stone-100 novel-border novel-box-border novel-min-w-[1em] novel-py-2 novel-px-1 novel-relative novel-align-top novel-text-start !novel-py-1",
+    },
   }),
   // Expect SlashCommand to be is explicitly set from the extensions(not as defaultExtensions)
   // SlashCommand,
