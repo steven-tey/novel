@@ -25,7 +25,7 @@ declare module "@tiptap/core" {
        * Set a background color
        */
       // eslint-disable-next-line no-unused-vars
-      setBackgroundColor: (attributes: { bgColor: string }) => ReturnType;
+      setHeadingBackgroundColor: (attributes: { bgColor: string }) => ReturnType;
     };
   }
 }
@@ -101,7 +101,7 @@ export const Heading = Node.create<HeadingOptions>({
 
           return commands.toggleNode(this.name, "paragraph", attributes);
         },
-      setBackgroundColor:
+      setHeadingBackgroundColor:
         (attributes) =>
         ({ commands }) => {
           if (!attributes.bgColor) {

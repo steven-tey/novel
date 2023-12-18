@@ -204,7 +204,7 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
                   key={index}
                   onClick={() => {
                     if (editor.isActive("heading")) {
-                      editor.commands.setBackgroundColor({
+                      editor.commands.setHeadingBackgroundColor({
                         bgColor: color,
                       });
                     }
