@@ -193,39 +193,42 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
             </button>
           ))}
 
-          <div className="novel-mb-1 novel-mt-2 novel-px-2 novel-text-sm novel-text-stone-500">
-            Block Background
-          </div>
-
-          {/* {HIGHLIGHT_COLORS.map(({ name, color }, index) => (
-            <button
-              key={index}
-              onClick={() => {
-                // Heading だったら bgColor を変更する
-                if (editor.isActive("heading")) {
-                  editor.commands.setBackgroundColor({
-                    bgColor: color,
-                  });
-                }
-                setIsOpen(false);
-              }}
-              className="novel-flex novel-items-center novel-justify-between novel-rounded-sm novel-px-2 novel-py-1 novel-text-sm novel-text-stone-600 hover:novel-bg-stone-100"
-              type="button"
-            >
-              <div className="novel-flex novel-items-center novel-space-x-2">
-                <div
-                  className="novel-rounded-sm novel-border novel-border-stone-200 novel-px-1 novel-py-px novel-font-medium"
-                  style={{ backgroundColor: color }}
-                >
-                  Block
-                </div>
-                <span>{name}</span>
+          {editor.isActive("heading") && (
+            <>
+              <div className="novel-mb-1 novel-mt-2 novel-px-2 novel-text-sm novel-text-stone-500">
+                Block Background
               </div>
-              {editor.isActive("heading", { bgColor: color }) && (
-                <Check className="novel-h-4 novel-w-4" />
-              )}
-            </button> */}
-          ))}
+
+              {HIGHLIGHT_COLORS.map(({ name, color }, index) => (
+                <button
+                  key={index}
+                  onClick={() => {
+                    if (editor.isActive("heading")) {
+                      editor.commands.setBackgroundColor({
+                        bgColor: color,
+                      });
+                    }
+                    setIsOpen(false);
+                  }}
+                  className="novel-flex novel-items-center novel-justify-between novel-rounded-sm novel-px-2 novel-py-1 novel-text-sm novel-text-stone-600 hover:novel-bg-stone-100"
+                  type="button"
+                >
+                  <div className="novel-flex novel-items-center novel-space-x-2">
+                    <div
+                      className="novel-rounded-sm novel-border novel-border-stone-200 novel-px-1 novel-py-px novel-font-medium"
+                      style={{ backgroundColor: color }}
+                    >
+                      Block
+                    </div>
+                    <span>{name}</span>
+                  </div>
+                  {editor.isActive("heading", { bgColor: color }) && (
+                    <Check className="novel-h-4 novel-w-4" />
+                  )}
+                </button>
+              ))}
+            </>
+          )}
         </Popover.Content>
       </div>
     </Popover.Root>
