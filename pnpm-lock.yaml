@@ -257,7 +257,7 @@ importers:
         version: 13.4.8-canary.14(react-dom@18.2.0)(react@18.2.0)
       novel:
         specifier: workspace:^
-        version: link:../..
+        version: link:../../packages/core
       openai:
         specifier: ^4.3.1
         version: 4.3.1
