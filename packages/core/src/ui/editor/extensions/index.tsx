@@ -19,6 +19,7 @@ import { InputRule } from "@tiptap/core";
 // import UploadImagesPlugin from "@/ui/editor/plugins/upload-images";
 import CustomKeymap from "./custom-keymap";
 import DragAndDrop from "./drag-and-drop";
+import { Heading } from "./custom-heading";
 
 export const defaultExtensions = [
   StarterKit.configure({
@@ -62,6 +63,13 @@ export const defaultExtensions = [
       width: 4,
     },
     gapcursor: false,
+    // NOTE: Heading should be explicitly set for changing the background color
+    heading: false,
+  }),
+  Heading.configure({
+    HTMLAttributes: {
+      class: "custom-heading",
+    },
   }),
   // patch to fix horizontal rule bug: https://github.com/ueberdosis/tiptap/pull/3859#issuecomment-1536799740
   HorizontalRule.extend({
