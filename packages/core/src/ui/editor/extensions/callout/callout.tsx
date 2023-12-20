@@ -1,16 +1,20 @@
-import { NodeViewContent, NodeViewWrapper } from "@tiptap/react";
+import { NodeViewContent, NodeViewWrapper, NodeViewProps } from "@tiptap/react";
 import EmojiPicker from "emoji-picker-react";
 import * as Popover from "@radix-ui/react-popover";
 import React, { useState } from "react";
 
-const Callout = () => {
+
+const Callout = (props: NodeViewProps) => {
   const [open, setOpen] = useState(false);
   const [emoji, setEmoji] = useState<string>("📣");
+  const isEditable = props.editor.isEditable;
 
   return (
     <NodeViewWrapper className="callout">
       <div className="novel-py-2">
         <div className="novel-bg-stone-100 novel-w-full novel-p-5 novel-flex novel-items-start">
+          {isEditable ? (
+
           <Popover.Root open={open}>
             <Popover.Trigger
               asChild
@@ -35,6 +39,9 @@ const Callout = () => {
               </Popover.Content>
             </Popover.Portal>
           </Popover.Root>
+          ) : (
+            <div className="novel-ml-2 novel-pr-3 novel-text-2xl">{emoji}</div>
+          )}
           <div className="novel-w-full novel-border">
             <NodeViewContent />
           </div>
