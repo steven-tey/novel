@@ -20,6 +20,7 @@ import { InputRule } from "@tiptap/core";
 import CustomKeymap from "./custom-keymap";
 import DragAndDrop from "./drag-and-drop";
 import { Heading } from "./custom-heading";
+import { Callout } from "./callout";
 
 export const defaultExtensions = [
   StarterKit.configure({
@@ -130,10 +131,13 @@ export const defaultExtensions = [
   // }),
   Placeholder.configure({
     placeholder: ({ node }) => {
+      if (["callout"].includes(node.type.name)) {
+        return "";
+      }
       if (node.type.name === "heading") {
         return `Heading ${node.attrs.level}`;
       }
-      return "Press '/' for commands, or '++' for AI autocomplete...";
+      return "Press '/' for commands";
     },
     includeChildren: true,
   }),
@@ -188,4 +192,5 @@ export const defaultExtensions = [
   }),
   CustomKeymap,
   DragAndDrop,
+  Callout,
 ];
