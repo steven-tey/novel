@@ -1,7 +1,7 @@
 import { cn, getUrlFromString } from '@/lib/utils';
 import { Editor } from '@tiptap/core';
 import { Check, Trash } from 'lucide-react';
-import { Dispatch, FC, SetStateAction, useEffect, useRef } from 'react';
+import { Dispatch, FC, SetStateAction, useEffect, useRef, useState } from 'react';
 
 interface LinkSelectorProps {
   editor: Editor;
@@ -12,10 +12,24 @@ interface LinkSelectorProps {
 export const LinkSelector: FC<LinkSelectorProps> = ({ editor, isOpen, setIsOpen }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Autofocus on input by default
   useEffect(() => {
     inputRef.current && inputRef.current?.focus();
   });
+
+  const handleSetLink = () => {
+    const value = inputRef.current?.value;
+    if (!value) return;
+    const url = getUrlFromString(value);
+    if (url) {
+      editor.chain().focus().setLink({ href: url }).run();
+      setIsOpen(false);
+    }
+  };
+
+  const handleUnsetLink = () => {
+    editor.chain().focus().unsetLink().run();
+    setIsOpen(false);
+  };
 
   return (
     <div className="novel-relative">
@@ -36,41 +50,31 @@ export const LinkSelector: FC<LinkSelectorProps> = ({ editor, isOpen, setIsOpen 
         </p>
       </button>
       {isOpen && (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            const input = e.currentTarget[0] as HTMLInputElement;
-            const url = getUrlFromString(input.value);
-            url && editor.chain().focus().setLink({ href: url }).run();
-            setIsOpen(false);
-          }}
-          className="novel-fixed novel-top-full novel-z-[99999] novel-mt-1 novel-flex novel-w-60 novel-overflow-hidden novel-rounded novel-border novel-border-stone-200 novel-bg-white novel-p-1 novel-shadow-xl novel-animate-in novel-fade-in novel-slide-in-from-top-1"
-        >
+        <div className="novel-fixed novel-top-full novel-z-[99999] novel-mt-1 novel-flex novel-w-60 novel-overflow-hidden novel-rounded novel-border novel-border-stone-200 novel-bg-white novel-p-1 novel-shadow-xl novel-animate-in novel-fade-in novel-slide-in-from-top-1">
           <input
             ref={inputRef}
             type="text"
             placeholder="Paste a link"
             className="novel-flex-1 novel-bg-white novel-p-1 novel-text-sm novel-outline-none"
-            defaultValue={editor.getAttributes('link').href || ''}
           />
           {editor.getAttributes('link').href ? (
             <button
               type="button"
               className="novel-flex novel-items-center novel-rounded-sm novel-p-1 novel-text-red-600 novel-transition-all hover:novel-bg-red-100 dark:hover:novel-bg-red-800"
-              onClick={() => {
-                editor.chain().focus().unsetLink().run();
-                setIsOpen(false);
-              }}
+              onClick={handleUnsetLink}
             >
               <Trash className="novel-h-4 novel-w-4" />
             </button>
           ) : (
-            <button className="novel-flex novel-items-center novel-rounded-sm novel-p-1 novel-text-stone-600 novel-transition-all hover:novel-bg-stone-100">
+            <button
+              type="button"
+              className="novel-flex novel-items-center novel-rounded-sm novel-p-1 novel-text-stone-600 novel-transition-all hover:novel-bg-stone-100"
+              onClick={handleSetLink}
+            >
               <Check className="novel-h-4 novel-w-4" />
             </button>
           )}
-        </form>
+        </div>
       )}
     </div>
   );
