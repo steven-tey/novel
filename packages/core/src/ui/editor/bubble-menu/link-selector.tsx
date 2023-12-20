@@ -1,7 +1,7 @@
-import { cn, getUrlFromString } from "@/lib/utils";
-import { Editor } from "@tiptap/core";
-import { Check, Trash } from "lucide-react";
-import { Dispatch, FC, SetStateAction, useEffect, useRef } from "react";
+import { cn, getUrlFromString } from '@/lib/utils';
+import { Editor } from '@tiptap/core';
+import { Check, Trash } from 'lucide-react';
+import { Dispatch, FC, SetStateAction, useEffect, useRef } from 'react';
 
 interface LinkSelectorProps {
   editor: Editor;
@@ -9,11 +9,7 @@ interface LinkSelectorProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export const LinkSelector: FC<LinkSelectorProps> = ({
-  editor,
-  isOpen,
-  setIsOpen,
-}) => {
+export const LinkSelector: FC<LinkSelectorProps> = ({ editor, isOpen, setIsOpen }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Autofocus on input by default
@@ -32,12 +28,9 @@ export const LinkSelector: FC<LinkSelectorProps> = ({
       >
         <p className="novel-text-base">↗</p>
         <p
-          className={cn(
-            "novel-underline novel-decoration-stone-400 novel-underline-offset-4",
-            {
-              "novel-text-blue-500": editor.isActive("link"),
-            }
-          )}
+          className={cn('novel-underline novel-decoration-stone-400 novel-underline-offset-4', {
+            'novel-text-blue-500': editor.isActive('link'),
+          })}
         >
           Link
         </p>
@@ -46,6 +39,7 @@ export const LinkSelector: FC<LinkSelectorProps> = ({
         <form
           onSubmit={(e) => {
             e.preventDefault();
+            e.stopPropagation();
             const input = e.currentTarget[0] as HTMLInputElement;
             const url = getUrlFromString(input.value);
             url && editor.chain().focus().setLink({ href: url }).run();
@@ -58,9 +52,9 @@ export const LinkSelector: FC<LinkSelectorProps> = ({
             type="text"
             placeholder="Paste a link"
             className="novel-flex-1 novel-bg-white novel-p-1 novel-text-sm novel-outline-none"
-            defaultValue={editor.getAttributes("link").href || ""}
+            defaultValue={editor.getAttributes('link').href || ''}
           />
-          {editor.getAttributes("link").href ? (
+          {editor.getAttributes('link').href ? (
             <button
               type="button"
               className="novel-flex novel-items-center novel-rounded-sm novel-p-1 novel-text-red-600 novel-transition-all hover:novel-bg-red-100 dark:hover:novel-bg-red-800"
