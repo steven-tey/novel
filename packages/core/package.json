@@ -57,6 +57,7 @@
     "ai": "^2.2.11",
     "classnames": "^2.3.2",
     "clsx": "^1.2.1",
+    "emoji-picker-react": "^4.5.16",
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
     "eventsource-parser": "^0.1.0",
