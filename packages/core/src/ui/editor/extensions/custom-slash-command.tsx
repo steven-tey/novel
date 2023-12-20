@@ -349,6 +349,20 @@ export const createSlashCommand = ({
           .run();
       },
     },
+    {
+      title: "Callout",
+      description: "Callout",
+      searchTerms: ["callout"],
+      icon: <Text size={18} />,
+      command: ({ editor, range }: CommandProps) => {
+        editor
+          .chain()
+          .focus()
+          .deleteRange(range)
+          .toggleNode("callout", "paragraph")
+          .run();
+      },
+    },
   ];
   const SlashCommand = Command.configure({
     suggestion: {
