@@ -9,6 +9,15 @@ export const Callout = Node.create<{}>({
 
   content: "inline*",
 
+  addAttributes() {
+    return {
+      emoji: {
+        default: "📣",
+        rendered: false,
+      },
+    };
+  },
+
   parseHTML() {
     return [
       {
