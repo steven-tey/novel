@@ -28,6 +28,7 @@ export default function Editor({
   debounceDuration = 750,
   storageKey = "novel__content",
   disableLocalStorage = false,
+  autofocus = false
 }: {
   /**
    * The API route to use for the OpenAI completion API.
@@ -81,6 +82,11 @@ export default function Editor({
    * Defaults to false.
    */
   disableLocalStorage?: boolean;
+  /**
+   * autofocus: you can force the cursor to jump in the editor on initialization.
+   * Defaults to false.
+   */
+  autofocus?: boolean	| Number | 'start' | 'end'	| 'all' | null;
 }) {
   const [content, setContent] = useLocalStorage(storageKey, defaultValue);
 
@@ -123,7 +129,7 @@ export default function Editor({
         debouncedUpdates(e);
       }
     },
-    autofocus: "end",
+    autofocus
   });
 
   const { complete, completion, isLoading, stop } = useCompletion({
