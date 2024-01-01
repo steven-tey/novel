@@ -86,7 +86,7 @@ export default function Editor({
    * autofocus: you can force the cursor to jump in the editor on initialization.
    * Defaults to false.
    */
-  autofocus?: boolean	| Number | 'start' | 'end'	| 'all' | null;
+  autofocus?: boolean	| Number | 'start' | 'end' | 'all' | null;
 }) {
   const [content, setContent] = useLocalStorage(storageKey, defaultValue);
 
