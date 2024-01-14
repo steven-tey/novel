@@ -23,8 +23,8 @@ export default function Editor({
   defaultValue = defaultEditorContent,
   extensions = [],
   editorProps = {},
-  onUpdate = () => {},
-  onDebouncedUpdate = () => {},
+  onUpdate = () => { },
+  onDebouncedUpdate = () => { },
   debounceDuration = 750,
   storageKey = "novel__content",
   disableLocalStorage = false,
@@ -130,10 +130,24 @@ export default function Editor({
     id: "novel",
     api: completionApi,
     onFinish: (_prompt, completion) => {
-      editor?.commands.setTextSelection({
-        from: editor.state.selection.from - completion.length,
-        to: editor.state.selection.from,
-      });
+      editor?.chain()
+        .setTextSelection({
+          from: editor.state.selection.from - completion.length,
+          to: editor.state.selection.from,
+        })
+        .focus()
+        .insertContent(completion,
+          {
+            parseOptions: {
+              preserveWhitespace: false,
+            }
+          }
+        )
+        .setTextSelection({
+          from: editor.state.selection.from - completion.length,
+          to: editor.state.selection.from,
+        })
+        .run();
     },
     onError: (err) => {
       toast.error(err.message);
@@ -149,7 +163,15 @@ export default function Editor({
   useEffect(() => {
     const diff = completion.slice(prev.current.length);
     prev.current = completion;
-    editor?.commands.insertContent(diff);
+
+    if (diff) {
+      editor?.commands.insertContent(
+        {
+          type: 'text',
+          text: diff ?? '',
+        }
+      )
+    }
   }, [isLoading, editor, completion]);
 
   useEffect(() => {
