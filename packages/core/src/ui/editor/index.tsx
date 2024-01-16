@@ -29,6 +29,7 @@ export default function Editor({
   debounceDuration = 750,
   storageKey = 'novel__content',
   disableLocalStorage = false,
+  autofocus = 'end',
   setEditor = () => {},
   imageUploader = () => null,
   videoUploader = () => null,
@@ -85,6 +86,11 @@ export default function Editor({
    * Defaults to false.
    */
   disableLocalStorage?: boolean;
+  /**
+   * autofocus: you can force the cursor to jump in the editor on initialization.
+   * Defaults to end.
+   */
+  autofocus?: boolean | 'start' | 'end' | 'all' | null;
   setEditor?: (editor?: EditorClass) => void | Promise<void>;
   imageUploader?: (file: File) => null | Promise<string>;
   videoUploader?: (file: File) => null | Promise<string>;
@@ -131,7 +137,7 @@ export default function Editor({
         debouncedUpdates(e);
       }
     },
-    autofocus: 'end',
+    autofocus,
   });
 
   const { complete, completion, isLoading, stop } = useCompletion({
