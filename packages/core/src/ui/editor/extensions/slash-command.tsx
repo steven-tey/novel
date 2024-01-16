@@ -77,8 +77,8 @@ const Command = Extension.create({
 const getSuggestionItems = ({ query }: { query: string }) => {
   return [
     {
-      title: "Continue writing",
-      description: "Use AI to expand your thoughts.",
+      title: "Scattr Ai Help",
+      description: "Use our ai for better completion",
       searchTerms: ["gpt"],
       icon: <Magic className="novel-w-7" />,
     },
