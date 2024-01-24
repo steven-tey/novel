@@ -136,4 +136,4 @@ Here's how you can contribute:
 
 ## License
 
-Licensed under the [Apache-2.0 license](https://github.com/steven-tey/novel/blob/main/LICENSE.md).
+Licensed under the [Apache-2.0 license](https://github.com/steven-tey/novel/blob/main/LICENSE).
