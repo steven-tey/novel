@@ -142,7 +142,7 @@ export default function Editor({
 
     onInit(editor);
     setInitialized(true);
-  }, [editor, initialized, onInit]);
+  });
   const { complete, completion, isLoading, stop } = useCompletion({
     id: "novel",
     api: completionApi,

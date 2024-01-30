@@ -16734,7 +16734,7 @@ function Editor2({
       return;
     onInit(editor);
     setInitialized(true);
-  }, [editor, initialized, onInit]);
+  });
   const { complete, completion, isLoading, stop } = useCompletion2({
     id: "novel",
     api: completionApi,
