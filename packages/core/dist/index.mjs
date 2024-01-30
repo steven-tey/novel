@@ -16743,6 +16743,7 @@ function Editor2({
   });
   const prev = useRef4("");
   useEffect5(() => {
+    console.log("initialize effect", editor, initialized, onInit);
     if (!editor || initialized)
       return;
     onInit(editor);

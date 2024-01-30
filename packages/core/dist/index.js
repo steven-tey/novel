@@ -16740,6 +16740,7 @@ function Editor2({
   });
   const prev = (0, import_react11.useRef)("");
   (0, import_react11.useEffect)(() => {
+    console.log("initialize effect", editor, initialized, onInit);
     if (!editor || initialized)
       return;
     onInit(editor);

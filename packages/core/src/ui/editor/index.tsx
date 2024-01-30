@@ -154,12 +154,13 @@ export default function Editor({
   const prev = useRef("");
 
   useEffect(() => {
+    console.log("initialize effect", editor, initialized, onInit)
     if (!editor || initialized) return;
 
     onInit(editor);
     setInitialized(true);
   }, [editor, initialized, onInit]);
-  
+
   // Insert chunks of the generated text
   useEffect(() => {
     const diff = completion.slice(prev.current.length);
