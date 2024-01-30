@@ -133,7 +133,16 @@ export default function Editor({
     },
     autofocus: "end",
   });
+  console.log("editor", editor);
+  console.log("initialized", initialized);
+  console.log("onInit", onInit);
+  useEffect(() => {
+    console.log("initialize effect", editor, initialized, onInit)
+    if (!editor || initialized) return;
 
+    onInit(editor);
+    setInitialized(true);
+  }, [editor, initialized, onInit]);
   const { complete, completion, isLoading, stop } = useCompletion({
     id: "novel",
     api: completionApi,
@@ -153,13 +162,7 @@ export default function Editor({
 
   const prev = useRef("");
 
-  useEffect(() => {
-    console.log("initialize effect", editor, initialized, onInit)
-    if (!editor || initialized) return;
 
-    onInit(editor);
-    setInitialized(true);
-  }, [editor, initialized, onInit]);
 
   // Insert chunks of the generated text
   useEffect(() => {

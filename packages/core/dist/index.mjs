@@ -16725,6 +16725,13 @@ function Editor2({
     },
     autofocus: "end"
   });
+  useEffect5(() => {
+    console.log("initialize effect", editor, initialized, onInit);
+    if (!editor || initialized)
+      return;
+    onInit(editor);
+    setInitialized(true);
+  }, [editor, initialized, onInit]);
   const { complete, completion, isLoading, stop } = useCompletion2({
     id: "novel",
     api: completionApi,
@@ -16742,13 +16749,6 @@ function Editor2({
     }
   });
   const prev = useRef4("");
-  useEffect5(() => {
-    console.log("initialize effect", editor, initialized, onInit);
-    if (!editor || initialized)
-      return;
-    onInit(editor);
-    setInitialized(true);
-  }, [editor, initialized, onInit]);
   useEffect5(() => {
     const diff3 = completion.slice(prev.current.length);
     prev.current = completion;

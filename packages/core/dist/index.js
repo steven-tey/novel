@@ -16722,6 +16722,13 @@ function Editor2({
     },
     autofocus: "end"
   });
+  (0, import_react11.useEffect)(() => {
+    console.log("initialize effect", editor, initialized, onInit);
+    if (!editor || initialized)
+      return;
+    onInit(editor);
+    setInitialized(true);
+  }, [editor, initialized, onInit]);
   const { complete, completion, isLoading, stop } = (0, import_react13.useCompletion)({
     id: "novel",
     api: completionApi,
@@ -16739,13 +16746,6 @@ function Editor2({
     }
   });
   const prev = (0, import_react11.useRef)("");
-  (0, import_react11.useEffect)(() => {
-    console.log("initialize effect", editor, initialized, onInit);
-    if (!editor || initialized)
-      return;
-    onInit(editor);
-    setInitialized(true);
-  }, [editor, initialized, onInit]);
   (0, import_react11.useEffect)(() => {
     const diff3 = completion.slice(prev.current.length);
     prev.current = completion;
