@@ -16,6 +16,7 @@ import { ImageResizer } from "./extensions/image-resizer";
 import { EditorProps } from "@tiptap/pm/view";
 import { Editor as EditorClass, Extensions } from "@tiptap/core";
 import { NovelContext } from "./provider";
+import { on } from "events";
 
 export default function Editor({
   completionApi = "/api/generate",
@@ -23,6 +24,7 @@ export default function Editor({
   defaultValue = defaultEditorContent,
   extensions = [],
   editorProps = {},
+  onInit = () => {},
   onUpdate = () => {},
   onDebouncedUpdate = () => {},
   debounceDuration = 750,
@@ -54,6 +56,12 @@ export default function Editor({
    * Defaults to {}.
    */
   editorProps?: EditorProps;
+    /**
+   * A callback function that is called whenever the editor is initialized.
+   * Defaults to () => {}.
+   */
+  // eslint-disable-next-line no-unused-vars
+  onInit?: (editor?: EditorClass) => void | Promise<void>;
   /**
    * A callback function that is called whenever the editor is updated.
    * Defaults to () => {}.
@@ -94,6 +102,7 @@ export default function Editor({
       setContent(json);
     }
   }, debounceDuration);
+  const [initialized, setInitialized] = useState(false);
 
   const editor = useEditor({
     extensions: [...defaultExtensions, ...extensions],
@@ -126,6 +135,12 @@ export default function Editor({
     autofocus: "end",
   });
 
+  useEffect(() => {
+    if (!editor || initialized) return;
+
+    onInit(editor);
+    setInitialized(true);
+  });
   const { complete, completion, isLoading, stop } = useCompletion({
     id: "novel",
     api: completionApi,
@@ -144,6 +159,8 @@ export default function Editor({
   });
 
   const prev = useRef("");
+
+
 
   // Insert chunks of the generated text
   useEffect(() => {
