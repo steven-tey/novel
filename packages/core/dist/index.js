@@ -16722,11 +16722,7 @@ function Editor2({
     },
     autofocus: "end"
   });
-  console.log("editor", editor);
-  console.log("initialized", initialized);
-  console.log("onInit", onInit);
   (0, import_react11.useEffect)(() => {
-    console.log("initialize effect", editor, initialized, onInit);
     if (!editor || initialized)
       return;
     onInit(editor);
