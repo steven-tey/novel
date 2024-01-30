@@ -134,11 +134,8 @@ export default function Editor({
     },
     autofocus: "end",
   });
-  console.log("editor", editor);
-  console.log("initialized", initialized);
-  console.log("onInit", onInit);
+
   useEffect(() => {
-    console.log("initialize effect", editor, initialized, onInit)
     if (!editor || initialized) return;
 
     onInit(editor);
