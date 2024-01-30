@@ -43,9 +43,9 @@ next-env.d.ts
 # intellij
 .idea
 
-dist/**
-/dist
-packages/*/dist
+# dist/**
+# /dist
+# packages/*/dist
 
 .turbo
 /test-results/
