@@ -129,8 +129,8 @@ importers:
         specifier: ^6.3.7
         version: 6.3.7
       tiptap-markdown:
-        specifier: ^0.8.2
-        version: 0.8.2(@tiptap/core@2.0.4)
+        specifier: ^0.8.9
+        version: 0.8.9(@tiptap/core@2.0.4)
       typescript:
         specifier: 4.9.5
         version: 4.9.5
@@ -6628,6 +6628,18 @@ packages:
       '@tiptap/core': ^2.0.3
     dependencies:
       '@tiptap/core': 2.1.7(@tiptap/pm@2.1.7)
+      '@types/markdown-it': 12.2.3
+      markdown-it: 13.0.1
+      markdown-it-task-lists: 2.1.1
+      prosemirror-markdown: 1.11.2
+    dev: false
+
+  /tiptap-markdown@0.8.9(@tiptap/core@2.0.4):
+    resolution: {integrity: sha512-TykSDcsb94VFCzPbSSTfB6Kh2HJi7x4B9J3Jm9uSOAMPy8App1YfrLW/rEJLajTxwMVhWBdOo4nidComSlLQsQ==}
+    peerDependencies:
+      '@tiptap/core': ^2.0.3
+    dependencies:
+      '@tiptap/core': 2.0.4(@tiptap/pm@2.0.4)
       '@types/markdown-it': 12.2.3
       markdown-it: 13.0.1
       markdown-it-task-lists: 2.1.1
