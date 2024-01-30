@@ -216,7 +216,6 @@ export default function Editor({
     const value = disableLocalStorage ? defaultValue : content;
 
     if (value) {
-      onInit(editor);
       editor.commands.setContent(value);
       setHydrated(true);
     }
