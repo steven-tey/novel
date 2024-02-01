@@ -30,6 +30,7 @@ export default function Editor({
   debounceDuration = 750,
   storageKey = "novel__content",
   disableLocalStorage = false,
+  chatWithSelectionCallback = () => {},
 }: {
   /**
    * The API route to use for the OpenAI completion API.
@@ -89,6 +90,10 @@ export default function Editor({
    * Defaults to false.
    */
   disableLocalStorage?: boolean;
+  /**
+   * Callback to open chat with the selected text
+   */
+  chatWithSelectionCallback?: (selection: string) => void;
 }) {
   const [content, setContent] = useLocalStorage(storageKey, defaultValue);
 
@@ -230,7 +235,7 @@ export default function Editor({
         }}
         className={className}
       >
-        {editor && <EditorBubbleMenu editor={editor} />}
+        {editor && <EditorBubbleMenu editor={editor} chatWithSelectionCallback={chatWithSelectionCallback}/>}
         {editor?.isActive("image") && <ImageResizer editor={editor} />}
         <EditorContent editor={editor} />
       </div>

@@ -2,7 +2,7 @@ import { JSONContent } from '@tiptap/react';
 import { EditorProps } from '@tiptap/pm/view';
 import { Extensions, Editor as Editor$1 } from '@tiptap/core';
 
-declare function Editor({ completionApi, className, defaultValue, extensions, editorProps, onInit, onUpdate, onDebouncedUpdate, debounceDuration, storageKey, disableLocalStorage, }: {
+declare function Editor({ completionApi, className, defaultValue, extensions, editorProps, onInit, onUpdate, onDebouncedUpdate, debounceDuration, storageKey, disableLocalStorage, chatWithSelectionCallback, }: {
     /**
      * The API route to use for the OpenAI completion API.
      * Defaults to "/api/generate".
@@ -58,6 +58,10 @@ declare function Editor({ completionApi, className, defaultValue, extensions, ed
      * Defaults to false.
      */
     disableLocalStorage?: boolean;
+    /**
+     * Callback to open chat with the selected text
+     */
+    chatWithSelectionCallback?: (selection: string) => void;
 }): JSX.Element;
 
 export { Editor };

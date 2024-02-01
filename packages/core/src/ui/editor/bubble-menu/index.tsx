@@ -6,6 +6,7 @@ import {
   UnderlineIcon,
   StrikethroughIcon,
   CodeIcon,
+  MessageSquarePlusIcon,
 } from "lucide-react";
 import { NodeSelector } from "./node-selector";
 import { ColorSelector } from "./color-selector";
@@ -23,6 +24,18 @@ type EditorBubbleMenuProps = Omit<BubbleMenuProps, "children">;
 
 export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
   const items: BubbleMenuItem[] = [
+    {
+      name: "chat",
+      isActive: () => false, // TODO
+      command: () => {
+        const selection = props.editor?.state.selection;
+        if (selection && props.chatWithSelectionCallback) {
+          const selectedText = props.editor?.state.doc.textBetween(selection.from, selection.to, ' ');
+          if (selectedText) props.chatWithSelectionCallback(selectedText)
+        }
+      },
+      icon: MessageSquarePlusIcon,
+    },
     {
       name: "bold",
       isActive: () => props.editor.isActive("bold"),
@@ -89,14 +102,14 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
       {...bubbleMenuProps}
       className="novel-flex novel-w-fit novel-divide-x novel-divide-stone-200 novel-rounded novel-border novel-border-stone-200 novel-bg-white novel-shadow-xl"
     >
-      <button
+      {/* <button
         key={'chatWith'}
         onClick={() => console.log('chatWith')}
         className="novel-p-2 novel-text-stone-600 hover:novel-bg-stone-100 active:novel-bg-stone-200"
         type="button">
           Chat
-      </button>
-      <NodeSelector
+      </button> */}
+      {/* <NodeSelector
         editor={props.editor}
         isOpen={isNodeSelectorOpen}
         setIsOpen={() => {
@@ -113,7 +126,7 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
           setIsColorSelectorOpen(false);
           setIsNodeSelectorOpen(false);
         }}
-      />
+      /> */}
       <div className="novel-flex">
         {items.map((item, index) => (
           <button
