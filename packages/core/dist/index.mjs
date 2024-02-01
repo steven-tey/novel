@@ -1698,20 +1698,23 @@ var EditorBubbleMenu = (props) => {
     __spreadProps(__spreadValues({}, bubbleMenuProps), {
       className: "novel-flex novel-w-fit novel-divide-x novel-divide-stone-200 novel-rounded novel-border novel-border-stone-200 novel-bg-white novel-shadow-xl",
       children: [
-        /* @__PURE__ */ jsx5("div", { className: "novel-flex", children: items.map((item, index) => /* @__PURE__ */ jsx5(
+        /* @__PURE__ */ jsx5("div", { className: "novel-flex", children: items.map((item, index) => /* @__PURE__ */ jsxs5(
           "button",
           {
             onClick: item.command,
             className: "novel-p-2 novel-text-stone-600 hover:novel-bg-stone-100 active:novel-bg-stone-200",
             type: "button",
-            children: /* @__PURE__ */ jsx5(
-              item.icon,
-              {
-                className: cn("novel-h-4 novel-w-4", {
-                  "novel-text-blue-500": item.isActive()
-                })
-              }
-            )
+            children: [
+              /* @__PURE__ */ jsx5(
+                item.icon,
+                {
+                  className: cn("novel-h-4 novel-w-4", {
+                    "novel-text-blue-500": item.isActive()
+                  })
+                }
+              ),
+              item.name === "chat" && /* @__PURE__ */ jsx5("span", { className: "ml-2", children: "Start a chat..." })
+            ]
           },
           index
         )) }),
