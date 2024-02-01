@@ -135,12 +135,15 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
             className="novel-p-2 novel-text-stone-600 hover:novel-bg-stone-100 active:novel-bg-stone-200"
             type="button"
           >
-            <item.icon
-              className={cn("novel-h-4 novel-w-4", {
-                "novel-text-blue-500": item.isActive(),
-              })}
-            />
-            {item.name === "chat" && <span className="ml-2">Start a chat...</span>}
+            <div className="flex items-center"> {/* Ensure horizontal layout inside the button */}
+              <item.icon
+                className={cn("novel-h-4 novel-w-4", {
+                  "novel-text-blue-500": item.isActive(),
+                  "bg-green-300": item.name === "chat",
+                })}
+              />
+              {item.name === "chat" && <span className="ml-2">Start a chat...</span>}
+            </div>
           </button>
         ))}
       </div>
