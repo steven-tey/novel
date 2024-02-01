@@ -142,7 +142,7 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
                   "bg-green-300": item.name === "chat",
                 })}
               />
-              {item.name === "chat" && <span className="ml-2">Start a chat...</span>}
+              {item.name === "chat" && <span className="ml-2">Chat</span>}
             </div>
           </button>
         ))}

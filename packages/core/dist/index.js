@@ -1722,7 +1722,7 @@ var EditorBubbleMenu = (props) => {
                   })
                 }
               ),
-              item.name === "chat" && /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: "ml-2", children: "Start a chat..." })
+              item.name === "chat" && /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: "ml-2", children: "Chat" })
             ] })
           },
           index
