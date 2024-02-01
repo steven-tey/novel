@@ -140,6 +140,7 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
                 "novel-text-blue-500": item.isActive(),
               })}
             />
+            {item.name === "chat" && <span className="ml-2">Start a chat...</span>}
           </button>
         ))}
       </div>
