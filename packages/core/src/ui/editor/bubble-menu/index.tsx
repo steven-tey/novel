@@ -89,6 +89,13 @@ export const EditorBubbleMenu: FC<EditorBubbleMenuProps> = (props) => {
       {...bubbleMenuProps}
       className="novel-flex novel-w-fit novel-divide-x novel-divide-stone-200 novel-rounded novel-border novel-border-stone-200 novel-bg-white novel-shadow-xl"
     >
+      <button
+        key={'chatWith'}
+        onClick={() => console.log('chatWith')}
+        className="novel-p-2 novel-text-stone-600 hover:novel-bg-stone-100 active:novel-bg-stone-200"
+        type="button">
+          Chat
+      </button>
       <NodeSelector
         editor={props.editor}
         isOpen={isNodeSelectorOpen}
