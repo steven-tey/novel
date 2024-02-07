@@ -1,7 +1,13 @@
 import { cn, getUrlFromString } from "@/lib/utils";
-import { Editor, useEditor } from "@novel/headless";
+import { useEditor } from "novel";
 import { Check, Trash } from "lucide-react";
-import { Dispatch, FC, SetStateAction, useEffect, useRef } from "react";
+import {
+  type Dispatch,
+  type FC,
+  type SetStateAction,
+  useEffect,
+  useRef,
+} from "react";
 
 interface LinkSelectorProps {
   isOpen: boolean;
@@ -60,7 +66,7 @@ export const LinkSelector: FC<LinkSelectorProps> = ({ isOpen, setIsOpen }) => {
               type="button"
               className="flex items-center rounded-sm p-1 text-red-600 transition-all hover:bg-red-100 dark:hover:bg-red-800"
               onClick={() => {
-                editor.chain().focus().unsetLink().run();
+                editor.chain().focus().link().run();
                 setIsOpen(false);
               }}
             >

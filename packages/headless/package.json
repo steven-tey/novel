@@ -1,11 +1,33 @@
 {
-  "name": "@novel/headless",
+  "name": "novel",
   "version": "0.1.19",
   "description": "Notion-style WYSIWYG editor with AI-powered autocompletions",
   "license": "Apache-2.0",
-  "main": "src/index.ts",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./extensions": {
+      "types": "./dist/extensions.d.ts",
+      "import": "./dist/extensions.js",
+      "require": "./dist/extensions.cjs"
+    },
+    "./plugins": {
+      "types": "./dist/plugins.d.ts",
+      "import": "./dist/plugins.js",
+      "require": "./dist/plugins.cjs"
+    }
+  },
   "scripts": {
-    "check-types": "tsc --noEmit"
+    "dev": "tsup --watch",
+    "check-types": "tsc --noEmit",
+    "build": "tsup --clean"
   },
   "peerDependencies": {
     "react": "^18.2.0"
@@ -32,10 +54,6 @@
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
     "@upstash/ratelimit": "^0.4.4",
-    "@vercel/analytics": "^1.0.2",
-    "@vercel/blob": "^0.9.3",
-    "@vercel/kv": "^0.2.2",
-    "ai": "^2.2.11",
     "clsx": "^1.2.1",
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
@@ -50,7 +68,7 @@
     "tailwind-merge": "^1.14.0",
     "tippy.js": "^6.3.7",
     "tiptap-markdown": "^0.8.2",
-    "typescript": "4.9.5",
+    "tunnel-rat": "^0.1.2",
     "use-debounce": "^9.0.4"
   },
   "devDependencies": {
@@ -61,7 +79,7 @@
     "tailwind-config": "workspace:*",
     "tsconfig": "workspace:*",
     "tsup": "^7.2.0",
-    "typescript": "^4.9.4"
+    "typescript": "^5.3.3"
   },
   "author": "Steven Tey <stevensteel97@gmail.com>",
   "homepage": "https://novel.sh",

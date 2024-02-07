@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { EditorBubbleItem, useEditor } from "@novel/headless";
+import { EditorBubbleItem, useEditor } from "novel";
 import {
   BoldIcon,
   ItalicIcon,

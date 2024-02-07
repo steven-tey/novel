@@ -1,5 +1,5 @@
-import { BubbleMenu, BubbleMenuProps, isNodeSelection, useCurrentEditor } from "@tiptap/react";
-import React, { ReactNode, useMemo } from "react";
+import { BubbleMenu, type BubbleMenuProps, isNodeSelection, useCurrentEditor } from "@tiptap/react";
+import React, { type ReactNode, useMemo } from "react";
 export interface EditorBubbleProps extends Omit<BubbleMenuProps, "editor"> {
   children: ReactNode;
 }

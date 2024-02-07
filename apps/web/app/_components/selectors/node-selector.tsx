@@ -11,8 +11,8 @@ import {
   CheckSquare,
 } from "lucide-react";
 import * as Popover from "@radix-ui/react-popover";
-import { Dispatch, FC, SetStateAction } from "react";
-import { EditorBubbleItem, useEditor } from "@novel/headless";
+import type { Dispatch, FC, SetStateAction } from "react";
+import { EditorBubbleItem, useEditor } from "novel";
 
 interface NodeSelectorProps {
   isOpen: boolean;

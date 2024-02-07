@@ -1,4 +1,4 @@
-import StarterKit, { StarterKitOptions } from "@tiptap/starter-kit";
+import StarterKit from "@tiptap/starter-kit";
 import HorizontalRule from "@tiptap/extension-horizontal-rule";
 import TiptapLink from "@tiptap/extension-link";
 import TiptapImage from "@tiptap/extension-image";
@@ -13,7 +13,9 @@ import UpdatedImage from "./updated-image";
 import CustomKeymap from "./custom-keymap";
 import DragAndDrop from "./drag-and-drop";
 
-// export const stylingOptionsExtensions =
+import { TaskItem } from "@tiptap/extension-task-item";
+import { TaskList } from "@tiptap/extension-task-list";
+import { InputRule } from "@tiptap/core";
 
 const simpleExtensions = [
   Placeholder.configure({
@@ -38,6 +40,17 @@ const simpleExtensions = [
   }),
   CustomKeymap,
   DragAndDrop,
-];
+] as const;
 
-export { simpleExtensions };
+export {
+  simpleExtensions,
+  StarterKit,
+  HorizontalRule,
+  TiptapLink,
+  TiptapImage,
+  UpdatedImage,
+  TaskItem,
+  TaskList,
+  InputRule,
+};
+export * from "./slash-command";

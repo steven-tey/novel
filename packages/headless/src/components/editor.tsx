@@ -1,15 +1,13 @@
-import React, { Children, useEffect } from "react";
-import { EditorProvider, EditorProviderProps } from "@tiptap/react";
-import { Provider, atom, useAtomValue, useSetAtom } from "jotai";
-import { AnyExtension } from "@tiptap/core";
+import React, { useMemo } from "react";
+import { EditorProvider, type EditorProviderProps } from "@tiptap/react";
+import { Provider } from "jotai";
 import { simpleExtensions } from "../extensions";
+import { startImageUpload } from "../plugins/upload-images";
 
 interface EditorProps {
   children: React.ReactNode;
   className?: string;
 }
-
-export const extensionsAtom = atom<AnyExtension[]>([]);
 
 export const Editor = ({ children }: EditorProps) => {
   return <Provider>{children}</Provider>;
@@ -20,38 +18,54 @@ export const EditorContent = ({
   children,
   ...rest
 }: EditorProps & EditorProviderProps) => {
-  const extensions = useAtomValue(extensionsAtom);
+  const extensions = useMemo(() => {
+    return [...simpleExtensions, ...(rest.extensions ?? [])];
+  }, [rest.extensions]);
+
   return (
     <div className={className}>
-      {extensions.length !== 0 && (
-        <EditorProvider {...rest} extensions={extensions}>
-          {children}
-        </EditorProvider>
-      )}
+      <EditorProvider {...rest} extensions={extensions}>
+        {children}
+      </EditorProvider>
     </div>
   );
 };
 
-interface EditorExtensionProps {
-  extension: AnyExtension;
-}
-export const EditorExension = ({ extension }: EditorExtensionProps) => {
-  useEffect(() => {}, [extension]);
-  return null;
-};
-
-export const EditorExtenions = ({ children }: EditorProps) => {
-  const setExtensions = useSetAtom(extensionsAtom);
-  useEffect(() => {
-    const extensions = Children.toArray(children).map((child) => {
-      if (React.isValidElement(child)) {
-        const extension = child.props.extension;
-        return extension;
+export const defaultEditorProps: EditorProviderProps["editorProps"] = {
+  handleDOMEvents: {
+    keydown: (_view, event) => {
+      // prevent default event listeners from firing when slash command is active
+      if (["ArrowUp", "ArrowDown", "Enter"].includes(event.key)) {
+        const slashCommand = document.querySelector("#slash-command");
+        if (slashCommand) {
+          return true;
+        }
       }
-      return null;
-    }) as AnyExtension[];
-    setExtensions([...extensions, ...simpleExtensions]);
-  }, [children, setExtensions]);
+    },
+  },
+  handlePaste: (view, event) => {
+    if (event.clipboardData && event.clipboardData.files && event.clipboardData.files[0]) {
+      event.preventDefault();
+      const file = event.clipboardData.files[0];
+      const pos = view.state.selection.from;
 
-  return <>{children}</>;
+      startImageUpload(file, view, pos);
+      return true;
+    }
+    return false;
+  },
+  handleDrop: (view, event, _slice, moved) => {
+    if (!moved && event.dataTransfer && event.dataTransfer.files && event.dataTransfer.files[0]) {
+      event.preventDefault();
+      const file = event.dataTransfer.files[0];
+      const coordinates = view.posAtCoords({
+        left: event.clientX,
+        top: event.clientY,
+      });
+      // here we deduct 1 from the pos or else the image will create an extra node
+      startImageUpload(file, view, coordinates?.pos || 0 - 1);
+      return true;
+    }
+    return false;
+  },
 };

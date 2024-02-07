@@ -27,13 +27,7 @@ function nodeDOMAtCoords(coords: { x: number; y: number }) {
       (elem: Element) =>
         elem.parentElement?.matches?.(".ProseMirror") ||
         elem.matches(
-          [
-            "li",
-            "p:not(:first-child)",
-            "pre",
-            "blockquote",
-            "h1, h2, h3, h4, h5, h6",
-          ].join(", ")
+          ["li", "p:not(:first-child)", "pre", "blockquote", "h1, h2, h3, h4, h5, h6"].join(", ")
         )
     );
 }
@@ -63,9 +57,7 @@ function DragHandle(options: DragHandleOptions) {
     const nodePos = nodePosAtDOM(node, view);
     if (nodePos == null || nodePos < 0) return;
 
-    view.dispatch(
-      view.state.tr.setSelection(NodeSelection.create(view.state.doc, nodePos))
-    );
+    view.dispatch(view.state.tr.setSelection(NodeSelection.create(view.state.doc, nodePos)));
 
     const slice = view.state.selection.content();
     const { dom, text } = __serializeForClipboard(view, slice);
@@ -95,9 +87,7 @@ function DragHandle(options: DragHandleOptions) {
     const nodePos = nodePosAtDOM(node, view);
     if (!nodePos) return;
 
-    view.dispatch(
-      view.state.tr.setSelection(NodeSelection.create(view.state.doc, nodePos))
-    );
+    view.dispatch(view.state.tr.setSelection(NodeSelection.create(view.state.doc, nodePos)));
   }
 
   let dragHandleElement: HTMLElement | null = null;
@@ -196,9 +186,7 @@ function DragHandle(options: DragHandleOptions) {
   });
 }
 
-interface DragAndDropOptions {}
-
-const DragAndDrop = Extension.create<DragAndDropOptions>({
+const DragAndDrop = Extension.create({
   name: "dragAndDrop",
 
   addProseMirrorPlugins() {

@@ -1,28 +1,39 @@
 "use client";
 import { Github } from "@/ui/icons";
 import Menu from "@/ui/menu";
-import { Editor, EditorBubble } from "@novel/headless";
 import {
+  defaultEditorProps,
+  Editor,
+  EditorBubble,
+  EditorCommand,
+  EditorCommandItem,
   EditorContent,
-  EditorExension,
-  EditorExtenions,
-} from "@novel/headless/src/components/editor";
-import { starterKit } from "./_components/StarterKitExtension";
+} from "novel";
 import { useState } from "react";
 import { defaultEditorContent } from "./content";
-import { horizontalRule } from "./_components/HorizontalRules";
 import {
   taskItem,
   taskList,
   tiptapImage,
   tiptapLink,
   updatedImage,
-} from "./_components/Others";
+} from "./_components/extensions/others";
 import { NodeSelector } from "./_components/selectors/node-selector";
 import { LinkSelector } from "./_components/selectors/link-selector";
 import { ColorSelector } from "./_components/selectors/color-selector";
 import TextButtons from "./_components/selectors/text-buttons";
+import { starterKit } from "./_components/extensions/starter-kit";
+import { horizontalRule } from "./_components/extensions/horizontal-rules";
 
+const extensions = [
+  starterKit,
+  horizontalRule,
+  tiptapLink,
+  tiptapImage,
+  updatedImage,
+  taskList,
+  taskItem,
+];
 export default function Page() {
   const [saveStatus, setSaveStatus] = useState("Saved");
 
@@ -41,24 +52,24 @@ export default function Page() {
       </a>
       <Menu />
       <Editor>
-        <EditorExtenions>
-          <EditorExension extension={starterKit} />
-          <EditorExension extension={horizontalRule} />
-          <EditorExension extension={tiptapLink} />
-          <EditorExension extension={tiptapImage} />
-          <EditorExension extension={updatedImage} />
-          <EditorExension extension={taskList} />
-          <EditorExension extension={taskItem} />
-        </EditorExtenions>
-
         <div className="relative w-full max-w-screen-lg">
           <div className="absolute right-5 top-5 z-10 mb-5 rounded-lg bg-stone-100 px-2 py-1 text-sm text-stone-400">
             {saveStatus}
           </div>
           <EditorContent
+            extensions={[
+              starterKit,
+              horizontalRule,
+              tiptapLink,
+              tiptapImage,
+              updatedImage,
+              taskList,
+              taskItem,
+            ]}
             content={defaultEditorContent}
             className="relative min-h-[500px] w-full max-w-screen-lg border-stone-200 bg-white sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:shadow-lg"
             editorProps={{
+              ...defaultEditorProps,
               attributes: {
                 class: `prose-lg prose-stone dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full`,
               },
@@ -74,6 +85,9 @@ export default function Page() {
             //   }, 500);
             // }}
           >
+            <EditorCommand>
+              <EditorCommandItem />
+            </EditorCommand>
             <EditorBubble
               tippyOptions={{
                 onHidden: () => {

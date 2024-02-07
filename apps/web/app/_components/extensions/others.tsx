@@ -1,10 +1,11 @@
-import UploadImagesPlugin from "@novel/headless/src/plugins/upload-images";
-import TiptapLink from "@tiptap/extension-link";
-import TiptapImage from "@tiptap/extension-image";
-import UpdatedImage from "@novel/headless/src/extensions/updated-image";
-import TaskItem from "@tiptap/extension-task-item";
-import TaskList from "@tiptap/extension-task-list";
-
+import {
+  TiptapImage,
+  TiptapLink,
+  UpdatedImage,
+  TaskList,
+  TaskItem,
+} from "novel/extensions";
+import { UploadImagesPlugin } from "novel/plugins";
 export const tiptapLink = TiptapLink.configure({
   HTMLAttributes: {
     class:

@@ -1,7 +1,7 @@
 import { Check, ChevronDown } from "lucide-react";
-import { Dispatch, FC, SetStateAction } from "react";
+import type { Dispatch, FC, SetStateAction } from "react";
 import * as Popover from "@radix-ui/react-popover";
-import { useEditor } from "@novel/headless";
+import { useEditor } from "novel";
 export interface BubbleColorMenuItem {
   name: string;
   color: string;

@@ -1,4 +1,4 @@
-import StarterKit from "@tiptap/starter-kit";
+import { StarterKit } from "novel/extensions";
 
 export const starterKit = StarterKit.configure({
   bulletList: {
