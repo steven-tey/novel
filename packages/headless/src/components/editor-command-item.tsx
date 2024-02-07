@@ -10,7 +10,7 @@ interface EditorCommandItemProps {
 
 export const EditorCommandItem = forwardRef<
   HTMLDivElement,
-  EditorCommandItemProps & Omit<(typeof CommandItem)["propTypes"], "ref">
+  EditorCommandItemProps & ComponentPropsWithoutRef<typeof CommandItem>
 >(({ children, ...rest }, ref) => {
   const { editor } = useCurrentEditor();
 
