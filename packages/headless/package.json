@@ -55,6 +55,7 @@
     "@types/react-dom": "18.0.11",
     "@upstash/ratelimit": "^0.4.4",
     "clsx": "^1.2.1",
+    "cmdk": "^0.2.1",
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
     "eventsource-parser": "^0.1.0",

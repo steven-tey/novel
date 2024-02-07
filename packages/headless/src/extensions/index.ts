@@ -42,10 +42,32 @@ const simpleExtensions = [
   DragAndDrop,
 ] as const;
 
+const Horizontal = HorizontalRule.extend({
+  addInputRules() {
+    return [
+      new InputRule({
+        find: /^(?:---|—-|___\s|\*\*\*\s)$/,
+        handler: ({ state, range }) => {
+          const attributes = {};
+
+          const { tr } = state;
+          const start = range.from;
+          let end = range.to;
+
+          tr.insert(start - 1, this.type.create(attributes)).delete(
+            tr.mapping.map(start),
+            tr.mapping.map(end)
+          );
+        },
+      }),
+    ];
+  },
+});
+
 export {
   simpleExtensions,
   StarterKit,
-  HorizontalRule,
+  Horizontal as HorizontalRule,
   TiptapLink,
   TiptapImage,
   UpdatedImage,

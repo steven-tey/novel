@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { EditorProvider, type EditorProviderProps } from "@tiptap/react";
-import { Provider } from "jotai";
+import { Provider, createStore } from "jotai";
 import { simpleExtensions } from "../extensions";
 import { startImageUpload } from "../plugins/upload-images";
 
@@ -9,8 +9,10 @@ interface EditorProps {
   className?: string;
 }
 
+export const novelStore = createStore();
+
 export const Editor = ({ children }: EditorProps) => {
-  return <Provider>{children}</Provider>;
+  return <Provider store={novelStore}>{children}</Provider>;
 };
 
 export const EditorContent = ({

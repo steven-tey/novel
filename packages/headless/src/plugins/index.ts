@@ -1,1 +1,1 @@
-export { UploadImagesPlugin } from "./upload-images";
+export { UploadImagesPlugin, startImageUpload, handleImageUpload } from "./upload-images";

@@ -4,6 +4,7 @@ import { ReactRenderer } from "@tiptap/react";
 import tippy from "tippy.js";
 
 import { EditorCommandOut } from "../components/editor-command";
+import type { ReactNode } from "react";
 
 const Command = Extension.create({
   name: "slash-command",
@@ -57,6 +58,7 @@ const renderItems = () => {
           getReferenceClientRect: props.clientRect,
         });
     },
+
     onKeyDown: (props: { event: KeyboardEvent }) => {
       if (props.event.key === "Escape") {
         popup?.[0].hide();
@@ -73,5 +75,15 @@ const renderItems = () => {
     },
   };
 };
+
+export interface SuggestionItem {
+  title: string;
+  description: string;
+  icon: ReactNode;
+  searchTerms?: string[];
+  command?: (props: { editor: Editor; range: Range }) => void;
+}
+
+export const createSuggestionItems = (items: SuggestionItem[]) => items;
 
 export { Command, renderItems };

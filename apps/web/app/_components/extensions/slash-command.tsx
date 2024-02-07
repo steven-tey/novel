@@ -1,9 +1,9 @@
 import { Command, renderItems } from "novel/extensions";
-import React from "react";
+import { querySuggestions } from "../command/suggestions";
 
-const SlashCommand = Command.configure({
+export const slashCommand = Command.configure({
   suggestion: {
-    items: [],
+    items: querySuggestions,
     render: renderItems,
   },
 });

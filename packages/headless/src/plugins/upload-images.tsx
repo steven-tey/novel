@@ -1,6 +1,5 @@
 //@ts-nocheck
-
-import { BlobResult } from "@vercel/blob";
+//TODO: remove ts-nocheck from here some day
 import { toast } from "sonner";
 import { EditorState, Plugin, PluginKey } from "@tiptap/pm/state";
 import { Decoration, DecorationSet, EditorView } from "@tiptap/pm/view";
@@ -119,7 +118,7 @@ export const handleImageUpload = (file: File) => {
       }).then(async (res) => {
         // Successfully uploaded image
         if (res.status === 200) {
-          const { url } = (await res.json()) as BlobResult;
+          const { url } = (await res.json()) as any;
           // preload the image
           let image = new Image();
           image.src = url;

@@ -17,13 +17,16 @@ import {
   tiptapImage,
   tiptapLink,
   updatedImage,
-} from "./_components/extensions/others";
+  horizontalRule,
+  slashCommand,
+  starterKit,
+} from "./_components/extensions";
 import { NodeSelector } from "./_components/selectors/node-selector";
 import { LinkSelector } from "./_components/selectors/link-selector";
 import { ColorSelector } from "./_components/selectors/color-selector";
 import TextButtons from "./_components/selectors/text-buttons";
-import { starterKit } from "./_components/extensions/starter-kit";
-import { horizontalRule } from "./_components/extensions/horizontal-rules";
+import { suggestionItems } from "./_components/command/suggestions";
+import LoadingCircle from "@/ui/icons/loading-circle";
 
 const extensions = [
   starterKit,
@@ -33,6 +36,7 @@ const extensions = [
   updatedImage,
   taskList,
   taskItem,
+  slashCommand,
 ];
 export default function Page() {
   const [saveStatus, setSaveStatus] = useState("Saved");
@@ -57,15 +61,7 @@ export default function Page() {
             {saveStatus}
           </div>
           <EditorContent
-            extensions={[
-              starterKit,
-              horizontalRule,
-              tiptapLink,
-              tiptapImage,
-              updatedImage,
-              taskList,
-              taskItem,
-            ]}
+            extensions={extensions}
             content={defaultEditorContent}
             className="relative min-h-[500px] w-full max-w-screen-lg border-stone-200 bg-white sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:shadow-lg"
             editorProps={{
@@ -85,8 +81,34 @@ export default function Page() {
             //   }, 500);
             // }}
           >
-            <EditorCommand>
-              <EditorCommandItem />
+            <EditorCommand className="z-50 h-auto max-h-[330px]  w-72 overflow-y-auto rounded-md border border-stone-200 bg-white px-1 py-2 shadow-md transition-all">
+              {suggestionItems.map((item, index) => {
+                return (
+                  <EditorCommandItem
+                    value={item.title}
+                    onSelect={(val) => {
+                      console.log(val);
+                    }}
+                    className={`flex w-full items-center space-x-2 rounded-md px-2 py-1 text-left text-sm text-stone-900 hover:bg-stone-100 aria-selected:bg-stone-100 `}
+                    key={item.title}
+                  >
+                    <div className="flex h-10 w-10 items-center justify-center rounded-md border border-stone-200 bg-white">
+                      {/* {item.title === "Continue writing" && isLoading ? (
+                        <LoadingCircle />
+                      ) : (
+                        item.icon
+                      )} */}
+                      {item.icon}
+                    </div>
+                    <div>
+                      <p className="font-medium">{item.title}</p>
+                      <p className="text-xs text-stone-500">
+                        {item.description}
+                      </p>
+                    </div>
+                  </EditorCommandItem>
+                );
+              })}
             </EditorCommand>
             <EditorBubble
               tippyOptions={{

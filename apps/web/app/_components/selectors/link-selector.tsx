@@ -66,7 +66,7 @@ export const LinkSelector: FC<LinkSelectorProps> = ({ isOpen, setIsOpen }) => {
               type="button"
               className="flex items-center rounded-sm p-1 text-red-600 transition-all hover:bg-red-100 dark:hover:bg-red-800"
               onClick={() => {
-                editor.chain().focus().link().run();
+                editor.chain().focus().unsetLink().run();
                 setIsOpen(false);
               }}
             >
