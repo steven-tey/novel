@@ -7,11 +7,12 @@ import {
   StrikethroughIcon,
   CodeIcon,
 } from "lucide-react";
+import type { SelectorItem } from "./node-selector";
 
 export const TextButtons = () => {
   const { editor } = useEditor();
   if (!editor) return null;
-  const items = [
+  const items: SelectorItem[] = [
     {
       name: "bold",
       isActive: (editor) => editor.isActive("bold"),
@@ -48,7 +49,9 @@ export const TextButtons = () => {
       {items.map((item, index) => (
         <EditorBubbleItem
           key={index}
-          onSelect={item.command}
+          onSelect={(editor) => {
+            item.command(editor);
+          }}
           className="p-2 text-stone-600 hover:bg-stone-100 active:bg-stone-200"
           type="button"
         >

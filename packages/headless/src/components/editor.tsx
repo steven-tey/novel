@@ -4,7 +4,7 @@ import { Provider, createStore } from "jotai";
 import { simpleExtensions } from "../extensions";
 import { startImageUpload } from "../plugins/upload-images";
 
-interface EditorProps {
+export interface EditorProps {
   children: React.ReactNode;
   className?: string;
 }
