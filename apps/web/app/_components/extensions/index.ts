@@ -6,11 +6,15 @@ import {
   TaskItem,
   HorizontalRule,
   StarterKit,
+  Placeholder,
 } from "novel/extensions";
 import { UploadImagesPlugin } from "novel/plugins";
 
 import { Command, renderItems } from "novel/extensions";
 import { querySuggestions } from "../command/suggestions";
+
+//You can overwrite the placeholder with your own configuration
+export const placeholder = Placeholder;
 
 export const tiptapLink = TiptapLink.configure({
   HTMLAttributes: {

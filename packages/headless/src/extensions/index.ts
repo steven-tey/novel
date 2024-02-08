@@ -12,21 +12,23 @@ import Highlight from "@tiptap/extension-highlight";
 import UpdatedImage from "./updated-image";
 import CustomKeymap from "./custom-keymap";
 import DragAndDrop from "./drag-and-drop";
+import { ImageResizer } from "./image-resizer";
 
 import { TaskItem } from "@tiptap/extension-task-item";
 import { TaskList } from "@tiptap/extension-task-list";
 import { InputRule } from "@tiptap/core";
 
+const PlaceholderExtension = Placeholder.configure({
+  placeholder: ({ node }) => {
+    if (node.type.name === "heading") {
+      return `Heading ${node.attrs.level}`;
+    }
+    return "Press '/' for commands, or '++' for AI autocomplete...";
+  },
+  includeChildren: true,
+});
+
 const simpleExtensions = [
-  Placeholder.configure({
-    placeholder: ({ node }) => {
-      if (node.type.name === "heading") {
-        return `Heading ${node.attrs.level}`;
-      }
-      return "Press '/' for commands, or '++' for AI autocomplete...";
-    },
-    includeChildren: true,
-  }),
   TiptapUnderline,
   TextStyle,
   Color,
@@ -65,6 +67,7 @@ const Horizontal = HorizontalRule.extend({
 });
 
 export {
+  PlaceholderExtension as Placeholder,
   simpleExtensions,
   StarterKit,
   Horizontal as HorizontalRule,
@@ -74,5 +77,6 @@ export {
   TaskItem,
   TaskList,
   InputRule,
+  ImageResizer,
 };
 export * from "./slash-command";

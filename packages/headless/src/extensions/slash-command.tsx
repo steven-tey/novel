@@ -1,4 +1,4 @@
-import { Editor, type Range, Extension } from "@tiptap/core";
+import { type Editor, type Range, Extension } from "@tiptap/core";
 import Suggestion from "@tiptap/suggestion";
 import { ReactRenderer } from "@tiptap/react";
 import tippy from "tippy.js";

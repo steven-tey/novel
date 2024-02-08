@@ -1,8 +1,9 @@
 import Moveable from "react-moveable";
-import useEditor from "../hooks/useEditor";
+import { useEditor } from "../components";
 
 export const ImageResizer = () => {
   const { editor } = useEditor();
+
   if (!editor?.isActive("image")) return null;
 
   const updateMediaSize = () => {

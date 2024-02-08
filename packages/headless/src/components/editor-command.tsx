@@ -1,20 +1,26 @@
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { useLayoutEffect, type ReactNode, useEffect, useRef, useState } from "react";
 import tunnel from "tunnel-rat";
-import type { SuggestionItem } from "../extensions";
 import { novelStore } from "./editor";
-import { Command } from "cmdk";
+import { Command, CommandEmpty } from "cmdk";
+import type { Range } from "@tiptap/core";
 
 const t = tunnel();
 
 export const queryAtom = atom("");
+export const rangeAtom = atom<Range | null>(null);
 
-export const EditorCommandOut = ({ query }: { query: string }) => {
+export const EditorCommandOut = ({ query, range }: { query: string; range: Range }) => {
   const setQuery = useSetAtom(queryAtom, { store: novelStore });
+  const setRange = useSetAtom(rangeAtom, { store: novelStore });
 
   useEffect(() => {
     setQuery(query);
   }, [query, setQuery]);
+
+  useEffect(() => {
+    setRange(range);
+  }, [range, setRange]);
 
   useEffect(() => {
     const navigationKeys = ["ArrowUp", "ArrowDown", "Enter"];
@@ -57,8 +63,6 @@ export const updateScrollView = (container: HTMLElement, item: HTMLElement) => {
 interface EditorCommandProps {
   children: ReactNode;
   className: string;
-  shouldFilter?: boolean;
-  filter?: (query: string, item: SuggestionItem) => Boolean;
 }
 
 export const EditorCommand = ({ children, className }: EditorCommandProps) => {
