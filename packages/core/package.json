@@ -18,7 +18,6 @@
     }
   },
   "scripts": {
-    "build": "tsup",
     "check-types": "tsc --noEmit"
   },
   "peerDependencies": {
