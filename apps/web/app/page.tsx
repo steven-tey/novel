@@ -103,70 +103,63 @@ export default function Page() {
                 </EditorCommandItem>
               ))}
             </EditorCommand>
-            {isAISelectorOpen && (
-              <EditorBubble
-                className="flex w-fit divide-x divide-stone-200 rounded border border-stone-200 bg-white shadow-xl"
-                tippyOptions={{
-                  placement: "bottom",
-                  onHidden: () => {
-                    setIsAISelectorOpen(false);
-                  },
-                }}
-              >
-                <AISelector />
-              </EditorBubble>
-            )}
 
-            {!isAISelectorOpen && (
-              <EditorBubble
-                tippyOptions={{
-                  onHidden: () => {
-                    setIsColorSelectorOpen(false);
-                    setIsNodeSelectorOpen(false);
-                    setIsLinkSelectorOpen(false);
-                  },
-                }}
-                className="flex w-fit divide-x divide-stone-200 rounded border border-stone-200 bg-white shadow-xl"
-              >
-                <Button
-                  variant="ghost"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setIsAISelectorOpen(!isAISelectorOpen);
-                  }}
-                  className="h-[36px] items-center justify-between gap-2"
-                >
-                  <Magic className="h-5 w-5" /> Ask AI
-                </Button>
+            <EditorBubble
+              tippyOptions={{
+                placement: isAISelectorOpen ? "bottom-start" : "top",
+                onHidden: () => {
+                  setIsColorSelectorOpen(false);
+                  setIsNodeSelectorOpen(false);
+                  setIsLinkSelectorOpen(false);
+                },
+              }}
+              className="flex w-fit divide-x divide-stone-200 rounded border border-stone-200 bg-white shadow-xl"
+            >
+              {isAISelectorOpen && (
+                <AISelector onBlur={() => setIsAISelectorOpen(false)} />
+              )}
+              {!isAISelectorOpen && (
+                <>
+                  <Button
+                    variant="ghost"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsAISelectorOpen(!isAISelectorOpen);
+                    }}
+                    className="h-[36px] items-center justify-between gap-2"
+                  >
+                    <Magic className="h-5 w-5" /> Ask AI
+                  </Button>
 
-                <NodeSelector
-                  isOpen={isNodeSelectorOpen}
-                  setIsOpen={() => {
-                    setIsNodeSelectorOpen(!isNodeSelectorOpen);
-                    setIsColorSelectorOpen(false);
-                    setIsLinkSelectorOpen(false);
-                  }}
-                />
-                <LinkSelector
-                  isOpen={isLinkSelectorOpen}
-                  setIsOpen={() => {
-                    setIsLinkSelectorOpen(!isLinkSelectorOpen);
-                    setIsColorSelectorOpen(false);
-                    setIsNodeSelectorOpen(false);
-                  }}
-                />
+                  <NodeSelector
+                    isOpen={isNodeSelectorOpen}
+                    setIsOpen={() => {
+                      setIsNodeSelectorOpen(!isNodeSelectorOpen);
+                      setIsColorSelectorOpen(false);
+                      setIsLinkSelectorOpen(false);
+                    }}
+                  />
+                  <LinkSelector
+                    isOpen={isLinkSelectorOpen}
+                    setIsOpen={() => {
+                      setIsLinkSelectorOpen(!isLinkSelectorOpen);
+                      setIsColorSelectorOpen(false);
+                      setIsNodeSelectorOpen(false);
+                    }}
+                  />
 
-                <TextButtons />
-                <ColorSelector
-                  isOpen={isColorSelectorOpen}
-                  setIsOpen={() => {
-                    setIsColorSelectorOpen(!isColorSelectorOpen);
-                    setIsNodeSelectorOpen(false);
-                    setIsLinkSelectorOpen(false);
-                  }}
-                />
-              </EditorBubble>
-            )}
+                  <TextButtons />
+                  <ColorSelector
+                    isOpen={isColorSelectorOpen}
+                    setIsOpen={() => {
+                      setIsColorSelectorOpen(!isColorSelectorOpen);
+                      setIsNodeSelectorOpen(false);
+                      setIsLinkSelectorOpen(false);
+                    }}
+                  />
+                </>
+              )}
+            </EditorBubble>
           </EditorContent>
         </Editor>
       </div>

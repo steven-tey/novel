@@ -1,7 +1,5 @@
 "use client";
 
-import * as React from "react";
-
 import {
   Command,
   CommandEmpty,
@@ -10,9 +8,13 @@ import {
   CommandItem,
 } from "@/components/ui/command";
 
-import Magic from "@/ui/icons/magic";
+import { useCompletion } from "ai/react";
+import { toast } from "sonner";
+import { useEditor } from "novel";
+import { getPrevText } from "novel/extensions";
+import { useEffect, useRef } from "react";
 
-const frameworks = [
+const options = [
   {
     value: "improve",
     label: "Improve writing",
@@ -23,26 +25,60 @@ const frameworks = [
   },
 ];
 
-export function AISelector() {
-  const [value, setValue] = React.useState("");
+export function AISelector({ onBlur }: { onBlur: () => void }) {
+  const { editor } = useEditor();
+
+  const { completion, complete, isLoading } = useCompletion({
+    id: "novel",
+    api: "/api/generate",
+    onResponse: (response) => {
+      if (response.status === 429) {
+        toast.error("You have reached your request limit for the day.");
+        return;
+      }
+    },
+
+    onError: (e) => {
+      toast.error(e.message);
+    },
+  });
 
   return (
-    <Command>
-      <CommandInput placeholder="Search framework..." className="h-9" />
-      <CommandEmpty>No framework found.</CommandEmpty>
-      <CommandGroup>
-        {frameworks.map((framework) => (
-          <CommandItem
-            key={framework.value}
-            value={framework.value}
-            onSelect={(currentValue) => {
-              setValue(currentValue === value ? "" : currentValue);
-            }}
-          >
-            {framework.label}
-          </CommandItem>
-        ))}
-      </CommandGroup>
-    </Command>
+    <div
+      onBlur={() => {
+        editor.chain().unsetHighlight().run();
+        onBlur();
+      }}
+    >
+      {completion}
+      <Command shouldFilter={false}>
+        <CommandInput
+          onFocus={() => {
+            editor.chain().setHighlight({ color: "#c1ecf9" }).run();
+          }}
+          autoFocus
+          placeholder="Ask AI to edit or generate..."
+          className="h-9 w-[400px]"
+        />
+        <CommandGroup>
+          {options.map((option) => (
+            <CommandItem
+              key={option.value}
+              value={option.value}
+              onSelect={(option) => {
+                if (option === "continue") {
+                  getPrevText(editor, {
+                    chars: 5000,
+                  });
+                  complete(editor.getText());
+                }
+              }}
+            >
+              {option.label}
+            </CommandItem>
+          ))}
+        </CommandGroup>
+      </Command>
+    </div>
   );
 }

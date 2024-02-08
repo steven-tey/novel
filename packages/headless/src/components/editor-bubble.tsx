@@ -7,6 +7,14 @@ export interface EditorBubbleProps extends Omit<BubbleMenuProps, "editor"> {
 
 export const EditorBubble = ({ children, tippyOptions, ...rest }: EditorBubbleProps) => {
   const { editor } = useCurrentEditor();
+  const instanceRef = useRef<Instance<Props> | null>(null);
+
+  useEffect(() => {
+    if (!instanceRef.current || !tippyOptions?.placement) return;
+
+    instanceRef.current.setProps({ placement: tippyOptions.placement });
+    instanceRef.current.popperInstance?.update();
+  }, [tippyOptions?.placement]);
 
   const bubbleMenuProps: Omit<BubbleMenuProps, "children"> = useMemo(() => {
     const shouldShow: BubbleMenuProps["shouldShow"] = ({ editor, state }) => {
@@ -26,6 +34,9 @@ export const EditorBubble = ({ children, tippyOptions, ...rest }: EditorBubblePr
     return {
       shouldShow,
       tippyOptions: {
+        onCreate: (val) => {
+          instanceRef.current = val;
+        },
         moveTransition: "transform 0.15s ease-out",
         ...tippyOptions,
       },
