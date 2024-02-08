@@ -69,7 +69,6 @@
     "eslint": "^7.32.0",
     "postcss": "^8.4.29",
     "react": "^18.2.0",
-    "tailwind-config": "workspace:*",
     "tsconfig": "workspace:*",
     "tsup": "^7.2.0",
     "typescript": "^5.3.3"

@@ -1,4 +1,4 @@
-import { cn, getUrlFromString } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { useEditor } from "novel";
 import { Check, Trash } from "lucide-react";
 import {
@@ -12,6 +12,25 @@ import {
 interface LinkSelectorProps {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
+}
+
+export function isValidUrl(url: string) {
+  try {
+    new URL(url);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+export function getUrlFromString(str: string) {
+  if (isValidUrl(str)) return str;
+  try {
+    if (str.includes(".") && !str.includes(" ")) {
+      return new URL(`https://${str}`).toString();
+    }
+  } catch (e) {
+    return null;
+  }
 }
 
 export const LinkSelector: FC<LinkSelectorProps> = ({ isOpen, setIsOpen }) => {

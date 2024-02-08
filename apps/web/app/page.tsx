@@ -11,7 +11,6 @@ import {
   EditorContent,
 } from "novel";
 import { useState } from "react";
-import { defaultEditorContent } from "./content";
 import {
   taskItem,
   taskList,
@@ -22,13 +21,17 @@ import {
   slashCommand,
   starterKit,
   placeholder,
-} from "./_components/extensions";
-import { NodeSelector } from "./_components/selectors/node-selector";
-import { LinkSelector } from "./_components/selectors/link-selector";
-import { ColorSelector } from "./_components/selectors/color-selector";
-import TextButtons from "./_components/selectors/text-buttons";
-import { suggestionItems } from "./_components/command/suggestions";
+} from "../lib/extensions";
+import { NodeSelector } from "../lib/selectors/node-selector";
+import { LinkSelector } from "../lib/selectors/link-selector";
+import { ColorSelector } from "../lib/selectors/color-selector";
+import TextButtons from "../lib/selectors/text-buttons";
+import { suggestionItems } from "../lib/suggestions";
 import { ImageResizer } from "novel/extensions";
+import { defaultEditorContent } from "@/lib/content";
+import { AISelector } from "@/lib/selectors/ai-selector";
+import Magic from "@/ui/icons/magic";
+import { Button } from "@/components/ui/button";
 
 const extensions = [
   starterKit,
@@ -47,6 +50,7 @@ export default function Page() {
   const [isNodeSelectorOpen, setIsNodeSelectorOpen] = useState(false);
   const [isColorSelectorOpen, setIsColorSelectorOpen] = useState(false);
   const [isLinkSelectorOpen, setIsLinkSelectorOpen] = useState(false);
+  const [isAISelectorOpen, setIsAISelectorOpen] = useState(false);
 
   return (
     <div className="flex min-h-screen flex-col items-center sm:px-5 sm:pt-[calc(20vh)]">
@@ -58,11 +62,11 @@ export default function Page() {
         <Github />
       </a>
       <Menu />
-      <Editor>
-        <div className="relative w-full max-w-screen-lg">
-          <div className="absolute right-5 top-5 z-10 mb-5 rounded-lg bg-stone-100 px-2 py-1 text-sm text-stone-400">
-            {saveStatus}
-          </div>
+      <div className="relative w-full max-w-screen-lg">
+        <div className="absolute right-5 top-5 z-10 mb-5 rounded-lg bg-stone-100 px-2 py-1 text-sm text-stone-400">
+          {saveStatus}
+        </div>
+        <Editor>
           <EditorContent
             extensions={extensions}
             content={defaultEditorContent}
@@ -99,46 +103,73 @@ export default function Page() {
                 </EditorCommandItem>
               ))}
             </EditorCommand>
-            <EditorBubble
-              tippyOptions={{
-                onHidden: () => {
-                  setIsColorSelectorOpen(false);
-                  setIsNodeSelectorOpen(false);
-                  setIsLinkSelectorOpen(false);
-                },
-              }}
-              className="flex w-fit divide-x divide-stone-200 rounded border border-stone-200 bg-white shadow-xl"
-            >
-              <NodeSelector
-                isOpen={isNodeSelectorOpen}
-                setIsOpen={() => {
-                  setIsNodeSelectorOpen(!isNodeSelectorOpen);
-                  setIsColorSelectorOpen(false);
-                  setIsLinkSelectorOpen(false);
+            {isAISelectorOpen && (
+              <EditorBubble
+                className="flex w-fit divide-x divide-stone-200 rounded border border-stone-200 bg-white shadow-xl"
+                tippyOptions={{
+                  placement: "bottom",
+                  onHidden: () => {
+                    setIsAISelectorOpen(false);
+                  },
                 }}
-              />
-              <LinkSelector
-                isOpen={isLinkSelectorOpen}
-                setIsOpen={() => {
-                  setIsLinkSelectorOpen(!isLinkSelectorOpen);
-                  setIsColorSelectorOpen(false);
-                  setIsNodeSelectorOpen(false);
-                }}
-              />
+              >
+                <AISelector />
+              </EditorBubble>
+            )}
 
-              <TextButtons />
-              <ColorSelector
-                isOpen={isColorSelectorOpen}
-                setIsOpen={() => {
-                  setIsColorSelectorOpen(!isColorSelectorOpen);
-                  setIsNodeSelectorOpen(false);
-                  setIsLinkSelectorOpen(false);
+            {!isAISelectorOpen && (
+              <EditorBubble
+                tippyOptions={{
+                  onHidden: () => {
+                    setIsColorSelectorOpen(false);
+                    setIsNodeSelectorOpen(false);
+                    setIsLinkSelectorOpen(false);
+                  },
                 }}
-              />
-            </EditorBubble>
+                className="flex w-fit divide-x divide-stone-200 rounded border border-stone-200 bg-white shadow-xl"
+              >
+                <Button
+                  variant="ghost"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setIsAISelectorOpen(!isAISelectorOpen);
+                  }}
+                  className="h-[36px] items-center justify-between gap-2"
+                >
+                  <Magic className="h-5 w-5" /> Ask AI
+                </Button>
+
+                <NodeSelector
+                  isOpen={isNodeSelectorOpen}
+                  setIsOpen={() => {
+                    setIsNodeSelectorOpen(!isNodeSelectorOpen);
+                    setIsColorSelectorOpen(false);
+                    setIsLinkSelectorOpen(false);
+                  }}
+                />
+                <LinkSelector
+                  isOpen={isLinkSelectorOpen}
+                  setIsOpen={() => {
+                    setIsLinkSelectorOpen(!isLinkSelectorOpen);
+                    setIsColorSelectorOpen(false);
+                    setIsNodeSelectorOpen(false);
+                  }}
+                />
+
+                <TextButtons />
+                <ColorSelector
+                  isOpen={isColorSelectorOpen}
+                  setIsOpen={() => {
+                    setIsColorSelectorOpen(!isColorSelectorOpen);
+                    setIsNodeSelectorOpen(false);
+                    setIsLinkSelectorOpen(false);
+                  }}
+                />
+              </EditorBubble>
+            )}
           </EditorContent>
-        </div>
-      </Editor>
+        </Editor>
+      </div>
     </div>
   );
 }

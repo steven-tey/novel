@@ -1,4 +1,3 @@
-import Magic from "@/ui/icons/magic";
 import {
   CheckSquare,
   Code,
@@ -16,12 +15,6 @@ import { createSuggestionItems } from "novel/extensions";
 import { startImageUpload } from "novel/plugins";
 
 export const suggestionItems = createSuggestionItems([
-  {
-    title: "Continue writing",
-    description: "Use AI to expand your thoughts.",
-    searchTerms: ["gpt"],
-    icon: <Magic className="w-7" />,
-  },
   {
     title: "Send Feedback",
     description: "Let us know how we can improve.",

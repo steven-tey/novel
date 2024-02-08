@@ -1,5 +1,6 @@
 import { BubbleMenu, type BubbleMenuProps, isNodeSelection, useCurrentEditor } from "@tiptap/react";
-import React, { type ReactNode, useMemo } from "react";
+import React, { type ReactNode, useMemo, useState, useRef, useEffect } from "react";
+import type { Instance, Props } from "tippy.js";
 export interface EditorBubbleProps extends Omit<BubbleMenuProps, "editor"> {
   children: ReactNode;
 }
@@ -35,9 +36,12 @@ export const EditorBubble = ({ children, tippyOptions, ...rest }: EditorBubblePr
   if (!editor) return null;
 
   return (
-    <BubbleMenu editor={editor} {...bubbleMenuProps}>
-      {children}
-    </BubbleMenu>
+    //We need to add this because of https://github.com/ueberdosis/tiptap/issues/2658
+    <div>
+      <BubbleMenu editor={editor} {...bubbleMenuProps}>
+        {children}
+      </BubbleMenu>
+    </div>
   );
 };
 

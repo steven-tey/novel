@@ -1,8 +1,8 @@
-import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
-import { useLayoutEffect, type ReactNode, useEffect, useRef, useState } from "react";
+import { atom, useAtom, useSetAtom } from "jotai";
+import { useEffect, useRef, type ComponentPropsWithoutRef } from "react";
 import tunnel from "tunnel-rat";
 import { novelStore } from "./editor";
-import { Command, CommandEmpty } from "cmdk";
+import { Command } from "cmdk";
 import type { Range } from "@tiptap/core";
 
 const t = tunnel();
@@ -46,38 +46,13 @@ export const EditorCommandOut = ({ query, range }: { query: string; range: Range
   return <t.Out />;
 };
 
-export const updateScrollView = (container: HTMLElement, item: HTMLElement) => {
-  const containerHeight = container.offsetHeight;
-  const itemHeight = item ? item.offsetHeight : 0;
-
-  const top = item.offsetTop;
-  const bottom = top + itemHeight;
-
-  if (top < container.scrollTop) {
-    container.scrollTop -= container.scrollTop - top + 5;
-  } else if (bottom > containerHeight + container.scrollTop) {
-    container.scrollTop += bottom - containerHeight - container.scrollTop + 5;
-  }
-};
-
-interface EditorCommandProps {
-  children: ReactNode;
-  className: string;
-}
-
-export const EditorCommand = ({ children, className }: EditorCommandProps) => {
-  const [selectedIndex, setSelectedIndex] = useState(0);
-
+export const EditorCommand = ({
+  children,
+  className,
+  ...rest
+}: ComponentPropsWithoutRef<typeof Command>) => {
   const commandListRef = useRef<HTMLDivElement>(null);
   const [query, setQuery] = useAtom(queryAtom);
-
-  useLayoutEffect(() => {
-    const container = commandListRef?.current;
-
-    const item = container?.children[selectedIndex] as HTMLElement;
-
-    if (item && container) updateScrollView(container, item);
-  }, [selectedIndex]);
 
   return (
     <t.In>
@@ -87,7 +62,7 @@ export const EditorCommand = ({ children, className }: EditorCommandProps) => {
         }}
         id='slash-command'
         className={className}
-        label='Command Menu'>
+        {...rest}>
         <Command.Input value={query} onValueChange={setQuery} style={{ display: "none" }} />
         <Command.List ref={commandListRef}>{children}</Command.List>
       </Command>

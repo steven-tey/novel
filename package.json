@@ -11,43 +11,11 @@
     "release": "turbo build && cd packages/core && npm publish && cd ../../"
   },
   "dependencies": {
-    "@radix-ui/react-popover": "^1.0.6",
-    "@types/node": "18.15.3",
-    "@types/react": "18.0.28",
-    "@types/react-dom": "18.0.11",
-    "@upstash/ratelimit": "^0.4.3",
-    "@vercel/analytics": "^1.0.1",
-    "@vercel/blob": "^0.9.3",
-    "@vercel/kv": "^0.2.2",
-    "ai": "^2.2.9",
-    "clsx": "^1.2.1",
-    "eslint": "8.36.0",
-    "eslint-config-next": "13.2.4",
-    "eventsource-parser": "^0.1.0",
-    "framer-motion": "^10.15.1",
-    "lucide-react": "^0.244.0",
-    "next": "13.4.20-canary.9",
-    "next-themes": "^0.2.1",
-    "openai-edge": "^1.2.2",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-markdown": "^8.0.7",
-    "react-moveable": "^0.54.1",
-    "sonner": "^0.7.0",
-    "tailwind-merge": "^1.14.0",
-    "tippy.js": "^6.3.7",
-    "tiptap-markdown": "^0.8.2",
-    "use-debounce": "^9.0.4"
+    "turbo": "^1.9.3"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.9",
-    "autoprefixer": "^10.4.14",
-    "eslint": "^7.32.0",
     "postcss": "^8.4.27",
     "prettier": "^2.8.8",
-    "prettier-plugin-tailwindcss": "^0.3.0",
-    "tailwindcss": "^3.3.3",
-    "tailwindcss-animate": "^1.0.6",
-    "turbo": "^1.9.3"
+    "prettier-plugin-tailwindcss": "^0.3.0"
   }
 }
