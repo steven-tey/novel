@@ -8,6 +8,7 @@ import {
   CodeIcon,
 } from "lucide-react";
 import type { SelectorItem } from "./node-selector";
+import { Button } from "@/components/ui/button";
 
 export const TextButtons = () => {
   const { editor } = useEditor();
@@ -52,14 +53,14 @@ export const TextButtons = () => {
           onSelect={(editor) => {
             item.command(editor);
           }}
-          className="p-2 text-stone-600 hover:bg-stone-100 active:bg-stone-200"
-          type="button"
         >
-          <item.icon
-            className={cn("h-4 w-4", {
-              "text-blue-500": item.isActive(editor),
-            })}
-          />
+          <Button size="icon" className="rounded-none" variant="ghost">
+            <item.icon
+              className={cn("h-4 w-4", {
+                "text-blue-500": item.isActive(editor),
+              })}
+            />
+          </Button>
         </EditorBubbleItem>
       ))}
     </div>

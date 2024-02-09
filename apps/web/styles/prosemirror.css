@@ -12,7 +12,7 @@
 .ProseMirror .is-empty::before {
   content: attr(data-placeholder);
   float: left;
-  color: var(--novel-stone-400);
+  color: hsl(var(--muted-foreground));
   pointer-events: none;
   height: 0;
 }

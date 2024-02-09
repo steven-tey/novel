@@ -38,7 +38,12 @@ const options = [
 
 //TODO: I think it makes more sense to create a custom Tiptap extension for this functionality https://tiptap.dev/docs/editor/ai/introduction
 
-export function AISelector({ onBlur }: { onBlur: () => void }) {
+interface AISelectorProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}
+
+export function AISelector({ open, onOpenChange }: AISelectorProps) {
   const { editor } = useEditor();
 
   const { completion, complete, isLoading } = useCompletion({
@@ -60,22 +65,23 @@ export function AISelector({ onBlur }: { onBlur: () => void }) {
     <div
       onBlur={() => {
         editor.chain().unsetHighlight().run();
-        onBlur();
+        onOpenChange(false);
       }}
     >
       {completion}
       <Command>
         <CommandInput
           onFocus={() => {
-            editor.chain().setHighlight({ color: "#c1ecf9" }).run();
+            editor.chain().setHighlight({ color: "#c1ecf970" }).run();
           }}
           autoFocus
           placeholder="Ask AI to edit or generate..."
-          className="h-9 w-[400px]"
+          className="w-[400px]"
         />
         <CommandGroup>
           {options.map((option) => (
             <CommandItem
+              className="px-4"
               key={option.value}
               value={option.value}
               onSelect={(option) => {

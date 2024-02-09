@@ -11,14 +11,11 @@ import {
   CheckSquare,
   type LucideIcon,
 } from "lucide-react";
-import * as Popover from "@radix-ui/react-popover";
-import type { Dispatch, FC, SetStateAction } from "react";
 import { EditorBubbleItem, useEditor } from "novel";
 
-interface NodeSelectorProps {
-  isOpen: boolean;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
-}
+import { Popover } from "@radix-ui/react-popover";
+import { PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
 
 export type SelectorItem = {
   name: string;
@@ -97,7 +94,12 @@ const items: SelectorItem[] = [
     isActive: (editor) => editor.isActive("codeBlock"),
   },
 ];
-export const NodeSelector: FC<NodeSelectorProps> = ({ isOpen, setIsOpen }) => {
+interface NodeSelectorProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}
+
+export const NodeSelector = ({ open, onOpenChange }: NodeSelectorProps) => {
   const { editor } = useEditor();
   if (!editor) return null;
   const activeItem = items.filter((item) => item.isActive(editor)).pop() ?? {
@@ -105,41 +107,36 @@ export const NodeSelector: FC<NodeSelectorProps> = ({ isOpen, setIsOpen }) => {
   };
 
   return (
-    <Popover.Root open={isOpen}>
-      <div className="relative h-full">
-        <Popover.Trigger
-          className="flex h-full items-center gap-1 whitespace-nowrap p-2 text-sm font-medium text-stone-600 hover:bg-stone-100 active:bg-stone-200"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          <span>{activeItem?.name}</span>
+    <Popover open={open} onOpenChange={onOpenChange}>
+      <PopoverTrigger
+        asChild
+        className="gap-2 rounded-none border-none hover:bg-accent focus:ring-0"
+      >
+        <Button variant="ghost" className="gap-2">
+          <span className="whitespace-nowrap text-sm">{activeItem.name}</span>
           <ChevronDown className="h-4 w-4" />
-        </Popover.Trigger>
-
-        <Popover.Content
-          align="start"
-          className="z-[99999] my-1 flex max-h-80 w-48 flex-col overflow-hidden overflow-y-auto rounded border border-stone-200 bg-white p-1 shadow-xl animate-in fade-in slide-in-from-top-1"
-        >
-          {items.map((item, index) => (
-            <EditorBubbleItem
-              key={index}
-              onSelect={(editor) => {
-                item.command(editor);
-                setIsOpen(false);
-              }}
-              className="flex items-center justify-between rounded-sm px-2 py-1 text-sm text-stone-600 hover:bg-stone-100"
-              type="button"
-            >
-              <div className="flex items-center space-x-2">
-                <div className="rounded-sm border border-stone-200 p-1">
-                  <item.icon className="h-3 w-3" />
-                </div>
-                <span>{item.name}</span>
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent sideOffset={5} align="start" className="w-48 p-1">
+        {items.map((item, index) => (
+          <EditorBubbleItem
+            key={index}
+            onSelect={(editor) => {
+              item.command(editor);
+              onOpenChange(false);
+            }}
+            className="flex cursor-pointer items-center justify-between rounded-sm px-2 py-1 text-sm hover:bg-accent"
+          >
+            <div className="flex items-center space-x-2">
+              <div className="rounded-sm border p-1">
+                <item.icon className="h-3 w-3" />
               </div>
-              {activeItem.name === item.name && <Check className="h-4 w-4" />}
-            </EditorBubbleItem>
-          ))}
-        </Popover.Content>
-      </div>
-    </Popover.Root>
+              <span>{item.name}</span>
+            </div>
+            {activeItem.name === item.name && <Check className="h-4 w-4" />}
+          </EditorBubbleItem>
+        ))}
+      </PopoverContent>
+    </Popover>
   );
 };

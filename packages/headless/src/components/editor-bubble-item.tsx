@@ -9,16 +9,16 @@ interface EditorBubbleItemProps {
 }
 
 export const EditorBubbleItem = forwardRef<
-  HTMLButtonElement,
-  EditorBubbleItemProps & Omit<ComponentPropsWithoutRef<"button">, "onSelect">
+  HTMLDivElement,
+  EditorBubbleItemProps & Omit<ComponentPropsWithoutRef<"div">, "onSelect">
 >(({ children, asChild, onSelect, ...rest }, ref) => {
   const { editor } = useCurrentEditor();
-  const Comp = asChild ? Slot : "button";
+  const Comp = asChild ? Slot : "div";
 
   if (!editor) return null;
 
   return (
-    <Comp ref={ref} type='button' {...rest} onClick={() => onSelect?.(editor)}>
+    <Comp ref={ref} {...rest} onClick={() => onSelect?.(editor)}>
       {children}
     </Comp>
   );

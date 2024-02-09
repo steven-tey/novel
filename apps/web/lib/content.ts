@@ -17,8 +17,6 @@ export const defaultEditorContent = {
               attrs: {
                 href: "https://github.com/steven-tey/novel",
                 target: "_blank",
-                class:
-                  "text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer",
               },
             },
           ],
@@ -36,8 +34,6 @@ export const defaultEditorContent = {
               attrs: {
                 href: "https://tiptap.dev/",
                 target: "_blank",
-                class:
-                  "text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer",
               },
             },
           ],
@@ -52,8 +48,6 @@ export const defaultEditorContent = {
               attrs: {
                 href: "https://sdk.vercel.ai/docs",
                 target: "_blank",
-                class:
-                  "text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer",
               },
             },
           ],
@@ -172,8 +166,6 @@ export const defaultEditorContent = {
                       attrs: {
                         href: "https://github.com/steven-tey/novel",
                         target: "_blank",
-                        class:
-                          "text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer",
                       },
                     },
                   ],
@@ -199,8 +191,6 @@ export const defaultEditorContent = {
                       attrs: {
                         href: "https://www.npmjs.com/package/novel",
                         target: "_blank",
-                        class:
-                          "text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer",
                       },
                     },
                   ],
@@ -225,8 +215,6 @@ export const defaultEditorContent = {
                       attrs: {
                         href: "https://vercel.com/templates/next.js/novel",
                         target: "_blank",
-                        class:
-                          "text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer",
                       },
                     },
                   ],

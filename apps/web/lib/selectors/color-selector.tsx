@@ -1,7 +1,13 @@
 import { Check, ChevronDown } from "lucide-react";
-import type { Dispatch, FC, SetStateAction } from "react";
-import * as Popover from "@radix-ui/react-popover";
-import { useEditor } from "novel";
+import type { Dispatch, SetStateAction } from "react";
+import { EditorBubbleItem, useEditor } from "novel";
+
+import {
+  PopoverTrigger,
+  Popover,
+  PopoverContent,
+} from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
 export interface BubbleColorMenuItem {
   name: string;
   color: string;
@@ -90,10 +96,12 @@ const HIGHLIGHT_COLORS: BubbleColorMenuItem[] = [
   },
 ];
 
-export const ColorSelector: FC<ColorSelectorProps> = ({
-  isOpen,
-  setIsOpen,
-}) => {
+interface ColorSelectorProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}
+
+export const ColorSelector = ({ open, onOpenChange }) => {
   const { editor } = useEditor();
 
   if (!editor) return null;
@@ -106,12 +114,9 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
   );
 
   return (
-    <Popover.Root open={isOpen}>
-      <div className="relative h-full">
-        <Popover.Trigger
-          className="flex h-full items-center gap-1 p-2 text-sm font-medium text-stone-600 hover:bg-stone-100 active:bg-stone-200"
-          onClick={() => setIsOpen(!isOpen)}
-        >
+    <Popover open={open} onOpenChange={onOpenChange}>
+      <PopoverTrigger asChild>
+        <Button className="gap-2 rounded-none" variant="ghost">
           <span
             className="rounded-sm px-1"
             style={{
@@ -121,19 +126,23 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
           >
             A
           </span>
-
           <ChevronDown className="h-4 w-4" />
-        </Popover.Trigger>
+        </Button>
+      </PopoverTrigger>
 
-        <Popover.Content
-          align="start"
-          className="z-[99999] my-1 flex max-h-80 w-48 flex-col overflow-hidden overflow-y-auto rounded border border-stone-200 bg-white p-1 shadow-xl animate-in fade-in slide-in-from-top-1"
-        >
-          <div className="my-1 px-2 text-sm text-stone-500">Color</div>
+      <PopoverContent
+        sideOffset={5}
+        className="my-1 flex max-h-80 w-48 flex-col overflow-hidden overflow-y-auto rounded border p-1 shadow-xl "
+        align="start"
+      >
+        <div className="flex flex-col">
+          <div className="my-1 px-2 text-sm font-semibold text-muted-foreground">
+            Color
+          </div>
           {TEXT_COLORS.map(({ name, color }, index) => (
-            <button
+            <EditorBubbleItem
               key={index}
-              onClick={() => {
+              onSelect={() => {
                 editor.commands.unsetColor();
                 name !== "Default" &&
                   editor
@@ -141,44 +150,37 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
                     .focus()
                     .setColor(color || "")
                     .run();
-                setIsOpen(false);
               }}
-              className="flex items-center justify-between rounded-sm px-2 py-1 text-sm text-stone-600 hover:bg-stone-100"
-              type="button"
+              className="flex cursor-pointer items-center justify-between px-2 py-1 text-sm hover:bg-accent"
             >
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center gap-2">
                 <div
-                  className="rounded-sm border border-stone-200 px-1 py-px font-medium"
+                  className="rounded-sm border px-2 py-px font-medium"
                   style={{ color }}
                 >
                   A
                 </div>
                 <span>{name}</span>
               </div>
-              {editor.isActive("textStyle", { color }) && (
-                <Check className="h-4 w-4" />
-              )}
-            </button>
+            </EditorBubbleItem>
           ))}
-
-          <div className="mb-1 mt-2 px-2 text-sm text-stone-500">
+        </div>
+        <div>
+          <div className="my-1 px-2 text-sm font-semibold text-muted-foreground">
             Background
           </div>
-
           {HIGHLIGHT_COLORS.map(({ name, color }, index) => (
-            <button
+            <EditorBubbleItem
               key={index}
-              onClick={() => {
+              onSelect={() => {
                 editor.commands.unsetHighlight();
                 name !== "Default" && editor.commands.setHighlight({ color });
-                setIsOpen(false);
               }}
-              className="flex items-center justify-between rounded-sm px-2 py-1 text-sm text-stone-600 hover:bg-stone-100"
-              type="button"
+              className="flex cursor-pointer items-center justify-between px-2 py-1 text-sm hover:bg-accent"
             >
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center gap-2">
                 <div
-                  className="rounded-sm border border-stone-200 px-1 py-px font-medium"
+                  className="rounded-sm border px-2 py-px font-medium"
                   style={{ backgroundColor: color }}
                 >
                   A
@@ -188,10 +190,10 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
               {editor.isActive("highlight", { color }) && (
                 <Check className="h-4 w-4" />
               )}
-            </button>
+            </EditorBubbleItem>
           ))}
-        </Popover.Content>
-      </div>
-    </Popover.Root>
+        </div>
+      </PopoverContent>
+    </Popover>
   );
 };
