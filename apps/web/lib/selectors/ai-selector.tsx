@@ -47,8 +47,8 @@ export function AISelector({ open, onOpenChange }: AISelectorProps) {
   const { editor } = useEditor();
   const [extraPrompt, setExtraPrompt] = useState("");
 
-  const { completion, complete, isLoading } = useCompletion({
-    id: "novel",
+  const { completion, complete } = useCompletion({
+    // id: "novel",
     api: "/api/generate",
     onResponse: (response) => {
       if (response.status === 429) {
@@ -70,9 +70,11 @@ export function AISelector({ open, onOpenChange }: AISelectorProps) {
       }}
     >
       <Command>
-        <p className="w-full whitespace-pre-wrap p-2 px-4 text-sm">
-          {completion}
-        </p>
+        {completion && (
+          <p className="w-full whitespace-pre-wrap p-2 px-4 text-sm">
+            {completion}
+          </p>
+        )}
 
         <CommandInput
           onFocus={() => {
@@ -95,7 +97,7 @@ export function AISelector({ open, onOpenChange }: AISelectorProps) {
                   getPrevText(editor, {
                     chars: 5000,
                   });
-                  complete(editor.getText(), {});
+                  complete(editor.getText());
                 }
               }}
             >
