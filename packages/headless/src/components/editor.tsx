@@ -11,7 +11,7 @@ export interface EditorProps {
 
 export const novelStore = createStore();
 
-export const Editor = ({ children }: EditorProps) => {
+export const EditorRoot = ({ children }: EditorProps) => {
   return <Provider store={novelStore}>{children}</Provider>;
 };
 

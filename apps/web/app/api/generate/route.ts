@@ -5,37 +5,32 @@ import { Ratelimit } from "@upstash/ratelimit";
 
 // Create an OpenAI API client (that's edge friendly!)
 // Using LLamma's OpenAI client:
-const openai = new OpenAI({
-  ...(process.env.NODE_ENV == "development" && {
-    baseURL: "http://localhost:11434/v1",
-  }),
-  apiKey:
-    process.env.NODE_ENV == "development"
-      ? "ollama"
-      : process.env.OPENAI_API_KEY,
-});
 
 // IMPORTANT! Set the runtime to edge: https://vercel.com/docs/functions/edge-functions/edge-runtime
 export const runtime = "edge";
 
+const isProd = process.env.NODE_ENV === "production";
+
 export async function POST(req: Request): Promise<Response> {
+  const openai = new OpenAI({
+    ...(!isProd && {
+      baseURL: "http://localhost:11434/v1",
+    }),
+    apiKey: isProd ? process.env.OPENAI_API_KEY : "ollama",
+  });
   // Check if the OPENAI_API_KEY is set, if not return 400
   if (
     (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === "") &&
-    process.env.NODE_ENV != "development"
+    isProd
   ) {
     return new Response(
-      "Missing OPENAI_API_KEY – make sure to add it to your .env file.",
+      "Missing OPENAI_API_KEY - make sure to add it to your .env file.",
       {
         status: 400,
       },
     );
   }
-  if (
-    process.env.NODE_ENV != "development" &&
-    process.env.KV_REST_API_URL &&
-    process.env.KV_REST_API_TOKEN
-  ) {
+  if (isProd && process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
     const ip = req.headers.get("x-forwarded-for");
     const ratelimit = new Ratelimit({
       redis: kv,

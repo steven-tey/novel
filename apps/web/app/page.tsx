@@ -1,13 +1,16 @@
 "use client";
+
 import { Github } from "@/components/ui/icons";
 import {
   defaultEditorProps,
   Editor,
+  EditorRoot,
   EditorBubble,
   EditorCommand,
   EditorCommandItem,
   EditorCommandEmpty,
   EditorContent,
+  type JSONContent,
 } from "novel";
 import { useState } from "react";
 import {
@@ -33,6 +36,8 @@ import Magic from "@/components/ui/icons/magic";
 import { Button } from "@/components/ui/button";
 import Menu from "@/components/ui/menu";
 import { Separator } from "@/components/ui/separator";
+import useLocalStorage from "@/lib/hooks/use-local-storage";
+import { useDebouncedCallback } from "use-debounce";
 
 const extensions = [
   starterKit,
@@ -46,6 +51,10 @@ const extensions = [
   placeholder,
 ];
 export default function Page() {
+  const [content, setContent] = useLocalStorage<JSONContent | null>(
+    "novel-content",
+    defaultEditorContent,
+  );
   const [saveStatus, setSaveStatus] = useState("Saved");
 
   const [openNode, setOpenNode] = useState(false);
@@ -53,6 +62,11 @@ export default function Page() {
   const [openLink, setOpenLink] = useState(false);
   const [openAI, setOpenAI] = useState(false);
 
+  const debouncedUpdates = useDebouncedCallback(async (editor: Editor) => {
+    const json = editor.getJSON();
+    setContent(json);
+    setSaveStatus("Saved");
+  }, 500);
   return (
     <div className="flex min-h-screen flex-col items-center sm:px-5 sm:pt-[calc(20vh)]">
       <Button
@@ -69,10 +83,10 @@ export default function Page() {
         <div className="absolute right-5 top-5 z-10 mb-5 rounded-lg bg-accent px-2 py-1 text-sm text-muted-foreground">
           {saveStatus}
         </div>
-        <Editor>
+        <EditorRoot>
           <EditorContent
             extensions={extensions}
-            content={defaultEditorContent}
+            content={content}
             className="relative min-h-[500px] w-full max-w-screen-lg border-muted bg-background sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:shadow-lg"
             editorProps={{
               ...defaultEditorProps,
@@ -80,7 +94,8 @@ export default function Page() {
                 class: `prose-lg prose-stone dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full`,
               },
             }}
-            onUpdate={() => {
+            onUpdate={({ editor }) => {
+              debouncedUpdates(editor);
               setSaveStatus("Unsaved");
             }}
             slotAfter={<ImageResizer />}
@@ -148,7 +163,7 @@ export default function Page() {
               )}
             </EditorBubble>
           </EditorContent>
-        </Editor>
+        </EditorRoot>
       </div>
     </div>
   );

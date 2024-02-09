@@ -68,8 +68,7 @@
     "tailwind-merge": "^1.14.0",
     "tippy.js": "^6.3.7",
     "tiptap-markdown": "^0.8.2",
-    "tunnel-rat": "^0.1.2",
-    "use-debounce": "^9.0.4"
+    "tunnel-rat": "^0.1.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.5",

@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 import "@/styles/prosemirror.css";
 
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import Providers from "./providers";
 
@@ -24,6 +24,9 @@ export const metadata: Metadata = {
     creator: "@steventey",
   },
   metadataBase: new URL("https://novel.sh"),
+};
+
+export const viewport: Viewport = {
   themeColor: "#ffffff",
 };
 
