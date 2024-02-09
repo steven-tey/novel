@@ -1,6 +1,11 @@
 "use client";
 
-import { Dispatch, ReactNode, SetStateAction, createContext } from "react";
+import {
+  type Dispatch,
+  type ReactNode,
+  type SetStateAction,
+  createContext,
+} from "react";
 import { ThemeProvider, useTheme } from "next-themes";
 import { Toaster } from "sonner";
 import { Analytics } from "@vercel/analytics/react";
@@ -27,10 +32,9 @@ export default function Providers({ children }: { children: ReactNode }) {
   return (
     <ThemeProvider
       attribute="class"
-      value={{
-        light: "light-theme",
-        dark: "dark-theme",
-      }}
+      enableSystem
+      disableTransitionOnChange
+      defaultTheme="system"
     >
       <AppContext.Provider
         value={{

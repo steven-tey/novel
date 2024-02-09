@@ -1,0 +1,98 @@
+{
+  "name": "novel",
+  "version": "0.1.19",
+  "description": "Notion-style WYSIWYG editor with AI-powered autocompletions",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./extensions": {
+      "types": "./dist/extensions.d.ts",
+      "import": "./dist/extensions.js",
+      "require": "./dist/extensions.cjs"
+    },
+    "./plugins": {
+      "types": "./dist/plugins.d.ts",
+      "import": "./dist/plugins.js",
+      "require": "./dist/plugins.cjs"
+    }
+  },
+  "scripts": {
+    "dev": "tsup --watch",
+    "check-types": "tsc --noEmit",
+    "build": "tsup --clean"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
+  },
+  "dependencies": {
+    "@radix-ui/react-popover": "^1.0.6",
+    "@radix-ui/react-slot": "^1.0.2",
+    "@tiptap/core": "^2.1.7",
+    "@tiptap/extension-color": "^2.1.7",
+    "@tiptap/extension-highlight": "^2.1.7",
+    "@tiptap/extension-horizontal-rule": "^2.1.7",
+    "@tiptap/extension-image": "^2.1.7",
+    "@tiptap/extension-link": "^2.1.7",
+    "@tiptap/extension-placeholder": "2.0.3",
+    "@tiptap/extension-task-item": "^2.1.7",
+    "@tiptap/extension-task-list": "^2.1.7",
+    "@tiptap/extension-text-style": "^2.1.7",
+    "@tiptap/extension-underline": "^2.1.7",
+    "@tiptap/pm": "^2.1.7",
+    "@tiptap/react": "^2.1.7",
+    "@tiptap/starter-kit": "^2.1.7",
+    "@tiptap/suggestion": "^2.1.7",
+    "@types/node": "18.15.3",
+    "@types/react": "18.0.28",
+    "@types/react-dom": "18.0.11",
+    "@upstash/ratelimit": "^0.4.4",
+    "clsx": "^1.2.1",
+    "cmdk": "^0.2.1",
+    "eslint": "8.36.0",
+    "eslint-config-next": "13.2.4",
+    "eventsource-parser": "^0.1.0",
+    "jotai": "^2.6.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-markdown": "^8.0.7",
+    "react-moveable": "^0.56.0",
+    "sonner": "^0.7.0",
+    "tailwind-merge": "^1.14.0",
+    "tippy.js": "^6.3.7",
+    "tiptap-markdown": "^0.8.2",
+    "tunnel-rat": "^0.1.2"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.5",
+    "eslint": "^7.32.0",
+    "postcss": "^8.4.29",
+    "tsconfig": "workspace:*",
+    "tsup": "^7.2.0",
+    "typescript": "^5.3.3"
+  },
+  "author": "Steven Tey <stevensteel97@gmail.com>",
+  "homepage": "https://novel.sh",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/steven-tey/novel.git"
+  },
+  "bugs": {
+    "url": "https://github.com/steven-tey/novel/issues"
+  },
+  "keywords": [
+    "ai",
+    "novel",
+    "editor",
+    "markdown",
+    "nextjs",
+    "react"
+  ]
+}

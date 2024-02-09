@@ -4,28 +4,33 @@ import { kv } from "@vercel/kv";
 import { Ratelimit } from "@upstash/ratelimit";
 
 // Create an OpenAI API client (that's edge friendly!)
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || "",
-});
+// Using LLamma's OpenAI client:
 
 // IMPORTANT! Set the runtime to edge: https://vercel.com/docs/functions/edge-functions/edge-runtime
 export const runtime = "edge";
 
+const isProd = process.env.NODE_ENV === "production";
+
 export async function POST(req: Request): Promise<Response> {
+  const openai = new OpenAI({
+    ...(!isProd && {
+      baseURL: "http://localhost:11434/v1",
+    }),
+    apiKey: isProd ? process.env.OPENAI_API_KEY : "ollama",
+  });
   // Check if the OPENAI_API_KEY is set, if not return 400
-  if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === "") {
+  if (
+    (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === "") &&
+    isProd
+  ) {
     return new Response(
-      "Missing OPENAI_API_KEY – make sure to add it to your .env file.",
+      "Missing OPENAI_API_KEY - make sure to add it to your .env file.",
       {
         status: 400,
       },
     );
   }
-  if (
-    process.env.NODE_ENV != "development" &&
-    process.env.KV_REST_API_URL &&
-    process.env.KV_REST_API_TOKEN
-  ) {
+  if (isProd && process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
     const ip = req.headers.get("x-forwarded-for");
     const ratelimit = new Ratelimit({
       redis: kv,
@@ -51,7 +56,8 @@ export async function POST(req: Request): Promise<Response> {
   let { prompt } = await req.json();
 
   const response = await openai.chat.completions.create({
-    model: "gpt-3.5-turbo",
+    model: process.env.NODE_ENV == "development" ? "llama2" : "gpt-3.5-turbo",
+    stream: true,
     messages: [
       {
         role: "system",
@@ -71,7 +77,6 @@ export async function POST(req: Request): Promise<Response> {
     top_p: 1,
     frequency_penalty: 0,
     presence_penalty: 0,
-    stream: true,
     n: 1,
   });
 
