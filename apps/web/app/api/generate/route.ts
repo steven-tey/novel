@@ -19,7 +19,6 @@ const openai = new OpenAI({
 export const runtime = "edge";
 
 export async function POST(req: Request): Promise<Response> {
-  console.log(process.env.NODE_ENV);
   // Check if the OPENAI_API_KEY is set, if not return 400
   if (
     (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === "") &&

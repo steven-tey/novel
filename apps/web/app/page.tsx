@@ -111,7 +111,10 @@ export default function Page() {
 
             <EditorBubble
               tippyOptions={{
-                placement: openAI ? "bottom" : "top",
+                placement: openAI ? "bottom-start" : "top",
+                onHidden: () => {
+                  setOpenAI(false);
+                },
               }}
               className="flex w-fit max-w-[90vw] overflow-hidden rounded border border-muted bg-background shadow-xl"
             >
