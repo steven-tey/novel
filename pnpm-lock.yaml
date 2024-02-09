@@ -64,8 +64,8 @@ importers:
         specifier: ^0.2.1
         version: 0.2.2
       ai:
-        specifier: ^2.1.3
-        version: 2.2.9(react@18.2.0)(solid-js@1.7.11)(svelte@4.2.0)(vue@3.3.4)
+        specifier: ^2.2.33
+        version: 2.2.33(react@18.2.0)(solid-js@1.7.11)(svelte@4.2.0)(vue@3.3.4)
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -97,8 +97,8 @@ importers:
         specifier: workspace:^
         version: link:../../packages/headless
       openai:
-        specifier: ^4.3.1
-        version: 4.3.1
+        specifier: ^4.27.0
+        version: 4.27.0
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -2740,8 +2740,8 @@ packages:
       - encoding
     dev: false
 
-  /ai@2.2.9(react@18.2.0)(solid-js@1.7.11)(svelte@4.2.0)(vue@3.3.4):
-    resolution: {integrity: sha512-Z6xN0rNiONWRggmSy6BVNiF4sH1MNcqltvBLML7qEjLN+qMO2lXhMHZRpc6ByVAd1nKMGyol0W2QWZP/qKbIoQ==}
+  /ai@2.2.33(react@18.2.0)(solid-js@1.7.11)(svelte@4.2.0)(vue@3.3.4):
+    resolution: {integrity: sha512-y9iMgt/RjFZCrjx5NuC+tdZqvunM9Bo1ufuC1BpgyjPmmE2RYduM+3Whjez0fu808KkwTQvvhUhhC5NkAy8/9g==}
     engines: {node: '>=14.6'}
     peerDependencies:
       react: ^18.2.0
@@ -2760,7 +2760,6 @@ packages:
     dependencies:
       eventsource-parser: 1.0.0
       nanoid: 3.3.6
-      openai: 4.2.0
       react: 18.2.0
       solid-js: 1.7.11
       solid-swr-store: 0.10.7(solid-js@1.7.11)(swr-store@0.10.6)
@@ -2770,8 +2769,6 @@ packages:
       swr-store: 0.10.6
       swrv: 1.0.4(vue@3.3.4)
       vue: 3.3.4
-    transitivePeerDependencies:
-      - encoding
     dev: false
 
   /ajv@6.12.6:
@@ -5297,8 +5294,8 @@ packages:
       - encoding
     dev: false
 
-  /openai@4.3.1:
-    resolution: {integrity: sha512-64iI2LbJLk0Ss4Nv5IrdGFe6ALNnKlMuXoGuH525bJYxdupJfDCAtra/Jigex1z8it0U82M87tR2TMGU+HYeFQ==}
+  /openai@4.27.0:
+    resolution: {integrity: sha512-j1ZEx9NiBpm31rxWqQTjQt1QvH/8001xHsc/pRoPjkRDYWONCb+qkR6L9C7Wl6ar72Mz1ybtn1bv6fqAoTPlKw==}
     hasBin: true
     dependencies:
       '@types/node': 18.15.3
@@ -5309,6 +5306,7 @@ packages:
       form-data-encoder: 1.7.2
       formdata-node: 4.4.1
       node-fetch: 2.7.0
+      web-streams-polyfill: 3.3.2
     transitivePeerDependencies:
       - encoding
     dev: false
@@ -6889,6 +6887,11 @@ packages:
     dependencies:
       glob-to-regexp: 0.4.1
       graceful-fs: 4.2.11
+    dev: false
+
+  /web-streams-polyfill@3.3.2:
+    resolution: {integrity: sha512-3pRGuxRF5gpuZc0W+EpwQRmCD7gRqcDOMt688KmdlDAgAyaB1XlN0zq2njfDNm44XVdIouE7pZ6GzbdyH47uIQ==}
+    engines: {node: '>= 8'}
     dev: false
 
   /web-streams-polyfill@4.0.0-beta.3:

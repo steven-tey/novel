@@ -113,7 +113,7 @@ export default function Page() {
               tippyOptions={{
                 placement: openAI ? "bottom" : "top",
               }}
-              className="flex w-fit overflow-hidden rounded border border-muted bg-background shadow-xl"
+              className="flex w-fit max-w-[90vw] overflow-hidden rounded border border-muted bg-background shadow-xl"
             >
               {openAI ? (
                 <AISelector open={openAI} onOpenChange={setOpenAI} />

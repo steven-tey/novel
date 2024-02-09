@@ -11,7 +11,7 @@ import { useCompletion } from "ai/react";
 import { toast } from "sonner";
 import { useEditor } from "novel";
 import { getPrevText } from "novel/extensions";
-import { useEffect, useRef } from "react";
+import { useState } from "react";
 
 const options = [
   {
@@ -45,6 +45,7 @@ interface AISelectorProps {
 
 export function AISelector({ open, onOpenChange }: AISelectorProps) {
   const { editor } = useEditor();
+  const [extraPrompt, setExtraPrompt] = useState("");
 
   const { completion, complete, isLoading } = useCompletion({
     id: "novel",
@@ -63,17 +64,22 @@ export function AISelector({ open, onOpenChange }: AISelectorProps) {
 
   return (
     <div
+      className="w-full"
       onBlur={() => {
         editor.chain().unsetHighlight().run();
-        onOpenChange(false);
       }}
     >
-      {completion}
       <Command>
+        <p className="w-full whitespace-pre-wrap p-2 px-4 text-sm">
+          {completion}
+        </p>
+
         <CommandInput
           onFocus={() => {
             editor.chain().setHighlight({ color: "#c1ecf970" }).run();
           }}
+          value={extraPrompt}
+          onValueChange={setExtraPrompt}
           autoFocus
           placeholder="Ask AI to edit or generate..."
           className="w-[400px]"
@@ -89,7 +95,7 @@ export function AISelector({ open, onOpenChange }: AISelectorProps) {
                   getPrevText(editor, {
                     chars: 5000,
                   });
-                  complete(editor.getText());
+                  complete(editor.getText(), {});
                 }
               }}
             >
