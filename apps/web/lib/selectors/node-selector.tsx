@@ -107,7 +107,7 @@ export const NodeSelector = ({ open, onOpenChange }: NodeSelectorProps) => {
   };
 
   return (
-    <Popover open={open} onOpenChange={onOpenChange}>
+    <Popover modal={true} open={open} onOpenChange={onOpenChange}>
       <PopoverTrigger
         asChild
         className="gap-2 rounded-none border-none hover:bg-accent focus:ring-0"
