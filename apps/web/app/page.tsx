@@ -106,7 +106,7 @@ export default function Page() {
 
             <EditorBubble
               tippyOptions={{
-                placement: isAISelectorOpen ? "bottom-start" : "top",
+                placement: isAISelectorOpen ? "bottom" : "top",
                 onHidden: () => {
                   setIsColorSelectorOpen(false);
                   setIsNodeSelectorOpen(false);

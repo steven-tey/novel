@@ -22,7 +22,21 @@ const options = [
     value: "continue",
     label: "Continue writing",
   },
+  {
+    value: "fix",
+    label: "Fix grammar",
+  },
+  {
+    value: "sorter",
+    label: "Make shorter",
+  },
+  {
+    value: "longer",
+    label: "Make longer",
+  },
 ];
+
+//TODO: I think it makes more sense to create a custom Tiptap extension for this functionality https://tiptap.dev/docs/editor/ai/introduction
 
 export function AISelector({ onBlur }: { onBlur: () => void }) {
   const { editor } = useEditor();
@@ -50,7 +64,7 @@ export function AISelector({ onBlur }: { onBlur: () => void }) {
       }}
     >
       {completion}
-      <Command shouldFilter={false}>
+      <Command>
         <CommandInput
           onFocus={() => {
             editor.chain().setHighlight({ color: "#c1ecf9" }).run();
