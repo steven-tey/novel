@@ -49,6 +49,7 @@
   },
   "devDependencies": {
     "tailwindcss": "^3.4.1",
+    "prettier-plugin-tailwindcss": "^0.3.0",
     "tsconfig": "workspace:*"
   }
 }
