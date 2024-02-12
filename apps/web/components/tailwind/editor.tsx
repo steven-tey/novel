@@ -1,7 +1,6 @@
 "use client";
-import useLocalStorage from "@/hooks/use-local-storage";
 import { defaultEditorContent } from "@/lib/content";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import {
   defaultEditorProps,
@@ -12,7 +11,7 @@ import {
   EditorCommandItem,
   EditorCommandEmpty,
   EditorContent,
-  type JSONContent,
+  JSONContent,
 } from "novel";
 import { ImageResizer } from "novel/extensions";
 import { defaultExtensions } from "./extensions";
@@ -26,9 +25,8 @@ import { slashCommand, suggestionItems } from "./slash-command";
 const extensions = [...defaultExtensions, slashCommand];
 
 const TailwindEditor = () => {
-  const [content, setContent] = useLocalStorage<JSONContent | null>(
-    "novel-content",
-    defaultEditorContent,
+  const [initialContent, setInitialContent] = useState<null | JSONContent>(
+    null,
   );
   const [saveStatus, setSaveStatus] = useState("Saved");
 
@@ -38,9 +36,18 @@ const TailwindEditor = () => {
 
   const debouncedUpdates = useDebouncedCallback(async (editor: Editor) => {
     const json = editor.getJSON();
-    setContent(json);
+
+    window.localStorage.setItem("novel-content", JSON.stringify(json));
     setSaveStatus("Saved");
   }, 500);
+
+  useEffect(() => {
+    const content = window.localStorage.getItem("novel-content");
+    if (content) setInitialContent(JSON.parse(content));
+    else setInitialContent(defaultEditorContent);
+  }, []);
+
+  if (!initialContent) return null;
 
   return (
     <div className="relative w-full max-w-screen-lg">
@@ -49,8 +56,8 @@ const TailwindEditor = () => {
       </div>
       <EditorRoot>
         <EditorContent
+          initialContent={initialContent}
           extensions={extensions}
-          content={content}
           className="relative min-h-[500px] w-full max-w-screen-lg border-muted bg-background sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:shadow-lg"
           editorProps={{
             ...defaultEditorProps,

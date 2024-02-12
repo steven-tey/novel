@@ -1,9 +1,9 @@
-import React, { useMemo, type ReactNode } from "react";
-import { EditorProvider, type EditorProviderProps } from "@tiptap/react";
+import React, { useMemo, type ReactNode, useState, useEffect, useRef } from "react";
+import { EditorProvider, type EditorProviderProps, type JSONContent } from "@tiptap/react";
 import { Provider, createStore } from "jotai";
 import { simpleExtensions } from "../extensions";
 import { startImageUpload } from "../plugins/upload-images";
-
+import { Editor } from "@tiptap/core";
 export interface EditorProps {
   children: React.ReactNode;
   className?: string;
@@ -18,16 +18,22 @@ export const EditorRoot = ({ children }: { children: ReactNode }) => {
 export type EditorContentProps = {
   children: React.ReactNode;
   className?: string;
-} & EditorProviderProps;
+  initialContent?: JSONContent;
+} & Omit<EditorProviderProps, "content">;
 
-export const EditorContent = ({ className, children, ...rest }: EditorContentProps) => {
+export const EditorContent = ({
+  className,
+  children,
+  initialContent,
+  ...rest
+}: EditorContentProps) => {
   const extensions = useMemo(() => {
     return [...simpleExtensions, ...(rest.extensions ?? [])];
   }, [rest.extensions]);
 
   return (
     <div className={className}>
-      <EditorProvider {...rest} extensions={extensions}>
+      <EditorProvider {...rest} content={initialContent} extensions={extensions}>
         {children}
       </EditorProvider>
     </div>

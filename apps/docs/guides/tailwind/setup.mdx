@@ -28,7 +28,7 @@ This example will use the same stucture from here: [Anatomy](/quickstart#anatomy
       return (
         <EditorRoot>
           <EditorContent
-            content={content}
+            initialContent={content}
             onUpdate={({ editor }) => {
               const json = editor.getJSON();
               setContent(json);
