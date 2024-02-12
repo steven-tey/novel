@@ -7,23 +7,14 @@
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#9563FF",
-    "light": "#AE87FF",
-    "dark": "#0D001D",
+    "primary": "#334155",
+    "light": "#cbd5e1",
+    "dark": "#334155",
     "background": {
-      "dark": "#090014"
-    },
-    "anchors": {
-      "from": "#FF7F57",
-      "to": "#9563FF"
+      "dark": "#020817"
     }
   },
-  "topbarLinks": [
-    {
-      "name": "Support",
-      "url": "mailto:hi@mintlify.com"
-    }
-  ],
+
   "topbarCtaButton": {
     "name": "Demo",
     "url": "https://novel.sh/"
@@ -69,18 +60,6 @@
             "guides/tailwind/bubble-menu"
           ]
         }
-      ]
-    },
-    {
-      "group": "Components",
-      "pages": ["api-reference/introduction"]
-    },
-    {
-      "group": "Endpoint Examples",
-      "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
       ]
     }
   ],

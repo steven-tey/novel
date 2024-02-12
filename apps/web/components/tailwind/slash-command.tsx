@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { createSuggestionItems } from "novel/extensions";
 import { startImageUpload } from "novel/plugins";
+import { Command, renderItems } from "novel/extensions";
 
 export const suggestionItems = createSuggestionItems([
   {
@@ -152,17 +153,9 @@ export const suggestionItems = createSuggestionItems([
   },
 ]);
 
-export const querySuggestions = ({ query }: { query: string }) => {
-  return suggestionItems.filter((item) => {
-    if (typeof query === "string" && query.length > 0) {
-      const search = query.toLowerCase();
-      return (
-        item.title.toLowerCase().includes(search) ||
-        item.description.toLowerCase().includes(search) ||
-        (item.searchTerms &&
-          item.searchTerms.some((term: string) => term.includes(search)))
-      );
-    }
-    return true;
-  });
-};
+export const slashCommand = Command.configure({
+  suggestion: {
+    items: () => suggestionItems,
+    render: renderItems,
+  },
+});

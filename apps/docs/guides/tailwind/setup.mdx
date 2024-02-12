@@ -8,50 +8,90 @@ description: "Follow this guide to set up Novel with Tailwindcss"
   can also be employed.
 </Info>
 
-<Card title="Shadcn-ui" icon="link" href="https://ui.shadcn.com/docs/installation">
-You can find more info about installing shadcn-ui here.
-You will need to add the following components: <b>Button, Separator, Popover, Command, Dialog,</b>
-
+<Card title='Shadcn-ui' icon='link' href='https://ui.shadcn.com/docs/installation'>
+  You can find more info about installing shadcn-ui here. You will need to add the following
+  components: <b>Button, Separator, Popover, Command, Dialog,</b>
 </Card>
 
 This example will use the same stucture from here: [Anatomy](/quickstart#anatomy)
 
-## Step 1 - Add editor wrapper
+<Steps>
+  <Step title="Add editor wrapper">
+    ```tsx
+    "use client";
 
-```tsx
-"use client";
+    import { EditorContent, EditorRoot } from "novel";
+    import { useState } from "react";
 
-import { EditorContent, EditorRoot } from "novel";
-import { useState } from "react";
+    const Editor = () => {
+      const [content, setContent] = useState(null);
+      return (
+        <EditorRoot>
+          <EditorContent
+            content={content}
+            onUpdate={({ editor }) => {
+              const json = editor.getJSON();
+              setContent(json);
+            }}
+          />
+        </EditorRoot>
+      );
+    };
+    export default Editor;
+    ```
+    <Tip>
+      `onUpdate` runs on every change. In most cases, you will want to debounce the updates to prevent too many state changes.
+      ```tsx
+      const debouncedUpdates = useDebouncedCallback(async (editor: Editor) => {
+        const json = editor.getJSON();
+        setContent(json);
+        setSaveStatus("Saved");
+      }, 500);
 
-const Editor = () => {
-  const [content, setContent] = useState(null);
-  return (
-    <EditorRoot>
-      <EditorContent
-        content={content}
-        onUpdate={({ editor }) => {
-          const json = editor.getJSON();
-          setContent(json);
-        }}
-      />
-    </EditorRoot>
-  );
-};
-export default Editor;
-```
+      onUpdate={debouncedUpdates};
+      ```
+    </Tip>
 
-<Tip>
-`onUpdate` runs on every change. In most cases, you will want to debounce the updates to prevent too many state changes.
+  </Step>
 
-```tsx
-const debouncedUpdates = useDebouncedCallback(async (editor: Editor) => {
-  const json = editor.getJSON();
-  setContent(json);
-  setSaveStatus("Saved");
-}, 500);
+  <Step Step title="Configure extensions">
+    <Card title='Extensions' icon='link' href='/guides/tailwind/extensions'>
+      You can find here example of extensions
+    </Card>
 
-onUpdate = { debouncedUpdates };
-```
+    ```tsx
+    const extensions = [
+      starterKit,
+      horizontalRule,
+      tiptapLink,
+      tiptapImage,
+      updatedImage,
+      taskList,
+      taskItem,
+      slashCommand,
+      placeholder,
+    ];
+    <EditorContent
+      extensions={extensions}
+      ...
+    />;
+    ```
 
-</Tip>
+  </Step>
+  <Step title="Create Menus">
+      <CardGroup cols={2}>
+      <Card title="First Card" icon="square-1">
+        Neque porro quisquam est qui dolorem ipsum quia dolor sit amet
+      </Card>
+      <Card title="Second Card" icon="square-2">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit
+      </Card>
+      <Card title="Third Card" icon="square-3">
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco
+      </Card>
+      <Card title="Fourth Card" icon="square-4">
+        Excepteur sint occaecat cupidatat non proident
+      </Card>
+    </CardGroup>
+  </Step>
+</Steps>

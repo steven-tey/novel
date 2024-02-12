@@ -1,36 +1,29 @@
 ---
-title: "Bubble menua"
-description: "Follow this guide to set up Novel with Tailwindcss"
+title: "Bubble Menu"
+description: "An example of different menus in a bubble menu"
 ---
 
 import NodeSelectorSnippet from "/snippets/node-selector.mdx";
 
+<img className='block dark:hidden' src='/images/bubble-light.png' alt='Hero Dark' />
+<img className='hidden dark:block' src='/images/bubble-dark.png' alt='Hero Dark' />
+
 <CodeGroup>
-```tsx editor.tsx
- <EditorBubble
-              tippyOptions={{
-                placement: openAI ? "bottom-start" : "top",
-             
-              }}
-              className="flex w-fit max-w-[90vw] overflow-hidden rounded border border-muted bg-background shadow-xl"
-            >
-             
-                  <Separator orientation="vertical" />
-                  <NodeSelector open={openNode} onOpenChange={setOpenNode} />
-                  <Separator orientation="vertical" />
-
-                  <LinkSelector open={openLink} onOpenChange={setOpenLink} />
-
-                  <Separator orientation="vertical" />
-
-                  <TextButtons />
-                  <Separator orientation="vertical" />
-
-                  <ColorSelector open={openColor} onOpenChange={setOpenColor} />
-     </EditorBubble>
-
-```
-<NodeSelectorSnippet/>
-
+  ```tsx editor.tsx
+  <EditorBubble
+    tippyOptions={{
+      placement: openAI ? "bottom-start" : "top",
+    }}
+    className='flex w-fit max-w-[90vw] overflow-hidden rounded border border-muted bg-background shadow-xl'>
+    <Separator orientation='vertical' />
+    <NodeSelector open={openNode} onOpenChange={setOpenNode} />
+    <Separator orientation='vertical' />
+    <LinkSelector open={openLink} onOpenChange={setOpenLink} />
+    <Separator orientation='vertical' />
+    <TextButtons />
+    <Separator orientation='vertical' />
+    <ColorSelector open={openColor} onOpenChange={setOpenColor} />
+  </EditorBubble>
+  ```
+  <NodeSelectorSnippet />
 </CodeGroup>
-```

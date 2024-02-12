@@ -10,15 +10,14 @@ import {
 } from "novel/extensions";
 import { UploadImagesPlugin } from "novel/plugins";
 
-import { Command, renderItems } from "novel/extensions";
-import { querySuggestions } from "./suggestions";
 import { cx } from "class-variance-authority";
+import { slashCommand } from "./slash-command";
 
 //TODO I am using cx here to get tailwind autocomplete working, idk if someone else can write a regex to just capture the class key in objects
 
 //You can overwrite the placeholder with your own configuration
-export const placeholder = Placeholder;
-export const tiptapLink = TiptapLink.configure({
+const placeholder = Placeholder;
+const tiptapLink = TiptapLink.configure({
   HTMLAttributes: {
     class: cx(
       "text-muted-foreground underline underline-offset-[3px] hover:text-primary transition-colors cursor-pointer",
@@ -26,7 +25,7 @@ export const tiptapLink = TiptapLink.configure({
   },
 });
 
-export const tiptapImage = TiptapImage.extend({
+const tiptapImage = TiptapImage.extend({
   addProseMirrorPlugins() {
     return [UploadImagesPlugin()];
   },
@@ -37,31 +36,31 @@ export const tiptapImage = TiptapImage.extend({
   },
 });
 
-export const updatedImage = UpdatedImage.configure({
+const updatedImage = UpdatedImage.configure({
   HTMLAttributes: {
     class: cx("rounded-lg border border-muted"),
   },
 });
 
-export const taskList = TaskList.configure({
+const taskList = TaskList.configure({
   HTMLAttributes: {
     class: cx("not-prose pl-2"),
   },
 });
-export const taskItem = TaskItem.configure({
+const taskItem = TaskItem.configure({
   HTMLAttributes: {
     class: cx("flex items-start my-4"),
   },
   nested: true,
 });
 
-export const horizontalRule = HorizontalRule.configure({
+const horizontalRule = HorizontalRule.configure({
   HTMLAttributes: {
     class: cx("mt-4 mb-6 border-t border-muted-foreground"),
   },
 });
 
-export const starterKit = StarterKit.configure({
+const starterKit = StarterKit.configure({
   bulletList: {
     HTMLAttributes: {
       class: cx("list-disc list-outside leading-3 -mt-2"),
@@ -101,9 +100,13 @@ export const starterKit = StarterKit.configure({
   gapcursor: false,
 });
 
-export const slashCommand = Command.configure({
-  suggestion: {
-    items: querySuggestions,
-    render: renderItems,
-  },
-});
+export const defaultExtensions = [
+  starterKit,
+  placeholder,
+  tiptapLink,
+  tiptapImage,
+  updatedImage,
+  taskList,
+  taskItem,
+  horizontalRule,
+];

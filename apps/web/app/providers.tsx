@@ -9,7 +9,7 @@ import {
 import { ThemeProvider, useTheme } from "next-themes";
 import { Toaster } from "sonner";
 import { Analytics } from "@vercel/analytics/react";
-import useLocalStorage from "@/lib/hooks/use-local-storage";
+import useLocalStorage from "@/hooks/use-local-storage";
 
 export const AppContext = createContext<{
   font: string;

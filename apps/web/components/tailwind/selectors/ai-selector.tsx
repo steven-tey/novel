@@ -5,7 +5,7 @@ import {
   CommandGroup,
   CommandInput,
   CommandItem,
-} from "@/components/ui/command";
+} from "@/components/tailwind/ui/command";
 
 import { useCompletion } from "ai/react";
 import { toast } from "sonner";
