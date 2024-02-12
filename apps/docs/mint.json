@@ -29,7 +29,7 @@
     {
       "name": "Documentation",
       "icon": "book-open-cover",
-      "url": "documentation"
+      "url": "introduction"
     },
     {
       "name": "Components",
@@ -61,6 +61,10 @@
           ]
         }
       ]
+    },
+    {
+      "group": "Components",
+      "pages": ["components/editor-root", "components/editor-content"]
     }
   ],
   "footerSocials": {

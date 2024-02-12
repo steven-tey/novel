@@ -1,0 +1,39 @@
+---
+title: "Editor Content"
+description: "Wrapper for Tiptap Provider "
+---
+
+For all the available props, see [Tiptap Settings](https://tiptap.dev/docs/editor/api/editor#settings).
+
+```tsx
+<EditorRoot>
+  <EditorContent>{children}</EditorContent>
+</EditorRoot>
+```
+
+## Props
+
+<ParamField required path='children' type='ReactNode'>
+  A ReactNode that represents the content of the editor.
+</ParamField>
+
+<ParamField path='extensions' type='Extension[]' required>
+  An array of Tiptap extensions to be used in the editor.
+</ParamField>
+
+<ParamField path='content' type='JSONContent'>
+  Editor content in JSON format. [Tiptap Output](https://tiptap.dev/docs/editor/guide/output)
+</ParamField>
+
+<ParamField
+  path='onUpdate'
+  type='(props: {
+    editor: Editor;
+    transaction: Transaction;
+}) => void'>
+  Function that is called when the editor content is updated.
+</ParamField>
+
+<ParamField path='className' type='string'>
+  Classname for the parent container.
+</ParamField>
