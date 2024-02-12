@@ -8,7 +8,8 @@
     "clean": "turbo clean",
     "format:write": "prettier --write \"**/*.{css,js,json,jsx,ts,tsx}\"",
     "format": "prettier \"**/*.{css,js,json,jsx,ts,tsx}\"",
-    "release": "turbo build && cd packages/core && npm publish && cd ../../"
+    "release": "turbo build && cd packages/headless && npm publish && cd ../../",
+    "release-canary": "turbo build && cd packages/headless && npm publish --tag canary && cd ../../"
   },
   "dependencies": {
     "turbo": "^1.9.3"
