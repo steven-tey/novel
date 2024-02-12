@@ -1,0 +1,36 @@
+---
+title: "Bubble menua"
+description: "Follow this guide to set up Novel with Tailwindcss"
+---
+
+import NodeSelectorSnippet from "/snippets/node-selector.mdx";
+
+<CodeGroup>
+```tsx editor.tsx
+ <EditorBubble
+              tippyOptions={{
+                placement: openAI ? "bottom-start" : "top",
+             
+              }}
+              className="flex w-fit max-w-[90vw] overflow-hidden rounded border border-muted bg-background shadow-xl"
+            >
+             
+                  <Separator orientation="vertical" />
+                  <NodeSelector open={openNode} onOpenChange={setOpenNode} />
+                  <Separator orientation="vertical" />
+
+                  <LinkSelector open={openLink} onOpenChange={setOpenLink} />
+
+                  <Separator orientation="vertical" />
+
+                  <TextButtons />
+                  <Separator orientation="vertical" />
+
+                  <ColorSelector open={openColor} onOpenChange={setOpenColor} />
+     </EditorBubble>
+
+```
+<NodeSelectorSnippet/>
+
+</CodeGroup>
+```

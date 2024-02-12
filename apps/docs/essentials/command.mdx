@@ -1,0 +1,47 @@
+---
+title: "Tailwind"
+description: "Follow this guide to set up Novel with Tailwindcss"
+icon: "wind"
+---
+
+<Info>This example uses Shadcn-ui, but you can use anything else for components</Info>
+
+<Tabs>
+  <Tab title='Step process'>
+    <Steps>
+      <Step title='Add editor root and structure'>
+      You can see more about each component here
+        ```tsx editor.tsx
+        <EditorRoot>
+          <EditorContent
+            extensions={extensions}
+            content={content}
+            className="relative min-h-[500px] w-full max-w-screen-lg border-muted bg-background sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:shadow-lg"
+            editorProps={{
+              ...defaultEditorProps,
+              attributes: {
+                class: `prose-lg prose-stone dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full`,
+              },
+            }}
+            onUpdate={({ editor }) => {
+              debouncedUpdates(editor);
+              setSaveStatus("Unsaved");
+            }}
+          >
+          </EditorContent>
+        </EditorRoot>
+        ```
+      </Step>
+      <Step title='Add editor command'>
+      Add your suggetions items
+     ```
+      </Step>
+      <Step title='Third Step'>
+        These are instructions or content that only pertain to the third step.
+      </Step>
+    </Steps>
+
+  </Tab>
+  <Tab title='Second Tab'></Tab>
+</Tabs>
+```

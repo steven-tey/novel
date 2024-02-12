@@ -1,0 +1,57 @@
+---
+title: "Setup"
+description: "Follow this guide to set up Novel with Tailwindcss"
+---
+
+<Info>
+  This example demonstrates the use of Shadcn-ui for ui, but alternative libraries and components
+  can also be employed.
+</Info>
+
+<Card title="Shadcn-ui" icon="link" href="https://ui.shadcn.com/docs/installation">
+You can find more info about installing shadcn-ui here.
+You will need to add the following components: <b>Button, Separator, Popover, Command, Dialog,</b>
+
+</Card>
+
+This example will use the same stucture from here: [Anatomy](/quickstart#anatomy)
+
+## Step 1 - Add editor wrapper
+
+```tsx
+"use client";
+
+import { EditorContent, EditorRoot } from "novel";
+import { useState } from "react";
+
+const Editor = () => {
+  const [content, setContent] = useState(null);
+  return (
+    <EditorRoot>
+      <EditorContent
+        content={content}
+        onUpdate={({ editor }) => {
+          const json = editor.getJSON();
+          setContent(json);
+        }}
+      />
+    </EditorRoot>
+  );
+};
+export default Editor;
+```
+
+<Tip>
+`onUpdate` runs on every change. In most cases, you will want to debounce the updates to prevent too many state changes.
+
+```tsx
+const debouncedUpdates = useDebouncedCallback(async (editor: Editor) => {
+  const json = editor.getJSON();
+  setContent(json);
+  setSaveStatus("Saved");
+}, 500);
+
+onUpdate = { debouncedUpdates };
+```
+
+</Tip>
