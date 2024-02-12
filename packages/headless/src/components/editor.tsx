@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, type ReactNode } from "react";
 import { EditorProvider, type EditorProviderProps } from "@tiptap/react";
 import { Provider, createStore } from "jotai";
 import { simpleExtensions } from "../extensions";
@@ -11,15 +11,16 @@ export interface EditorProps {
 
 export const novelStore = createStore();
 
-export const EditorRoot = ({ children }: EditorProps) => {
+export const EditorRoot = ({ children }: { children: ReactNode }) => {
   return <Provider store={novelStore}>{children}</Provider>;
 };
 
-export const EditorContent = ({
-  className,
-  children,
-  ...rest
-}: EditorProps & EditorProviderProps) => {
+export type EditorContentProps = {
+  children: React.ReactNode;
+  className?: string;
+} & EditorProviderProps;
+
+export const EditorContent = ({ className, children, ...rest }: EditorContentProps) => {
   const extensions = useMemo(() => {
     return [...simpleExtensions, ...(rest.extensions ?? [])];
   }, [rest.extensions]);
