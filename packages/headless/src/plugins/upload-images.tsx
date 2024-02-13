@@ -1,6 +1,5 @@
 //@ts-nocheck
 //TODO: remove ts-nocheck from here some day
-import { toast } from "sonner";
 import { EditorState, Plugin, PluginKey } from "@tiptap/pm/state";
 import { Decoration, DecorationSet, EditorView } from "@tiptap/pm/view";
 
@@ -52,12 +51,13 @@ function findPlaceholder(state: EditorState, id: {}) {
 export function startImageUpload(file: File, view: EditorView, pos: number) {
   // check if the file is an image
   if (!file.type.includes("image/")) {
-    toast.error("File type not supported.");
+    //TODO add toast back
+    // toast.error("File type not supported.");
     return;
 
     // check if the file size is less than 20MB
   } else if (file.size / 1024 / 1024 > 20) {
-    toast.error("File size too big (max 20MB).");
+    // toast.error("File size too big (max 20MB).");
     return;
   }
 
@@ -105,43 +105,42 @@ export function startImageUpload(file: File, view: EditorView, pos: number) {
 }
 
 export const handleImageUpload = (file: File) => {
-  // upload to Vercel Blob
-  return new Promise((resolve) => {
-    toast.promise(
-      fetch("/api/upload", {
-        method: "POST",
-        headers: {
-          "content-type": file?.type || "application/octet-stream",
-          "x-vercel-filename": file?.name || "image.png",
-        },
-        body: file,
-      }).then(async (res) => {
-        // Successfully uploaded image
-        if (res.status === 200) {
-          const { url } = (await res.json()) as any;
-          // preload the image
-          let image = new Image();
-          image.src = url;
-          image.onload = () => {
-            resolve(url);
-          };
-          // No blob store configured
-        } else if (res.status === 401) {
-          resolve(file);
-
-          throw new Error(
-            "`BLOB_READ_WRITE_TOKEN` environment variable not found, reading image locally instead."
-          );
-          // Unknown error
-        } else {
-          throw new Error(`Error uploading image. Please try again.`);
-        }
-      }),
-      {
-        loading: "Uploading image...",
-        success: "Image uploaded successfully.",
-        error: (e) => e.message,
-      }
-    );
-  });
+  // upload to Vercel Blob, TODO: fix toat
+  // return new Promise((resolve) => {
+  //   toast.promise(
+  //     fetch("/api/upload", {
+  //       method: "POST",
+  //       headers: {
+  //         "content-type": file?.type || "application/octet-stream",
+  //         "x-vercel-filename": file?.name || "image.png",
+  //       },
+  //       body: file,
+  //     }).then(async (res) => {
+  //       // Successfully uploaded image
+  //       if (res.status === 200) {
+  //         const { url } = (await res.json()) as any;
+  //         // preload the image
+  //         let image = new Image();
+  //         image.src = url;
+  //         image.onload = () => {
+  //           resolve(url);
+  //         };
+  //         // No blob store configured
+  //       } else if (res.status === 401) {
+  //         resolve(file);
+  //         throw new Error(
+  //           "`BLOB_READ_WRITE_TOKEN` environment variable not found, reading image locally instead."
+  //         );
+  //         // Unknown error
+  //       } else {
+  //         throw new Error(`Error uploading image. Please try again.`);
+  //       }
+  //     }),
+  //     {
+  //       loading: "Uploading image...",
+  //       success: "Image uploaded successfully.",
+  //       error: (e) => e.message,
+  //     }
+  //   );
+  // });
 };

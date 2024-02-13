@@ -9,10 +9,11 @@ export default defineConfig((options: Options) => ({
   banner: {
     js: "'use client'",
   },
+
   format: ["cjs", "esm"],
   dts: true,
   clean: true,
+
   external: ["react"],
-  injectStyle: true,
   ...options,
 }));
