@@ -17,6 +17,5 @@
   "devDependencies": {
     "postcss": "^8.4.27",
     "prettier": "^2.8.8"
-  },
-  "version": "0.1.0"
+  }
 }
