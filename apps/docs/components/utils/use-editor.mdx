@@ -1,0 +1,23 @@
+---
+title: "useEditor"
+description: "Imperative API for interacting with the editor."
+---
+
+Your component must be a child of `EditorRoot` to use this hook.
+
+```tsx
+const CustomComponent = ({ open, onOpenChange }: LinkSelectorProps) => {
+  const { editor } = useEditor();
+...
+}
+
+<EditorRoot>
+  <CustomComponent/>
+</EditorRoot>
+```
+
+## Props
+
+<ParamField path='editor' type='Editor'>
+  All methods are available here [Editor](https://tiptap.dev/docs/editor/api/editor)
+</ParamField>

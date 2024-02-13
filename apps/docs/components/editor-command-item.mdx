@@ -1,0 +1,31 @@
+---
+title: "Editor Command Item"
+description: "Command Item"
+---
+
+For all the available props, see [cmdk](https://github.com/pacocoursey/cmdk).
+
+```tsx
+  ...
+  <EditorCommandItem
+    value={item.title}
+    onCommand={(val) => item.command(val)}>
+    Do something
+  </EditorCommand>
+```
+
+## Props
+
+<ParamField required path='children' type='ReactNode'></ParamField>
+<ParamField required path='value' type='string'>
+  This value would be used for filtering
+</ParamField>
+
+<ParamField
+  required
+  path='onCommand'
+  type='({ editor, range }: { editor: Editor; range: Range }) => void;'>
+  Callback function onSelect exposing editor and range
+</ParamField>
+
+<ParamField path='className' type='string'></ParamField>

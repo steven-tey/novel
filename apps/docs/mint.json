@@ -19,18 +19,8 @@
     "name": "Demo",
     "url": "https://novel.sh/"
   },
-  "tabs": [
-    {
-      "name": "Components",
-      "url": "components"
-    }
-  ],
+
   "anchors": [
-    {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "introduction"
-    },
     {
       "name": "Components",
       "icon": "react",
@@ -59,12 +49,24 @@
             "guides/tailwind/slash-command",
             "guides/tailwind/bubble-menu"
           ]
-        }
+        },
+        "guides/ai-command"
       ]
     },
     {
       "group": "Components",
-      "pages": ["components/editor-root", "components/editor-content"]
+      "pages": [
+        "components/editor-root",
+        "components/editor-content",
+        "components/editor-command",
+        "components/editor-command-item",
+        "components/editor-bubble",
+        "components/editor-bubble-item"
+      ]
+    },
+    {
+      "group": "Utils",
+      "pages": ["components/utils/use-editor"]
     }
   ],
   "footerSocials": {
