@@ -51,8 +51,6 @@
     "@tiptap/starter-kit": "^2.1.7",
     "@tiptap/suggestion": "^2.1.7",
     "@types/node": "18.15.3",
-    "@types/react": "18.0.28",
-    "@types/react-dom": "18.0.11",
     "@upstash/ratelimit": "^0.4.4",
     "clsx": "^1.2.1",
     "cmdk": "^0.2.1",
@@ -71,7 +69,8 @@
     "tunnel-rat": "^0.1.2"
   },
   "devDependencies": {
-    "@types/react": "^18.2.5",
+    "@types/react": "^18.2.55",
+    "@types/react-dom": "18.2.19",
     "eslint": "^7.32.0",
     "postcss": "^8.4.29",
     "tsconfig": "workspace:*",

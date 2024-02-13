@@ -1,4 +1,4 @@
-import { type ComponentPropsWithoutRef, type ReactNode, forwardRef } from "react";
+import { type ComponentPropsWithoutRef, forwardRef } from "react";
 import { CommandEmpty, CommandItem } from "cmdk";
 import { Editor, type Range } from "@tiptap/core";
 import { useCurrentEditor } from "@tiptap/react";
@@ -6,7 +6,6 @@ import { useAtomValue } from "jotai";
 import { rangeAtom } from "./editor-command";
 
 interface EditorCommandItemProps {
-  children: ReactNode;
   onCommand: ({ editor, range }: { editor: Editor; range: Range }) => void;
 }
 
