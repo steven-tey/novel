@@ -212,7 +212,7 @@ importers:
         specifier: ^6.3.7
         version: 6.3.7
       tiptap-markdown:
-        specifier: ^0.8.2
+        specifier: ^0.8.9
         version: 0.8.9(@tiptap/core@2.2.2)
       tunnel-rat:
         specifier: ^0.1.2
