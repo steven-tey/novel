@@ -35,6 +35,14 @@ For all the available props, see [Tiptap Settings](https://tiptap.dev/docs/edito
   Function that is called when the editor content is updated.
 </ParamField>
 
+<ParamField
+  path='onCreate'
+  type='onCreate?: (props: {
+    editor: Editor;
+}) => void'>
+  Function that is called when the editor is created.
+</ParamField>
+
 <ParamField path='className' type='string'>
   Classname for the parent container.
 </ParamField>
