@@ -22,13 +22,13 @@ export type EditorContentProps = {
 } & Omit<EditorProviderProps, "content">;
 
 export const EditorContent = forwardRef<HTMLDivElement, EditorContentProps>(
-  ({ className, children, initialContent, ...rest }) => {
+  ({ className, children, initialContent, ...rest }, ref) => {
     const extensions = useMemo(() => {
       return [...simpleExtensions, ...(rest.extensions ?? [])];
     }, [rest.extensions]);
 
     return (
-      <div className={className}>
+      <div ref={ref} className={className}>
         <EditorProvider {...rest} content={initialContent} extensions={extensions}>
           {children}
         </EditorProvider>
