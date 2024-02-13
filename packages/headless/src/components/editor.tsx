@@ -1,44 +1,41 @@
-import React, { useMemo, type ReactNode, useState, useEffect, useRef } from "react";
+import { useMemo, type ReactNode, useState, useEffect, useRef, forwardRef } from "react";
 import { EditorProvider, type EditorProviderProps, type JSONContent } from "@tiptap/react";
 import { Provider, createStore } from "jotai";
 import { simpleExtensions } from "../extensions";
 import { startImageUpload } from "../plugins/upload-images";
 import { Editor } from "@tiptap/core";
 export interface EditorProps {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
 }
 
 export const novelStore = createStore();
 
-export const EditorRoot = ({ children }: { children: ReactNode }) => {
+export const EditorRoot = ({ children }: { children: ReactNode }): JSX.Element => {
   return <Provider store={novelStore}>{children}</Provider>;
 };
 
 export type EditorContentProps = {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
   initialContent?: JSONContent;
 } & Omit<EditorProviderProps, "content">;
 
-export const EditorContent = ({
-  className,
-  children,
-  initialContent,
-  ...rest
-}: EditorContentProps) => {
-  const extensions = useMemo(() => {
-    return [...simpleExtensions, ...(rest.extensions ?? [])];
-  }, [rest.extensions]);
+export const EditorContent = forwardRef<HTMLDivElement, EditorContentProps>(
+  ({ className, children, initialContent, ...rest }) => {
+    const extensions = useMemo(() => {
+      return [...simpleExtensions, ...(rest.extensions ?? [])];
+    }, [rest.extensions]);
 
-  return (
-    <div className={className}>
-      <EditorProvider {...rest} content={initialContent} extensions={extensions}>
-        {children}
-      </EditorProvider>
-    </div>
-  );
-};
+    return (
+      <div className={className}>
+        <EditorProvider {...rest} content={initialContent} extensions={extensions}>
+          {children}
+        </EditorProvider>
+      </div>
+    );
+  }
+);
 
 export const defaultEditorProps: EditorProviderProps["editorProps"] = {
   handleDOMEvents: {

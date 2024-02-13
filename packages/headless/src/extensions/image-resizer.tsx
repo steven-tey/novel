@@ -1,7 +1,7 @@
 import Moveable from "react-moveable";
 import { useEditor } from "../components";
 
-export const ImageResizer = () => {
+export const ImageResizer = (): JSX.Element | null => {
   const { editor } = useEditor();
 
   if (!editor?.isActive("image")) return null;
