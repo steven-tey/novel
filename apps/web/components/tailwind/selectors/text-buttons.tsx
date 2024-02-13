@@ -66,5 +66,3 @@ export const TextButtons = () => {
     </div>
   );
 };
-
-export default TextButtons;

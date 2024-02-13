@@ -11,15 +11,16 @@ import {
   EditorCommandItem,
   EditorCommandEmpty,
   EditorContent,
-  JSONContent,
+  type JSONContent,
 } from "novel";
 import { ImageResizer } from "novel/extensions";
 import { defaultExtensions } from "./extensions";
 import { Separator } from "./ui/separator";
 import { NodeSelector } from "./selectors/node-selector";
 import { LinkSelector } from "./selectors/link-selector";
-import TextButtons from "./selectors/text-buttons";
 import { ColorSelector } from "./selectors/color-selector";
+
+import { TextButtons } from "./selectors/text-buttons";
 import { slashCommand, suggestionItems } from "./slash-command";
 
 const extensions = [...defaultExtensions, slashCommand];
