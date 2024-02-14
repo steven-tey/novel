@@ -97,7 +97,7 @@ importers:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
       react-markdown:
-        specifier: ^8.0.5
+        specifier: ^8.0.7
         version: 8.0.7(@types/react@18.2.55)(react@18.2.0)
       sonner:
         specifier: ^0.7.0
@@ -111,6 +111,9 @@ importers:
       tippy.js:
         specifier: ^6.3.7
         version: 6.3.7
+      ts-pattern:
+        specifier: ^5.0.6
+        version: 5.0.6
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
@@ -6404,6 +6407,10 @@ packages:
 
   /ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
+
+  /ts-pattern@5.0.6:
+    resolution: {integrity: sha512-Y+jOjihlFriWzcBjncPCf2/am+Hgz7LtsWs77pWg5vQQKLQj07oNrJryo/wK2G0ndNaoVn2ownFMeoeAuReu3Q==}
+    dev: false
 
   /tsconfig-paths@3.15.0:
     resolution: {integrity: sha512-2Ac2RgzDe/cn48GvOe3M+o82pEFewD3UPbyoUHHdKasHwJKjds4fLXWf/Ux5kATBKN20oaFGu+jbElp1pos0mg==}

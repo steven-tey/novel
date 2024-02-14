@@ -3,6 +3,7 @@ import { Button } from "@/components/tailwind/ui/button";
 import Menu from "@/components/tailwind/ui/menu";
 import TailwindEditor from "@/components/tailwind/editor";
 import Link from "next/link";
+import TailwindAdvancedEditor from "@/components/tailwind/advanced-editor";
 
 export default function Page() {
   return (
@@ -19,6 +20,7 @@ export default function Page() {
         <Menu />
       </div>
       <TailwindEditor />
+      <TailwindAdvancedEditor />
     </div>
   );
 }

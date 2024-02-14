@@ -36,20 +36,21 @@
     "openai": "^4.27.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-markdown": "^8.0.5",
+    "react-markdown": "^8.0.7",
     "sonner": "^0.7.0",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.6",
     "tippy.js": "^6.3.7",
+    "ts-pattern": "^5.0.6",
     "typescript": "^5.3.3",
     "use-debounce": "^9.0.3"
   },
   "devDependencies": {
+    "@types/node": "18.15.3",
     "@types/react": "^18.2.55",
     "@types/react-dom": "18.2.19",
-    "@types/node": "18.15.3",
-    "tailwindcss": "^3.4.1",
     "prettier-plugin-tailwindcss": "^0.3.0",
+    "tailwindcss": "^3.4.1",
     "tsconfig": "workspace:*"
   }
 }

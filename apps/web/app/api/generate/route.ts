@@ -2,6 +2,8 @@ import OpenAI from "openai";
 import { OpenAIStream, StreamingTextResponse } from "ai";
 import { kv } from "@vercel/kv";
 import { Ratelimit } from "@upstash/ratelimit";
+import { match } from "ts-pattern";
+import type { ChatCompletionMessageParam } from "openai/resources/index.mjs";
 
 // Create an OpenAI API client (that's edge friendly!)
 // Using LLamma's OpenAI client:
@@ -53,26 +55,42 @@ export async function POST(req: Request): Promise<Response> {
     }
   }
 
-  let { prompt } = await req.json();
+  let { prompt, option } = await req.json();
 
-  const response = await openai.chat.completions.create({
-    model: process.env.NODE_ENV == "development" ? "llama2" : "gpt-3.5-turbo",
-    stream: true,
-    messages: [
+  const messages = match(option)
+    .with("continue", () => [
       {
         role: "system",
         content:
           "You are an AI writing assistant that continues existing text based on context from prior text. " +
           "Give more weight/priority to the later characters than the beginning ones. " +
-          "Limit your response to no more than 200 characters, but make sure to construct complete sentences.",
-        // we're disabling markdown for now until we can figure out a way to stream markdown text with proper formatting: https://github.com/steven-tey/novel/discussions/7
-        // "Use Markdown formatting when appropriate.",
+          "Limit your response to no more than 200 characters, but make sure to construct complete sentences." +
+          "Use Markdown formatting when appropriate.",
       },
       {
         role: "user",
         content: prompt,
       },
-    ],
+    ])
+    .with("improve", () => [
+      {
+        role: "system",
+        content:
+          "Create a digital illustration of an AI assistant, represented as a futuristic robot, sitting at an antique wooden desk in a dimly lit room, surrounded by books and manuscripts. The robot is intently focusing on a glowing holographic display, where it's visibly enhancing and editing a piece of text. The room combines elements of the old world with the future, showcasing the blend of traditional writing with advanced technology. The atmosphere is serene and scholarly, emphasizing the AI's role as a meticulous editor and improver of written content. The image should capture the essence of old meets new, highlighting the AI's task of refining text with precision and creativity, making it more engaging, grammatically correct, and detailed, without exceeding the original text's length significantly." +
+          "Use Markdown formatting when appropriate.",
+      },
+      {
+        role: "user",
+        content: prompt,
+      },
+    ])
+    .run() as ChatCompletionMessageParam[];
+
+  console.log(messages);
+  const response = await openai.chat.completions.create({
+    model: process.env.NODE_ENV == "development" ? "llama2" : "gpt-3.5-turbo",
+    stream: true,
+    messages,
     temperature: 0.7,
     top_p: 1,
     frequency_penalty: 0,
