@@ -31,7 +31,7 @@ const GenerativeMenuSwitch = ({
       {!open && (
         <Fragment>
           <Button
-            className="gap-1 text-purple-500"
+            className="gap-1 rounded-none text-purple-500"
             variant="ghost"
             onClick={() => onOpenChange(true)}
             size="sm"

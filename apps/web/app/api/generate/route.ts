@@ -76,12 +76,64 @@ export async function POST(req: Request): Promise<Response> {
       {
         role: "system",
         content:
-          "Create a digital illustration of an AI assistant, represented as a futuristic robot, sitting at an antique wooden desk in a dimly lit room, surrounded by books and manuscripts. The robot is intently focusing on a glowing holographic display, where it's visibly enhancing and editing a piece of text. The room combines elements of the old world with the future, showcasing the blend of traditional writing with advanced technology. The atmosphere is serene and scholarly, emphasizing the AI's role as a meticulous editor and improver of written content. The image should capture the essence of old meets new, highlighting the AI's task of refining text with precision and creativity, making it more engaging, grammatically correct, and detailed, without exceeding the original text's length significantly." +
+          "You are an AI writing assistant that improves existing text. " +
+          "Limit your response to no more than 200 characters, but make sure to construct complete sentences." +
           "Use Markdown formatting when appropriate.",
       },
       {
         role: "user",
         content: prompt,
+      },
+    ])
+    .with("shorter", () => [
+      {
+        role: "system",
+        content:
+          "You are an AI writing assistant that shortens existing text. " +
+          "Use Markdown formatting when appropriate.",
+      },
+      {
+        role: "user",
+        content: prompt,
+      },
+    ])
+    .with("longer", () => [
+      {
+        role: "system",
+        content:
+          "You are an AI writing assistant that lengthens existing text. " +
+          "Use Markdown formatting when appropriate.",
+      },
+      {
+        role: "user",
+        content: prompt,
+      },
+    ])
+    .with("fix", () => [
+      {
+        role: "system",
+        content:
+          "You are an AI writing assistant that fixes grammar and spelling errors in existing text. " +
+          "Limit your response to no more than 200 characters, but make sure to construct complete sentences." +
+          "Use Markdown formatting when appropriate.",
+      },
+      {
+        role: "user",
+        content: prompt,
+      },
+    ])
+    .with("zap", () => [
+      {
+        role: "system",
+        content:
+          "You area an AI writing assistant that generates text based on a prompt. " +
+          "You have to execute this command for the text selected by user" +
+          option.command +
+          "Use Markdown formatting when appropriate.",
+      },
+      {
+        role: "user",
+        content: prompt + option.command,
       },
     ])
     .run() as ChatCompletionMessageParam[];
