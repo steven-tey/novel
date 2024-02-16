@@ -12,6 +12,8 @@ import AICompletionCommands from "./ai-completion-command";
 import { ScrollArea } from "../ui/scroll-area";
 import { Button } from "../ui/button";
 import { ArrowUp } from "lucide-react";
+import Magic from "../ui/icons/magic";
+import CrazySpinner from "../ui/icons/crazy-spinner";
 
 //TODO: I think it makes more sense to create a custom Tiptap extension for this functionality https://tiptap.dev/docs/editor/ai/introduction
 
@@ -40,8 +42,6 @@ export function AISelector({ open, onOpenChange }: AISelectorProps) {
 
   const hasCompletion = completion.length > 0;
 
-  //on unmount clear the highlight
-
   return (
     <Command className="w-[350px]">
       {hasCompletion && (
@@ -55,8 +55,12 @@ export function AISelector({ open, onOpenChange }: AISelectorProps) {
       )}
 
       {isLoading && (
-        <div className="flex h-12 w-full items-center justify-center">
-          Loading...
+        <div className="flex h-12 w-full items-center px-4 text-sm font-medium text-muted-foreground text-purple-500">
+          <Magic className="mr-2 h-4 w-4 shrink-0  " />
+          AI is thinking
+          <div className="ml-2 mt-1">
+            <CrazySpinner />
+          </div>
         </div>
       )}
       {!isLoading && (
@@ -77,7 +81,7 @@ export function AISelector({ open, onOpenChange }: AISelectorProps) {
             />
             <Button
               size="icon"
-              className="absolute right-2 top-1/2 h-6 w-6 -translate-y-1/2 bg-purple-500"
+              className="absolute right-2 top-1/2 h-6 w-6 -translate-y-1/2 rounded-full bg-purple-500 hover:bg-purple-900"
               onClick={() => {
                 if (completion)
                   return complete(completion, {
@@ -94,7 +98,7 @@ export function AISelector({ open, onOpenChange }: AISelectorProps) {
                 }).then(() => setInputValue(""));
               }}
             >
-              <ArrowUp className="h-3 w-3" />
+              <ArrowUp className="h-4 w-4" />
             </Button>
           </div>
           {hasCompletion ? (
