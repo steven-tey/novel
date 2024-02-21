@@ -1,9 +1,22 @@
-import { useMemo, type ReactNode, useState, useEffect, useRef, forwardRef } from "react";
-import { EditorProvider, type EditorProviderProps, type JSONContent } from "@tiptap/react";
+import {
+  useMemo,
+  type ReactNode,
+  useState,
+  useEffect,
+  useRef,
+  forwardRef,
+} from "react";
+import {
+  EditorProvider,
+  type EditorProviderProps,
+  type JSONContent,
+} from "@tiptap/react";
 import { Provider, createStore } from "jotai";
 import { simpleExtensions } from "../extensions";
 import { startImageUpload } from "../plugins/upload-images";
 import { Editor } from "@tiptap/core";
+import tunnel from "tunnel-rat";
+import { EditorCommandTunnelContext } from "./editor-command";
 export interface EditorProps {
   children: ReactNode;
   className?: string;
@@ -11,8 +24,20 @@ export interface EditorProps {
 
 export const novelStore = createStore();
 
-export const EditorRoot = ({ children }: { children: ReactNode }): JSX.Element => {
-  return <Provider store={novelStore}>{children}</Provider>;
+export const EditorRoot = ({
+  children,
+}: {
+  children: ReactNode;
+}): JSX.Element => {
+  const tunnelInstance = useRef(tunnel()).current;
+
+  return (
+    <Provider store={novelStore}>
+      <EditorCommandTunnelContext.Provider value={tunnelInstance}>
+        {children}
+      </EditorCommandTunnelContext.Provider>
+    </Provider>
+  );
 };
 
 export type EditorContentProps = {
@@ -29,7 +54,11 @@ export const EditorContent = forwardRef<HTMLDivElement, EditorContentProps>(
 
     return (
       <div ref={ref} className={className}>
-        <EditorProvider {...rest} content={initialContent} extensions={extensions}>
+        <EditorProvider
+          {...rest}
+          content={initialContent}
+          extensions={extensions}
+        >
           {children}
         </EditorProvider>
       </div>
@@ -50,7 +79,11 @@ export const defaultEditorProps: EditorProviderProps["editorProps"] = {
     },
   },
   handlePaste: (view, event) => {
-    if (event.clipboardData && event.clipboardData.files && event.clipboardData.files[0]) {
+    if (
+      event.clipboardData &&
+      event.clipboardData.files &&
+      event.clipboardData.files[0]
+    ) {
       event.preventDefault();
       const file = event.clipboardData.files[0];
       const pos = view.state.selection.from;
@@ -61,7 +94,12 @@ export const defaultEditorProps: EditorProviderProps["editorProps"] = {
     return false;
   },
   handleDrop: (view, event, _slice, moved) => {
-    if (!moved && event.dataTransfer && event.dataTransfer.files && event.dataTransfer.files[0]) {
+    if (
+      !moved &&
+      event.dataTransfer &&
+      event.dataTransfer.files &&
+      event.dataTransfer.files[0]
+    ) {
       event.preventDefault();
       const file = event.dataTransfer.files[0];
       const coordinates = view.posAtCoords({
