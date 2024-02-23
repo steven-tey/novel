@@ -24,7 +24,7 @@ You can find the full example here: [Tailwind Example](https://github.com/steven
     import { EditorContent, EditorRoot } from "novel";
     import { useState } from "react";
 
-    const Editor = () => {
+    const TailwindEditor = () => {
       const [content, setContent] = useState(null);
       return (
         <EditorRoot>
@@ -38,7 +38,7 @@ You can find the full example here: [Tailwind Example](https://github.com/steven
         </EditorRoot>
       );
     };
-    export default Editor;
+    export default TailwindEditor;
     ```
     <Tip>
       `onUpdate` runs on every change. In most cases, you will want to debounce the updates to prevent too many state changes.
