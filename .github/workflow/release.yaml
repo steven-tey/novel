@@ -65,7 +65,7 @@ jobs:
       - name: 🏗️ Build
         id: build-the-mono-repo
         run: |
-          pnpm build
+          pnpm build && cd packages/headless
 
       - name: 📣 Create Release Pull Request or Publish to npm
         id: changesets
