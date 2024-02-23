@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import {
   defaultEditorProps,
-  Editor,
+  EditorInstance,
   EditorRoot,
   EditorBubble,
   EditorCommand,
@@ -35,12 +35,15 @@ const TailwindEditor = () => {
   const [openColor, setOpenColor] = useState(false);
   const [openLink, setOpenLink] = useState(false);
 
-  const debouncedUpdates = useDebouncedCallback(async (editor: Editor) => {
-    const json = editor.getJSON();
+  const debouncedUpdates = useDebouncedCallback(
+    async (editor: EditorInstance) => {
+      const json = editor.getJSON();
 
-    window.localStorage.setItem("novel-content", JSON.stringify(json));
-    setSaveStatus("Saved");
-  }, 500);
+      window.localStorage.setItem("novel-content", JSON.stringify(json));
+      setSaveStatus("Saved");
+    },
+    500,
+  );
 
   useEffect(() => {
     const content = window.localStorage.getItem("novel-content");
