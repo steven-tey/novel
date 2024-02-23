@@ -2,16 +2,19 @@
   "name": "novel",
   "private": true,
   "scripts": {
+    "changeset": "changeset",
+    "publish:packages": "changeset publish",
+    "version:packages": "changeset version",
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
     "clean": "turbo clean",
     "format:write": "prettier --write \"**/*.{css,js,json,jsx,ts,tsx}\"",
-    "format": "prettier \"**/*.{css,js,json,jsx,ts,tsx}\"",
-    "release": "turbo build && cd packages/headless && npm publish && cd ../../",
-    "release-canary": "turbo build && cd packages/headless && npm publish --tag canary && cd ../../"
+    "format": "prettier \"**/*.{css,js,json,jsx,ts,tsx}\""
   },
   "dependencies": {
+    "@changesets/changelog-github": "^0.5.0",
+    "@changesets/cli": "^2.27.1",
     "turbo": "^1.9.3"
   },
   "devDependencies": {
