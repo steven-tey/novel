@@ -43,7 +43,10 @@ You can find the full example here: [Tailwind Example](https://github.com/steven
     <Tip>
       `onUpdate` runs on every change. In most cases, you will want to debounce the updates to prevent too many state changes.
       ```tsx
-      const debouncedUpdates = useDebouncedCallback(async (editor: Editor) => {
+      import { EditorInstance } from "novel"
+
+      ...
+      const debouncedUpdates = useDebouncedCallback(async (editor: EditorInstance) => {
         const json = editor.getJSON();
         setContent(json);
         setSaveStatus("Saved");

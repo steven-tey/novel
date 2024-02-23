@@ -1,5 +1,5 @@
 export { useCurrentEditor as useEditor } from "@tiptap/react";
-export { type Editor } from "@tiptap/core";
+export { type Editor as EditorInstance } from "@tiptap/core";
 export type { JSONContent } from "@tiptap/react";
 
 export { EditorRoot, EditorContent, type EditorContentProps, defaultEditorProps } from "./editor";
