@@ -10,7 +10,7 @@ export interface EditorBubbleProps extends Omit<BubbleMenuProps, "editor"> {
 
 export const EditorBubble = forwardRef<HTMLDivElement, EditorBubbleProps>(
   ({ children, tippyOptions, ...rest }, ref) => {
-    const { editor } = useCurrentEditor();
+    const { editor: currentEditor } = useCurrentEditor();
     const instanceRef = useRef<Instance<Props> | null>(null);
 
     useEffect(() => {
@@ -48,12 +48,12 @@ export const EditorBubble = forwardRef<HTMLDivElement, EditorBubbleProps>(
       };
     }, [rest, tippyOptions]);
 
-    if (!editor) return null;
+    if (!currentEditor) return null;
 
     return (
       // We need to add this because of https://github.com/ueberdosis/tiptap/issues/2658
       <div ref={ref}>
-        <BubbleMenu editor={editor} {...bubbleMenuProps}>
+        <BubbleMenu editor={currentEditor} {...bubbleMenuProps}>
           {children}
         </BubbleMenu>
       </div>
