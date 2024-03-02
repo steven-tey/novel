@@ -30,11 +30,11 @@ export const EditorRoot: FC<EditorRootProps> = ({ children }) => {
   );
 };
 
-export type EditorContentProps = {
+export type EditorContentProps = Omit<EditorProviderProps, "content"> & {
   readonly children: ReactNode;
   readonly className?: string;
   readonly initialContent?: JSONContent;
-} & Omit<EditorProviderProps, "content">;
+};
 
 export const EditorContent = forwardRef<HTMLDivElement, EditorContentProps>(
   ({ className, children, initialContent, ...rest }, ref) => {
