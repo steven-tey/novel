@@ -46,7 +46,7 @@ const Horizontal = HorizontalRule.extend({
   addInputRules() {
     return [
       new InputRule({
-        find: /^(?:---|—-|___\s|\*\*\*\s)$/,
+        find: /^(?:---|—-|___\s|\*\*\*\s)$/u,
         handler: ({ state, range }) => {
           const attributes = {};
 
