@@ -74,7 +74,7 @@ export const defaultEditorProps: EditorProviderProps["editorProps"] = {
   handlePaste: (view, event) => {
     if (event.clipboardData?.files.length) {
       event.preventDefault();
-      const file = event.clipboardData.files[0];
+      const [file] = Array.from(event.clipboardData.files);
       const pos = view.state.selection.from;
 
       startImageUpload(file, view, pos);
@@ -85,7 +85,7 @@ export const defaultEditorProps: EditorProviderProps["editorProps"] = {
   handleDrop: (view, event, _slice, moved) => {
     if (!moved && event.dataTransfer?.files.length) {
       event.preventDefault();
-      const file = event.dataTransfer.files[0];
+      const [file] = Array.from(event.dataTransfer.files);
       const coordinates = view.posAtCoords({
         left: event.clientX,
         top: event.clientY,
