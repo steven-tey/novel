@@ -1,8 +1,7 @@
-import { useMemo, useState, useEffect, useRef, forwardRef } from "react";
+import { useMemo, useRef, forwardRef } from "react";
 import { EditorProvider } from "@tiptap/react";
 import { Provider, createStore } from "jotai";
 import tunnel from "tunnel-rat";
-import { Editor } from "@tiptap/core";
 import { simpleExtensions } from "../extensions";
 import { startImageUpload } from "../plugins/upload-images";
 import { EditorCommandTunnelContext } from "./editor-command";
