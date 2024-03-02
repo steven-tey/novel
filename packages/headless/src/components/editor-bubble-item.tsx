@@ -5,9 +5,9 @@ import type { Editor } from "@tiptap/react";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 interface EditorBubbleItemProps {
-  children: ReactNode;
-  asChild?: boolean;
-  onSelect?: (editor: Editor) => void;
+  readonly children: ReactNode;
+  readonly asChild?: boolean;
+  readonly onSelect?: (editor: Editor) => void;
 }
 
 export const EditorBubbleItem = forwardRef<
