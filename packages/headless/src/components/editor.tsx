@@ -72,11 +72,7 @@ export const defaultEditorProps: EditorProviderProps["editorProps"] = {
     },
   },
   handlePaste: (view, event) => {
-    if (
-      event.clipboardData &&
-      event.clipboardData.files &&
-      event.clipboardData.files[0]
-    ) {
+    if (event.clipboardData?.files.length) {
       event.preventDefault();
       const file = event.clipboardData.files[0];
       const pos = view.state.selection.from;
@@ -87,12 +83,7 @@ export const defaultEditorProps: EditorProviderProps["editorProps"] = {
     return false;
   },
   handleDrop: (view, event, _slice, moved) => {
-    if (
-      !moved &&
-      event.dataTransfer &&
-      event.dataTransfer.files &&
-      event.dataTransfer.files[0]
-    ) {
+    if (!moved && event.dataTransfer?.files.length) {
       event.preventDefault();
       const file = event.dataTransfer.files[0];
       const coordinates = view.posAtCoords({
