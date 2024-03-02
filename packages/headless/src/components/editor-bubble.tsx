@@ -51,7 +51,7 @@ export const EditorBubble = forwardRef<HTMLDivElement, EditorBubbleProps>(
     if (!editor) return null;
 
     return (
-      //We need to add this because of https://github.com/ueberdosis/tiptap/issues/2658
+      // We need to add this because of https://github.com/ueberdosis/tiptap/issues/2658
       <div ref={ref}>
         <BubbleMenu editor={editor} {...bubbleMenuProps}>
           {children}
