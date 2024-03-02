@@ -5,7 +5,7 @@ import tunnel from "tunnel-rat";
 import { simpleExtensions } from "../extensions";
 import { startImageUpload } from "../plugins/upload-images";
 import { EditorCommandTunnelContext } from "./editor-command";
-import type { ReactNode } from "react";
+import type { FC, ReactNode } from "react";
 import type { EditorProviderProps, JSONContent } from "@tiptap/react";
 
 export interface EditorProps {
@@ -13,13 +13,13 @@ export interface EditorProps {
   readonly className?: string;
 }
 
+interface EditorRootProps {
+  readonly children: ReactNode;
+}
+
 export const novelStore = createStore();
 
-export const EditorRoot = ({
-  children,
-}: {
-  children: ReactNode;
-}): JSX.Element => {
+export const EditorRoot: FC<EditorRootProps> = ({ children }) => {
   const tunnelInstance = useRef(tunnel()).current;
 
   return (
