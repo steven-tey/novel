@@ -1,22 +1,14 @@
-import {
-  useMemo,
-  type ReactNode,
-  useState,
-  useEffect,
-  useRef,
-  forwardRef,
-} from "react";
-import {
-  EditorProvider,
-  type EditorProviderProps,
-  type JSONContent,
-} from "@tiptap/react";
+import { useMemo, useState, useEffect, useRef, forwardRef } from "react";
+import { EditorProvider } from "@tiptap/react";
 import { Provider, createStore } from "jotai";
+import tunnel from "tunnel-rat";
+import { Editor } from "@tiptap/core";
 import { simpleExtensions } from "../extensions";
 import { startImageUpload } from "../plugins/upload-images";
-import { Editor } from "@tiptap/core";
-import tunnel from "tunnel-rat";
 import { EditorCommandTunnelContext } from "./editor-command";
+import type { ReactNode } from "react";
+import type { EditorProviderProps, JSONContent } from "@tiptap/react";
+
 export interface EditorProps {
   children: ReactNode;
   className?: string;
