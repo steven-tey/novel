@@ -91,7 +91,7 @@ export const defaultEditorProps: EditorProviderProps["editorProps"] = {
         top: event.clientY,
       });
       // here we deduct 1 from the pos or else the image will create an extra node
-      startImageUpload(file, view, coordinates?.pos || 0 - 1);
+      startImageUpload(file, view, coordinates?.pos ?? 0 - 1);
       return true;
     }
     return false;
