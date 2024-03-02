@@ -1,9 +1,10 @@
 import { useMemo, useRef, forwardRef } from "react";
 import { EditorProvider } from "@tiptap/react";
-import { Provider, createStore } from "jotai";
+import { Provider } from "jotai";
 import tunnel from "tunnel-rat";
 import { simpleExtensions } from "../extensions";
 import { startImageUpload } from "../plugins/upload-images";
+import { novelStore } from "../utils/store";
 import { EditorCommandTunnelContext } from "./editor-command";
 import type { FC, ReactNode } from "react";
 import type { EditorProviderProps, JSONContent } from "@tiptap/react";
@@ -16,8 +17,6 @@ export interface EditorProps {
 interface EditorRootProps {
   readonly children: ReactNode;
 }
-
-export const novelStore = createStore();
 
 export const EditorRoot: FC<EditorRootProps> = ({ children }) => {
   const tunnelInstance = useRef(tunnel()).current;
