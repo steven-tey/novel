@@ -32,9 +32,9 @@ export const EditorRoot: FC<EditorRootProps> = ({ children }) => {
 };
 
 export type EditorContentProps = {
-  children: ReactNode;
-  className?: string;
-  initialContent?: JSONContent;
+  readonly children: ReactNode;
+  readonly className?: string;
+  readonly initialContent?: JSONContent;
 } & Omit<EditorProviderProps, "content">;
 
 export const EditorContent = forwardRef<HTMLDivElement, EditorContentProps>(
