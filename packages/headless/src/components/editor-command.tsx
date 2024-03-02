@@ -3,7 +3,7 @@ import { useEffect, useRef, forwardRef, createContext } from "react";
 import { novelStore } from "./editor";
 import { Command } from "cmdk";
 import type tunnel from "tunnel-rat";
-import type { ComponentPropsWithoutRef } from "react";
+import type { ComponentPropsWithoutRef, FC } from "react";
 import type { Range } from "@tiptap/core";
 
 export const queryAtom = atom("");
@@ -13,13 +13,15 @@ export const EditorCommandTunnelContext = createContext(
   {} as ReturnType<typeof tunnel>
 );
 
-export const EditorCommandOut = ({
+interface EditorCommandOutProps {
+  readonly query: string;
+  readonly range: Range;
+}
+
+export const EditorCommandOut: FC<EditorCommandOutProps> = ({
   query,
   range,
-}: {
-  query: string;
-  range: Range;
-}): JSX.Element => {
+}) => {
   const setQuery = useSetAtom(queryAtom, { store: novelStore });
   const setRange = useSetAtom(rangeAtom, { store: novelStore });
 
