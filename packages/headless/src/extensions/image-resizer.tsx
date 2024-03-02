@@ -1,7 +1,8 @@
 import Moveable from "react-moveable";
 import { useCurrentEditor } from "@tiptap/react";
+import type { FC } from "react";
 
-export const ImageResizer = (): JSX.Element | null => {
+export const ImageResizer: FC = () => {
   const { editor } = useCurrentEditor();
 
   if (!editor?.isActive("image")) return null;
