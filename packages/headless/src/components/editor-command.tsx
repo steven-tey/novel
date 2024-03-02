@@ -1,14 +1,9 @@
 import { atom, useAtom, useSetAtom } from "jotai";
-import {
-  useEffect,
-  useRef,
-  type ComponentPropsWithoutRef,
-  forwardRef,
-  createContext,
-} from "react";
-import tunnel from "tunnel-rat";
+import { useEffect, useRef, forwardRef, createContext } from "react";
 import { novelStore } from "./editor";
 import { Command } from "cmdk";
+import type tunnel from "tunnel-rat";
+import type { ComponentPropsWithoutRef } from "react";
 import type { Range } from "@tiptap/core";
 
 export const queryAtom = atom("");
