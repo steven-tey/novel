@@ -1,8 +1,9 @@
 {
   "extends": "tsconfig/react.json",
-  "include": ["./src/**/*"],
+  "include": ["./src/**/*", "eslint.config.mjs"],
   "exclude": ["dist", "build", "node_modules"],
   "compilerOptions": {
+    "strictNullChecks": true,
     "declarationMap": false,
     "outDir": "dist"
   }
