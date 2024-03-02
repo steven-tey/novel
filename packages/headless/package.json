@@ -100,8 +100,7 @@
     "trailingComma": "es5",
     "bracketSpacing": true,
     "arrowParens": "always",
-    "proseWrap": "never",
-    "printWidth": 80
+    "proseWrap": "never"
   },
   "stylelint": {
     "extends": "eslint-config-harmony/stylelint"
