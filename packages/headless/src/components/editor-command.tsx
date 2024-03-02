@@ -97,3 +97,5 @@ export const EditorCommand = forwardRef<
     </EditorCommandTunnelContext.Consumer>
   );
 });
+
+EditorCommand.displayName = "EditorCommand";
