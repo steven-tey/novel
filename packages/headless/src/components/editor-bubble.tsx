@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 import type { Instance, Props } from "tippy.js";
 
 export interface EditorBubbleProps extends Omit<BubbleMenuProps, "editor"> {
-  children: ReactNode;
+  readonly children: ReactNode;
 }
 
 export const EditorBubble = forwardRef<HTMLDivElement, EditorBubbleProps>(
