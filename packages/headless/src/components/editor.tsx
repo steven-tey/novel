@@ -57,6 +57,8 @@ export const EditorContent = forwardRef<HTMLDivElement, EditorContentProps>(
   }
 );
 
+EditorContent.displayName = "EditorContent";
+
 export const defaultEditorProps: EditorProviderProps["editorProps"] = {
   handleDOMEvents: {
     keydown: (_view, event) => {
