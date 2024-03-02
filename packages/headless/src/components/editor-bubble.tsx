@@ -1,5 +1,7 @@
-import { BubbleMenu, type BubbleMenuProps, isNodeSelection, useCurrentEditor } from "@tiptap/react";
-import { type ReactNode, useMemo, useRef, useEffect, forwardRef } from "react";
+import { BubbleMenu, isNodeSelection, useCurrentEditor } from "@tiptap/react";
+import { useMemo, useRef, useEffect, forwardRef } from "react";
+import type { BubbleMenuProps } from "@tiptap/react";
+import type { ReactNode } from "react";
 import type { Instance, Props } from "tippy.js";
 
 export interface EditorBubbleProps extends Omit<BubbleMenuProps, "editor"> {
