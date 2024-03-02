@@ -79,5 +79,5 @@ export {
 };
 export * from "./slash-command";
 
-//Todo: Maybe I should create an utils entry
+// Todo: Maybe I should create an utils entry
 export { getPrevText } from "../utils/utils";
