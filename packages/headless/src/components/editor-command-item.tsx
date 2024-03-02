@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 import { CommandEmpty, CommandItem } from "cmdk";
 import { useCurrentEditor } from "@tiptap/react";
 import { useAtomValue } from "jotai";
-import { rangeAtom } from "./editor-command";
+import { rangeAtom } from "../utils/atoms";
 import type { ComponentPropsWithoutRef } from "react";
 import type { Editor, Range } from "@tiptap/core";
 
