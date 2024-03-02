@@ -9,8 +9,8 @@ import type { ReactNode } from "react";
 import type { EditorProviderProps, JSONContent } from "@tiptap/react";
 
 export interface EditorProps {
-  children: ReactNode;
-  className?: string;
+  readonly children: ReactNode;
+  readonly className?: string;
 }
 
 export const novelStore = createStore();
