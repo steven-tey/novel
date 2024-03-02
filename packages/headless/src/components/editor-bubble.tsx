@@ -61,4 +61,6 @@ export const EditorBubble = forwardRef<HTMLDivElement, EditorBubbleProps>(
   }
 );
 
+EditorBubble.displayName = "EditorBubble";
+
 export default EditorBubble;
