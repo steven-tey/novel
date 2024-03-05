@@ -53,7 +53,7 @@ export const EditorContent = forwardRef<HTMLDivElement, EditorContentProps>(
         </EditorProvider>
       </div>
     );
-  }
+  },
 );
 
 EditorContent.displayName = "EditorContent";
@@ -76,7 +76,7 @@ export const defaultEditorProps: EditorProviderProps["editorProps"] = {
       const [file] = Array.from(event.clipboardData.files);
       const pos = view.state.selection.from;
 
-      startImageUpload(file, view, pos);
+      if (file) startImageUpload(file, view, pos);
       return true;
     }
     return false;
@@ -90,7 +90,7 @@ export const defaultEditorProps: EditorProviderProps["editorProps"] = {
         top: event.clientY,
       });
       // here we deduct 1 from the pos or else the image will create an extra node
-      startImageUpload(file, view, coordinates?.pos ?? 0 - 1);
+      if (file) startImageUpload(file, view, coordinates?.pos ?? 0 - 1);
       return true;
     }
     return false;
