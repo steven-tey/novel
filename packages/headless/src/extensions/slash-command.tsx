@@ -47,6 +47,15 @@ const renderItems = () => {
         editor: props.editor,
       });
 
+      const { selection } = props.editor.state;
+
+      const parentNode = selection.$from.node(selection.$from.depth);
+      const blockType = parentNode.type.name;
+
+      if (blockType === "codeBlock") {
+        return false;
+      }
+
       // @ts-ignore
       popup = tippy("body", {
         getReferenceClientRect: props.clientRect,
