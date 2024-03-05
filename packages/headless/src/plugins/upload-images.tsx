@@ -22,7 +22,10 @@ export const UploadImagesPlugin = () =>
           const placeholder = document.createElement("div");
           placeholder.setAttribute("class", "img-placeholder");
           const image = document.createElement("img");
-          image.setAttribute("class", "opacity-40 rounded-lg border border-stone-200");
+          image.setAttribute(
+            "class",
+            "opacity-40 rounded-lg border border-stone-200"
+          );
           image.src = src;
           placeholder.appendChild(image);
           const deco = Decoration.widget(pos + 1, placeholder, {
@@ -30,7 +33,9 @@ export const UploadImagesPlugin = () =>
           });
           set = set.add(tr.doc, [deco]);
         } else if (action && action.remove) {
-          set = set.remove(set.find(null, null, (spec) => spec.id == action.remove.id));
+          set = set.remove(
+            set.find(null, null, (spec) => spec.id == action.remove.id)
+          );
         }
         return set;
       },

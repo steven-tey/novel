@@ -1,34 +1,24 @@
-import {
-  useMemo,
-  type ReactNode,
-  useState,
-  useEffect,
-  useRef,
-  forwardRef,
-} from "react";
-import {
-  EditorProvider,
-  type EditorProviderProps,
-  type JSONContent,
-} from "@tiptap/react";
-import { Provider, createStore } from "jotai";
+import { useMemo, useRef, forwardRef } from "react";
+import { EditorProvider } from "@tiptap/react";
+import { Provider } from "jotai";
+import tunnel from "tunnel-rat";
 import { simpleExtensions } from "../extensions";
 import { startImageUpload } from "../plugins/upload-images";
-import { Editor } from "@tiptap/core";
-import tunnel from "tunnel-rat";
+import { novelStore } from "../utils/store";
 import { EditorCommandTunnelContext } from "./editor-command";
+import type { FC, ReactNode } from "react";
+import type { EditorProviderProps, JSONContent } from "@tiptap/react";
+
 export interface EditorProps {
-  children: ReactNode;
-  className?: string;
+  readonly children: ReactNode;
+  readonly className?: string;
 }
 
-export const novelStore = createStore();
+interface EditorRootProps {
+  readonly children: ReactNode;
+}
 
-export const EditorRoot = ({
-  children,
-}: {
-  children: ReactNode;
-}): JSX.Element => {
+export const EditorRoot: FC<EditorRootProps> = ({ children }) => {
   const tunnelInstance = useRef(tunnel()).current;
 
   return (
@@ -40,11 +30,11 @@ export const EditorRoot = ({
   );
 };
 
-export type EditorContentProps = {
-  children: ReactNode;
-  className?: string;
-  initialContent?: JSONContent;
-} & Omit<EditorProviderProps, "content">;
+export type EditorContentProps = Omit<EditorProviderProps, "content"> & {
+  readonly children: ReactNode;
+  readonly className?: string;
+  readonly initialContent?: JSONContent;
+};
 
 export const EditorContent = forwardRef<HTMLDivElement, EditorContentProps>(
   ({ className, children, initialContent, ...rest }, ref) => {
@@ -66,6 +56,8 @@ export const EditorContent = forwardRef<HTMLDivElement, EditorContentProps>(
   }
 );
 
+EditorContent.displayName = "EditorContent";
+
 export const defaultEditorProps: EditorProviderProps["editorProps"] = {
   handleDOMEvents: {
     keydown: (_view, event) => {
@@ -79,13 +71,9 @@ export const defaultEditorProps: EditorProviderProps["editorProps"] = {
     },
   },
   handlePaste: (view, event) => {
-    if (
-      event.clipboardData &&
-      event.clipboardData.files &&
-      event.clipboardData.files[0]
-    ) {
+    if (event.clipboardData?.files.length) {
       event.preventDefault();
-      const file = event.clipboardData.files[0];
+      const [file] = Array.from(event.clipboardData.files);
       const pos = view.state.selection.from;
 
       startImageUpload(file, view, pos);
@@ -94,20 +82,15 @@ export const defaultEditorProps: EditorProviderProps["editorProps"] = {
     return false;
   },
   handleDrop: (view, event, _slice, moved) => {
-    if (
-      !moved &&
-      event.dataTransfer &&
-      event.dataTransfer.files &&
-      event.dataTransfer.files[0]
-    ) {
+    if (!moved && event.dataTransfer?.files.length) {
       event.preventDefault();
-      const file = event.dataTransfer.files[0];
+      const [file] = Array.from(event.dataTransfer.files);
       const coordinates = view.posAtCoords({
         left: event.clientX,
         top: event.clientY,
       });
       // here we deduct 1 from the pos or else the image will create an extra node
-      startImageUpload(file, view, coordinates?.pos || 0 - 1);
+      startImageUpload(file, view, coordinates?.pos ?? 0 - 1);
       return true;
     }
     return false;

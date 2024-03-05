@@ -1,14 +1,16 @@
-import { BubbleMenu, type BubbleMenuProps, isNodeSelection, useCurrentEditor } from "@tiptap/react";
-import { type ReactNode, useMemo, useRef, useEffect, forwardRef } from "react";
+import { BubbleMenu, isNodeSelection, useCurrentEditor } from "@tiptap/react";
+import { useMemo, useRef, useEffect, forwardRef } from "react";
+import type { BubbleMenuProps } from "@tiptap/react";
+import type { ReactNode } from "react";
 import type { Instance, Props } from "tippy.js";
 
 export interface EditorBubbleProps extends Omit<BubbleMenuProps, "editor"> {
-  children: ReactNode;
+  readonly children: ReactNode;
 }
 
 export const EditorBubble = forwardRef<HTMLDivElement, EditorBubbleProps>(
   ({ children, tippyOptions, ...rest }, ref) => {
-    const { editor } = useCurrentEditor();
+    const { editor: currentEditor } = useCurrentEditor();
     const instanceRef = useRef<Instance<Props> | null>(null);
 
     useEffect(() => {
@@ -46,17 +48,19 @@ export const EditorBubble = forwardRef<HTMLDivElement, EditorBubbleProps>(
       };
     }, [rest, tippyOptions]);
 
-    if (!editor) return null;
+    if (!currentEditor) return null;
 
     return (
-      //We need to add this because of https://github.com/ueberdosis/tiptap/issues/2658
+      // We need to add this because of https://github.com/ueberdosis/tiptap/issues/2658
       <div ref={ref}>
-        <BubbleMenu editor={editor} {...bubbleMenuProps}>
+        <BubbleMenu editor={currentEditor} {...bubbleMenuProps}>
           {children}
         </BubbleMenu>
       </div>
     );
   }
 );
+
+EditorBubble.displayName = "EditorBubble";
 
 export default EditorBubble;
