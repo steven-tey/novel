@@ -1,5 +1,11 @@
 # novel
 
+## 0.2.8
+
+### Patch Changes
+
+- Code quality and extensions fixing
+
 ## 0.2.7
 
 ### Patch Changes
