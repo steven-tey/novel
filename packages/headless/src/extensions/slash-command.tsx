@@ -12,7 +12,15 @@ const Command = Extension.create({
     return {
       suggestion: {
         char: "/",
-        command: ({ editor, range, props }: { editor: Editor; range: Range; props: any }) => {
+        command: ({
+          editor,
+          range,
+          props,
+        }: {
+          editor: Editor;
+          range: Range;
+          props: any;
+        }) => {
           props.command({ editor, range });
         },
       },
@@ -38,6 +46,15 @@ const renderItems = () => {
         props,
         editor: props.editor,
       });
+
+      const { selection } = props.editor.state;
+
+      const parentNode = selection.$from.node(selection.$from.depth);
+      const blockType = parentNode.type.name;
+
+      if (blockType === "codeBlock") {
+        return false;
+      }
 
       // @ts-ignore
       popup = tippy("body", {
