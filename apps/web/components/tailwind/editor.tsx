@@ -66,7 +66,7 @@ const TailwindEditor = () => {
           editorProps={{
             ...defaultEditorProps,
             attributes: {
-              class: `prose-lg prose-stone dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full`,
+              class: `prose prose-lg prose-stone dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full`,
             },
           }}
           onUpdate={({ editor }) => {
