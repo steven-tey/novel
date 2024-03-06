@@ -103,4 +103,13 @@ export interface SuggestionItem {
 
 export const createSuggestionItems = (items: SuggestionItem[]) => items;
 
+export const handleCommandNavigation = (event: KeyboardEvent) => {
+  if (["ArrowUp", "ArrowDown", "Enter"].includes(event.key)) {
+    const slashCommand = document.querySelector("#slash-command");
+    if (slashCommand) {
+      return true;
+    }
+  }
+};
+
 export { Command, renderItems };
