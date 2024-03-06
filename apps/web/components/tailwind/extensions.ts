@@ -43,12 +43,12 @@ const updatedImage = UpdatedImage.configure({
 
 const taskList = TaskList.configure({
   HTMLAttributes: {
-    class: cx("not-prose pl-2"),
+    class: cx("not-prose pl-2 "),
   },
 });
 const taskItem = TaskItem.configure({
   HTMLAttributes: {
-    class: cx("flex items-start my-4"),
+    class: cx("flex gap-2 items-start my-4"),
   },
   nested: true,
 });
@@ -82,7 +82,9 @@ const starterKit = StarterKit.configure({
   },
   codeBlock: {
     HTMLAttributes: {
-      class: cx("rounded-sm bg-muted border p-5 font-mono font-medium"),
+      class: cx(
+        "rounded-md bg-muted text-muted-foreground border p-5 font-mono font-medium",
+      ),
     },
   },
   code: {
