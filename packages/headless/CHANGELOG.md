@@ -1,5 +1,11 @@
 # novel
 
+## 0.2.10
+
+### Patch Changes
+
+- Fix types
+
 ## 0.2.9
 
 ### Patch Changes
