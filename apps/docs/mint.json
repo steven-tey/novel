@@ -50,7 +50,8 @@
             "guides/tailwind/bubble-menu"
           ]
         },
-        "guides/ai-command"
+        "guides/ai-command",
+        "guides/image-upload"
       ]
     },
     {
