@@ -1,5 +1,11 @@
 # novel
 
+## 0.2.9
+
+### Patch Changes
+
+- Custom upload config
+
 ## 0.2.8
 
 ### Patch Changes
