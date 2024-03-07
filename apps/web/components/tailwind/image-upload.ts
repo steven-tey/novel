@@ -10,6 +10,7 @@ const onUpload = (file: File) => {
     },
     body: file,
   });
+
   return new Promise((resolve) => {
     toast.promise(
       promise.then(async (res) => {
@@ -47,10 +48,11 @@ export const uploadFn = createImageUpload({
   validateFn: (file) => {
     if (!file.type.includes("image/")) {
       toast.error("File type not supported.");
-      return;
+      return false;
     } else if (file.size / 1024 / 1024 > 20) {
       toast.error("File size too big (max 20MB).");
-      return;
+      return false;
     }
+    return true;
   },
 });

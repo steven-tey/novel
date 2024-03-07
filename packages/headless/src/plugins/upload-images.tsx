@@ -62,7 +62,8 @@ export const createImageUpload =
   ({ validateFn, onUpload }: ImageUploadOptions): UploadFn =>
   (file, view, pos) => {
     // check if the file is an image
-    validateFn?.(file);
+    const validated = validateFn?.(file);
+    if (!validated) return;
     // A fresh object to act as the ID for this upload
     const id = {};
 

@@ -31,7 +31,7 @@ export const EditorRoot: FC<EditorRootProps> = ({ children }) => {
 };
 
 export type EditorContentProps = Omit<EditorProviderProps, "content"> & {
-  readonly children: ReactNode;
+  readonly children?: ReactNode;
   readonly className?: string;
   readonly initialContent?: JSONContent;
 };
