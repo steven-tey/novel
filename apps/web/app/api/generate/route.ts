@@ -11,20 +11,17 @@ import type { ChatCompletionMessageParam } from "openai/resources/index.mjs";
 // IMPORTANT! Set the runtime to edge: https://vercel.com/docs/functions/edge-functions/edge-runtime
 export const runtime = "edge";
 
-const isProd = process.env.NODE_ENV === "production";
+const llama = new OpenAI({
+  apiKey: "ollama",
+  baseURL: "http://localhost:11434/v1",
+});
 
 export async function POST(req: Request): Promise<Response> {
   const openai = new OpenAI({
-    ...(!isProd && {
-      baseURL: "http://localhost:11434/v1",
-    }),
-    apiKey: isProd ? process.env.OPENAI_API_KEY : "ollama",
+    apiKey: process.env.OPENAI_API_KEY,
   });
   // Check if the OPENAI_API_KEY is set, if not return 400
-  if (
-    (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === "") &&
-    isProd
-  ) {
+  if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === "") {
     return new Response(
       "Missing OPENAI_API_KEY - make sure to add it to your .env file.",
       {
@@ -32,7 +29,7 @@ export async function POST(req: Request): Promise<Response> {
       },
     );
   }
-  if (isProd && process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
+  if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
     const ip = req.headers.get("x-forwarded-for");
     const ratelimit = new Ratelimit({
       redis: kv,
@@ -55,8 +52,7 @@ export async function POST(req: Request): Promise<Response> {
     }
   }
 
-  let { prompt, option } = await req.json();
-
+  let { prompt, option, command } = await req.json();
   const messages = match(option)
     .with("continue", () => [
       {
@@ -82,7 +78,7 @@ export async function POST(req: Request): Promise<Response> {
       },
       {
         role: "user",
-        content: prompt,
+        content: `The existing text is: ${prompt}`,
       },
     ])
     .with("shorter", () => [
@@ -94,7 +90,7 @@ export async function POST(req: Request): Promise<Response> {
       },
       {
         role: "user",
-        content: prompt,
+        content: `The existing text is: ${prompt}`,
       },
     ])
     .with("longer", () => [
@@ -106,7 +102,7 @@ export async function POST(req: Request): Promise<Response> {
       },
       {
         role: "user",
-        content: prompt,
+        content: `The existing text is: ${prompt}`,
       },
     ])
     .with("fix", () => [
@@ -119,7 +115,7 @@ export async function POST(req: Request): Promise<Response> {
       },
       {
         role: "user",
-        content: prompt,
+        content: `The existing text is: ${prompt}`,
       },
     ])
     .with("zap", () => [
@@ -127,20 +123,18 @@ export async function POST(req: Request): Promise<Response> {
         role: "system",
         content:
           "You area an AI writing assistant that generates text based on a prompt. " +
-          "You have to execute this command for the text selected by user" +
-          option.command +
+          "You take an input from the user and a command for manipulating the text" +
           "Use Markdown formatting when appropriate.",
       },
       {
         role: "user",
-        content: prompt + option.command,
+        content: `For this text: ${prompt}. You have to respect the command: ${command}`,
       },
     ])
     .run() as ChatCompletionMessageParam[];
 
-  console.log(messages);
   const response = await openai.chat.completions.create({
-    model: process.env.NODE_ENV == "development" ? "llama2" : "gpt-3.5-turbo",
+    model: "gpt-3.5-turbo",
     stream: true,
     messages,
     temperature: 0.7,

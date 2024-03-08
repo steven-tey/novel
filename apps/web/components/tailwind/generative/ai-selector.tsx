@@ -5,7 +5,7 @@ import { Command, CommandInput } from "@/components/tailwind/ui/command";
 import { useCompletion } from "ai/react";
 import { toast } from "sonner";
 import { useEditor } from "novel";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Markdown from "react-markdown";
 import AISelectorCommands from "./ai-selector-commands";
 import AICompletionCommands from "./ai-completion-command";
@@ -25,7 +25,6 @@ interface AISelectorProps {
 export function AISelector({ open, onOpenChange }: AISelectorProps) {
   const { editor } = useEditor();
   const [inputValue, setInputValue] = useState("");
-  const [range, setRange] = useState<Range>(null);
 
   const { completion, complete, isLoading } = useCompletion({
     // id: "novel",
@@ -48,7 +47,7 @@ export function AISelector({ open, onOpenChange }: AISelectorProps) {
       {hasCompletion && (
         <div className="flex max-h-[400px]">
           <ScrollArea>
-            <div className="prose p-2 px-4 text-sm">
+            <div className="prose p-2 px-4 prose-sm">
               <Markdown>{completion}</Markdown>
             </div>
           </ScrollArea>
