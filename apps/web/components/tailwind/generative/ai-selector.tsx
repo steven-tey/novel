@@ -5,7 +5,7 @@ import { Command, CommandInput } from "@/components/tailwind/ui/command";
 import { useCompletion } from "ai/react";
 import { toast } from "sonner";
 import { useEditor } from "novel";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Markdown from "react-markdown";
 import AISelectorCommands from "./ai-selector-commands";
 import AICompletionCommands from "./ai-completion-command";
@@ -14,7 +14,7 @@ import { Button } from "../ui/button";
 import { ArrowUp } from "lucide-react";
 import Magic from "../ui/icons/magic";
 import CrazySpinner from "../ui/icons/crazy-spinner";
-
+import { addAIHighlight } from "novel/extensions";
 //TODO: I think it makes more sense to create a custom Tiptap extension for this functionality https://tiptap.dev/docs/editor/ai/introduction
 
 interface AISelectorProps {
@@ -25,6 +25,7 @@ interface AISelectorProps {
 export function AISelector({ open, onOpenChange }: AISelectorProps) {
   const { editor } = useEditor();
   const [inputValue, setInputValue] = useState("");
+  const [range, setRange] = useState<Range>(null);
 
   const { completion, complete, isLoading } = useCompletion({
     // id: "novel",
@@ -75,9 +76,7 @@ export function AISelector({ open, onOpenChange }: AISelectorProps) {
                   ? "Tell AI what to do next"
                   : "Ask AI to edit or generate..."
               }
-              onFocus={() => {
-                editor.chain().setHighlight({ color: "#c1ecf970" }).run();
-              }}
+              onFocus={() => addAIHighlight(editor)}
             />
             <Button
               size="icon"

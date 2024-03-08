@@ -15,7 +15,6 @@ import UpdatedImage from "./updated-image";
 import CustomKeymap from "./custom-keymap";
 import DragAndDrop from "./drag-and-drop";
 import { ImageResizer } from "./image-resizer";
-
 const PlaceholderExtension = Placeholder.configure({
   placeholder: ({ node }) => {
     if (node.type.name === "heading") {
@@ -56,7 +55,7 @@ const Horizontal = HorizontalRule.extend({
 
           tr.insert(start - 1, this.type.create(attributes)).delete(
             tr.mapping.map(start),
-            tr.mapping.map(end)
+            tr.mapping.map(end),
           );
         },
       }),
@@ -77,6 +76,7 @@ export {
   InputRule,
   ImageResizer,
 };
+export * from "./ai-highlight";
 export * from "./slash-command";
 
 // Todo: Maybe I should create an utils entry
