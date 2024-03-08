@@ -4,7 +4,7 @@
   "scripts": {
     "changeset": "changeset",
     "publish:packages": "changeset publish",
-    "version:packages": "changeset version",
+    "version:packages": "turbo build && changeset version",
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",

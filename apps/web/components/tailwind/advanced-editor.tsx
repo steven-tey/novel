@@ -3,14 +3,13 @@ import { defaultEditorContent } from "@/lib/content";
 import React, { useEffect, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import {
-  EditorInstance,
   EditorRoot,
-  EditorBubble,
   EditorCommand,
   EditorCommandItem,
   EditorCommandEmpty,
   EditorContent,
   type JSONContent,
+  EditorInstance,
 } from "novel";
 import { ImageResizer, handleCommandNavigation } from "novel/extensions";
 import { defaultExtensions } from "./extensions";
@@ -21,12 +20,13 @@ import { ColorSelector } from "./selectors/color-selector";
 
 import { TextButtons } from "./selectors/text-buttons";
 import { slashCommand, suggestionItems } from "./slash-command";
+import GenerativeMenuSwitch from "./generative/generative-menu-switch";
 import { handleImageDrop, handleImagePaste } from "novel/plugins";
 import { uploadFn } from "./image-upload";
 
 const extensions = [...defaultExtensions, slashCommand];
 
-const TailwindEditor = () => {
+const TailwindAdvancedEditor = () => {
   const [initialContent, setInitialContent] = useState<null | JSONContent>(
     null,
   );
@@ -35,6 +35,7 @@ const TailwindEditor = () => {
   const [openNode, setOpenNode] = useState(false);
   const [openColor, setOpenColor] = useState(false);
   const [openLink, setOpenLink] = useState(false);
+  const [openAI, setOpenAI] = useState(false);
 
   const debouncedUpdates = useDebouncedCallback(
     async (editor: EditorInstance) => {
@@ -82,7 +83,7 @@ const TailwindEditor = () => {
           }}
           slotAfter={<ImageResizer />}
         >
-          <EditorCommand className="z-50 h-auto max-h-[330px]  w-72 overflow-y-auto rounded-md border border-muted bg-background px-1 py-2 shadow-md transition-all">
+          <EditorCommand className="z-50 h-auto max-h-[330px] overflow-y-auto rounded-md border border-muted bg-background px-1 py-2 shadow-md transition-all">
             <EditorCommandEmpty className="px-2 text-muted-foreground">
               No results
             </EditorCommandEmpty>
@@ -106,12 +107,7 @@ const TailwindEditor = () => {
             ))}
           </EditorCommand>
 
-          <EditorBubble
-            tippyOptions={{
-              placement: "top",
-            }}
-            className="flex w-fit max-w-[90vw] overflow-hidden rounded border border-muted bg-background shadow-xl"
-          >
+          <GenerativeMenuSwitch open={openAI} onOpenChange={setOpenAI}>
             <Separator orientation="vertical" />
             <NodeSelector open={openNode} onOpenChange={setOpenNode} />
             <Separator orientation="vertical" />
@@ -121,11 +117,11 @@ const TailwindEditor = () => {
             <TextButtons />
             <Separator orientation="vertical" />
             <ColorSelector open={openColor} onOpenChange={setOpenColor} />
-          </EditorBubble>
+          </GenerativeMenuSwitch>
         </EditorContent>
       </EditorRoot>
     </div>
   );
 };
 
-export default TailwindEditor;
+export default TailwindAdvancedEditor;
