@@ -1,1 +1,8 @@
-export { UploadImagesPlugin, startImageUpload, handleImageUpload } from "./upload-images";
+export {
+  UploadImagesPlugin,
+  type UploadFn,
+  type ImageUploadOptions,
+  createImageUpload,
+  handleImageDrop,
+  handleImagePaste,
+} from "./upload-images";

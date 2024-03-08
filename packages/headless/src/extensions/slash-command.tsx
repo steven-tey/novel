@@ -1,10 +1,10 @@
-import { type Editor, type Range, Extension } from "@tiptap/core";
+import { Extension } from "@tiptap/core";
 import Suggestion from "@tiptap/suggestion";
 import { ReactRenderer } from "@tiptap/react";
 import tippy from "tippy.js";
-
 import { EditorCommandOut } from "../components/editor-command";
 import type { ReactNode } from "react";
+import type { Editor, Range } from "@tiptap/core";
 
 const Command = Extension.create({
   name: "slash-command",
@@ -12,7 +12,15 @@ const Command = Extension.create({
     return {
       suggestion: {
         char: "/",
-        command: ({ editor, range, props }: { editor: Editor; range: Range; props: any }) => {
+        command: ({
+          editor,
+          range,
+          props,
+        }: {
+          editor: Editor;
+          range: Range;
+          props: any;
+        }) => {
           props.command({ editor, range });
         },
       },
@@ -38,6 +46,15 @@ const renderItems = () => {
         props,
         editor: props.editor,
       });
+
+      const { selection } = props.editor.state;
+
+      const parentNode = selection.$from.node(selection.$from.depth);
+      const blockType = parentNode.type.name;
+
+      if (blockType === "codeBlock") {
+        return false;
+      }
 
       // @ts-ignore
       popup = tippy("body", {
@@ -85,5 +102,14 @@ export interface SuggestionItem {
 }
 
 export const createSuggestionItems = (items: SuggestionItem[]) => items;
+
+export const handleCommandNavigation = (event: KeyboardEvent) => {
+  if (["ArrowUp", "ArrowDown", "Enter"].includes(event.key)) {
+    const slashCommand = document.querySelector("#slash-command");
+    if (slashCommand) {
+      return true;
+    }
+  }
+};
 
 export { Command, renderItems };

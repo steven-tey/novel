@@ -3,8 +3,7 @@ import { defaultEditorContent } from "@/lib/content";
 import React, { useEffect, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import {
-  defaultEditorProps,
-  Editor,
+  EditorInstance,
   EditorRoot,
   EditorBubble,
   EditorCommand,
@@ -13,7 +12,7 @@ import {
   EditorContent,
   type JSONContent,
 } from "novel";
-import { ImageResizer } from "novel/extensions";
+import { ImageResizer, handleCommandNavigation } from "novel/extensions";
 import { defaultExtensions } from "./extensions";
 import { Separator } from "./ui/separator";
 import { NodeSelector } from "./selectors/node-selector";
@@ -22,6 +21,8 @@ import { ColorSelector } from "./selectors/color-selector";
 
 import { TextButtons } from "./selectors/text-buttons";
 import { slashCommand, suggestionItems } from "./slash-command";
+import { handleImageDrop, handleImagePaste } from "novel/plugins";
+import { uploadFn } from "./image-upload";
 
 const extensions = [...defaultExtensions, slashCommand];
 
@@ -35,12 +36,15 @@ const TailwindEditor = () => {
   const [openColor, setOpenColor] = useState(false);
   const [openLink, setOpenLink] = useState(false);
 
-  const debouncedUpdates = useDebouncedCallback(async (editor: Editor) => {
-    const json = editor.getJSON();
+  const debouncedUpdates = useDebouncedCallback(
+    async (editor: EditorInstance) => {
+      const json = editor.getJSON();
 
-    window.localStorage.setItem("novel-content", JSON.stringify(json));
-    setSaveStatus("Saved");
-  }, 500);
+      window.localStorage.setItem("novel-content", JSON.stringify(json));
+      setSaveStatus("Saved");
+    },
+    500,
+  );
 
   useEffect(() => {
     const content = window.localStorage.getItem("novel-content");
@@ -61,9 +65,15 @@ const TailwindEditor = () => {
           extensions={extensions}
           className="relative min-h-[500px] w-full max-w-screen-lg border-muted bg-background sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:shadow-lg"
           editorProps={{
-            ...defaultEditorProps,
+            handleDOMEvents: {
+              keydown: (_view, event) => handleCommandNavigation(event),
+            },
+            handlePaste: (view, event) =>
+              handleImagePaste(view, event, uploadFn),
+            handleDrop: (view, event, _slice, moved) =>
+              handleImageDrop(view, event, moved, uploadFn),
             attributes: {
-              class: `prose-lg prose-stone dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full`,
+              class: `prose prose-lg dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full`,
             },
           }}
           onUpdate={({ editor }) => {

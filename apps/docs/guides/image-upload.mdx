@@ -1,0 +1,137 @@
+---
+title: "Image Upload (New)"
+description: "Uploading images in the editor"
+---
+
+<Steps>
+
+    <Step title="Add image extension">
+        Configure image extension with your styling. The `imageClass` is used for styling the placeholder image.
+
+        ```tsx
+        //extensions.ts
+        import { UploadImagesPlugin } from "novel/plugins";
+
+        const tiptapImage = TiptapImage.extend({
+            addProseMirrorPlugins() {
+                return [
+                    UploadImagesPlugin({
+                        imageClass: cx("opacity-40 rounded-lg border border-stone-200"),
+                    }),
+                ];
+            },
+            }).configure({
+            allowBase64: true,
+            HTMLAttributes: {
+                class: cx("rounded-lg border border-muted"),
+            },
+        });
+
+        export const defaultExtensions = [
+            tiptapImage,
+            //other extensions
+        ];
+
+        //editor.tsx
+        const Editor = () => {
+            return <EditorContent extensions={defaultExtensions} />
+        }
+
+        ```
+
+    </Step>
+
+    <Step title="Create upload function">
+        `onUpload` should return a `Promise<string>`
+        `validateFn` is triggered before an image is uploaded. It should return a `boolean` value.
+
+        ```tsx image-upload.ts
+        import { createImageUpload } from "novel/plugins";
+        import { toast } from "sonner";
+
+        const onUpload = async (file: File) => {
+            const promise = fetch("/api/upload", {
+                method: "POST",
+                headers: {
+                "content-type": file?.type || "application/octet-stream",
+                "x-vercel-filename": file?.name || "image.png",
+                },
+                body: file,
+            });
+
+            //This should return a src of the uploaded image
+            return promise;
+        };
+
+        export const uploadFn = createImageUpload({
+            onUpload,
+            validateFn: (file) => {
+                if (!file.type.includes("image/")) {
+                    toast.error("File type not supported.");
+                    return false;
+                } else if (file.size / 1024 / 1024 > 20) {
+                    toast.error("File size too big (max 20MB).");
+                    return false;
+                }
+                return true;
+            },
+        });
+
+        ```
+    </Step>
+
+    <Step title="Configure events callbacks">
+        This is required to handle image paste and drop events in the editor.
+        ```tsx editor.tsx
+        import { handleImageDrop, handleImagePaste } from "novel/plugins";
+        import { uploadFn } from "./image-upload";
+
+        ...
+        <EditorContent
+                editorProps={{
+                    handlePaste: (view, event) => handleImagePaste(view, event, uploadFn),
+                    handleDrop: (view, event, _slice, moved) =>  handleImageDrop(view, event, moved, uploadFn),
+                    ...
+                }}
+        />
+        ...
+         ```
+    </Step>
+
+    <Step title="Update slash-command suggestionsItems">
+
+
+        ```tsx
+        import { ImageIcon } from "lucide-react";
+        import { createSuggestionItems } from "novel/extensions";
+        import { uploadFn } from "./image-upload";
+
+        export const suggestionItems = createSuggestionItems([
+            ...,
+            {
+                title: "Image",
+                description: "Upload an image from your computer.",
+                searchTerms: ["photo", "picture", "media"],
+                icon: <ImageIcon size={18} />,
+                command: ({ editor, range }) => {
+                    editor.chain().focus().deleteRange(range).run();
+                    // upload image
+                    const input = document.createElement("input");
+                    input.type = "file";
+                    input.accept = "image/*";
+                    input.onchange = async () => {
+                        if (input.files?.length) {
+                        const file = input.files[0];
+                        const pos = editor.view.state.selection.from;
+                        uploadFn(file, editor.view, pos);
+                        }
+                    };
+                    input.click();
+                },
+            }
+         ])
+        ```
+
+    </Step>
+
+</Steps>

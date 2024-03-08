@@ -1,11 +1,9 @@
-//@ts-nocheck
-//TODO: remove ts-nocheck from here some day
 import { EditorState, Plugin, PluginKey } from "@tiptap/pm/state";
 import { Decoration, DecorationSet, EditorView } from "@tiptap/pm/view";
 
 const uploadKey = new PluginKey("upload-image");
 
-export const UploadImagesPlugin = () =>
+export const UploadImagesPlugin = ({ imageClass }: { imageClass: string }) =>
   new Plugin({
     key: uploadKey,
     state: {
@@ -15,6 +13,7 @@ export const UploadImagesPlugin = () =>
       apply(tr, set) {
         set = set.map(tr.mapping, tr.doc);
         // See if the transaction adds or removes any placeholders
+        //@ts-expect-error - not yet sure what the type I need here
         const action = tr.getMeta(this);
         if (action && action.add) {
           const { id, pos, src } = action.add;
@@ -22,7 +21,7 @@ export const UploadImagesPlugin = () =>
           const placeholder = document.createElement("div");
           placeholder.setAttribute("class", "img-placeholder");
           const image = document.createElement("img");
-          image.setAttribute("class", "opacity-40 rounded-lg border border-stone-200");
+          image.setAttribute("class", imageClass);
           image.src = src;
           placeholder.appendChild(image);
           const deco = Decoration.widget(pos + 1, placeholder, {
@@ -30,7 +29,13 @@ export const UploadImagesPlugin = () =>
           });
           set = set.add(tr.doc, [deco]);
         } else if (action && action.remove) {
-          set = set.remove(set.find(null, null, (spec) => spec.id == action.remove.id));
+          set = set.remove(
+            set.find(
+              undefined,
+              undefined,
+              (spec) => spec.id == action.remove.id,
+            ),
+          );
         }
         return set;
       },
@@ -43,104 +48,102 @@ export const UploadImagesPlugin = () =>
   });
 
 function findPlaceholder(state: EditorState, id: {}) {
-  const decos = uploadKey.getState(state);
-  const found = decos.find(null, null, (spec) => spec.id == id);
-  return found.length ? found[0].from : null;
+  const decos = uploadKey.getState(state) as DecorationSet;
+  const found = decos.find(undefined, undefined, (spec) => spec.id == id);
+  return found.length ? found[0]?.from : null;
 }
 
-export function startImageUpload(file: File, view: EditorView, pos: number) {
-  // check if the file is an image
-  if (!file.type.includes("image/")) {
-    //TODO add toast back
-    // toast.error("File type not supported.");
-    return;
+export interface ImageUploadOptions {
+  validateFn?: (file: File) => void;
+  onUpload: (file: File) => Promise<unknown>;
+}
 
-    // check if the file size is less than 20MB
-  } else if (file.size / 1024 / 1024 > 20) {
-    // toast.error("File size too big (max 20MB).");
-    return;
-  }
+export const createImageUpload =
+  ({ validateFn, onUpload }: ImageUploadOptions): UploadFn =>
+  (file, view, pos) => {
+    // check if the file is an image
+    const validated = validateFn?.(file);
+    if (!validated) return;
+    // A fresh object to act as the ID for this upload
+    const id = {};
 
-  // A fresh object to act as the ID for this upload
-  const id = {};
+    // Replace the selection with a placeholder
+    const tr = view.state.tr;
+    if (!tr.selection.empty) tr.deleteSelection();
 
-  // Replace the selection with a placeholder
-  const tr = view.state.tr;
-  if (!tr.selection.empty) tr.deleteSelection();
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      tr.setMeta(uploadKey, {
+        add: {
+          id,
+          pos,
+          src: reader.result,
+        },
+      });
+      view.dispatch(tr);
+    };
 
-  const reader = new FileReader();
-  reader.readAsDataURL(file);
-  reader.onload = () => {
-    tr.setMeta(uploadKey, {
-      add: {
-        id,
-        pos,
-        src: reader.result,
-      },
+    onUpload(file).then((src) => {
+      const { schema } = view.state;
+
+      let pos = findPlaceholder(view.state, id);
+
+      // If the content around the placeholder has been deleted, drop
+      // the image
+      if (pos == null) return;
+
+      // Otherwise, insert it at the placeholder's position, and remove
+      // the placeholder
+
+      // When BLOB_READ_WRITE_TOKEN is not valid or unavailable, read
+      // the image locally
+      const imageSrc = typeof src === "object" ? reader.result : src;
+
+      const node = schema.nodes.image?.create({ src: imageSrc });
+      if (!node) return;
+
+      const transaction = view.state.tr
+        .replaceWith(pos, pos, node)
+        .setMeta(uploadKey, { remove: { id } });
+      view.dispatch(transaction);
     });
-    view.dispatch(tr);
   };
 
-  handleImageUpload(file).then((src) => {
-    const { schema } = view.state;
+export type UploadFn = (file: File, view: EditorView, pos: number) => void;
 
-    let pos = findPlaceholder(view.state, id);
-    // If the content around the placeholder has been deleted, drop
-    // the image
-    if (pos == null) return;
+export const handleImagePaste = (
+  view: EditorView,
+  event: ClipboardEvent,
+  uploadFn: UploadFn,
+) => {
+  if (event.clipboardData?.files.length) {
+    event.preventDefault();
+    const [file] = Array.from(event.clipboardData.files);
+    const pos = view.state.selection.from;
 
-    // Otherwise, insert it at the placeholder's position, and remove
-    // the placeholder
+    if (file) uploadFn(file, view, pos);
+    return true;
+  }
+  return false;
+};
 
-    // When BLOB_READ_WRITE_TOKEN is not valid or unavailable, read
-    // the image locally
-    const imageSrc = typeof src === "object" ? reader.result : src;
-
-    const node = schema.nodes.image.create({ src: imageSrc });
-    const transaction = view.state.tr
-      .replaceWith(pos, pos, node)
-      .setMeta(uploadKey, { remove: { id } });
-    view.dispatch(transaction);
-  });
-}
-
-export const handleImageUpload = (file: File) => {
-  // upload to Vercel Blob, TODO: fix toat
-  // return new Promise((resolve) => {
-  //   toast.promise(
-  //     fetch("/api/upload", {
-  //       method: "POST",
-  //       headers: {
-  //         "content-type": file?.type || "application/octet-stream",
-  //         "x-vercel-filename": file?.name || "image.png",
-  //       },
-  //       body: file,
-  //     }).then(async (res) => {
-  //       // Successfully uploaded image
-  //       if (res.status === 200) {
-  //         const { url } = (await res.json()) as any;
-  //         // preload the image
-  //         let image = new Image();
-  //         image.src = url;
-  //         image.onload = () => {
-  //           resolve(url);
-  //         };
-  //         // No blob store configured
-  //       } else if (res.status === 401) {
-  //         resolve(file);
-  //         throw new Error(
-  //           "`BLOB_READ_WRITE_TOKEN` environment variable not found, reading image locally instead."
-  //         );
-  //         // Unknown error
-  //       } else {
-  //         throw new Error(`Error uploading image. Please try again.`);
-  //       }
-  //     }),
-  //     {
-  //       loading: "Uploading image...",
-  //       success: "Image uploaded successfully.",
-  //       error: (e) => e.message,
-  //     }
-  //   );
-  // });
+export const handleImageDrop = (
+  view: EditorView,
+  event: DragEvent,
+  moved: boolean,
+  uploadFn: UploadFn,
+) => {
+  if (!moved && event.dataTransfer?.files.length) {
+    event.preventDefault();
+    const [file] = Array.from(event.dataTransfer.files);
+    const coordinates = view.posAtCoords({
+      left: event.clientX,
+      top: event.clientY,
+    });
+    // here we deduct 1 from the pos or else the image will create an extra node
+    if (file) uploadFn(file, view, coordinates?.pos ?? 0 - 1);
+    return true;
+  }
+  return false;
 };

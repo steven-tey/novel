@@ -4,13 +4,17 @@ description: "Follow this guide to set up Novel with Tailwindcss"
 ---
 
 <Info>
-  This example demonstrates the use of Shadcn-ui for ui, but alternative libraries and components
-  can also be employed.
+  This example demonstrates the use of Shadcn-ui for ui, but alternative
+  libraries and components can also be employed.
 </Info>
 
-<Card title='Shadcn-ui' icon='link' href='https://ui.shadcn.com/docs/installation'>
-  You can find more info about installing shadcn-ui here. You will need to add the following
-  components: <b>Button, Separator, Popover, Command, Dialog,</b>
+<Card
+  title="Shadcn-ui"
+  icon="link"
+  href="https://ui.shadcn.com/docs/installation"
+>
+  You can find more info about installing shadcn-ui here. You will need to add
+  the following components: <b>Button, Separator, Popover, Command, Dialog,</b>
 </Card>
 
 This example will use the same stucture from here: [Anatomy](/quickstart#anatomy)\
@@ -24,7 +28,7 @@ You can find the full example here: [Tailwind Example](https://github.com/steven
     import { EditorContent, EditorRoot } from "novel";
     import { useState } from "react";
 
-    const Editor = () => {
+    const TailwindEditor = () => {
       const [content, setContent] = useState(null);
       return (
         <EditorRoot>
@@ -38,12 +42,15 @@ You can find the full example here: [Tailwind Example](https://github.com/steven
         </EditorRoot>
       );
     };
-    export default Editor;
+    export default TailwindEditor;
     ```
     <Tip>
       `onUpdate` runs on every change. In most cases, you will want to debounce the updates to prevent too many state changes.
       ```tsx
-      const debouncedUpdates = useDebouncedCallback(async (editor: Editor) => {
+      import { EditorInstance } from "novel"
+
+      ...
+      const debouncedUpdates = useDebouncedCallback(async (editor: EditorInstance) => {
         const json = editor.getJSON();
         setContent(json);
         setSaveStatus("Saved");
@@ -73,70 +80,40 @@ You can find the full example here: [Tailwind Example](https://github.com/steven
 ## Create Menus
 
 <CardGroup cols={2}>
-  <Card title='Slash Command' href='/guides/tailwind/slash-command' icon='terminal'>
+  <Card
+    title="Slash Command"
+    href="/guides/tailwind/slash-command"
+    icon="terminal"
+  >
     Slash commands are a way to quickly insert content into the editor.
   </Card>
-  <Card title='Bubble Menu' href='/guides/tailwind/bubble-menu' icon='square-caret-down'>
+  <Card
+    title="Bubble Menu"
+    href="/guides/tailwind/bubble-menu"
+    icon="square-caret-down"
+  >
     The bubble menu is a context menu that appears when you select text.
   </Card>
 </CardGroup>
 
 ## Add Editor Props
 
-`defaultEditorProps` are required to fix the slash command keyboard navigation. For any custom use case you can write your own or extend the default props.
-
-```tsx novel/src/editor.tsx
-export const defaultEditorProps: EditorProviderProps["editorProps"] = {
-  handleDOMEvents: {
-    keydown: (_view, event) => {
-      // prevent default event listeners from firing when slash command is active
-      if (["ArrowUp", "ArrowDown", "Enter"].includes(event.key)) {
-        const slashCommand = document.querySelector("#slash-command");
-        if (slashCommand) {
-          return true;
-        }
-      }
-    },
-  },
-  handlePaste: (view, event) => {
-    if (event.clipboardData && event.clipboardData.files && event.clipboardData.files[0]) {
-      event.preventDefault();
-      const file = event.clipboardData.files[0];
-      const pos = view.state.selection.from;
-
-      startImageUpload(file, view, pos);
-      return true;
-    }
-    return false;
-  },
-  handleDrop: (view, event, _slice, moved) => {
-    if (!moved && event.dataTransfer && event.dataTransfer.files && event.dataTransfer.files[0]) {
-      event.preventDefault();
-      const file = event.dataTransfer.files[0];
-      const coordinates = view.posAtCoords({
-        left: event.clientX,
-        top: event.clientY,
-      });
-      // here we deduct 1 from the pos or else the image will create an extra node
-      startImageUpload(file, view, coordinates?.pos || 0 - 1);
-      return true;
-    }
-    return false;
-  },
-};
-```
+`handleCommandNavigation` is required for fixing the arrow navigation in the / command;
 
 ```tsx
+import { handleCommandNavigation } from "novel/extensions";
 import { defaultEditorProps, EditorContent } from "novel";
 
 <EditorContent
   ...
-   editorProps={{
-            ...defaultEditorProps,
-            attributes: {
-              class: `prose-lg prose-stone dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full`,
-            },
-    }}
+  editorProps={{
+      handleDOMEvents: {
+        keydown: (_view, event) => handleCommandNavigation(event),
+      },
+      attributes: {
+        class: `prose prose-lg dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full`,
+      }
+  }}
 />
 ```
 
@@ -220,24 +197,24 @@ import { defaultEditorProps, EditorContent } from "novel";
     ul[data-type="taskList"] li > label input[type="checkbox"] {
       -webkit-appearance: none;
       appearance: none;
-      background-color: var(--novel-white);
+      background-color: hsl(var(--background));
       margin: 0;
       cursor: pointer;
       width: 1.2em;
       height: 1.2em;
       position: relative;
       top: 5px;
-      border: 2px solid var(--novel-stone-900);
+      border: 2px solid hsl(var(--border));
       margin-right: 0.3rem;
       display: grid;
       place-content: center;
 
       &:hover {
-        background-color: var(--novel-stone-50);
+        background-color: hsl(var(--accent));
       }
 
       &:active {
-        background-color: var(--novel-stone-200);
+        background-color: hsl(var(--accent));
       }
 
       &::before {
@@ -257,7 +234,7 @@ import { defaultEditorProps, EditorContent } from "novel";
     }
 
     ul[data-type="taskList"] li[data-checked="true"] > div > p {
-      color: var(--novel-stone-400);
+      color: var(--muted-foreground);
       text-decoration: line-through;
       text-decoration-thickness: 2px;
     }
