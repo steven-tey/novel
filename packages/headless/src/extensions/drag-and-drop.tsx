@@ -3,6 +3,7 @@ import { Extension } from "@tiptap/core";
 import { NodeSelection, Plugin } from "@tiptap/pm/state";
 // @ts-ignore
 import { __serializeForClipboard, EditorView } from "@tiptap/pm/view";
+import { getSpeed } from "./auto-scroll";
 
 export interface DragHandleOptions {
   /**
@@ -33,15 +34,15 @@ function nodeDOMAtCoords(coords: { x: number; y: number }) {
             "pre",
             "blockquote",
             "h1, h2, h3, h4, h5, h6",
-          ].join(", ")
-        )
+          ].join(", "),
+        ),
     );
 }
 
 function nodePosAtDOM(
   node: Element,
   view: EditorView,
-  options: DragHandleOptions
+  options: DragHandleOptions,
 ) {
   const boundingRect = node.getBoundingClientRect();
 
@@ -68,7 +69,7 @@ function DragHandle(options: DragHandleOptions) {
     if (nodePos == null || nodePos < 0) return;
 
     view.dispatch(
-      view.state.tr.setSelection(NodeSelection.create(view.state.doc, nodePos))
+      view.state.tr.setSelection(NodeSelection.create(view.state.doc, nodePos)),
     );
 
     const slice = view.state.selection.content();
@@ -80,6 +81,11 @@ function DragHandle(options: DragHandleOptions) {
     event.dataTransfer.effectAllowed = "copyMove";
 
     event.dataTransfer.setDragImage(node, 0, 0);
+
+    const autoScroll = () => {
+      window.scrollBy(0, speed);
+    };
+    interval = setInterval(autoScroll, 5);
 
     view.dragging = { slice, move: event.ctrlKey };
   }
@@ -100,12 +106,13 @@ function DragHandle(options: DragHandleOptions) {
     if (!nodePos) return;
 
     view.dispatch(
-      view.state.tr.setSelection(NodeSelection.create(view.state.doc, nodePos))
+      view.state.tr.setSelection(NodeSelection.create(view.state.doc, nodePos)),
     );
   }
 
   let dragHandleElement: HTMLElement | null = null;
-
+  let speed = 0;
+  let interval: any = null;
   function hideDragHandle() {
     if (dragHandleElement) {
       dragHandleElement.classList.add("hide");
@@ -126,6 +133,15 @@ function DragHandle(options: DragHandleOptions) {
       dragHandleElement.classList.add("drag-handle");
       dragHandleElement.addEventListener("dragstart", (e) => {
         handleDragStart(e, view);
+      });
+
+      dragHandleElement.addEventListener("drag", (e) => {
+        hideDragHandle();
+        speed = getSpeed(e, 150);
+      });
+      dragHandleElement.addEventListener("dragend", () => {
+        clearInterval(interval);
+        speed = 0;
       });
       dragHandleElement.addEventListener("click", (e) => {
         handleClick(e, view);
