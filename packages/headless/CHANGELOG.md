@@ -1,5 +1,11 @@
 # novel
 
+## 0.2.12
+
+### Patch Changes
+
+- Expose command list editor
+
 ## 0.2.11
 
 ### Patch Changes
