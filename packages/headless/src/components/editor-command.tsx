@@ -8,7 +8,7 @@ import type { ComponentPropsWithoutRef, FC } from "react";
 import type { Range } from "@tiptap/core";
 
 export const EditorCommandTunnelContext = createContext(
-  {} as ReturnType<typeof tunnel>
+  {} as ReturnType<typeof tunnel>,
 );
 
 interface EditorCommandOutProps {
@@ -44,7 +44,7 @@ export const EditorCommandOut: FC<EditorCommandOutProps> = ({
               key: e.key,
               cancelable: true,
               bubbles: true,
-            })
+            }),
           );
 
         return false;
@@ -67,7 +67,6 @@ export const EditorCommand = forwardRef<
   HTMLDivElement,
   ComponentPropsWithoutRef<typeof Command>
 >(({ children, className, ...rest }, ref) => {
-  const commandListRef = useRef<HTMLDivElement>(null);
   const [query, setQuery] = useAtom(queryAtom);
 
   return (
@@ -88,12 +87,13 @@ export const EditorCommand = forwardRef<
               onValueChange={setQuery}
               style={{ display: "none" }}
             />
-            <Command.List ref={commandListRef}>{children}</Command.List>
+            {children}
           </Command>
         </tunnelInstance.In>
       )}
     </EditorCommandTunnelContext.Consumer>
   );
 });
+export const EditorCommandList = Command.List;
 
 EditorCommand.displayName = "EditorCommand";
