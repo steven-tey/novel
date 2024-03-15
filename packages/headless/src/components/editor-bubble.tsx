@@ -26,10 +26,16 @@ export const EditorBubble = forwardRef<HTMLDivElement, EditorBubbleProps>(
         const { empty } = selection;
 
         // don't show bubble menu if:
+        // - the editor is not editable
         // - the selected node is an image
         // - the selection is empty
         // - the selection is a node selection (for drag handles)
-        if (editor.isActive("image") || empty || isNodeSelection(selection)) {
+        if (
+          !editor.isEditable ||
+          editor.isActive("image") ||
+          empty ||
+          isNodeSelection(selection)
+        ) {
           return false;
         }
         return true;
@@ -58,7 +64,7 @@ export const EditorBubble = forwardRef<HTMLDivElement, EditorBubbleProps>(
         </BubbleMenu>
       </div>
     );
-  }
+  },
 );
 
 EditorBubble.displayName = "EditorBubble";
