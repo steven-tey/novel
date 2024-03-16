@@ -52,7 +52,7 @@ function nodeDOMAtCoords(coords: { x: number; y: number }) {
 function nodePosAtDOM(
   node: Element,
   view: EditorView,
-  options: DragHandleOptions,
+  options: DragHandleOptions
 ) {
   const boundingRect = node.getBoundingClientRect();
 
