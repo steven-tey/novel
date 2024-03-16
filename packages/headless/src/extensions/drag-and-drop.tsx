@@ -12,6 +12,17 @@ export interface DragHandleOptions {
 }
 function absoluteRect(node: Element) {
   const data = node.getBoundingClientRect();
+  const modal = node.closest('[role="dialog"]');
+
+  if (modal && window.getComputedStyle(modal).transform !== "none") {
+    const modalRect = modal.getBoundingClientRect();
+
+    return {
+      top: data.top - modalRect.top,
+      left: data.left - modalRect.left,
+      width: data.width,
+    };
+  }
 
   return {
     top: data.top,
@@ -38,15 +49,11 @@ function nodeDOMAtCoords(coords: { x: number; y: number }) {
     );
 }
 
-function nodePosAtDOM(
-  node: Element,
-  view: EditorView,
-  options: DragHandleOptions
-) {
+function nodePosAtDOM(node: Element, view: EditorView) {
   const boundingRect = node.getBoundingClientRect();
 
   return view.posAtCoords({
-    left: boundingRect.left + 50 + options.dragHandleWidth,
+    left: boundingRect.left + 1,
     top: boundingRect.top + 1,
   })?.inside;
 }
@@ -64,7 +71,7 @@ function DragHandle(options: DragHandleOptions) {
 
     if (!(node instanceof Element)) return;
 
-    const nodePos = nodePosAtDOM(node, view, options);
+    const nodePos = nodePosAtDOM(node, view);
     if (nodePos == null || nodePos < 0) return;
 
     view.dispatch(
@@ -96,7 +103,7 @@ function DragHandle(options: DragHandleOptions) {
 
     if (!(node instanceof Element)) return;
 
-    const nodePos = nodePosAtDOM(node, view, options);
+    const nodePos = nodePosAtDOM(node, view);
     if (!nodePos) return;
 
     view.dispatch(
@@ -154,7 +161,7 @@ function DragHandle(options: DragHandleOptions) {
             y: event.clientY,
           });
 
-          if (!(node instanceof Element)) {
+          if (!(node instanceof Element) || node.matches("ul, ol")) {
             hideDragHandle();
             return;
           }
@@ -191,7 +198,6 @@ function DragHandle(options: DragHandleOptions) {
         },
         drop: (view) => {
           view.dom.classList.remove("dragging");
-          hideDragHandle();
         },
         dragend: (view) => {
           view.dom.classList.remove("dragging");
