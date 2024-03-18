@@ -14,7 +14,7 @@ description: "Follow this guide to set up Novel with Tailwindcss"
   href="https://ui.shadcn.com/docs/installation"
 >
   You can find more info about installing shadcn-ui here. You will need to add
-  the following components: <b>Button, Separator, Popover, Command, Dialog,</b>
+  the following components: <b>Button, Separator, Popover, Command, Dialog</b>
 </Card>
 
 This example will use the same stucture from here: [Anatomy](/quickstart#anatomy)\
@@ -339,3 +339,7 @@ import { defaultEditorProps, EditorContent } from "novel";
 </AccordionGroup>
 
 <Note>You need `require("@tailwindcss/typography")` for the prose styling</Note>
+
+## Usage within Dialogs
+
+Novel has been designed to work automatically within Radix Dialogs, namely by looking for the closest parent attribute `[role="dialog"]`. If you're using a different implementation for popups and dialogs, ensure you add this attribute above the editor so the drag handle calculates the correct position.
