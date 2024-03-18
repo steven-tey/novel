@@ -12,6 +12,17 @@ export interface DragHandleOptions {
 }
 function absoluteRect(node: Element) {
   const data = node.getBoundingClientRect();
+  const modal = node.closest('[role="dialog"]');
+
+  if (modal && window.getComputedStyle(modal).transform !== "none") {
+    const modalRect = modal.getBoundingClientRect();
+
+    return {
+      top: data.top - modalRect.top,
+      left: data.left - modalRect.left,
+      width: data.width,
+    };
+  }
 
   return {
     top: data.top,
@@ -154,7 +165,7 @@ function DragHandle(options: DragHandleOptions) {
             y: event.clientY,
           });
 
-          if (!(node instanceof Element)) {
+          if (!(node instanceof Element) || node.matches("ul, ol")) {
             hideDragHandle();
             return;
           }
