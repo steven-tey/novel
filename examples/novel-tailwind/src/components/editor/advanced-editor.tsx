@@ -7,13 +7,11 @@ import {
   EditorCommandEmpty,
   EditorContent,
   type JSONContent,
-  EditorInstance,
   EditorCommandList,
   EditorBubble,
 } from "novel";
 import { ImageResizer, handleCommandNavigation } from "novel/extensions";
 import { defaultExtensions } from "./extensions";
-import { Separator } from "./ui/separator";
 import { NodeSelector } from "./selectors/node-selector";
 import { LinkSelector } from "./selectors/link-selector";
 import { ColorSelector } from "./selectors/color-selector";
@@ -22,11 +20,12 @@ import { TextButtons } from "./selectors/text-buttons";
 import { slashCommand, suggestionItems } from "./slash-command";
 import { handleImageDrop, handleImagePaste } from "novel/plugins";
 import { uploadFn } from "./image-upload";
+import { Separator } from "../ui/separator";
 
 const extensions = [...defaultExtensions, slashCommand];
 
 interface EditorProp {
-  initialValue: JSONContent;
+  initialValue?: JSONContent;
   onChange: (value: JSONContent) => void;
 }
 const Editor = ({ initialValue, onChange }: EditorProp) => {
@@ -37,9 +36,9 @@ const Editor = ({ initialValue, onChange }: EditorProp) => {
   return (
     <EditorRoot>
       <EditorContent
+        className="border p-4 rounded-xl"
         {...(initialValue && { initialContent: initialValue })}
         extensions={extensions}
-        className="relative min-h-[500px] w-full max-w-screen-lg border-muted bg-background sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:shadow-lg"
         editorProps={{
           handleDOMEvents: {
             keydown: (_view, event) => handleCommandNavigation(event),
