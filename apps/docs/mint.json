@@ -51,7 +51,8 @@
           ]
         },
         "guides/ai-command",
-        "guides/image-upload"
+        "guides/image-upload",
+        "guides/global-drag-handle"
       ]
     },
     {

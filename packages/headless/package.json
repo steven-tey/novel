@@ -54,6 +54,8 @@
     "@tiptap/react": "^2.1.7",
     "@tiptap/starter-kit": "^2.1.7",
     "@tiptap/suggestion": "^2.1.7",
+    "tiptap-extension-auto-joiner": "^0.1.1",
+    "tiptap-extension-global-drag-handle": "^0.1.2",
     "@types/node": "18.15.3",
     "cmdk": "^0.2.1",
     "jotai": "^2.6.4",
