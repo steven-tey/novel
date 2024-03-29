@@ -1,5 +1,11 @@
 # novel
 
+## 0.3.0
+
+### Minor Changes
+
+- update drag handle
+
 ## 0.2.13
 
 ### Patch Changes
