@@ -1,6 +1,6 @@
 {
   "name": "novel",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Notion-style WYSIWYG editor with AI-powered autocompletions",
   "license": "Apache-2.0",
   "type": "module",
@@ -55,7 +55,7 @@
     "@tiptap/starter-kit": "^2.1.7",
     "@tiptap/suggestion": "^2.1.7",
     "tiptap-extension-auto-joiner": "^0.1.1",
-    "tiptap-extension-global-drag-handle": "^0.1.2",
+    "tiptap-extension-global-drag-handle": "^0.1.6",
     "@types/node": "18.15.3",
     "cmdk": "^0.2.1",
     "jotai": "^2.6.4",
