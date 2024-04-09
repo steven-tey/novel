@@ -1,29 +1,29 @@
 "use client";
 import { defaultEditorContent } from "@/lib/content";
-import React, { useEffect, useState } from "react";
-import { useDebouncedCallback } from "use-debounce";
 import {
-  EditorRoot,
   EditorCommand,
-  EditorCommandItem,
   EditorCommandEmpty,
-  EditorContent,
-  type JSONContent,
-  EditorInstance,
+  EditorCommandItem,
   EditorCommandList,
+  EditorContent,
+  EditorInstance,
+  EditorRoot,
+  type JSONContent,
 } from "novel";
 import { ImageResizer, handleCommandNavigation } from "novel/extensions";
+import { useEffect, useState } from "react";
+import { useDebouncedCallback } from "use-debounce";
 import { defaultExtensions } from "./extensions";
-import { Separator } from "./ui/separator";
-import { NodeSelector } from "./selectors/node-selector";
-import { LinkSelector } from "./selectors/link-selector";
 import { ColorSelector } from "./selectors/color-selector";
+import { LinkSelector } from "./selectors/link-selector";
+import { NodeSelector } from "./selectors/node-selector";
+import { Separator } from "./ui/separator";
 
+import { handleImageDrop, handleImagePaste } from "novel/plugins";
+import GenerativeMenuSwitch from "./generative/generative-menu-switch";
+import { uploadFn } from "./image-upload";
 import { TextButtons } from "./selectors/text-buttons";
 import { slashCommand, suggestionItems } from "./slash-command";
-import GenerativeMenuSwitch from "./generative/generative-menu-switch";
-import { handleImageDrop, handleImagePaste } from "novel/plugins";
-import { uploadFn } from "./image-upload";
 
 const extensions = [...defaultExtensions, slashCommand];
 
@@ -41,8 +41,12 @@ const TailwindAdvancedEditor = () => {
   const debouncedUpdates = useDebouncedCallback(
     async (editor: EditorInstance) => {
       const json = editor.getJSON();
-
+      window.localStorage.setItem("html-content", editor.getHTML());
       window.localStorage.setItem("novel-content", JSON.stringify(json));
+      window.localStorage.setItem(
+        "markdown",
+        editor.storage.markdown.getMarkdown(),
+      );
       setSaveStatus("Saved");
     },
     500,
