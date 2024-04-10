@@ -1,7 +1,7 @@
 import { Extension } from "@tiptap/core";
 import Suggestion from "@tiptap/suggestion";
 import { ReactRenderer } from "@tiptap/react";
-import tippy from "tippy.js";
+import tippy, { sticky } from "tippy.js";
 import { EditorCommandOut } from "../components/editor-command";
 import type { ReactNode } from "react";
 import type { Editor, Range } from "@tiptap/core";
@@ -65,6 +65,29 @@ const renderItems = () => {
         interactive: true,
         trigger: "manual",
         placement: "bottom-start",
+        sticky: "reference",
+        plugins: [sticky],
+        popperOptions: {
+          strategy: "fixed",
+          modifiers: [
+            {
+              name: "flip",
+              options: {
+                fallbackPlacements: ["top-start"],
+              },
+            },
+            {
+              name: "preventOverflow",
+              options: {
+                altAxis: true,
+                tether: false,
+                padding: {
+                  top: 12,
+                },
+              },
+            },
+          ],
+        },
       });
     },
     onUpdate: (props: { editor: Editor; clientRect: DOMRect }) => {
