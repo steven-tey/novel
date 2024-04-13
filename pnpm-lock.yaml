@@ -216,15 +216,9 @@ importers:
       cmdk:
         specifier: ^0.2.1
         version: 0.2.1(@types/react@18.2.55)(react-dom@18.2.0)(react@18.2.0)
-      highlight.js:
-        specifier: ^11.9.0
-        version: 11.9.0
       jotai:
         specifier: ^2.6.4
         version: 2.6.4(@types/react@18.2.55)(react@18.2.0)
-      lowlight:
-        specifier: ^3.1.0
-        version: 3.1.0
       react:
         specifier: ^18.0.0
         version: 18.2.0

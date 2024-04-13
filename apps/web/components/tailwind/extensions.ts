@@ -13,10 +13,6 @@ import {
 import { UploadImagesPlugin } from "novel/plugins";
 
 import { cx } from "class-variance-authority";
-import css from "highlight.js/lib/languages/css";
-import js from "highlight.js/lib/languages/javascript";
-import ts from "highlight.js/lib/languages/typescript";
-import html from "highlight.js/lib/languages/xml";
 import { common, createLowlight } from "lowlight";
 
 //TODO I am using cx here to get tailwind autocomplete working, idk if someone else can write a regex to just capture the class key in objects
@@ -112,14 +108,10 @@ const starterKit = StarterKit.configure({
   gapcursor: false,
 });
 
-const lowlight = createLowlight(common);
-lowlight.register("html", html);
-lowlight.register("css", css);
-lowlight.register("js", js);
-lowlight.register("ts", ts);
-
 const codeBlockLowlight = CodeBlockLowlight.configure({
-  lowlight,
+  // configure lowlight: common /  all / use highlightJS in case there is a need to specify certain language grammars only
+  // common: covers 37 language grammars which should be good enough in most cases
+  lowlight: createLowlight(common),
 });
 
 export const defaultExtensions = [
