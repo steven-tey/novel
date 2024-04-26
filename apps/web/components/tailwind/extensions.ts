@@ -3,6 +3,7 @@ import {
   TiptapLink,
   UpdatedImage,
   Youtube,
+  CharacterCount,
   TaskList,
   TaskItem,
   HorizontalRule,
@@ -33,6 +34,8 @@ const youtube = Youtube.configure({
   },
   inline: false,
 });
+
+const characterCount = CharacterCount.configure();
 
 const tiptapImage = TiptapImage.extend({
   addProseMirrorPlugins() {
@@ -122,6 +125,7 @@ export const defaultExtensions = [
   tiptapImage,
   updatedImage,
   youtube,
+  characterCount,
   taskList,
   taskItem,
   horizontalRule,
