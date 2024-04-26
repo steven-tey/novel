@@ -4,6 +4,7 @@ import TiptapLink from "@tiptap/extension-link";
 import TiptapImage from "@tiptap/extension-image";
 import Placeholder from "@tiptap/extension-placeholder";
 import TiptapUnderline from "@tiptap/extension-underline";
+import Youtube from "@tiptap/extension-youtube";
 import TextStyle from "@tiptap/extension-text-style";
 import { Color } from "@tiptap/extension-color";
 import { TaskItem } from "@tiptap/extension-task-item";
@@ -80,6 +81,7 @@ export {
   TaskList,
   InputRule,
   ImageResizer,
+  Youtube,
 };
 export * from "./ai-highlight";
 export * from "./slash-command";
