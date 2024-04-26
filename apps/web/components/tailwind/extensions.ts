@@ -2,6 +2,7 @@ import {
   TiptapImage,
   TiptapLink,
   UpdatedImage,
+  Youtube,
   TaskList,
   TaskItem,
   HorizontalRule,
@@ -10,6 +11,7 @@ import {
   AIHighlight,
 } from "novel/extensions";
 import { UploadImagesPlugin } from "novel/plugins";
+
 
 import { cx } from "class-variance-authority";
 
@@ -23,6 +25,13 @@ const tiptapLink = TiptapLink.configure({
       "text-muted-foreground underline underline-offset-[3px] hover:text-primary transition-colors cursor-pointer",
     ),
   },
+});
+
+const youtube = Youtube.configure({
+  HTMLAttributes: {
+    class: cx("rounded-lg border border-muted"),
+  },
+  inline: false,
 });
 
 const tiptapImage = TiptapImage.extend({
@@ -112,6 +121,7 @@ export const defaultExtensions = [
   tiptapLink,
   tiptapImage,
   updatedImage,
+  youtube,
   taskList,
   taskItem,
   horizontalRule,
