@@ -1,7 +1,7 @@
-import { type EditorState, Plugin, PluginKey } from "@tiptap/pm/state";
-import { Decoration, DecorationSet, type EditorView } from "@tiptap/pm/view";
+import { type EditorState, Plugin, PluginKey } from '@tiptap/pm/state';
+import { Decoration, DecorationSet, type EditorView } from '@tiptap/pm/view';
 
-const uploadKey = new PluginKey("upload-image");
+const uploadKey = new PluginKey('upload-image');
 
 export const UploadImagesPlugin = ({ imageClass }: { imageClass: string }) =>
   new Plugin({
@@ -18,10 +18,10 @@ export const UploadImagesPlugin = ({ imageClass }: { imageClass: string }) =>
         if (action && action.add) {
           const { id, pos, src } = action.add;
 
-          const placeholder = document.createElement("div");
-          placeholder.setAttribute("class", "img-placeholder");
-          const image = document.createElement("img");
-          image.setAttribute("class", imageClass);
+          const placeholder = document.createElement('div');
+          placeholder.setAttribute('class', 'img-placeholder');
+          const image = document.createElement('img');
+          image.setAttribute('class', imageClass);
           image.src = src;
           placeholder.appendChild(image);
           const deco = Decoration.widget(pos + 1, placeholder, {
@@ -29,13 +29,7 @@ export const UploadImagesPlugin = ({ imageClass }: { imageClass: string }) =>
           });
           set = set.add(tr.doc, [deco]);
         } else if (action && action.remove) {
-          set = set.remove(
-            set.find(
-              undefined,
-              undefined,
-              (spec) => spec.id == action.remove.id,
-            ),
-          );
+          set = set.remove(set.find(undefined, undefined, (spec) => spec.id == action.remove.id));
         }
         return set;
       },
@@ -98,25 +92,19 @@ export const createImageUpload =
 
       // When BLOB_READ_WRITE_TOKEN is not valid or unavailable, read
       // the image locally
-      const imageSrc = typeof src === "object" ? reader.result : src;
+      const imageSrc = typeof src === 'object' ? reader.result : src;
 
       const node = schema.nodes.image?.create({ src: imageSrc });
       if (!node) return;
 
-      const transaction = view.state.tr
-        .replaceWith(pos, pos, node)
-        .setMeta(uploadKey, { remove: { id } });
+      const transaction = view.state.tr.replaceWith(pos, pos, node).setMeta(uploadKey, { remove: { id } });
       view.dispatch(transaction);
     });
   };
 
 export type UploadFn = (file: File, view: EditorView, pos: number) => void;
 
-export const handleImagePaste = (
-  view: EditorView,
-  event: ClipboardEvent,
-  uploadFn: UploadFn,
-) => {
+export const handleImagePaste = (view: EditorView, event: ClipboardEvent, uploadFn: UploadFn) => {
   if (event.clipboardData?.files.length) {
     event.preventDefault();
     const [file] = Array.from(event.clipboardData.files);
@@ -128,12 +116,7 @@ export const handleImagePaste = (
   return false;
 };
 
-export const handleImageDrop = (
-  view: EditorView,
-  event: DragEvent,
-  moved: boolean,
-  uploadFn: UploadFn,
-) => {
+export const handleImageDrop = (view: EditorView, event: DragEvent, moved: boolean, uploadFn: UploadFn) => {
   if (!moved && event.dataTransfer?.files.length) {
     event.preventDefault();
     const [file] = Array.from(event.dataTransfer.files);

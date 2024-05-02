@@ -1,6 +1,6 @@
-import { Extension } from "@tiptap/core";
+import { Extension } from '@tiptap/core';
 
-declare module "@tiptap/core" {
+declare module '@tiptap/core' {
   // eslint-disable-next-line no-unused-vars
   interface Commands<ReturnType> {
     customkeymap: {
@@ -13,7 +13,7 @@ declare module "@tiptap/core" {
 }
 
 const CustomKeymap = Extension.create({
-  name: "CustomKeymap",
+  name: 'CustomKeymap',
 
   addCommands() {
     return {
@@ -34,7 +34,7 @@ const CustomKeymap = Extension.create({
 
   addKeyboardShortcuts() {
     return {
-      "Mod-a": ({ editor }) => {
+      'Mod-a': ({ editor }) => {
         const { state } = editor;
         const { tr } = state;
         const startSelectionPos = tr.selection.from;

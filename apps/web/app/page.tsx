@@ -1,15 +1,11 @@
-import { Github } from "@/components/tailwind/ui/icons";
-import { Button } from "@/components/tailwind/ui/button";
-import Menu from "@/components/tailwind/ui/menu";
-import Link from "next/link";
-import TailwindAdvancedEditor from "@/components/tailwind/advanced-editor";
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from "@/components/tailwind/ui/dialog";
-import { ScrollArea } from "@/components/tailwind/ui/scroll-area";
-import { BookOpen } from "lucide-react";
+import { Github } from '@/components/tailwind/ui/icons';
+import { Button } from '@/components/tailwind/ui/button';
+import Menu from '@/components/tailwind/ui/menu';
+import Link from 'next/link';
+import TailwindAdvancedEditor from '@/components/tailwind/advanced-editor';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/tailwind/ui/dialog';
+import { ScrollArea } from '@/components/tailwind/ui/scroll-area';
+import { BookOpen } from 'lucide-react';
 
 export default function Page() {
   return (

@@ -1,17 +1,17 @@
-import { Extension } from "@tiptap/core";
-import Suggestion from "@tiptap/suggestion";
-import { ReactRenderer } from "@tiptap/react";
-import tippy from "tippy.js";
-import { EditorCommandOut } from "../components/editor-command";
-import type { ReactNode } from "react";
-import type { Editor, Range } from "@tiptap/core";
+import { Extension } from '@tiptap/core';
+import Suggestion from '@tiptap/suggestion';
+import { ReactRenderer } from '@tiptap/react';
+import tippy from 'tippy.js';
+import { EditorCommandOut } from '../components/editor-command';
+import type { ReactNode } from 'react';
+import type { Editor, Range } from '@tiptap/core';
 
 const Command = Extension.create({
-  name: "slash-command",
+  name: 'slash-command',
   addOptions() {
     return {
       suggestion: {
-        char: "/",
+        char: '/',
         command: ({
           editor,
           range,
@@ -52,19 +52,19 @@ const renderItems = () => {
       const parentNode = selection.$from.node(selection.$from.depth);
       const blockType = parentNode.type.name;
 
-      if (blockType === "codeBlock") {
+      if (blockType === 'codeBlock') {
         return false;
       }
 
       // @ts-ignore
-      popup = tippy("body", {
+      popup = tippy('body', {
         getReferenceClientRect: props.clientRect,
         appendTo: () => document.body,
         content: component.element,
         showOnCreate: true,
         interactive: true,
-        trigger: "manual",
-        placement: "bottom-start",
+        trigger: 'manual',
+        placement: 'bottom-start',
       });
     },
     onUpdate: (props: { editor: Editor; clientRect: DOMRect }) => {
@@ -77,7 +77,7 @@ const renderItems = () => {
     },
 
     onKeyDown: (props: { event: KeyboardEvent }) => {
-      if (props.event.key === "Escape") {
+      if (props.event.key === 'Escape') {
         popup?.[0].hide();
 
         return true;
@@ -104,8 +104,8 @@ export interface SuggestionItem {
 export const createSuggestionItems = (items: SuggestionItem[]) => items;
 
 export const handleCommandNavigation = (event: KeyboardEvent) => {
-  if (["ArrowUp", "ArrowDown", "Enter"].includes(event.key)) {
-    const slashCommand = document.querySelector("#slash-command");
+  if (['ArrowUp', 'ArrowDown', 'Enter'].includes(event.key)) {
+    const slashCommand = document.querySelector('#slash-command');
     if (slashCommand) {
       return true;
     }

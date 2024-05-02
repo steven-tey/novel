@@ -1,21 +1,17 @@
-import { EditorBubble, useEditor } from "novel";
-import React, { Fragment, useEffect, type ReactNode } from "react";
-import { Button } from "../ui/button";
-import { AISelector } from "./ai-selector";
-import Magic from "../ui/icons/magic";
-import {} from "novel/plugins";
-import { removeAIHighlight } from "novel/extensions";
+import { EditorBubble, useEditor } from 'novel';
+import React, { Fragment, useEffect, type ReactNode } from 'react';
+import { Button } from '../ui/button';
+import { AISelector } from './ai-selector';
+import Magic from '../ui/icons/magic';
+import {} from 'novel/plugins';
+import { removeAIHighlight } from 'novel/extensions';
 
 interface GenerativeMenuSwitchProps {
   children: ReactNode;
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
-const GenerativeMenuSwitch = ({
-  children,
-  open,
-  onOpenChange,
-}: GenerativeMenuSwitchProps) => {
+const GenerativeMenuSwitch = ({ children, open, onOpenChange }: GenerativeMenuSwitchProps) => {
   const { editor } = useEditor();
 
   useEffect(() => {
@@ -24,7 +20,7 @@ const GenerativeMenuSwitch = ({
   return (
     <EditorBubble
       tippyOptions={{
-        placement: open ? "bottom-start" : "top",
+        placement: open ? 'bottom-start' : 'top',
         onHidden: () => {
           onOpenChange(false);
           editor.chain().unsetHighlight().run();

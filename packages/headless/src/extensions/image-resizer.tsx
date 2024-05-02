@@ -1,23 +1,21 @@
-import Moveable from "react-moveable";
-import { useCurrentEditor } from "@tiptap/react";
-import type { FC } from "react";
+import Moveable from 'react-moveable';
+import { useCurrentEditor } from '@tiptap/react';
+import type { FC } from 'react';
 
 export const ImageResizer: FC = () => {
   const { editor } = useCurrentEditor();
 
-  if (!editor?.isActive("image")) return null;
+  if (!editor?.isActive('image')) return null;
 
   const updateMediaSize = () => {
-    const imageInfo = document.querySelector(
-      ".ProseMirror-selectednode"
-    ) as HTMLImageElement;
+    const imageInfo = document.querySelector('.ProseMirror-selectednode') as HTMLImageElement;
     if (imageInfo) {
       const selection = editor.state.selection;
       const setImage = editor.commands.setImage as any;
       setImage({
         src: imageInfo.src,
-        width: Number(imageInfo.style.width.replace("px", "")),
-        height: Number(imageInfo.style.height.replace("px", "")),
+        width: Number(imageInfo.style.width.replace('px', '')),
+        height: Number(imageInfo.style.height.replace('px', '')),
       });
       editor.commands.setNodeSelection(selection.from);
     }
@@ -25,7 +23,7 @@ export const ImageResizer: FC = () => {
 
   return (
     <Moveable
-      target={document.querySelector(".ProseMirror-selectednode") as any}
+      target={document.querySelector('.ProseMirror-selectednode') as any}
       container={null}
       origin={false}
       /* Resize event edges */
@@ -59,7 +57,7 @@ export const ImageResizer: FC = () => {
       scalable={true}
       throttleScale={0}
       /* Set the direction of resizable */
-      renderDirections={["w", "e"]}
+      renderDirections={['w', 'e']}
       onScale={({
         target,
         // scale,

@@ -1,129 +1,129 @@
 export const defaultEditorContent = {
-  type: "doc",
+  type: 'doc',
   content: [
     {
-      type: "heading",
+      type: 'heading',
       attrs: { level: 2 },
-      content: [{ type: "text", text: "Introducing Novel" }],
+      content: [{ type: 'text', text: 'Introducing Novel' }],
     },
     {
-      type: "paragraph",
+      type: 'paragraph',
       content: [
         {
-          type: "text",
+          type: 'text',
           marks: [
             {
-              type: "link",
+              type: 'link',
               attrs: {
-                href: "https://github.com/steven-tey/novel",
-                target: "_blank",
+                href: 'https://github.com/steven-tey/novel',
+                target: '_blank',
               },
             },
           ],
-          text: "Novel",
+          text: 'Novel',
         },
         {
-          type: "text",
-          text: " is a Notion-style WYSIWYG editor with AI-powered autocompletion. Built with ",
+          type: 'text',
+          text: ' is a Notion-style WYSIWYG editor with AI-powered autocompletion. Built with ',
         },
         {
-          type: "text",
+          type: 'text',
           marks: [
             {
-              type: "link",
+              type: 'link',
               attrs: {
-                href: "https://tiptap.dev/",
-                target: "_blank",
+                href: 'https://tiptap.dev/',
+                target: '_blank',
               },
             },
           ],
-          text: "Tiptap",
+          text: 'Tiptap',
         },
-        { type: "text", text: " + " },
+        { type: 'text', text: ' + ' },
         {
-          type: "text",
+          type: 'text',
           marks: [
             {
-              type: "link",
+              type: 'link',
               attrs: {
-                href: "https://sdk.vercel.ai/docs",
-                target: "_blank",
+                href: 'https://sdk.vercel.ai/docs',
+                target: '_blank',
               },
             },
           ],
-          text: "Vercel AI SDK",
+          text: 'Vercel AI SDK',
         },
-        { type: "text", text: "." },
+        { type: 'text', text: '.' },
       ],
     },
     {
-      type: "heading",
+      type: 'heading',
       attrs: { level: 3 },
-      content: [{ type: "text", text: "Installation" }],
+      content: [{ type: 'text', text: 'Installation' }],
     },
     {
-      type: "codeBlock",
+      type: 'codeBlock',
       attrs: { language: null },
-      content: [{ type: "text", text: "npm i novel" }],
+      content: [{ type: 'text', text: 'npm i novel' }],
     },
     {
-      type: "heading",
+      type: 'heading',
       attrs: { level: 3 },
-      content: [{ type: "text", text: "Usage" }],
+      content: [{ type: 'text', text: 'Usage' }],
     },
     {
-      type: "codeBlock",
+      type: 'codeBlock',
       attrs: { language: null },
       content: [
         {
-          type: "text",
+          type: 'text',
           text: 'import { Editor } from "novel";\n\nexport default function App() {\n  return (\n     <Editor />\n  )\n}',
         },
       ],
     },
     {
-      type: "heading",
+      type: 'heading',
       attrs: { level: 3 },
-      content: [{ type: "text", text: "Features" }],
+      content: [{ type: 'text', text: 'Features' }],
     },
     {
-      type: "orderedList",
+      type: 'orderedList',
       attrs: { tight: true, start: 1 },
       content: [
         {
-          type: "listItem",
+          type: 'listItem',
           content: [
             {
-              type: "paragraph",
-              content: [{ type: "text", text: "Slash menu & bubble menu" }],
+              type: 'paragraph',
+              content: [{ type: 'text', text: 'Slash menu & bubble menu' }],
             },
           ],
         },
         {
-          type: "listItem",
+          type: 'listItem',
           content: [
             {
-              type: "paragraph",
+              type: 'paragraph',
               content: [
-                { type: "text", text: "AI autocomplete (type " },
-                { type: "text", marks: [{ type: "code" }], text: "++" },
+                { type: 'text', text: 'AI autocomplete (type ' },
+                { type: 'text', marks: [{ type: 'code' }], text: '++' },
                 {
-                  type: "text",
-                  text: " to activate, or select from slash menu)",
+                  type: 'text',
+                  text: ' to activate, or select from slash menu)',
                 },
               ],
             },
           ],
         },
         {
-          type: "listItem",
+          type: 'listItem',
           content: [
             {
-              type: "paragraph",
+              type: 'paragraph',
               content: [
                 {
-                  type: "text",
-                  text: "Image uploads (drag & drop / copy & paste, or select from slash menu) ",
+                  type: 'text',
+                  text: 'Image uploads (drag & drop / copy & paste, or select from slash menu) ',
                 },
               ],
             },
@@ -132,95 +132,95 @@ export const defaultEditorContent = {
       ],
     },
     {
-      type: "image",
+      type: 'image',
       attrs: {
-        src: "https://public.blob.vercel-storage.com/pJrjXbdONOnAeZAZ/banner-2wQk82qTwyVgvlhTW21GIkWgqPGD2C.png",
-        alt: "banner.png",
-        title: "banner.png",
+        src: 'https://public.blob.vercel-storage.com/pJrjXbdONOnAeZAZ/banner-2wQk82qTwyVgvlhTW21GIkWgqPGD2C.png',
+        alt: 'banner.png',
+        title: 'banner.png',
         width: null,
         height: null,
       },
     },
-    { type: "horizontalRule" },
+    { type: 'horizontalRule' },
     {
-      type: "heading",
+      type: 'heading',
       attrs: { level: 3 },
-      content: [{ type: "text", text: "Learn more" }],
+      content: [{ type: 'text', text: 'Learn more' }],
     },
     {
-      type: "taskList",
+      type: 'taskList',
       content: [
         {
-          type: "taskItem",
+          type: 'taskItem',
           attrs: { checked: false },
           content: [
             {
-              type: "paragraph",
+              type: 'paragraph',
               content: [
-                { type: "text", text: "Star us on " },
+                { type: 'text', text: 'Star us on ' },
                 {
-                  type: "text",
+                  type: 'text',
                   marks: [
                     {
-                      type: "link",
+                      type: 'link',
                       attrs: {
-                        href: "https://github.com/steven-tey/novel",
-                        target: "_blank",
+                        href: 'https://github.com/steven-tey/novel',
+                        target: '_blank',
                       },
                     },
                   ],
-                  text: "GitHub",
+                  text: 'GitHub',
                 },
               ],
             },
           ],
         },
         {
-          type: "taskItem",
+          type: 'taskItem',
           attrs: { checked: false },
           content: [
             {
-              type: "paragraph",
+              type: 'paragraph',
               content: [
-                { type: "text", text: "Install the " },
+                { type: 'text', text: 'Install the ' },
                 {
-                  type: "text",
+                  type: 'text',
                   marks: [
                     {
-                      type: "link",
+                      type: 'link',
                       attrs: {
-                        href: "https://www.npmjs.com/package/novel",
-                        target: "_blank",
+                        href: 'https://www.npmjs.com/package/novel',
+                        target: '_blank',
                       },
                     },
                   ],
-                  text: "NPM package",
+                  text: 'NPM package',
                 },
               ],
             },
           ],
         },
         {
-          type: "taskItem",
+          type: 'taskItem',
           attrs: { checked: false },
           content: [
             {
-              type: "paragraph",
+              type: 'paragraph',
               content: [
                 {
-                  type: "text",
+                  type: 'text',
                   marks: [
                     {
-                      type: "link",
+                      type: 'link',
                       attrs: {
-                        href: "https://vercel.com/templates/next.js/novel",
-                        target: "_blank",
+                        href: 'https://vercel.com/templates/next.js/novel',
+                        target: '_blank',
                       },
                     },
                   ],
-                  text: "Deploy your own",
+                  text: 'Deploy your own',
                 },
-                { type: "text", text: " to Vercel" },
+                { type: 'text', text: ' to Vercel' },
               ],
             },
           ],

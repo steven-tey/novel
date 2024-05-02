@@ -1,8 +1,8 @@
-import { forwardRef } from "react";
-import { Slot } from "@radix-ui/react-slot";
-import { useCurrentEditor } from "@tiptap/react";
-import type { Editor } from "@tiptap/react";
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import { forwardRef } from 'react';
+import { Slot } from '@radix-ui/react-slot';
+import { useCurrentEditor } from '@tiptap/react';
+import type { Editor } from '@tiptap/react';
+import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 
 interface EditorBubbleItemProps {
   readonly children: ReactNode;
@@ -12,10 +12,10 @@ interface EditorBubbleItemProps {
 
 export const EditorBubbleItem = forwardRef<
   HTMLDivElement,
-  EditorBubbleItemProps & Omit<ComponentPropsWithoutRef<"div">, "onSelect">
+  EditorBubbleItemProps & Omit<ComponentPropsWithoutRef<'div'>, 'onSelect'>
 >(({ children, asChild, onSelect, ...rest }, ref) => {
   const { editor } = useCurrentEditor();
-  const Comp = asChild ? Slot : "div";
+  const Comp = asChild ? Slot : 'div';
 
   if (!editor) return null;
 
@@ -26,6 +26,6 @@ export const EditorBubbleItem = forwardRef<
   );
 });
 
-EditorBubbleItem.displayName = "EditorBubbleItem";
+EditorBubbleItem.displayName = 'EditorBubbleItem';
 
 export default EditorBubbleItem;
