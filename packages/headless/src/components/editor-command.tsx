@@ -1,11 +1,11 @@
-import { useAtom, useSetAtom } from 'jotai';
-import { useEffect, useRef, forwardRef, createContext } from 'react';
-import { Command } from 'cmdk';
-import { queryAtom, rangeAtom } from '../utils/atoms';
-import { novelStore } from '../utils/store';
-import type tunnel from 'tunnel-rat';
-import type { ComponentPropsWithoutRef, FC } from 'react';
-import type { Range } from '@tiptap/core';
+import { useAtom, useSetAtom } from "jotai";
+import { useEffect, forwardRef, createContext } from "react";
+import { Command } from "cmdk";
+import { queryAtom, rangeAtom } from "../utils/atoms";
+import { novelStore } from "../utils/store";
+import type tunnel from "tunnel-rat";
+import type { ComponentPropsWithoutRef, FC } from "react";
+import type { Range } from "@tiptap/core";
 
 export const EditorCommandTunnelContext = createContext({} as ReturnType<typeof tunnel>);
 
@@ -27,15 +27,15 @@ export const EditorCommandOut: FC<EditorCommandOutProps> = ({ query, range }) =>
   }, [range, setRange]);
 
   useEffect(() => {
-    const navigationKeys = ['ArrowUp', 'ArrowDown', 'Enter'];
+    const navigationKeys = ["ArrowUp", "ArrowDown", "Enter"];
     const onKeyDown = (e: KeyboardEvent) => {
       if (navigationKeys.includes(e.key)) {
         e.preventDefault();
-        const commandRef = document.querySelector('#slash-command');
+        const commandRef = document.querySelector("#slash-command");
 
         if (commandRef)
           commandRef.dispatchEvent(
-            new KeyboardEvent('keydown', {
+            new KeyboardEvent("keydown", {
               key: e.key,
               cancelable: true,
               bubbles: true,
@@ -45,9 +45,9 @@ export const EditorCommandOut: FC<EditorCommandOutProps> = ({ query, range }) =>
         return false;
       }
     };
-    document.addEventListener('keydown', onKeyDown);
+    document.addEventListener("keydown", onKeyDown);
     return () => {
-      document.removeEventListener('keydown', onKeyDown);
+      document.removeEventListener("keydown", onKeyDown);
     };
   }, []);
 
@@ -75,7 +75,7 @@ export const EditorCommand = forwardRef<HTMLDivElement, ComponentPropsWithoutRef
               className={className}
               {...rest}
             >
-              <Command.Input value={query} onValueChange={setQuery} style={{ display: 'none' }} />
+              <Command.Input value={query} onValueChange={setQuery} style={{ display: "none" }} />
               {children}
             </Command>
           </tunnelInstance.In>
@@ -86,4 +86,4 @@ export const EditorCommand = forwardRef<HTMLDivElement, ComponentPropsWithoutRef
 );
 export const EditorCommandList = Command.List;
 
-EditorCommand.displayName = 'EditorCommand';
+EditorCommand.displayName = "EditorCommand";

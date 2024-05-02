@@ -1,29 +1,29 @@
-import React from 'react';
-import { CommandGroup, CommandItem, CommandSeparator } from '../ui/command';
-import { ArrowDownWideNarrow, CheckCheck, RefreshCcwDot, StepForward, WrapText } from 'lucide-react';
-import { useEditor } from 'novel';
-import { getPrevText } from 'novel/extensions';
+
+import { CommandGroup, CommandItem, CommandSeparator } from "../ui/command";
+import { ArrowDownWideNarrow, CheckCheck, RefreshCcwDot, StepForward, WrapText } from "lucide-react";
+import { useEditor } from "novel";
+import { getPrevText } from "novel/extensions";
 
 const options = [
   {
-    value: 'improve',
-    label: 'Improve writing',
+    value: "improve",
+    label: "Improve writing",
     icon: RefreshCcwDot,
   },
 
   {
-    value: 'fix',
-    label: 'Fix grammar',
+    value: "fix",
+    label: "Fix grammar",
     icon: CheckCheck,
   },
   {
-    value: 'shorter',
-    label: 'Make shorter',
+    value: "shorter",
+    label: "Make shorter",
     icon: ArrowDownWideNarrow,
   },
   {
-    value: 'longer',
-    label: 'Make longer',
+    value: "longer",
+    label: "Make longer",
     icon: WrapText,
   },
 ];
@@ -59,7 +59,7 @@ const AISelectorCommands = ({ onSelect }: AISelectorCommandsProps) => {
         <CommandItem
           onSelect={() => {
             const text = getPrevText(editor, { chars: 5000 });
-            onSelect(text, 'continue');
+            onSelect(text, "continue");
           }}
           value="continue"
           className="gap-2 px-4"

@@ -8,6 +8,7 @@ export default function FontMono({ className }: { className?: string }) {
       xmlns="http://www.w3.org/2000/svg"
       className={className}
     >
+      <title>Font Mono Icon</title>
       <path
         d="M10.4513 13.9906H3.35401L3.80321 11.8861H9.94225L10.4513 13.9906ZM7.06738 5.72075L2.90481 18.6739H0L6.4984 0H7.66631L14.1647 18.6739H11.1701L7.06738 5.72075Z"
         fill="currentColor"

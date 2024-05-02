@@ -1,10 +1,10 @@
-import { forwardRef } from 'react';
-import { CommandEmpty, CommandItem } from 'cmdk';
-import { useCurrentEditor } from '@tiptap/react';
-import { useAtomValue } from 'jotai';
-import { rangeAtom } from '../utils/atoms';
-import type { ComponentPropsWithoutRef } from 'react';
-import type { Editor, Range } from '@tiptap/core';
+import { forwardRef } from "react";
+import { CommandEmpty, CommandItem } from "cmdk";
+import { useCurrentEditor } from "@tiptap/react";
+import { useAtomValue } from "jotai";
+import { rangeAtom } from "../utils/atoms";
+import type { ComponentPropsWithoutRef } from "react";
+import type { Editor, Range } from "@tiptap/core";
 
 interface EditorCommandItemProps {
   readonly onCommand: ({
@@ -32,7 +32,7 @@ export const EditorCommandItem = forwardRef<
   );
 });
 
-EditorCommandItem.displayName = 'EditorCommandItem';
+EditorCommandItem.displayName = "EditorCommandItem";
 
 export const EditorCommandEmpty = CommandEmpty;
 

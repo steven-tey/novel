@@ -5,4 +5,4 @@ export {
   createImageUpload,
   handleImageDrop,
   handleImagePaste,
-} from './upload-images';
+} from "./upload-images";

@@ -1,15 +1,11 @@
-'use client';
+"use client";
 
-// import { useContext } from "react";
-// import { AppContext } from "../app/providers";
-// import { FontDefault, FontSerif, FontMono } from "@/ui/icons";
-import { Check, Menu as MenuIcon, Monitor, Moon, SunDim } from 'lucide-react';
-import { useTheme } from 'next-themes';
-import { Popover, PopoverContent, PopoverTrigger } from './popover';
-import { cn } from '@/lib/utils';
-import { cva } from 'class-variance-authority';
-import { Button } from './button';
+import { Check, Menu as MenuIcon, Monitor, Moon, SunDim } from "lucide-react";
+import { useTheme } from "next-themes";
+import { Button } from "./button";
+import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 
+// TODO implement multiple fonts editor
 // const fonts = [
 //   {
 //     font: "Default",
@@ -26,15 +22,15 @@ import { Button } from './button';
 // ];
 const appearances = [
   {
-    theme: 'System',
+    theme: "System",
     icon: <Monitor className="h-4 w-4" />,
   },
   {
-    theme: 'Light',
+    theme: "Light",
     icon: <SunDim className="h-4 w-4" />,
   },
   {
-    theme: 'Dark',
+    theme: "Dark",
     icon: <Moon className="h-4 w-4" />,
   },
 ];

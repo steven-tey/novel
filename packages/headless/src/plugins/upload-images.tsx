@@ -1,7 +1,7 @@
-import { type EditorState, Plugin, PluginKey } from '@tiptap/pm/state';
-import { Decoration, DecorationSet, type EditorView } from '@tiptap/pm/view';
+import { type EditorState, Plugin, PluginKey } from "@tiptap/pm/state";
+import { Decoration, DecorationSet, type EditorView } from "@tiptap/pm/view";
 
-const uploadKey = new PluginKey('upload-image');
+const uploadKey = new PluginKey("upload-image");
 
 export const UploadImagesPlugin = ({ imageClass }: { imageClass: string }) =>
   new Plugin({
@@ -15,20 +15,21 @@ export const UploadImagesPlugin = ({ imageClass }: { imageClass: string }) =>
         // See if the transaction adds or removes any placeholders
         //@ts-expect-error - not yet sure what the type I need here
         const action = tr.getMeta(this);
-        if (action && action.add) {
+        if (action?.add) {
           const { id, pos, src } = action.add;
 
-          const placeholder = document.createElement('div');
-          placeholder.setAttribute('class', 'img-placeholder');
-          const image = document.createElement('img');
-          image.setAttribute('class', imageClass);
+          const placeholder = document.createElement("div");
+          placeholder.setAttribute("class", "img-placeholder");
+          const image = document.createElement("img");
+          image.setAttribute("class", imageClass);
           image.src = src;
           placeholder.appendChild(image);
           const deco = Decoration.widget(pos + 1, placeholder, {
             id,
           });
           set = set.add(tr.doc, [deco]);
-        } else if (action && action.remove) {
+        } else if (action?.remove) {
+          // biome-ignore lint/suspicious/noDoubleEquals: <explanation>
           set = set.remove(set.find(undefined, undefined, (spec) => spec.id == action.remove.id));
         }
         return set;
@@ -41,8 +42,10 @@ export const UploadImagesPlugin = ({ imageClass }: { imageClass: string }) =>
     },
   });
 
+// biome-ignore lint/complexity/noBannedTypes: <explanation>
 function findPlaceholder(state: EditorState, id: {}) {
   const decos = uploadKey.getState(state) as DecorationSet;
+  // biome-ignore lint/suspicious/noDoubleEquals: <explanation>
   const found = decos.find(undefined, undefined, (spec) => spec.id == id);
   return found.length ? found[0]?.from : null;
 }
@@ -92,7 +95,7 @@ export const createImageUpload =
 
       // When BLOB_READ_WRITE_TOKEN is not valid or unavailable, read
       // the image locally
-      const imageSrc = typeof src === 'object' ? reader.result : src;
+      const imageSrc = typeof src === "object" ? reader.result : src;
 
       const node = schema.nodes.image?.create({ src: imageSrc });
       if (!node) return;

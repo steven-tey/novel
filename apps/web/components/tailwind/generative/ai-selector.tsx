@@ -1,20 +1,20 @@
-'use client';
+"use client";
 
-import { Command, CommandInput } from '@/components/tailwind/ui/command';
+import { Command, CommandInput } from "@/components/tailwind/ui/command";
 
-import { useCompletion } from 'ai/react';
-import { toast } from 'sonner';
-import { useEditor } from 'novel';
-import { useEffect, useState } from 'react';
-import Markdown from 'react-markdown';
-import AISelectorCommands from './ai-selector-commands';
-import AICompletionCommands from './ai-completion-command';
-import { ScrollArea } from '../ui/scroll-area';
-import { Button } from '../ui/button';
-import { ArrowUp } from 'lucide-react';
-import Magic from '../ui/icons/magic';
-import CrazySpinner from '../ui/icons/crazy-spinner';
-import { addAIHighlight } from 'novel/extensions';
+import { useCompletion } from "ai/react";
+import { ArrowUp } from "lucide-react";
+import { useEditor } from "novel";
+import { addAIHighlight } from "novel/extensions";
+import { useState } from "react";
+import Markdown from "react-markdown";
+import { toast } from "sonner";
+import { Button } from "../ui/button";
+import CrazySpinner from "../ui/icons/crazy-spinner";
+import Magic from "../ui/icons/magic";
+import { ScrollArea } from "../ui/scroll-area";
+import AICompletionCommands from "./ai-completion-command";
+import AISelectorCommands from "./ai-selector-commands";
 //TODO: I think it makes more sense to create a custom Tiptap extension for this functionality https://tiptap.dev/docs/editor/ai/introduction
 
 interface AISelectorProps {
@@ -22,16 +22,16 @@ interface AISelectorProps {
   onOpenChange: (open: boolean) => void;
 }
 
-export function AISelector({ open, onOpenChange }: AISelectorProps) {
+export function AISelector({ onOpenChange }: AISelectorProps) {
   const { editor } = useEditor();
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
 
   const { completion, complete, isLoading } = useCompletion({
     // id: "novel",
-    api: '/api/generate',
+    api: "/api/generate",
     onResponse: (response) => {
       if (response.status === 429) {
-        toast.error('You have reached your request limit for the day.');
+        toast.error("You have reached your request limit for the day.");
         return;
       }
     },
@@ -70,7 +70,7 @@ export function AISelector({ open, onOpenChange }: AISelectorProps) {
               value={inputValue}
               onValueChange={setInputValue}
               autoFocus
-              placeholder={hasCompletion ? 'Tell AI what to do next' : 'Ask AI to edit or generate...'}
+              placeholder={hasCompletion ? "Tell AI what to do next" : "Ask AI to edit or generate..."}
               onFocus={() => addAIHighlight(editor)}
             />
             <Button
@@ -79,15 +79,15 @@ export function AISelector({ open, onOpenChange }: AISelectorProps) {
               onClick={() => {
                 if (completion)
                   return complete(completion, {
-                    body: { option: 'zap', command: inputValue },
-                  }).then(() => setInputValue(''));
+                    body: { option: "zap", command: inputValue },
+                  }).then(() => setInputValue(""));
 
                 const slice = editor.state.selection.content();
                 const text = editor.storage.markdown.serializer.serialize(slice.content);
 
                 complete(text, {
-                  body: { option: 'zap', command: inputValue },
-                }).then(() => setInputValue(''));
+                  body: { option: "zap", command: inputValue },
+                }).then(() => setInputValue(""));
               }}
             >
               <ArrowUp className="h-4 w-4" />

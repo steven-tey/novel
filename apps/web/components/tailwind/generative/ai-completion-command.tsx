@@ -1,7 +1,7 @@
-import React from 'react';
-import { CommandGroup, CommandItem, CommandSeparator } from '../ui/command';
-import { useEditor } from 'novel';
-import { Check, TextQuote, TrashIcon } from 'lucide-react';
+
+import { CommandGroup, CommandItem, CommandSeparator } from "../ui/command";
+import { useEditor } from "novel";
+import { Check, TextQuote, TrashIcon } from "lucide-react";
 
 const AICompletionCommands = ({
   completion,

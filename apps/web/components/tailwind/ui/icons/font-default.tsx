@@ -1,6 +1,7 @@
 export default function FontDefault({ className }: { className?: string }) {
   return (
     <svg width="27" height="17" viewBox="0 0 27 17" xmlns="http://www.w3.org/2000/svg" className={className}>
+      <title>Font Default Icon</title>
       <path
         d="M2.67735 16.7224H0L6.01587 0H8.92994L14.9458 16.7224H12.2685L7.54229 3.03746H7.41169L2.67735 16.7224ZM3.12629 10.1739H11.8114V12.2968H3.12629V10.1739Z"
         fill="currentColor"

@@ -1,10 +1,10 @@
-import type { Editor } from '@tiptap/core';
+import type { Editor } from "@tiptap/core";
 
 export function isValidUrl(url: string) {
   try {
     new URL(url);
     return true;
-  } catch (e) {
+  } catch (_e) {
     return false;
   }
 }
@@ -12,23 +12,14 @@ export function isValidUrl(url: string) {
 export function getUrlFromString(str: string) {
   if (isValidUrl(str)) return str;
   try {
-    if (str.includes('.') && !str.includes(' ')) {
+    if (str.includes(".") && !str.includes(" ")) {
       return new URL(`https://${str}`).toString();
     }
-  } catch (e) {
+  } catch (_e) {
     return null;
   }
 }
 
-export const getPrevText = (
-  editor: Editor,
-  {
-    chars,
-    offset = 0,
-  }: {
-    chars: number;
-    offset?: number;
-  },
-) => {
+export const getPrevText = (editor: Editor) => {
   return editor.storage.markdown.getMarkdown();
 };
