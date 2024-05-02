@@ -1,5 +1,5 @@
-import { EditorState, Plugin, PluginKey } from "@tiptap/pm/state";
-import { Decoration, DecorationSet, EditorView } from "@tiptap/pm/view";
+import { type EditorState, Plugin, PluginKey } from "@tiptap/pm/state";
+import { Decoration, DecorationSet, type EditorView } from "@tiptap/pm/view";
 
 const uploadKey = new PluginKey("upload-image");
 
@@ -87,7 +87,7 @@ export const createImageUpload =
     onUpload(file).then((src) => {
       const { schema } = view.state;
 
-      let pos = findPlaceholder(view.state, id);
+      const pos = findPlaceholder(view.state, id);
 
       // If the content around the placeholder has been deleted, drop
       // the image

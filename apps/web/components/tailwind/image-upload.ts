@@ -18,7 +18,7 @@ const onUpload = (file: File) => {
         if (res.status === 200) {
           const { url } = (await res.json()) as any;
           // preload the image
-          let image = new Image();
+          const image = new Image();
           image.src = url;
           image.onload = () => {
             resolve(url);

@@ -6,7 +6,7 @@ import {
   EditorCommandItem,
   EditorCommandList,
   EditorContent,
-  EditorInstance,
+  type EditorInstance,
   EditorRoot,
   type JSONContent,
 } from "novel";

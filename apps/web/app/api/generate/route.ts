@@ -53,7 +53,7 @@ export async function POST(req: Request): Promise<Response> {
     }
   }
 
-  let { prompt, option, command } = await req.json();
+  const { prompt, option, command } = await req.json();
   const messages = match(option)
     .with("continue", () => [
       {

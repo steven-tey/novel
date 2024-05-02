@@ -7,10 +7,11 @@
     "version:packages": "turbo build && changeset version",
     "build": "turbo build",
     "dev": "turbo dev",
-    "lint": "turbo lint",
-    "clean": "turbo clean",
-    "format:write": "prettier --write \"**/*.{css,js,json,jsx,ts,tsx}\"",
-    "format": "prettier \"**/*.{css,js,json,jsx,ts,tsx}\""
+    "format": "turbo format --continue --",
+    "format:fix": "turbo format --continue -- --write",
+    "lint": "turbo lint --continue --",
+    "lint:fix": "turbo lint --continue -- --apply",
+    "clean": "turbo clean"
   },
   "dependencies": {
     "@changesets/changelog-github": "^0.5.0",
@@ -18,7 +19,7 @@
     "turbo": "^1.9.3"
   },
   "devDependencies": {
-    "postcss": "^8.4.27",
-    "prettier": "^2.8.8"
+    "@biomejs/biome": "^1.7.2",
+    "postcss": "^8.4.27"
   }
 }

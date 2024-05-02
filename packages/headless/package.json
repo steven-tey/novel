@@ -30,7 +30,9 @@
   "scripts": {
     "dev": "tsup --watch",
     "check-types": "tsc --noEmit",
-    "build": "tsup"
+    "build": "tsup",
+    "lint": "biome lint ./src",
+    "format": "biome format ./src "
   },
   "sideEffects": false,
   "peerDependencies": {
@@ -70,6 +72,7 @@
     "@types/react-dom": "18.2.19",
     "tsconfig": "workspace:*",
     "tsup": "^8.0.2",
+    "@biomejs/biome": "^1.7.2",
     "typescript": "^5.3.3"
   },
   "author": "Steven Tey <stevensteel97@gmail.com>",
