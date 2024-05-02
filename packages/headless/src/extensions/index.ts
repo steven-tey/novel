@@ -15,7 +15,6 @@ import UpdatedImage from "./updated-image";
 import CustomKeymap from "./custom-keymap";
 import { ImageResizer } from "./image-resizer";
 import GlobalDragHandle from "tiptap-extension-global-drag-handle";
-import AutoJoiner from "tiptap-extension-auto-joiner";
 
 const PlaceholderExtension = Placeholder.configure({
   placeholder: ({ node }) => {
@@ -41,9 +40,8 @@ const simpleExtensions = [
   }),
   CustomKeymap,
   GlobalDragHandle.configure({
-    scrollTreshold: 0,
+    scrollTreshold: 100,
   }),
-  AutoJoiner,
 ] as const;
 
 const Horizontal = HorizontalRule.extend({

@@ -225,9 +225,6 @@ importers:
       tippy.js:
         specifier: ^6.3.7
         version: 6.3.7
-      tiptap-extension-auto-joiner:
-        specifier: ^0.1.1
-        version: 0.1.1
       tiptap-extension-global-drag-handle:
         specifier: ^0.1.6
         version: 0.1.6
@@ -7222,10 +7219,6 @@ packages:
     resolution: {integrity: sha512-E1d3oP2emgJ9dRQZdf3Kkn0qJgI6ZLpyS5z6ZkY1DF3kaQaBsGZsndEpHwx+eC+tYM41HaSNvNtLx8tU57FzTQ==}
     dependencies:
       '@popperjs/core': 2.11.8
-    dev: false
-
-  /tiptap-extension-auto-joiner@0.1.1:
-    resolution: {integrity: sha512-n38N7qWUL3Iz6XdwxZLacSuE1itIAp6lzcVUYgi0K/d/eLydgFl07ZixBJ6XHCDESjw4wrRgRQQE9nvMGvn3QA==}
     dev: false
 
   /tiptap-extension-global-drag-handle@0.1.6:
