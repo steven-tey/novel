@@ -9,6 +9,8 @@ import {
   TiptapImage,
   TiptapLink,
   UpdatedImage,
+  Youtube,
+  CharacterCount,
 } from "novel/extensions";
 import { UploadImagesPlugin } from "novel/plugins";
 
@@ -112,6 +114,16 @@ const codeBlockLowlight = CodeBlockLowlight.configure({
   lowlight: createLowlight(common),
 });
 
+const youtube = Youtube.configure({
+  HTMLAttributes: {
+    class: cx("rounded-lg border border-muted"),
+  },
+  inline: false,
+});
+
+const characterCount = CharacterCount.configure();
+
+
 export const defaultExtensions = [
   starterKit,
   placeholder,
@@ -123,4 +135,6 @@ export const defaultExtensions = [
   horizontalRule,
   aiHighlight,
   codeBlockLowlight,
+  youtube,
+  characterCount,
 ];
