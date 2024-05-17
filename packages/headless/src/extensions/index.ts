@@ -84,5 +84,4 @@ export {
   GlobalDragHandle,
 };
 
-// Todo: Maybe I should create an utils entry
-export { getPrevText } from "../utils/utils";
+  

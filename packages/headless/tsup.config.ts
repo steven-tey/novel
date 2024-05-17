@@ -5,6 +5,7 @@ export default defineConfig((options: Options) => ({
     index: "src/components/index.ts",
     extensions: "src/extensions/index.ts",
     plugins: "src/plugins/index.ts",
+    utils: "src/utils/index.ts",
   },
   banner: {
     js: "'use client'",
