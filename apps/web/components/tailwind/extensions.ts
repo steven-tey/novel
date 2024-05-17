@@ -1,6 +1,8 @@
 import {
   AIHighlight,
+  CharacterCount,
   CodeBlockLowlight,
+  GlobalDragHandle,
   HorizontalRule,
   Placeholder,
   StarterKit,
@@ -10,7 +12,6 @@ import {
   TiptapLink,
   UpdatedImage,
   Youtube,
-  CharacterCount,
 } from "novel/extensions";
 import { UploadImagesPlugin } from "novel/plugins";
 
@@ -136,4 +137,5 @@ export const defaultExtensions = [
   codeBlockLowlight,
   youtube,
   characterCount,
+  GlobalDragHandle,
 ];
