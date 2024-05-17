@@ -1,5 +1,11 @@
 # novel
 
+## 0.4.1
+
+### Patch Changes
+
+- expose utils
+
 ## 0.4.0
 
 ### Minor Changes
