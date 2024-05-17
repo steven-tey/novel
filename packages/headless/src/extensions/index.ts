@@ -16,6 +16,8 @@ import { ImageResizer } from "./image-resizer";
 import UpdatedImage from "./updated-image";
 
 import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
+import Youtube from "@tiptap/extension-youtube";
+import CharacterCount from "@tiptap/extension-character-count";
 
 const PlaceholderExtension = Placeholder.configure({
   placeholder: ({ node }) => {
@@ -76,6 +78,8 @@ export {
   TiptapLink,
   UpdatedImage,
   simpleExtensions,
+  Youtube,
+  CharacterCount,
 };
 
 // Todo: Maybe I should create an utils entry
