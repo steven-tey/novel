@@ -42,6 +42,8 @@
   "dependencies": {
     "@radix-ui/react-slot": "^1.0.2",
     "@tiptap/core": "^2.1.7",
+    "@tiptap/extension-character-count": "^2.3.0",
+    "@tiptap/extension-youtube": "^2.3.0",
     "@tiptap/extension-code-block-lowlight": "^2.2.6",
     "@tiptap/extension-color": "^2.1.7",
     "@tiptap/extension-highlight": "^2.1.7",
