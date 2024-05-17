@@ -102,6 +102,12 @@ export const createImageUpload =
 
       const transaction = view.state.tr.replaceWith(pos, pos, node).setMeta(uploadKey, { remove: { id } });
       view.dispatch(transaction);
+    }, () => {
+      // Deletes the image placeholder on error
+      const transaction = view.state.tr
+        .delete(pos, pos)
+        .setMeta(uploadKey, { remove: { id } });
+      view.dispatch(transaction);
     });
   };
 
