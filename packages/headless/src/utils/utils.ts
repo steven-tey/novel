@@ -1,4 +1,5 @@
-import type { Editor } from "@tiptap/core";
+import { Fragment, type Node } from "@tiptap/pm/model";
+import type { EditorInstance } from "../components";
 
 export function isValidUrl(url: string) {
   try {
@@ -20,6 +21,24 @@ export function getUrlFromString(str: string) {
   }
 }
 
-export const getPrevText = (editor: Editor) => {
-  return editor.storage.markdown.getMarkdown();
+// Get the text before a given position in markdown format
+export const getPrevText = (editor: EditorInstance, position: number) => {
+  const nodes: Node[] = [];
+  editor.state.doc.forEach((node, pos) => {
+    if (pos >= position) return false;
+    nodes.push(node);
+    return true;
+  });
+  const fragment = Fragment.fromArray(nodes);
+  const doc = editor.state.doc.copy(fragment);
+
+  return editor.storage.markdown.serializer.serialize(doc) as string;
+};
+
+// Get all content from the editor in markdown format
+export const getAllContent = (editor: EditorInstance) => {
+  const fragment = editor.state.doc.content;
+  const doc = editor.state.doc.copy(fragment);
+
+  return editor.storage.markdown.serializer.serialize(doc) as string;
 };

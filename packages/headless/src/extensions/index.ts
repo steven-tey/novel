@@ -13,7 +13,6 @@ import StarterKit from "@tiptap/starter-kit";
 import { Markdown } from "tiptap-markdown";
 import CustomKeymap from "./custom-keymap";
 import { ImageResizer } from "./image-resizer";
-import GlobalDragHandle from "tiptap-extension-global-drag-handle";
 import UpdatedImage from "./updated-image";
 
 import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
@@ -41,9 +40,6 @@ const simpleExtensions = [
     transformCopiedText: true,
   }),
   CustomKeymap,
-  GlobalDragHandle.configure({
-    scrollTreshold: 100,
-  }),
 ] as const;
 
 const Horizontal = HorizontalRule.extend({

@@ -1,8 +1,7 @@
-
-import { CommandGroup, CommandItem, CommandSeparator } from "../ui/command";
 import { ArrowDownWideNarrow, CheckCheck, RefreshCcwDot, StepForward, WrapText } from "lucide-react";
 import { useEditor } from "novel";
 import { getPrevText } from "novel/extensions";
+import { CommandGroup, CommandItem, CommandSeparator } from "../ui/command";
 
 const options = [
   {
@@ -58,7 +57,9 @@ const AISelectorCommands = ({ onSelect }: AISelectorCommandsProps) => {
       <CommandGroup heading="Use AI to do more">
         <CommandItem
           onSelect={() => {
-            const text = getPrevText(editor, { chars: 5000 });
+            const pos = editor.state.selection.from;
+
+            const text = getPrevText(editor, pos);
             onSelect(text, "continue");
           }}
           value="continue"
