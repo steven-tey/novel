@@ -123,7 +123,6 @@ const youtube = Youtube.configure({
 
 const characterCount = CharacterCount.configure();
 
-
 export const defaultExtensions = [
   starterKit,
   placeholder,
