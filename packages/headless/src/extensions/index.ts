@@ -15,9 +15,9 @@ import CustomKeymap from "./custom-keymap";
 import { ImageResizer } from "./image-resizer";
 import UpdatedImage from "./updated-image";
 
+import CharacterCount from "@tiptap/extension-character-count";
 import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
 import Youtube from "@tiptap/extension-youtube";
-import CharacterCount from "@tiptap/extension-character-count";
 
 const PlaceholderExtension = Placeholder.configure({
   placeholder: ({ node }) => {

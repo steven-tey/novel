@@ -159,6 +159,9 @@ importers:
       '@tiptap/core':
         specifier: ^2.1.7
         version: 2.2.2(@tiptap/pm@2.2.2)
+      '@tiptap/extension-character-count':
+        specifier: ^2.3.0
+        version: 2.4.0(@tiptap/core@2.2.2)(@tiptap/pm@2.2.2)
       '@tiptap/extension-code-block-lowlight':
         specifier: ^2.2.6
         version: 2.2.6(@tiptap/core@2.2.2)(@tiptap/extension-code-block@2.2.2)(@tiptap/pm@2.2.2)
@@ -192,6 +195,9 @@ importers:
       '@tiptap/extension-underline':
         specifier: ^2.1.7
         version: 2.2.2(@tiptap/core@2.2.2)
+      '@tiptap/extension-youtube':
+        specifier: ^2.4.0
+        version: 2.4.0(@tiptap/core@2.2.2)
       '@tiptap/pm':
         specifier: ^2.1.7
         version: 2.2.2
@@ -228,9 +234,6 @@ importers:
       tippy.js:
         specifier: ^6.3.7
         version: 6.3.7
-      tiptap-extension-global-drag-handle:
-        specifier: ^0.1.6
-        version: 0.1.6
       tiptap-markdown:
         specifier: ^0.8.9
         version: 0.8.9(@tiptap/core@2.2.2)
@@ -2100,6 +2103,16 @@ packages:
       '@tiptap/core': 2.2.2(@tiptap/pm@2.2.2)
     dev: false
 
+  /@tiptap/extension-character-count@2.4.0(@tiptap/core@2.2.2)(@tiptap/pm@2.2.2):
+    resolution: {integrity: sha512-IA3Fubvag5N/7m2xS/T8D1nH26UyebBL9CtZ3/4de4faKgvDQLlILsSI2Hefi7j7rUCYCYzgF2S0Gny+Z76ulw==}
+    peerDependencies:
+      '@tiptap/core': ^2.0.0
+      '@tiptap/pm': ^2.0.0
+    dependencies:
+      '@tiptap/core': 2.2.2(@tiptap/pm@2.2.2)
+      '@tiptap/pm': 2.2.2
+    dev: false
+
   /@tiptap/extension-code-block-lowlight@2.2.6(@tiptap/core@2.2.2)(@tiptap/extension-code-block@2.2.2)(@tiptap/pm@2.2.2):
     resolution: {integrity: sha512-W/8C5nIwgGLvxjc+PfnCcWkfrUuJsIKjyZGXmq1hVXTTVA9eVGbS7m1YB/fsYTEg1ccwoM2JjKO9yuKCeR2xiQ==}
     peerDependencies:
@@ -2328,6 +2341,14 @@ packages:
 
   /@tiptap/extension-underline@2.2.2(@tiptap/core@2.2.2):
     resolution: {integrity: sha512-sCgbFbBU1fMWKCmDjZ6Am257kXM6ZjCV24AwbNusweieQnnD3aTXC7/iZg101sa2VshLsXozm8t2QDTyafnL+Q==}
+    peerDependencies:
+      '@tiptap/core': ^2.0.0
+    dependencies:
+      '@tiptap/core': 2.2.2(@tiptap/pm@2.2.2)
+    dev: false
+
+  /@tiptap/extension-youtube@2.4.0(@tiptap/core@2.2.2):
+    resolution: {integrity: sha512-Ew6Oik9DaqP0xgQSUIWwozqeToJVOY4nqjRoKExGRuLdzgZeS+SmEA22ITBMcnZSJj8XBMgGBLcCWi+A7x1KAg==}
     peerDependencies:
       '@tiptap/core': ^2.0.0
     dependencies:
@@ -6344,10 +6365,6 @@ packages:
     resolution: {integrity: sha512-E1d3oP2emgJ9dRQZdf3Kkn0qJgI6ZLpyS5z6ZkY1DF3kaQaBsGZsndEpHwx+eC+tYM41HaSNvNtLx8tU57FzTQ==}
     dependencies:
       '@popperjs/core': 2.11.8
-    dev: false
-
-  /tiptap-extension-global-drag-handle@0.1.6:
-    resolution: {integrity: sha512-kjRFd/glJGTHEglHPNWtML1iINuEBG4eWvWbNIuuXE2LbylFXYHKVgLvZgxilqXSBH/o+lKDEp7/iL3lKvnxGw==}
     dev: false
 
   /tiptap-markdown@0.8.9(@tiptap/core@2.2.2):

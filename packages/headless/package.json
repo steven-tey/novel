@@ -43,7 +43,6 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@tiptap/core": "^2.1.7",
     "@tiptap/extension-character-count": "^2.3.0",
-    "@tiptap/extension-youtube": "^2.3.0",
     "@tiptap/extension-code-block-lowlight": "^2.2.6",
     "@tiptap/extension-color": "^2.1.7",
     "@tiptap/extension-highlight": "^2.1.7",
@@ -55,6 +54,7 @@
     "@tiptap/extension-task-list": "^2.1.7",
     "@tiptap/extension-text-style": "^2.1.7",
     "@tiptap/extension-underline": "^2.1.7",
+    "@tiptap/extension-youtube": "^2.4.0",
     "@tiptap/pm": "^2.1.7",
     "@tiptap/react": "^2.1.7",
     "@tiptap/starter-kit": "^2.1.7",
@@ -69,11 +69,11 @@
     "tunnel-rat": "^0.1.2"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.7.2",
     "@types/react": "^18.2.55",
     "@types/react-dom": "18.2.19",
     "tsconfig": "workspace:*",
     "tsup": "^8.0.2",
-    "@biomejs/biome": "^1.7.2",
     "typescript": "^5.3.3"
   },
   "author": "Steven Tey <stevensteel97@gmail.com>",
