@@ -1,5 +1,11 @@
 # novel
 
+## 0.4.2
+
+### Patch Changes
+
+- bump version
+
 ## 0.4.1
 
 ### Patch Changes
