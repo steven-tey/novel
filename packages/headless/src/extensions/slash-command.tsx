@@ -2,6 +2,7 @@ import { Extension } from "@tiptap/core";
 import type { Editor, Range } from "@tiptap/core";
 import { ReactRenderer } from "@tiptap/react";
 import Suggestion, { type SuggestionOptions } from "@tiptap/suggestion";
+import type { RefObject } from "react";
 import type { ReactNode } from "react";
 import tippy, { type GetReferenceClientRect, type Instance, type Props } from "tippy.js";
 import { EditorCommandOut } from "../components/editor-command";
@@ -28,7 +29,7 @@ const Command = Extension.create({
   },
 });
 
-const renderItems = () => {
+const renderItems = (elementRef?: RefObject<Element> | null) => {
   let component: ReactRenderer | null = null;
   let popup: Instance<Props>[] | null = null;
 
@@ -51,7 +52,7 @@ const renderItems = () => {
       // @ts-ignore
       popup = tippy("body", {
         getReferenceClientRect: props.clientRect,
-        appendTo: () => document.body,
+        appendTo: () => (elementRef ? elementRef.current : document.body),
         content: component.element,
         showOnCreate: true,
         interactive: true,
