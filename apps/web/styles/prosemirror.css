@@ -201,3 +201,7 @@ div[data-youtube-video] > iframe {
     max-height: 100px;
   }
 }
+
+span[style] > strong {
+  color: inherit;
+}
