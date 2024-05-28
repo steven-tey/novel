@@ -29,7 +29,7 @@ const Command = Extension.create({
   },
 });
 
-const renderItems = (elementRef: RefObject<Element> | null = null) => {
+const renderItems = (elementRef?: RefObject<Element>) => {
   let component: ReactRenderer | null = null;
   let popup: Instance<Props>[] | null = null;
 
