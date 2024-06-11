@@ -168,7 +168,7 @@ export const suggestionItems = createSuggestionItems([
           .chain()
           .focus()
           .deleteRange(range)
-          .setTwitter({
+          .setTweet({
             src: tweetLink,
           })
           .run();

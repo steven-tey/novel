@@ -52,26 +52,25 @@ export interface TwitterOptions {
 }
 
 /**
- * The options for setting a youtube video.
+ * The options for setting a tweet.
  */
-type SetTwitterOptions = { src: string; width?: number; height?: number; start?: number };
+type SetTweetOptions = { src: string };
 
 declare module "@tiptap/core" {
   interface Commands<ReturnType> {
     twitter: {
       /**
-       * Insert a youtube video
-       * @param options The youtube video attributes
-       * @example editor.commands.setYoutubeVideo({ src: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' })
+       * Insert a tweet
+       * @param options The tweet attributes
+       * @example editor.commands.setTweet({ src: 'https://x.com/seanpk/status/1800145949580517852' })
        */
-      setTwitter: (options: SetTwitterOptions) => ReturnType;
+      setTweet: (options: SetTweetOptions) => ReturnType;
     };
   }
 }
 
 /**
- * This extension adds support for youtube videos.
- * @see https://www.tiptap.dev/api/nodes/youtube
+ * This extension adds support for tweets.
  */
 export const Twitter = Node.create<TwitterOptions>({
   name: "twitter",
@@ -117,8 +116,8 @@ export const Twitter = Node.create<TwitterOptions>({
 
   addCommands() {
     return {
-      setTwitter:
-        (options: SetTwitterOptions) =>
+      setTweet:
+        (options: SetTweetOptions) =>
         ({ commands }) => {
           if (!isValidTwitterUrl(options.src)) {
             return false;
