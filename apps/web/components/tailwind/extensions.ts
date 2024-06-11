@@ -10,6 +10,7 @@ import {
   TaskList,
   TiptapImage,
   TiptapLink,
+  Twitter,
   UpdatedImage,
   Youtube,
 } from "novel/extensions";
@@ -122,6 +123,13 @@ const youtube = Youtube.configure({
   inline: false,
 });
 
+const twitter = Twitter.configure({
+  HTMLAttributes: {
+    class: cx("rounded-lg border border-muted"),
+  },
+  inline: false,
+});
+
 const characterCount = CharacterCount.configure();
 
 export const defaultExtensions = [
@@ -136,6 +144,7 @@ export const defaultExtensions = [
   aiHighlight,
   codeBlockLowlight,
   youtube,
+  twitter,
   characterCount,
   GlobalDragHandle,
 ];

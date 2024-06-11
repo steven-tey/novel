@@ -10,6 +10,7 @@ import {
   MessageSquarePlus,
   Text,
   TextQuote,
+  Twitter,
   Youtube,
 } from "lucide-react";
 import { createSuggestionItems } from "novel/extensions";
@@ -149,6 +150,31 @@ export const suggestionItems = createSuggestionItems([
       } else {
         if (videoLink !== null) {
           alert("Please enter a correct Youtube Video Link");
+        }
+      }
+    },
+  },
+  {
+    title: "Twitter",
+    description: "Embed a Tweet.",
+    searchTerms: ["twitter", "embed"],
+    icon: <Twitter size={18} />,
+    command: ({ editor, range }) => {
+      const tweetLink = prompt("Please enter Twitter Link");
+      const tweetRegex = new RegExp(/^https?:\/\/(www\.)?x\.com\/([a-zA-Z0-9_]{1,15})(\/status\/(\d+))?(\/\S*)?$/);
+
+      if (tweetRegex.test(tweetLink)) {
+        editor
+          .chain()
+          .focus()
+          .deleteRange(range)
+          .setTwitter({
+            src: tweetLink,
+          })
+          .run();
+      } else {
+        if (tweetLink !== null) {
+          alert("Please enter a correct Twitter Link");
         }
       }
     },
