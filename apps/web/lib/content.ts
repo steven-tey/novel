@@ -129,6 +129,26 @@ export const defaultEditorContent = {
             },
           ],
         },
+        {
+          type: "listItem",
+          content: [
+            {
+              type: "paragraph",
+              content: [
+                {
+                  type: "text",
+                  text: "Add tweets from the command slash menu:",
+                },
+              ],
+            },
+            {
+              type: "twitter",
+              attrs: {
+                src: "https://x.com/elonmusk/status/1800759252224729577",
+              },
+            },
+          ],
+        },
       ],
     },
     {
