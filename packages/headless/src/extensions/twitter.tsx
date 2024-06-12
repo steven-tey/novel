@@ -85,7 +85,7 @@ export const Twitter = Node.create<TwitterOptions>({
   },
 
   addNodeView() {
-    return ReactNodeViewRenderer(TweetComponent);
+    return ReactNodeViewRenderer(TweetComponent, { attrs: this.options.HTMLAttributes });
   },
 
   inline() {

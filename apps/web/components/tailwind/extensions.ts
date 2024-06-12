@@ -125,7 +125,7 @@ const youtube = Youtube.configure({
 
 const twitter = Twitter.configure({
   HTMLAttributes: {
-    class: cx("rounded-lg border border-muted"),
+    class: cx("not-prose"),
   },
   inline: false,
 });
