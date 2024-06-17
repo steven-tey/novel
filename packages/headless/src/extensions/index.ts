@@ -13,6 +13,7 @@ import StarterKit from "@tiptap/starter-kit";
 import { Markdown } from "tiptap-markdown";
 import CustomKeymap from "./custom-keymap";
 import { ImageResizer } from "./image-resizer";
+import { Twitter } from "./twitter";
 import UpdatedImage from "./updated-image";
 
 import CharacterCount from "@tiptap/extension-character-count";
@@ -80,8 +81,7 @@ export {
   UpdatedImage,
   simpleExtensions,
   Youtube,
+  Twitter,
   CharacterCount,
   GlobalDragHandle,
 };
-
-  

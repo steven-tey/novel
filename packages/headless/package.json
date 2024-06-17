@@ -69,6 +69,7 @@
     "jotai": "^2.6.4",
     "react-markdown": "^8.0.7",
     "react-moveable": "^0.56.0",
+    "react-tweet": "^3.2.1",
     "tippy.js": "^6.3.7",
     "tiptap-extension-global-drag-handle": "^0.1.7",
     "tiptap-markdown": "^0.8.9",
