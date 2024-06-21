@@ -60,7 +60,10 @@ export const LinkSelector = ({ open, onOpenChange }: LinkSelectorProps) => {
             e.preventDefault();
             const input = target[0] as HTMLInputElement;
             const url = getUrlFromString(input.value);
-            url && editor.chain().focus().setLink({ href: url }).run();
+            if (url) {
+              editor.chain().focus().setLink({ href: url }).run();
+              onOpenChange(false);
+            }
           }}
           className="flex  p-1 "
         >
@@ -80,6 +83,7 @@ export const LinkSelector = ({ open, onOpenChange }: LinkSelectorProps) => {
               onClick={() => {
                 editor.chain().focus().unsetLink().run();
                 inputRef.current.value = "";
+                onOpenChange(false);
               }}
             >
               <Trash className="h-4 w-4" />
