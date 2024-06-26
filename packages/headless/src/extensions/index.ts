@@ -31,20 +31,14 @@ const PlaceholderExtension = Placeholder.configure({
   includeChildren: true,
 });
 
-const simpleExtensions = [
-  TiptapUnderline,
-  TextStyle,
-  Color,
-  Highlight.configure({
-    multicolor: true,
-  }),
+const HighlightExtension = Highlight.configure({
+  multicolor: true,
+});
 
-  Markdown.configure({
-    html: false,
-    transformCopiedText: true,
-  }),
-  CustomKeymap,
-] as const;
+const MarkdownExtension = Markdown.configure({
+  html: false,
+  transformCopiedText: true,
+});
 
 const Horizontal = HorizontalRule.extend({
   addInputRules() {
@@ -77,9 +71,14 @@ export {
   TaskItem,
   TaskList,
   TiptapImage,
+  TiptapUnderline,
+  MarkdownExtension,
+  TextStyle,
+  Color,
+  HighlightExtension,
+  CustomKeymap,
   TiptapLink,
   UpdatedImage,
-  simpleExtensions,
   Youtube,
   Twitter,
   CharacterCount,
