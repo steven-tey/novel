@@ -13,6 +13,7 @@ import {
   Twitter,
   UpdatedImage,
   Youtube,
+  Mathematics,
 } from "novel/extensions";
 import { UploadImagesPlugin } from "novel/plugins";
 
@@ -130,6 +131,15 @@ const twitter = Twitter.configure({
   inline: false,
 });
 
+const mathematics = Mathematics.configure({
+  HTMLAttributes: {
+    class: cx("text-foreground rounded p-1 hover:bg-accent cursor-pointer"),
+  },
+  katexOptions: {
+    throwOnError: false,
+  },
+});
+
 const characterCount = CharacterCount.configure();
 
 export const defaultExtensions = [
@@ -145,6 +155,7 @@ export const defaultExtensions = [
   codeBlockLowlight,
   youtube,
   twitter,
+  mathematics,
   characterCount,
   GlobalDragHandle,
 ];
