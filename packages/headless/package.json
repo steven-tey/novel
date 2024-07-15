@@ -70,6 +70,7 @@
     "react-markdown": "^8.0.7",
     "react-moveable": "^0.56.0",
     "react-tweet": "^3.2.1",
+    "katex": "^0.16.10",
     "tippy.js": "^6.3.7",
     "tiptap-extension-global-drag-handle": "^0.1.7",
     "tiptap-markdown": "^0.8.9",
@@ -77,6 +78,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.7.2",
+    "@types/katex": "^0.16.7",
     "@types/react": "^18.2.55",
     "@types/react-dom": "18.2.19",
     "tsconfig": "workspace:*",

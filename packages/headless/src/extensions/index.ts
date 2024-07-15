@@ -14,6 +14,7 @@ import { Markdown } from "tiptap-markdown";
 import CustomKeymap from "./custom-keymap";
 import { ImageResizer } from "./image-resizer";
 import { Twitter } from "./twitter";
+import { Mathematics } from "./mathematics";
 import UpdatedImage from "./updated-image";
 
 import CharacterCount from "@tiptap/extension-character-count";
@@ -81,6 +82,7 @@ export {
   UpdatedImage,
   Youtube,
   Twitter,
+  Mathematics,
   CharacterCount,
   GlobalDragHandle,
 };
