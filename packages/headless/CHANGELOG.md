@@ -1,5 +1,11 @@
 # novel
 
+## 0.5.0
+
+### Minor Changes
+
+- update extensions export
+
 ## 0.4.3
 
 ### Patch Changes
