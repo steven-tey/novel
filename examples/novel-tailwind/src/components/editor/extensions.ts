@@ -11,6 +11,7 @@ import {
   TiptapUnderline,
   Color,
   TextStyle,
+  HighlightExtension,
 } from "novel/extensions";
 import { UploadImagesPlugin } from "novel/plugins";
 
@@ -120,4 +121,7 @@ export const defaultExtensions = [
   TiptapUnderline,
   Color,
   TextStyle,
+  HighlightExtension.configure({
+    multicolor: true,
+  }),
 ];
