@@ -54,7 +54,7 @@ export function startImageUpload(
   file: File,
   view: EditorView,
   pos: number,
-  imageUploader: (file: File) => Promise<string>,
+  imageUploader?: (file: File) => null | Promise<string>,
 ) {
   // check if the file is an image
   if (!file.type.includes('image/')) {

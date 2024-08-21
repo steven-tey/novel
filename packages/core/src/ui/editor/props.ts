@@ -1,5 +1,5 @@
-import { EditorProps } from "@tiptap/pm/view";
-import { startImageUpload } from "@/ui/editor/plugins/upload-images";
+import { EditorProps } from '@tiptap/pm/view';
+import { startImageUpload } from '@/ui/editor/plugins/upload-images';
 
 export const defaultEditorProps: EditorProps = {
   attributes: {
@@ -8,8 +8,8 @@ export const defaultEditorProps: EditorProps = {
   handleDOMEvents: {
     keydown: (_view, event) => {
       // prevent default event listeners from firing when slash command is active
-      if (["ArrowUp", "ArrowDown", "Enter"].includes(event.key)) {
-        const slashCommand = document.querySelector("#slash-command");
+      if (['ArrowUp', 'ArrowDown', 'Enter'].includes(event.key)) {
+        const slashCommand = document.querySelector('#slash-command');
         if (slashCommand) {
           return true;
         }
@@ -17,11 +17,7 @@ export const defaultEditorProps: EditorProps = {
     },
   },
   handlePaste: (view, event) => {
-    if (
-      event.clipboardData &&
-      event.clipboardData.files &&
-      event.clipboardData.files[0]
-    ) {
+    if (event.clipboardData && event.clipboardData.files && event.clipboardData.files[0]) {
       event.preventDefault();
       const file = event.clipboardData.files[0];
       const pos = view.state.selection.from;
@@ -32,12 +28,7 @@ export const defaultEditorProps: EditorProps = {
     return false;
   },
   handleDrop: (view, event, _slice, moved) => {
-    if (
-      !moved &&
-      event.dataTransfer &&
-      event.dataTransfer.files &&
-      event.dataTransfer.files[0]
-    ) {
+    if (!moved && event.dataTransfer && event.dataTransfer.files && event.dataTransfer.files[0]) {
       event.preventDefault();
       const file = event.dataTransfer.files[0];
       const coordinates = view.posAtCoords({

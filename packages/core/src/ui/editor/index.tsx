@@ -1,5 +1,4 @@
 'use client';
-
 import { useEffect, useRef, useState } from 'react';
 import { useEditor, EditorContent, JSONContent } from '@tiptap/react';
 import { defaultEditorProps } from './props';
@@ -17,6 +16,7 @@ import { EditorProps } from '@tiptap/pm/view';
 import { Editor as EditorClass, Extensions } from '@tiptap/core';
 import { NovelContext } from './provider';
 import VideoNode from './nodes/video';
+import { startImageUpload } from './plugins/upload-images';
 
 export default function Editor({
   completionApi = '/api/generate',
@@ -31,8 +31,8 @@ export default function Editor({
   disableLocalStorage = false,
   autofocus = 'end',
   setEditor = () => {},
-  imageUploader = () => null,
-  videoUploader = () => null,
+  imageUploader,
+  videoUploader,
 }: {
   /**
    * The API route to use for the OpenAI completion API.
@@ -114,6 +114,36 @@ export default function Editor({
     editorProps: {
       ...defaultEditorProps,
       ...editorProps,
+      handleDrop: (view, event, _slice, moved) => {
+        if (
+          !moved &&
+          event.dataTransfer &&
+          event.dataTransfer.files &&
+          event.dataTransfer.files[0]
+        ) {
+          event.preventDefault();
+          const file = event.dataTransfer.files[0];
+          const coordinates = view.posAtCoords({
+            left: event.clientX,
+            top: event.clientY,
+          });
+          // here we deduct 1 from the pos or else the image will create an extra node
+          startImageUpload(file, view, coordinates?.pos || 0 - 1, imageUploader);
+          return true;
+        }
+        return false;
+      },
+      handlePaste: (view, event) => {
+        if (event.clipboardData && event.clipboardData.files && event.clipboardData.files[0]) {
+          event.preventDefault();
+          const file = event.clipboardData.files[0];
+          const pos = view.state.selection.from;
+
+          startImageUpload(file, view, pos, imageUploader);
+          return true;
+        }
+        return false;
+      },
     },
     onUpdate: (e) => {
       const selection = e.editor.state.selection;
