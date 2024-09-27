@@ -181,9 +181,10 @@ export const suggestionItems = createSuggestionItems([
   },
 ]);
 
-export const slashCommand = Command.configure({
-  suggestion: {
-    items: () => suggestionItems,
-    render: renderItems,
-  },
-});
+export const slashCommand = (ref: React.RefObject<HTMLDivElement> | null) =>
+  Command.configure({
+    suggestion: {
+      items: () => suggestionItems,
+      render: () => renderItems(ref),
+    },
+  });

@@ -193,3 +193,36 @@ Components are wrapper over cmdk
 </EditorContent>
 ...
 ```
+
+## Usage in Dialog
+
+Since a dialog is a portal, it isn't possible to scroll the command list when it's opened in a dialog since both are attached to the body but the default behaviour Radix's Dialog is to lock the scroll of the body when open.
+
+In order to fix this,we need to pass a ref to the `slashCommand` function so that it can render the command palette outside the editor's DOM hierarchy. 
+
+We can do this by creating a `useRef` and passing it to the `slashCommand` function.
+
+```tsx
+// Modify slashCommand to accept a ref
+const slashCommand = (ref: React.RefObject<HTMLDivElement> | null) => Command.configure({
+  suggestion: {
+    items: () => suggestionItems,
+    render: () => renderItems(ref),
+  },
+});
+```
+
+```tsx
+// Create a ref and pass it to the slashCommand
+const ref = useRef<HTMLDivElement>(null);
+const extensions = useRef([...defaultExtensions, slashCommand(ref)]).current;
+```
+
+```tsx
+// Wrap the editor with a div and pass the ref
+<div ref={ref} className="w-full h-full">
+  <EditorRoot>
+    ...
+  </EditorRoot>
+</div>
+```
