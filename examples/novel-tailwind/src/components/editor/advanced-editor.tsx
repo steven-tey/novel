@@ -87,14 +87,12 @@ const Editor = ({ initialValue, onChange }: EditorProp) => {
           }}
           className="flex w-fit max-w-[90vw] overflow-hidden rounded-md border border-muted bg-background shadow-xl"
         >
-          <Separator orientation="vertical" />
           <NodeSelector open={openNode} onOpenChange={setOpenNode} />
-          <Separator orientation="vertical" />
-
+          <Separator orientation="vertical" className="h-auto" />
           <LinkSelector open={openLink} onOpenChange={setOpenLink} />
-          <Separator orientation="vertical" />
+          <Separator orientation="vertical" className="h-auto" />
           <TextButtons />
-          <Separator orientation="vertical" />
+          <Separator orientation="vertical" className="h-auto" />
           <ColorSelector open={openColor} onOpenChange={setOpenColor} />
         </EditorBubble>
       </EditorContent>
