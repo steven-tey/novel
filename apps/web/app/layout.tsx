@@ -1,5 +1,6 @@
 import "@/styles/globals.css";
 import "@/styles/prosemirror.css";
+import 'katex/dist/katex.min.css';
 
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
