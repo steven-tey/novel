@@ -10,31 +10,9 @@
   "files": [
     "dist"
   ],
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
-    },
-    "./extensions": {
-      "types": "./dist/extensions.d.ts",
-      "import": "./dist/extensions.js",
-      "require": "./dist/extensions.cjs"
-    },
-    "./plugins": {
-      "types": "./dist/plugins.d.ts",
-      "import": "./dist/plugins.js",
-      "require": "./dist/plugins.cjs"
-    },
-    "./utils": {
-      "types": "./dist/utils.d.ts",
-      "import": "./dist/utils.js",
-      "require": "./dist/utils.cjs"
-    }
-  },
   "scripts": {
     "dev": "tsup --watch",
-    "check-types": "tsc --noEmit",
+    "typecheck": "tsc --noEmit",
     "build": "tsup",
     "lint": "biome lint ./src",
     "format": "biome format ./src ",

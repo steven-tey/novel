@@ -8,25 +8,27 @@ import {
   EditorContent,
   type EditorInstance,
   EditorRoot,
+  ImageResizer,
   type JSONContent,
+  handleCommandNavigation,
+  handleImageDrop,
+  handleImagePaste,
 } from "novel";
-import { ImageResizer, handleCommandNavigation } from "novel/extensions";
 import { useEffect, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { defaultExtensions } from "./extensions";
 import { ColorSelector } from "./selectors/color-selector";
 import { LinkSelector } from "./selectors/link-selector";
-import { NodeSelector } from "./selectors/node-selector";
 import { MathSelector } from "./selectors/math-selector";
+import { NodeSelector } from "./selectors/node-selector";
 import { Separator } from "./ui/separator";
 
-import { handleImageDrop, handleImagePaste } from "novel/plugins";
 import GenerativeMenuSwitch from "./generative/generative-menu-switch";
 import { uploadFn } from "./image-upload";
 import { TextButtons } from "./selectors/text-buttons";
 import { slashCommand, suggestionItems } from "./slash-command";
 
-const hljs = require('highlight.js');
+const hljs = require("highlight.js");
 
 const extensions = [...defaultExtensions, slashCommand];
 
@@ -42,8 +44,8 @@ const TailwindAdvancedEditor = () => {
 
   //Apply Codeblock Highlighting on the HTML from editor.getHTML()
   const highlightCodeblocks = (content: string) => {
-    const doc = new DOMParser().parseFromString(content, 'text/html');
-    doc.querySelectorAll('pre code').forEach((el) => {
+    const doc = new DOMParser().parseFromString(content, "text/html");
+    doc.querySelectorAll("pre code").forEach((el) => {
       // @ts-ignore
       // https://highlightjs.readthedocs.io/en/latest/api.html?highlight=highlightElement#highlightelement
       hljs.highlightElement(el);

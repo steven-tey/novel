@@ -8,6 +8,7 @@ import {
   HighlightExtension,
   HorizontalRule,
   MarkdownExtension,
+  Mathematics,
   Placeholder,
   StarterKit,
   TaskItem,
@@ -18,10 +19,9 @@ import {
   TiptapUnderline,
   Twitter,
   UpdatedImage,
+  UploadImagesPlugin,
   Youtube,
-  Mathematics,
-} from "novel/extensions";
-import { UploadImagesPlugin } from "novel/plugins";
+} from "novel";
 
 import { cx } from "class-variance-authority";
 import { common, createLowlight } from "lowlight";
@@ -151,8 +151,8 @@ const characterCount = CharacterCount.configure();
 const markdownExtension = MarkdownExtension.configure({
   html: true,
   tightLists: true,
-  tightListClass: 'tight',
-  bulletListMarker: '-',
+  tightListClass: "tight",
+  bulletListMarker: "-",
   linkify: false,
   breaks: false,
   transformPastedText: false,

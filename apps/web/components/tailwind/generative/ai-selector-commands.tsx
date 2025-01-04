@@ -1,6 +1,5 @@
 import { ArrowDownWideNarrow, CheckCheck, RefreshCcwDot, StepForward, WrapText } from "lucide-react";
-import { useEditor } from "novel";
-import { getPrevText } from "novel/utils";
+import { getPrevText, useEditor } from "novel";
 import { CommandGroup, CommandItem, CommandSeparator } from "../ui/command";
 
 const options = [
@@ -9,7 +8,6 @@ const options = [
     label: "Improve writing",
     icon: RefreshCcwDot,
   },
-
   {
     value: "fix",
     label: "Fix grammar",
@@ -58,7 +56,6 @@ const AISelectorCommands = ({ onSelect }: AISelectorCommandsProps) => {
         <CommandItem
           onSelect={() => {
             const pos = editor.state.selection.from;
-
             const text = getPrevText(editor, pos);
             onSelect(text, "continue");
           }}

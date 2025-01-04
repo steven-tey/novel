@@ -10,7 +10,8 @@
     "lint:fix": "turbo lint --continue -- --apply",
     "clean": "turbo clean",
     "release": "turbo run release",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "typecheck": "turbo typecheck"
   },
   "dependencies": {
     "turbo": "^1.9.3"
