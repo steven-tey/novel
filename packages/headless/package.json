@@ -37,7 +37,8 @@
     "check-types": "tsc --noEmit",
     "build": "tsup",
     "lint": "biome lint ./src",
-    "format": "biome format ./src "
+    "format": "biome format ./src ",
+    "release": "semantic-release"
   },
   "sideEffects": false,
   "peerDependencies": {
