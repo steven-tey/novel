@@ -18,6 +18,7 @@ import { ColorSelector } from "./selectors/color-selector";
 import { LinkSelector } from "./selectors/link-selector";
 import { NodeSelector } from "./selectors/node-selector";
 import { MathSelector } from "./selectors/math-selector";
+import { ThemeSelector } from "./selectors/theme-selector";
 import { Separator } from "./ui/separator";
 
 import { handleImageDrop, handleImagePaste } from "novel/plugins";
@@ -26,7 +27,7 @@ import { uploadFn } from "./image-upload";
 import { TextButtons } from "./selectors/text-buttons";
 import { slashCommand, suggestionItems } from "./slash-command";
 
-const hljs = require('highlight.js');
+import hljs from 'highlight.js'; // Ensure Highlight.js is imported
 
 const extensions = [...defaultExtensions, slashCommand];
 
@@ -38,23 +39,12 @@ const TailwindAdvancedEditor = () => {
   const [openNode, setOpenNode] = useState(false);
   const [openColor, setOpenColor] = useState(false);
   const [openLink, setOpenLink] = useState(false);
+  const [openTheme, setOpenTheme] = useState(false);
   const [openAI, setOpenAI] = useState(false);
-
-  //Apply Codeblock Highlighting on the HTML from editor.getHTML()
-  const highlightCodeblocks = (content: string) => {
-    const doc = new DOMParser().parseFromString(content, 'text/html');
-    doc.querySelectorAll('pre code').forEach((el) => {
-      // @ts-ignore
-      // https://highlightjs.readthedocs.io/en/latest/api.html?highlight=highlightElement#highlightelement
-      hljs.highlightElement(el);
-    });
-    return new XMLSerializer().serializeToString(doc);
-  };
 
   const debouncedUpdates = useDebouncedCallback(async (editor: EditorInstance) => {
     const json = editor.getJSON();
     setCharsCount(editor.storage.characterCount.words());
-    window.localStorage.setItem("html-content", highlightCodeblocks(editor.getHTML()));
     window.localStorage.setItem("novel-content", JSON.stringify(json));
     window.localStorage.setItem("markdown", editor.storage.markdown.getMarkdown());
     setSaveStatus("Saved");
@@ -65,6 +55,24 @@ const TailwindAdvancedEditor = () => {
     if (content) setInitialContent(JSON.parse(content));
     else setInitialContent(defaultEditorContent);
   }, []);
+
+  useEffect(() => {
+    // Load the default theme when the component mounts
+    loadTheme('default');
+  }, []);
+
+  const loadTheme = (theme: string) => {
+    const existingStyle = document.getElementById('highlight-js-style');
+    if (existingStyle) {
+      existingStyle.remove();
+    }
+
+    const style = document.createElement('link');
+    style.id = 'highlight-js-style';
+    style.rel = 'stylesheet';
+    style.href = `https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/${theme}.min.css`;
+    document.head.appendChild(style);
+  };
 
   if (!initialContent) return null;
 
@@ -124,7 +132,6 @@ const TailwindAdvancedEditor = () => {
             <Separator orientation="vertical" />
             <NodeSelector open={openNode} onOpenChange={setOpenNode} />
             <Separator orientation="vertical" />
-
             <LinkSelector open={openLink} onOpenChange={setOpenLink} />
             <Separator orientation="vertical" />
             <MathSelector />
@@ -132,6 +139,8 @@ const TailwindAdvancedEditor = () => {
             <TextButtons />
             <Separator orientation="vertical" />
             <ColorSelector open={openColor} onOpenChange={setOpenColor} />
+            <Separator orientation="vertical" />
+            <ThemeSelector open={openTheme} onOpenChange={setOpenTheme} />
           </GenerativeMenuSwitch>
         </EditorContent>
       </EditorRoot>
