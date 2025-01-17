@@ -2,24 +2,64 @@
   "name": "novel",
   "private": true,
   "scripts": {
-    "changeset": "changeset",
-    "publish:packages": "changeset publish",
-    "version:packages": "turbo build && changeset version",
     "build": "turbo build",
     "dev": "turbo dev",
     "format": "turbo format --continue --",
     "format:fix": "turbo format --continue -- --write",
     "lint": "turbo lint --continue --",
     "lint:fix": "turbo lint --continue -- --apply",
-    "clean": "turbo clean"
+    "clean": "turbo clean",
+    "release": "turbo run release",
+    "prepare": "husky install",
+    "typecheck": "turbo typecheck"
   },
   "dependencies": {
-    "@changesets/changelog-github": "^0.5.0",
-    "@changesets/cli": "^2.27.1",
-    "turbo": "^1.9.3"
+    "turbo": "^2.3.3"
   },
+  "packageManager": "pnpm@9.5.0",
   "devDependencies": {
-    "@biomejs/biome": "^1.7.2",
-    "postcss": "^8.4.27"
+    "@biomejs/biome": "^1.9.4",
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.0",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "husky": "^9.1.7",
+    "postcss": "^8.5.1",
+    "semantic-release": "^24.2.1"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ],
+    "rules": {
+      "type-enum": [
+        2,
+        "always",
+        [
+          "build",
+          "chore",
+          "ci",
+          "clean",
+          "doc",
+          "feat",
+          "fix",
+          "perf",
+          "ref",
+          "revert",
+          "style",
+          "test"
+        ]
+      ],
+      "subject-case": [
+        0,
+        "always",
+        "sentence-case"
+      ],
+      "body-leading-blank": [
+        2,
+        "always",
+        true
+      ]
+    }
   }
 }

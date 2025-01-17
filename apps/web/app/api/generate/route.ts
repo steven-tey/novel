@@ -1,20 +1,13 @@
+import { openai } from "@ai-sdk/openai";
 import { Ratelimit } from "@upstash/ratelimit";
 import { kv } from "@vercel/kv";
-import { OpenAIStream, StreamingTextResponse } from "ai";
-import OpenAI from "openai";
-import type { ChatCompletionMessageParam } from "openai/resources/index.mjs";
+import { streamText } from "ai";
 import { match } from "ts-pattern";
-
-// Create an OpenAI API client (that's edge friendly!)
 
 // IMPORTANT! Set the runtime to edge: https://vercel.com/docs/functions/edge-functions/edge-runtime
 export const runtime = "edge";
 
 export async function POST(req: Request): Promise<Response> {
-  const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-    baseURL: process.env.OPENAI_BASE_URL || "https://api.openai.com/v1",
-  });
   // Check if the OPENAI_API_KEY is set, if not return 400
   if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === "") {
     return new Response("Missing OPENAI_API_KEY - make sure to add it to your .env file.", {
@@ -120,22 +113,17 @@ export async function POST(req: Request): Promise<Response> {
         content: `For this text: ${prompt}. You have to respect the command: ${command}`,
       },
     ])
-    .run() as ChatCompletionMessageParam[];
+    .run();
 
-  const response = await openai.chat.completions.create({
-    model: "gpt-4o-mini",
-    stream: true,
-    messages,
+  const result = await streamText({
+    prompt: messages[messages.length - 1].content,
+    maxTokens: 4096,
     temperature: 0.7,
-    top_p: 1,
-    frequency_penalty: 0,
-    presence_penalty: 0,
-    n: 1,
+    topP: 1,
+    frequencyPenalty: 0,
+    presencePenalty: 0,
+    model: openai("gpt-4o-mini"),
   });
 
-  // Convert the response into a friendly text-stream
-  const stream = OpenAIStream(response);
-
-  // Respond with the stream
-  return new StreamingTextResponse(stream);
+  return result.toDataStreamResponse();
 }
