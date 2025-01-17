@@ -9,7 +9,7 @@ export const isValidTwitterUrl = (url: string) => {
 };
 
 const TweetComponent = ({ node }: { node: Partial<ReactNodeViewRendererOptions> }) => {
-  const url = node?.attrs?.src;
+  const url = (node?.attrs as Record<string, string>)?.src;
   const tweetId = url?.split("/").pop();
 
   if (!tweetId) {

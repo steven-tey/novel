@@ -67,5 +67,4 @@ export {
 } from "./utils";
 
 // Store and Atoms
-export { novelStore } from "./utils/store";
 export { queryAtom, rangeAtom } from "./utils/atoms";
