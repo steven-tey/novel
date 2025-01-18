@@ -7,7 +7,6 @@ import {
   GlobalDragHandle,
   HighlightExtension,
   HorizontalRule,
-  MarkdownExtension,
   Mathematics,
   Placeholder,
   StarterKit,
@@ -22,6 +21,7 @@ import {
   UploadImagesPlugin,
   Youtube,
 } from "novel";
+import { Markdown } from "tiptap-markdown";
 
 import { cx } from "class-variance-authority";
 import { common, createLowlight } from "lowlight";
@@ -148,7 +148,7 @@ const mathematics = Mathematics.configure({
 
 const characterCount = CharacterCount.configure();
 
-const markdownExtension = MarkdownExtension.configure({
+const markdownExtension = Markdown.configure({
   html: true,
   tightLists: true,
   tightListClass: "tight",

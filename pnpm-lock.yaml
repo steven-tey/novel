@@ -132,6 +132,9 @@ importers:
       tippy.js:
         specifier: ^6.3.7
         version: 6.3.7
+      tiptap-markdown:
+        specifier: ^0.8.10
+        version: 0.8.10(@tiptap/core@2.11.2(@tiptap/pm@2.11.2))
       ts-pattern:
         specifier: ^5.0.8
         version: 5.6.0
@@ -250,9 +253,6 @@ importers:
       tiptap-extension-global-drag-handle:
         specifier: ^0.1.16
         version: 0.1.16
-      tiptap-markdown:
-        specifier: ^0.8.10
-        version: 0.8.10(@tiptap/core@2.11.2(@tiptap/pm@2.11.2))
       tunnel-rat:
         specifier: ^0.1.2
         version: 0.1.2(@types/react@18.3.18)(react@19.0.0)

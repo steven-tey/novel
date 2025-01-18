@@ -10,11 +10,10 @@ import { TaskList } from "@tiptap/extension-task-list";
 import TextStyle from "@tiptap/extension-text-style";
 import TiptapUnderline from "@tiptap/extension-underline";
 import StarterKit from "@tiptap/starter-kit";
-import { Markdown } from "tiptap-markdown";
 import CustomKeymap from "./custom-keymap";
 import { ImageResizer } from "./image-resizer";
-import { Twitter } from "./twitter";
 import { Mathematics } from "./mathematics";
+import { Twitter } from "./twitter";
 import UpdatedImage from "./updated-image";
 
 import CharacterCount from "@tiptap/extension-character-count";
@@ -34,11 +33,6 @@ const PlaceholderExtension = Placeholder.configure({
 
 const HighlightExtension = Highlight.configure({
   multicolor: true,
-});
-
-const MarkdownExtension = Markdown.configure({
-  html: false,
-  transformCopiedText: true,
 });
 
 const Horizontal = HorizontalRule.extend({
@@ -73,7 +67,6 @@ export {
   TaskList,
   TiptapImage,
   TiptapUnderline,
-  MarkdownExtension,
   TextStyle,
   Color,
   HighlightExtension,

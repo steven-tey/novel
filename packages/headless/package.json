@@ -50,7 +50,6 @@
     "katex": "^0.16.20",
     "tippy.js": "^6.3.7",
     "tiptap-extension-global-drag-handle": "^0.1.16",
-    "tiptap-markdown": "^0.8.10",
     "tunnel-rat": "^0.1.2"
   },
   "devDependencies": {

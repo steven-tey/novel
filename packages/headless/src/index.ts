@@ -29,7 +29,6 @@ export {
   TaskList,
   TiptapImage,
   TiptapUnderline,
-  MarkdownExtension,
   TextStyle,
   Color,
   HighlightExtension,

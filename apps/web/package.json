@@ -43,6 +43,7 @@
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
     "tippy.js": "^6.3.7",
+    "tiptap-markdown": "^0.8.10",
     "ts-pattern": "^5.0.8",
     "typescript": "^5.4.2",
     "use-debounce": "^10.0.0"
