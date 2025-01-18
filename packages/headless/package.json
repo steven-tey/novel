@@ -1,15 +1,25 @@
 {
   "name": "novel",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Notion-style WYSIWYG editor with AI-powered autocompletions",
   "license": "Apache-2.0",
   "type": "module",
-  "main": "dist/index.cjs",
+  "sideEffects": false,
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./esm-only.cjs"
+    }
+  },
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
@@ -17,7 +27,6 @@
     "lint": "biome lint ./src",
     "format": "biome format ./src "
   },
-  "sideEffects": false,
   "peerDependencies": {
     "react": ">=18"
   },

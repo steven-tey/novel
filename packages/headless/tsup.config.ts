@@ -6,9 +6,11 @@ export default defineConfig((options: Options) => ({
     js: "'use client'",
   },
   minify: true,
-  format: ["cjs", "esm"],
+  format: ["esm"],
   dts: true,
   clean: true,
   external: ["react", "react-dom"],
+  splitting: true,
+  treeshake: true,
   ...options,
 }));
