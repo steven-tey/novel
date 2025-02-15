@@ -1,6 +1,6 @@
 {
-  "name": "novel",
-  "version": "1.0.0",
+  "name": "@matias_perezp/novel",
+  "version": "1.0.1",
   "description": "Notion-style WYSIWYG editor with AI-powered autocompletions",
   "license": "Apache-2.0",
   "type": "module",
@@ -46,7 +46,6 @@
     "jotai": "^2.11.0",
     "react-markdown": "^9.0.3",
     "react-moveable": "^0.56.0",
-    "react-tweet": "^3.2.1",
     "katex": "^0.16.20",
     "tippy.js": "^6.3.7",
     "tiptap-extension-global-drag-handle": "^0.1.16",

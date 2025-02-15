@@ -13,7 +13,6 @@ import StarterKit from "@tiptap/starter-kit";
 import { Markdown } from "tiptap-markdown";
 import CustomKeymap from "./custom-keymap";
 import { ImageResizer } from "./image-resizer";
-import { Twitter } from "./twitter";
 import { Mathematics } from "./mathematics";
 import UpdatedImage from "./updated-image";
 
@@ -63,26 +62,12 @@ const Horizontal = HorizontalRule.extend({
 export * from "./ai-highlight";
 export * from "./slash-command";
 export {
-  CodeBlockLowlight,
-  Horizontal as HorizontalRule,
+  CharacterCount, CodeBlockLowlight, Color, CustomKeymap, GlobalDragHandle, HighlightExtension, Horizontal as HorizontalRule,
   ImageResizer,
-  InputRule,
-  PlaceholderExtension as Placeholder,
+  InputRule, MarkdownExtension, Mathematics, PlaceholderExtension as Placeholder,
   StarterKit,
   TaskItem,
-  TaskList,
-  TiptapImage,
-  TiptapUnderline,
-  MarkdownExtension,
-  TextStyle,
-  Color,
-  HighlightExtension,
-  CustomKeymap,
-  TiptapLink,
-  UpdatedImage,
-  Youtube,
-  Twitter,
-  Mathematics,
-  CharacterCount,
-  GlobalDragHandle,
+  TaskList, TextStyle, TiptapImage, TiptapLink, TiptapUnderline, UpdatedImage,
+  Youtube
 };
+
