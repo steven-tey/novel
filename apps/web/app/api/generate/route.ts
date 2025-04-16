@@ -116,6 +116,7 @@ export async function POST(req: Request): Promise<Response> {
     .run();
 
   const result = await streamText({
+    system: messages[0].content,
     prompt: messages[messages.length - 1].content,
     maxTokens: 4096,
     temperature: 0.7,
