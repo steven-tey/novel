@@ -40,6 +40,7 @@ const AISelectorCommands = ({ onSelect }: AISelectorCommandsProps) => {
             onSelect={(value) => {
               const slice = editor.state.selection.content();
               const text = editor.storage.markdown.serializer.serialize(slice.content);
+
               onSelect(text, value);
             }}
             className="flex gap-2 px-4"
@@ -57,6 +58,7 @@ const AISelectorCommands = ({ onSelect }: AISelectorCommandsProps) => {
           onSelect={() => {
             const pos = editor.state.selection.from;
             const text = getPrevText(editor, pos);
+            console.log("onSelect____________", onSelect);
             onSelect(text, "continue");
           }}
           value="continue"

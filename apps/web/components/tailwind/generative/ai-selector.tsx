@@ -7,7 +7,6 @@ import { ArrowUp } from "lucide-react";
 import { useEditor } from "novel";
 import { addAIHighlight } from "novel";
 import { useState } from "react";
-import Markdown from "react-markdown";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
 import CrazySpinner from "../ui/icons/crazy-spinner";
@@ -34,6 +33,10 @@ export function AISelector({ onOpenChange }: AISelectorProps) {
         toast.error("You have reached your request limit for the day.");
         return;
       }
+      // console.log("response", response);
+    },
+    onFinish: (_prompt, completion) => {
+      console.log("_prompt::::::", _prompt, completion);
     },
     onError: (e) => {
       toast.error(e.message);
@@ -41,15 +44,16 @@ export function AISelector({ onOpenChange }: AISelectorProps) {
   });
 
   const hasCompletion = completion.length > 0;
+  const selection = editor.view.state.selection;
+
+  console.log("completion+++++++", editor, completion);
 
   return (
     <Command className="w-[350px]">
       {hasCompletion && (
         <div className="flex max-h-[400px]">
           <ScrollArea>
-            <div className="prose p-2 px-4 prose-sm">
-              <Markdown>{completion}</Markdown>
-            </div>
+            <div className="prose p-2 px-4 prose-sm">{/* <Markdown>{completion}</Markdown> */}</div>
           </ScrollArea>
         </div>
       )}

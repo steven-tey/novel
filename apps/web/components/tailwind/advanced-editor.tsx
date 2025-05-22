@@ -1,5 +1,5 @@
 "use client";
-import { defaultEditorContent } from "@/lib/content";
+// import { defaultEditorContent } from "@/lib/content";
 import {
   EditorCommand,
   EditorCommandEmpty,
@@ -29,6 +29,7 @@ import { TextButtons } from "./selectors/text-buttons";
 import { slashCommand, suggestionItems } from "./slash-command";
 
 const hljs = require("highlight.js");
+const defaultEditorContent = { "type": "doc", "content": [{ "type": "heading", "attrs": { "level": 4 } }] };
 
 const extensions = [...defaultExtensions, slashCommand];
 
@@ -85,7 +86,7 @@ const TailwindAdvancedEditor = () => {
           className="relative min-h-[500px] w-full max-w-screen-lg border-muted bg-background sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:shadow-lg"
           editorProps={{
             handleDOMEvents: {
-              keydown: (_view, event) => handleCommandNavigation(event),
+              keydown: (_view, event) => { console.log("keydown-----", event); handleCommandNavigation(event) },
             },
             handlePaste: (view, event) => handleImagePaste(view, event, uploadFn),
             handleDrop: (view, event, _slice, moved) => handleImageDrop(view, event, moved, uploadFn),

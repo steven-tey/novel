@@ -18,7 +18,7 @@
     "next/dist/client/router.d.ts"
   ],
   "[typescriptreact]": {
-    "editor.defaultFormatter": "biomejs.biome"
+    "editor.defaultFormatter": "vscode.typescript-language-features"
   },
   "[typescript]": {
     "editor.defaultFormatter": "biomejs.biome"

@@ -1,3 +1,5 @@
+import { ReactRenderer } from "@tiptap/react";
+import { useCompletion } from "ai/react";
 import {
   CheckSquare,
   Code,
@@ -10,20 +12,29 @@ import {
   MessageSquarePlus,
   Text,
   TextQuote,
-  Twitter,
-  Youtube,
 } from "lucide-react";
-import { Command, createSuggestionItems, renderItems } from "novel";
+import { Command, createSuggestionItems, getPrevText, useEditor } from "novel";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import tippy from "tippy.js";
 import { uploadFn } from "./image-upload";
-
 export const suggestionItems = createSuggestionItems([
   {
-    title: "Send Feedback",
-    description: "Let us know how we can improve.",
+    title: "Continue writing",
+    description: "Use AI to expand your thoughts.",
     icon: <MessageSquarePlus size={18} />,
     command: ({ editor, range }) => {
       editor.chain().focus().deleteRange(range).run();
-      window.open("/feedback", "_blank");
+      getPrevText(editor, {
+        chars: 5000,
+        offset: 1,
+      });
+      console.log(
+        "prev text",
+        getPrevText(editor, {
+          chars: 5000,
+          offset: 1,
+        }),
+      );
     },
   },
   {
@@ -125,60 +136,208 @@ export const suggestionItems = createSuggestionItems([
       input.click();
     },
   },
-  {
-    title: "Youtube",
-    description: "Embed a Youtube video.",
-    searchTerms: ["video", "youtube", "embed"],
-    icon: <Youtube size={18} />,
-    command: ({ editor, range }) => {
-      const videoLink = prompt("Please enter Youtube Video Link");
-      //From https://regexr.com/3dj5t
-      const ytregex = new RegExp(
-        /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/,
-      );
-
-      if (ytregex.test(videoLink)) {
-        editor
-          .chain()
-          .focus()
-          .deleteRange(range)
-          .setYoutubeVideo({
-            src: videoLink,
-          })
-          .run();
-      } else {
-        if (videoLink !== null) {
-          alert("Please enter a correct Youtube Video Link");
-        }
-      }
-    },
-  },
-  {
-    title: "Twitter",
-    description: "Embed a Tweet.",
-    searchTerms: ["twitter", "embed"],
-    icon: <Twitter size={18} />,
-    command: ({ editor, range }) => {
-      const tweetLink = prompt("Please enter Twitter Link");
-      const tweetRegex = new RegExp(/^https?:\/\/(www\.)?x\.com\/([a-zA-Z0-9_]{1,15})(\/status\/(\d+))?(\/\S*)?$/);
-
-      if (tweetRegex.test(tweetLink)) {
-        editor
-          .chain()
-          .focus()
-          .deleteRange(range)
-          .setTweet({
-            src: tweetLink,
-          })
-          .run();
-      } else {
-        if (tweetLink !== null) {
-          alert("Please enter a correct Twitter Link");
-        }
-      }
-    },
-  },
 ]);
+
+export const updateScrollView = (container: HTMLElement, item: HTMLElement) => {
+  const containerHeight = container.offsetHeight;
+  const itemHeight = item ? item.offsetHeight : 0;
+
+  const top = item.offsetTop;
+  const bottom = top + itemHeight;
+
+  if (top < container.scrollTop) {
+    container.scrollTop -= container.scrollTop - top + 5;
+  } else if (bottom > containerHeight + container.scrollTop) {
+    container.scrollTop += bottom - containerHeight - container.scrollTop + 5;
+  }
+};
+
+const CommandList = ({
+  items,
+  command,
+  range,
+}: {
+  items: CommandItemProps[];
+  command: any;
+  range: any;
+}) => {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const { editor } = useEditor();
+  const { completion, complete, isLoading } = useCompletion({
+    // id: "novel",
+    api: "/api/generate",
+    onResponse: (response) => {
+      if (response.status === 429) {
+        toast.error("You have reached your request limit for the day.");
+        // va.track("Rate Limit Reached");
+        return;
+      }
+      // editor.chain().focus().deleteRange(range).run();
+      console.log("response", response);
+    },
+    onFinish: (_prompt, completion) => {
+      // highlight the generated text
+      editor.commands.setTextSelection({
+        from: range.from,
+        to: range.from + completion.length,
+      });
+    },
+    onError: () => {
+      toast.error("Something went wrong.");
+    },
+  });
+
+  const selectItem = useCallback(
+    (index: number) => {
+      const item = items[index];
+      // va.track("Slash Command Used", {
+      //   command: item.title,
+      // });
+      if (item) {
+        if (item.title === "Continue writing") {
+          console.log("item-------", item);
+          complete(
+            getPrevText(editor, {
+              chars: 5000,
+              offset: 1,
+            }),
+            { body: { option: "continue" } },
+          );
+        } else {
+          // command(item);
+        }
+      }
+    },
+    [complete, command, editor, items],
+  );
+
+  useEffect(() => {
+    const navigationKeys = ["ArrowUp", "ArrowDown", "Enter"];
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (navigationKeys.includes(e.key)) {
+        e.preventDefault();
+        if (e.key === "ArrowUp") {
+          setSelectedIndex((selectedIndex + items.length - 1) % items.length);
+          return true;
+        }
+        if (e.key === "ArrowDown") {
+          setSelectedIndex((selectedIndex + 1) % items.length);
+          return true;
+        }
+        if (e.key === "Enter") {
+          selectItem(selectedIndex);
+          return true;
+        }
+        return false;
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [items, selectedIndex, setSelectedIndex, selectItem]);
+
+  useEffect(() => {
+    setSelectedIndex(0);
+  }, [items]);
+
+  const commandListContainer = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const container = commandListContainer?.current;
+    const item = container?.children[selectedIndex] as HTMLElement;
+    if (item && container) updateScrollView(container, item);
+  }, [selectedIndex]);
+
+  const selection = editor.view.state.selection;
+  // console.log("editor+++++++++++++-----:", selection.to, completion);
+  // useEffect(() => {
+  //   if (completion === oldCompletion) { return }
+  //   editor
+  //     .chain()
+  //     .focus()
+  //     .insertContentAt(selection.to + 1, completion)
+  //     .run();
+  //   setOldCompletion(completion);
+  // }, [completion]);
+
+  return items.length > 0 ? (
+    <div
+      id="slash-command"
+      ref={commandListContainer}
+      className="z-50 h-auto max-h-[330px] w-72 overflow-y-auto rounded-md border border-stone-200 bg-white px-1 py-2 shadow-md transition-all"
+    >
+      {items.map((item: CommandItemProps, index: number) => {
+        return (
+          <button
+            className={`flex w-full items-center space-x-2 rounded-md px-2 py-1 text-left text-sm text-stone-900 hover:bg-stone-100 ${index === selectedIndex ? "bg-stone-100 text-stone-900" : ""
+              }`}
+            key={index}
+            onClick={() => selectItem(index)}
+          >
+            <div className="flex h-10 w-10 items-center justify-center rounded-md border border-stone-200 bg-white">
+              {item.title === "Continue writing" && isLoading ? null : item.icon}
+            </div>
+            <div>
+              <p className="font-medium">{item.title}</p>
+              <p className="text-xs text-stone-500">{item.description}</p>
+            </div>
+          </button>
+        );
+      })}
+    </div>
+  ) : null;
+};
+
+const renderItems = () => {
+  let component: ReactRenderer | null = null;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  let popup: any | null = null;
+
+  return {
+    onStart: (props: { editor: Editor; clientRect: DOMRect }) => {
+      component = new ReactRenderer(CommandList, {
+        props,
+        editor: props.editor,
+      });
+
+      // @ts-ignore
+      popup = tippy("body", {
+        getReferenceClientRect: props.clientRect,
+        appendTo: () => document.body,
+        content: component.element,
+        showOnCreate: true,
+        interactive: true,
+        trigger: "manual",
+        placement: "bottom-start",
+      });
+    },
+    onUpdate: (props: { editor: Editor; clientRect: DOMRect }) => {
+      console.log("update--------------：：：：：");
+      component?.updateProps(props);
+
+      // biome-ignore lint/complexity/useOptionalChain: <explanation>
+      popup &&
+        popup[0].setProps({
+          getReferenceClientRect: props.clientRect,
+        });
+    },
+    onKeyDown: (props: { event: KeyboardEvent }) => {
+      if (props.event.key === "Escape") {
+        popup?.[0].hide();
+
+        return true;
+      }
+
+      // @ts-ignore
+      return component?.ref?.onKeyDown(props);
+    },
+    onExit: () => {
+      popup?.[0].destroy();
+      component?.destroy();
+    },
+  };
+};
 
 export const slashCommand = Command.configure({
   suggestion: {

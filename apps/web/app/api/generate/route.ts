@@ -1,4 +1,5 @@
-import { openai } from "@ai-sdk/openai";
+// import { openai } from "@ai-sdk/openai";
+import { deepseek } from '@ai-sdk/deepseek';
 import { Ratelimit } from "@upstash/ratelimit";
 import { kv } from "@vercel/kv";
 import { streamText } from "ai";
@@ -122,7 +123,8 @@ export async function POST(req: Request): Promise<Response> {
     topP: 1,
     frequencyPenalty: 0,
     presencePenalty: 0,
-    model: openai("gpt-4o-mini"),
+    // model: openai("gpt-4o-mini"),
+    model: deepseek('deepseek-chat'),
   });
 
   return result.toDataStreamResponse();
