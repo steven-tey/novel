@@ -21,6 +21,7 @@ import {
   UpdatedImage,
   UploadImagesPlugin,
   Youtube,
+  ChatMessage,
 } from "novel";
 
 import { cx } from "class-variance-authority";
@@ -181,4 +182,5 @@ export const defaultExtensions = [
   Color,
   CustomKeymap,
   GlobalDragHandle,
+  ChatMessage,
 ];

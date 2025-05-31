@@ -4,7 +4,7 @@ import 'katex/dist/katex.min.css';
 
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
-import Providers from "./providers";
+import Providers, { UserProvider } from "./providers";
 
 const title = "Novel - Notion-style WYSIWYG editor with AI-powered autocompletions";
 const description =
@@ -34,7 +34,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-        <Providers>{children}</Providers>
+        <UserProvider>
+          <Providers>{children}</Providers>
+        </UserProvider>
       </body>
     </html>
   );

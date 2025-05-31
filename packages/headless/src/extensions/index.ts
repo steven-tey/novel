@@ -86,3 +86,4 @@ export {
   CharacterCount,
   GlobalDragHandle,
 };
+export * from "./chat-message";

@@ -1,9 +1,12 @@
 "use client";
 
-import { Check, Menu as MenuIcon, Monitor, Moon, SunDim } from "lucide-react";
+import { Check, Menu as MenuIcon, Monitor, Moon, SunDim, UserRoundCog } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "./button";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
+import { useUser } from "@/app/providers";
+import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabaseClient";
 
 // TODO implement multiple fonts editor
 // const fonts = [
@@ -37,15 +40,44 @@ const appearances = [
 export default function Menu() {
   // const { font: currentFont, setFont } = useContext(AppContext);
   const { theme: currentTheme, setTheme } = useTheme();
+  const user = useUser();
+  const router = useRouter();
+
+  const handleLogin = () => {
+    router.push("/login");
+  };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    router.refresh();
+  };
 
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button variant="ghost" size="icon">
-          <MenuIcon width={16} />
+          <UserRoundCog width={16} />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-52 p-2" align="end">
+        {/* Login/Logout options */}
+        <div className="p-2 border-b mb-2">
+          {user ? (
+            <button
+              className="w-full text-left text-sm text-red-600 hover:underline"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+          ) : (
+            <button
+              className="w-full text-left text-sm text-blue-600 hover:underline"
+              onClick={handleLogin}
+            >
+              Login
+            </button>
+          )}
+        </div>
         {/* <div className="p-2">
           <p className="p-2 text-xs font-medium text-stone-500">Font</p>
           {fonts.map(({ font, icon }) => (

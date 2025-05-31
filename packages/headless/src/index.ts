@@ -46,6 +46,7 @@ export {
   createSuggestionItems,
   handleCommandNavigation,
   type SuggestionItem,
+  ChatMessage,
 } from "./extensions";
 
 // Plugins
