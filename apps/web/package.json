@@ -32,7 +32,7 @@
     "highlight.js": "^11.9.0",
     "lowlight": "^3.1.0",
     "lucide-react": "^0.358.0",
-    "next": "15.1.4",
+    "next": "15.1.9",
     "next-themes": "^0.2.1",
     "novel": "workspace:^",
     "openai": "^4.28.4",
