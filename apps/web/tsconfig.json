@@ -1,6 +1,5 @@
 {
-  "extends": "tsconfig/next.json",
-
+  "extends": "../../packages/tsconfig/next.json",
   "compilerOptions": {
     "plugins": [
       {
