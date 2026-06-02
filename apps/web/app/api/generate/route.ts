@@ -1,18 +1,19 @@
-import { openai } from "@ai-sdk/openai";
 import { Ratelimit } from "@upstash/ratelimit";
 import { kv } from "@vercel/kv";
 import { streamText } from "ai";
 import { match } from "ts-pattern";
+import { getModel, getTemperature, hasApiKey } from "@/lib/ai-provider";
 
 // IMPORTANT! Set the runtime to edge: https://vercel.com/docs/functions/edge-functions/edge-runtime
 export const runtime = "edge";
 
 export async function POST(req: Request): Promise<Response> {
-  // Check if the OPENAI_API_KEY is set, if not return 400
-  if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === "") {
-    return new Response("Missing OPENAI_API_KEY - make sure to add it to your .env file.", {
-      status: 400,
-    });
+  // Check if an API key is set (supports OpenAI or MiniMax)
+  if (!hasApiKey()) {
+    return new Response(
+      "Missing API key – set OPENAI_API_KEY or MINIMAX_API_KEY in your .env file.",
+      { status: 400 },
+    );
   }
   if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
     const ip = req.headers.get("x-forwarded-for");
@@ -118,11 +119,11 @@ export async function POST(req: Request): Promise<Response> {
   const result = await streamText({
     prompt: messages[messages.length - 1].content,
     maxTokens: 4096,
-    temperature: 0.7,
+    temperature: getTemperature(0.7),
     topP: 1,
     frequencyPenalty: 0,
     presencePenalty: 0,
-    model: openai("gpt-4o-mini"),
+    model: getModel(),
   });
 
   return result.toDataStreamResponse();
