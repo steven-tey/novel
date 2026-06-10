@@ -9,31 +9,31 @@ export const TextButtons = () => {
   if (!editor) return null;
   const items: SelectorItem[] = [
     {
-      name: "bold",
+      name: "加粗",
       isActive: (editor) => editor.isActive("bold"),
       command: (editor) => editor.chain().focus().toggleBold().run(),
       icon: BoldIcon,
     },
     {
-      name: "italic",
+      name: "斜体",
       isActive: (editor) => editor.isActive("italic"),
       command: (editor) => editor.chain().focus().toggleItalic().run(),
       icon: ItalicIcon,
     },
     {
-      name: "underline",
+      name: "下划线",
       isActive: (editor) => editor.isActive("underline"),
       command: (editor) => editor.chain().focus().toggleUnderline().run(),
       icon: UnderlineIcon,
     },
     {
-      name: "strike",
+      name: "删除线",
       isActive: (editor) => editor.isActive("strike"),
       command: (editor) => editor.chain().focus().toggleStrike().run(),
       icon: StrikethroughIcon,
     },
     {
-      name: "code",
+      name: "行内代码",
       isActive: (editor) => editor.isActive("code"),
       command: (editor) => editor.chain().focus().toggleCode().run(),
       icon: CodeIcon,
@@ -48,7 +48,7 @@ export const TextButtons = () => {
             item.command(editor);
           }}
         >
-          <Button size="sm" className="rounded-none" variant="ghost" type="button">
+          <Button size="sm" className="rounded-none" variant="ghost" type="button" title={item.name} aria-label={item.name}>
             <item.icon
               className={cn("h-4 w-4", {
                 "text-blue-500": item.isActive(editor),

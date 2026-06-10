@@ -6,9 +6,8 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import Providers from "./providers";
 
-const title = "Novel - Notion-style WYSIWYG editor with AI-powered autocompletions";
-const description =
-  "Novel is a Notion-style WYSIWYG editor with AI-powered autocompletions. Built with Tiptap, OpenAI, and Vercel AI SDK.";
+const title = "DocFlow AI - 企业级知识库与智能文档协作平台";
+const description = "DocFlow AI 是面向企业内部知识沉淀、文档编辑和 AI 辅助写作的智能协作平台。";
 
 export const metadata: Metadata = {
   title,
@@ -21,9 +20,9 @@ export const metadata: Metadata = {
     title,
     description,
     card: "summary_large_image",
-    creator: "@steventey",
+    creator: "@docflow-ai",
   },
-  metadataBase: new URL("https://novel.sh"),
+  metadataBase: new URL("https://docflow.local"),
 };
 
 export const viewport: Viewport = {
@@ -32,7 +31,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="zh-CN" suppressHydrationWarning>
       <body>
         <Providers>{children}</Providers>
       </body>

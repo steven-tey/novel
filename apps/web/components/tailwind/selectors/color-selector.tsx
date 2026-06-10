@@ -10,78 +10,78 @@ export interface BubbleColorMenuItem {
 
 const TEXT_COLORS: BubbleColorMenuItem[] = [
   {
-    name: "Default",
+    name: "默认",
     color: "var(--novel-black)",
   },
   {
-    name: "Purple",
+    name: "紫色",
     color: "#9333EA",
   },
   {
-    name: "Red",
+    name: "红色",
     color: "#E00000",
   },
   {
-    name: "Yellow",
+    name: "黄色",
     color: "#EAB308",
   },
   {
-    name: "Blue",
+    name: "蓝色",
     color: "#2563EB",
   },
   {
-    name: "Green",
+    name: "绿色",
     color: "#008A00",
   },
   {
-    name: "Orange",
+    name: "橙色",
     color: "#FFA500",
   },
   {
-    name: "Pink",
+    name: "粉色",
     color: "#BA4081",
   },
   {
-    name: "Gray",
+    name: "灰色",
     color: "#A8A29E",
   },
 ];
 
 const HIGHLIGHT_COLORS: BubbleColorMenuItem[] = [
   {
-    name: "Default",
+    name: "默认",
     color: "var(--novel-highlight-default)",
   },
   {
-    name: "Purple",
+    name: "紫色",
     color: "var(--novel-highlight-purple)",
   },
   {
-    name: "Red",
+    name: "红色",
     color: "var(--novel-highlight-red)",
   },
   {
-    name: "Yellow",
+    name: "黄色",
     color: "var(--novel-highlight-yellow)",
   },
   {
-    name: "Blue",
+    name: "蓝色",
     color: "var(--novel-highlight-blue)",
   },
   {
-    name: "Green",
+    name: "绿色",
     color: "var(--novel-highlight-green)",
   },
   {
-    name: "Orange",
+    name: "橙色",
     color: "var(--novel-highlight-orange)",
   },
   {
-    name: "Pink",
+    name: "粉色",
     color: "var(--novel-highlight-pink)",
   },
   {
-    name: "Gray",
+    name: "灰色",
     color: "var(--novel-highlight-gray)",
   },
 ];
@@ -122,13 +122,13 @@ export const ColorSelector = ({ open, onOpenChange }: ColorSelectorProps) => {
         align="start"
       >
         <div className="flex flex-col">
-          <div className="my-1 px-2 text-sm font-semibold text-muted-foreground">Color</div>
+          <div className="my-1 px-2 text-sm font-semibold text-muted-foreground">文字颜色</div>
           {TEXT_COLORS.map(({ name, color }) => (
             <EditorBubbleItem
               key={name}
               onSelect={() => {
                 editor.commands.unsetColor();
-                name !== "Default" &&
+                name !== "默认" &&
                   editor
                     .chain()
                     .focus()
@@ -148,13 +148,13 @@ export const ColorSelector = ({ open, onOpenChange }: ColorSelectorProps) => {
           ))}
         </div>
         <div>
-          <div className="my-1 px-2 text-sm font-semibold text-muted-foreground">Background</div>
+          <div className="my-1 px-2 text-sm font-semibold text-muted-foreground">背景颜色</div>
           {HIGHLIGHT_COLORS.map(({ name, color }) => (
             <EditorBubbleItem
               key={name}
               onSelect={() => {
                 editor.commands.unsetHighlight();
-                name !== "Default" && editor.chain().focus().setHighlight({ color }).run();
+                name !== "默认" && editor.chain().focus().setHighlight({ color }).run();
                 onOpenChange(false);
               }}
               className="flex cursor-pointer items-center justify-between px-2 py-1 text-sm hover:bg-accent"

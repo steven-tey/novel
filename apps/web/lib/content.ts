@@ -3,99 +3,47 @@ export const defaultEditorContent = {
   content: [
     {
       type: "heading",
-      attrs: { level: 2 },
-      content: [{ type: "text", text: "Introducing Novel" }],
+      attrs: { level: 1 },
+      content: [{ type: "text", text: "DocFlow AI 企业知识库示例文档" }],
     },
     {
       type: "paragraph",
       content: [
         {
           type: "text",
-          marks: [
-            {
-              type: "link",
-              attrs: {
-                href: "https://github.com/steven-tey/novel",
-                target: "_blank",
-              },
-            },
-          ],
-          text: "Novel",
+          text: "这是一份用于演示企业内部知识沉淀、协作编辑和 AI 辅助处理能力的文档。你可以选中文字使用 AI 助手，也可以不选中文本直接让 AI 分析整篇文档。",
         },
-        {
-          type: "text",
-          text: " is a Notion-style WYSIWYG editor with AI-powered autocompletion. Built with ",
-        },
-        {
-          type: "text",
-          marks: [
-            {
-              type: "link",
-              attrs: {
-                href: "https://tiptap.dev/",
-                target: "_blank",
-              },
-            },
-          ],
-          text: "Tiptap",
-        },
-        { type: "text", text: " + " },
-        {
-          type: "text",
-          marks: [
-            {
-              type: "link",
-              attrs: {
-                href: "https://sdk.vercel.ai/docs",
-                target: "_blank",
-              },
-            },
-          ],
-          text: "Vercel AI SDK",
-        },
-        { type: "text", text: "." },
       ],
     },
     {
       type: "heading",
-      attrs: { level: 3 },
-      content: [{ type: "text", text: "Installation" }],
+      attrs: { level: 2 },
+      content: [{ type: "text", text: "项目背景" }],
     },
     {
-      type: "codeBlock",
-      attrs: { language: null },
-      content: [{ type: "text", text: "npm i novel" }],
-    },
-    {
-      type: "heading",
-      attrs: { level: 3 },
-      content: [{ type: "text", text: "Usage" }],
-    },
-    {
-      type: "codeBlock",
-      attrs: { language: null },
+      type: "paragraph",
       content: [
         {
           type: "text",
-          text: 'import { Editor } from "novel";\n\nexport default function App() {\n  return (\n     <Editor />\n  )\n}',
+          text: "随着团队文档数量增加，知识分散、版本不统一、查找成本高等问题会影响协作效率。DocFlow AI 旨在提供统一的文档编辑、知识管理和智能辅助能力。",
         },
       ],
     },
     {
       type: "heading",
-      attrs: { level: 3 },
-      content: [{ type: "text", text: "Features" }],
+      attrs: { level: 2 },
+      content: [{ type: "text", text: "核心能力" }],
     },
     {
-      type: "orderedList",
-      attrs: { tight: true, start: 1 },
+      type: "bulletList",
+      attrs: { tight: true },
       content: [
         {
           type: "listItem",
           content: [
             {
               type: "paragraph",
-              content: [{ type: "text", text: "Slash menu & bubble menu" }],
+              content: [{ type: "text", text: "富文本编辑：支持标题、列表、引用、代码块、图片和链接。" }],
             },
           ],
         },
@@ -104,14 +52,7 @@ export const defaultEditorContent = {
           content: [
             {
               type: "paragraph",
-              content: [
-                { type: "text", text: "AI autocomplete (type " },
-                { type: "text", marks: [{ type: "code" }], text: "++" },
-                {
-                  type: "text",
-                  text: " to activate, or select from slash menu)",
-                },
-              ],
+              content: [{ type: "text", text: "AI 助手：支持总结文档、提取待办、生成 FAQ、检查风险点和优化表达。" }],
             },
           ],
         },
@@ -120,157 +61,16 @@ export const defaultEditorContent = {
           content: [
             {
               type: "paragraph",
-              content: [
-                {
-                  type: "text",
-                  text: "Image uploads (drag & drop / copy & paste, or select from slash menu) ",
-                },
-              ],
-            },
-          ],
-        },
-        {
-          type: "listItem",
-          content: [
-            {
-              type: "paragraph",
-              content: [
-                {
-                  type: "text",
-                  text: "Add tweets from the command slash menu:",
-                },
-              ],
-            },
-            {
-              type: "twitter",
-              attrs: {
-                src: "https://x.com/elonmusk/status/1800759252224729577",
-              },
-            },
-          ],
-        },
-        {
-          type: "listItem",
-          content: [
-            {
-              type: "paragraph",
-              content: [
-                {
-                  type: "text",
-                  text: "Mathematical symbols with LaTeX expression:",
-                },
-              ],
-            },
-            {
-              type: "orderedList",
-              attrs: {
-                tight: true,
-                start: 1,
-              },
-              content: [
-                {
-                  type: "listItem",
-                  content: [
-                    {
-                      type: "paragraph",
-                      content: [
-                        {
-                          type: "math",
-                          attrs: {
-                            latex: "E = mc^2",
-                          },
-                        },
-                      ],
-                    },
-                  ],
-                },
-                {
-                  type: "listItem",
-                  content: [
-                    {
-                      type: "paragraph",
-                      content: [
-                        {
-                          type: "math",
-                          attrs: {
-                            latex: "a^2 = \\sqrt{b^2 + c^2}",
-                          },
-                        },
-                      ],
-                    },
-                  ],
-                },
-                {
-                  type: "listItem",
-                  content: [
-                    {
-                      type: "paragraph",
-                      content: [
-                        {
-                          type: "math",
-                          attrs: {
-                            latex:
-                              "\\hat{f} (\\xi)=\\int_{-\\infty}^{\\infty}f(x)e^{-2\\pi ix\\xi}dx",
-                          },
-                        },
-                      ],
-                    },
-                  ],
-                },
-                {
-                  type: "listItem",
-                  content: [
-                    {
-                      type: "paragraph",
-                      content: [
-                        {
-                          type: "math",
-                          attrs: {
-                            latex:
-                              "A=\\begin{bmatrix}a&b\\\\c&d \\end{bmatrix}",
-                          },
-                        },
-                      ],
-                    },
-                  ],
-                },
-                {
-                  type: "listItem",
-                  content: [
-                    {
-                      type: "paragraph",
-                      content: [
-                        {
-                          type: "math",
-                          attrs: {
-                            latex: "\\sum_{i=0}^n x_i",
-                          },
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
+              content: [{ type: "text", text: "自动保存：编辑过程中自动保存内容，降低误操作丢失风险。" }],
             },
           ],
         },
       ],
     },
     {
-      type: "image",
-      attrs: {
-        src: "https://public.blob.vercel-storage.com/pJrjXbdONOnAeZAZ/banner-2wQk82qTwyVgvlhTW21GIkWgqPGD2C.png",
-        alt: "banner.png",
-        title: "banner.png",
-        width: null,
-        height: null,
-      },
-    },
-    { type: "horizontalRule" },
-    {
       type: "heading",
-      attrs: { level: 3 },
-      content: [{ type: "text", text: "Learn more" }],
+      attrs: { level: 2 },
+      content: [{ type: "text", text: "待办事项" }],
     },
     {
       type: "taskList",
@@ -281,22 +81,7 @@ export const defaultEditorContent = {
           content: [
             {
               type: "paragraph",
-              content: [
-                { type: "text", text: "Star us on " },
-                {
-                  type: "text",
-                  marks: [
-                    {
-                      type: "link",
-                      attrs: {
-                        href: "https://github.com/steven-tey/novel",
-                        target: "_blank",
-                      },
-                    },
-                  ],
-                  text: "GitHub",
-                },
-              ],
+              content: [{ type: "text", text: "完善文档空间、目录和多文档管理能力。" }],
             },
           ],
         },
@@ -306,22 +91,7 @@ export const defaultEditorContent = {
           content: [
             {
               type: "paragraph",
-              content: [
-                { type: "text", text: "Install the " },
-                {
-                  type: "text",
-                  marks: [
-                    {
-                      type: "link",
-                      attrs: {
-                        href: "https://www.npmjs.com/package/novel",
-                        target: "_blank",
-                      },
-                    },
-                  ],
-                  text: "NPM package",
-                },
-              ],
+              content: [{ type: "text", text: "增加文档状态流转：草稿、审核中、已发布。" }],
             },
           ],
         },
@@ -331,22 +101,7 @@ export const defaultEditorContent = {
           content: [
             {
               type: "paragraph",
-              content: [
-                {
-                  type: "text",
-                  marks: [
-                    {
-                      type: "link",
-                      attrs: {
-                        href: "https://vercel.com/templates/next.js/novel",
-                        target: "_blank",
-                      },
-                    },
-                  ],
-                  text: "Deploy your own",
-                },
-                { type: "text", text: " to Vercel" },
-              ],
+              content: [{ type: "text", text: "接入后端存储和权限体系。" }],
             },
           ],
         },
@@ -354,3 +109,21 @@ export const defaultEditorContent = {
     },
   ],
 };
+
+export const emptyEditorContent = {
+  type: "doc",
+  content: [
+    {
+      type: "paragraph",
+    },
+  ],
+};
+
+export const createEmptyEditorContent = () => ({
+  type: "doc",
+  content: [
+    {
+      type: "paragraph",
+    },
+  ],
+});

@@ -22,15 +22,18 @@ import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 // ];
 const appearances = [
   {
-    theme: "System",
+    theme: "system",
+    label: "跟随系统",
     icon: <Monitor className="h-4 w-4" />,
   },
   {
-    theme: "Light",
+    theme: "light",
+    label: "浅色模式",
     icon: <SunDim className="h-4 w-4" />,
   },
   {
-    theme: "Dark",
+    theme: "dark",
+    label: "深色模式",
     icon: <Moon className="h-4 w-4" />,
   },
 ];
@@ -66,21 +69,21 @@ export default function Menu() {
             </button>
           ))}
         </div> */}
-        <p className="p-2 text-xs font-medium text-muted-foreground">Appearance</p>
-        {appearances.map(({ theme, icon }) => (
+        <p className="p-2 text-xs font-medium text-muted-foreground">外观</p>
+        {appearances.map(({ theme, label, icon }) => (
           <Button
             variant="ghost"
             key={theme}
             className="flex w-full items-center justify-between rounded px-2 py-1.5 text-sm"
             onClick={() => {
-              setTheme(theme.toLowerCase());
+              setTheme(theme);
             }}
           >
             <div className="flex items-center space-x-2">
               <div className="rounded-sm border  p-1">{icon}</div>
-              <span>{theme}</span>
+              <span>{label}</span>
             </div>
-            {currentTheme === theme.toLowerCase() && <Check className="h-4 w-4" />}
+            {currentTheme === theme && <Check className="h-4 w-4" />}
           </Button>
         ))}
       </PopoverContent>

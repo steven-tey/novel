@@ -2,6 +2,10 @@
   @apply p-12 px-8 sm:px-12;
 }
 
+.ProseMirror.docflow-document-editor {
+  @apply p-0;
+}
+
 .ProseMirror .is-editor-empty:first-child::before {
   content: attr(data-placeholder);
   float: left;

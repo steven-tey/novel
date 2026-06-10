@@ -26,10 +26,21 @@ import {
 import { cx } from "class-variance-authority";
 import { common, createLowlight } from "lowlight";
 
-//TODO I am using cx here to get tailwind autocomplete working, idk if someone else can write a regex to just capture the class key in objects
+// TODO I am using cx here to get tailwind autocomplete working, idk if someone else can write a regex to just capture the class key in objects
+
+// extensions 是 Tiptap 的能力开关：编辑器支持什么节点、快捷键、插件，基本都在这里集中注册。
 const aiHighlight = AIHighlight;
-//You can overwrite the placeholder with your own configuration
-const placeholder = Placeholder;
+
+// Placeholder 控制空段落里的提示文案，覆盖 Novel 默认的英文 “Press '/' for commands”。
+const placeholder = Placeholder.configure({
+  placeholder: ({ node }) => {
+    if (node.type.name === "heading") return `标题 ${node.attrs.level}`;
+    return "输入 / 打开命令菜单";
+  },
+  includeChildren: true,
+});
+
+// 链接扩展：配置渲染到页面时的 class，不影响文档 JSON 的结构。
 const tiptapLink = TiptapLink.configure({
   HTMLAttributes: {
     class: cx(
@@ -38,6 +49,8 @@ const tiptapLink = TiptapLink.configure({
   },
 });
 
+// 图片扩展：除了基础 image node，还接入 UploadImagesPlugin，
+// 让粘贴/拖拽图片时可以显示上传中的占位样式。
 const tiptapImage = TiptapImage.extend({
   addProseMirrorPlugins() {
     return [
@@ -53,6 +66,7 @@ const tiptapImage = TiptapImage.extend({
   },
 });
 
+// UpdatedImage 是 Novel 对图片能力的增强封装，主要配合图片尺寸/属性更新。
 const updatedImage = UpdatedImage.configure({
   HTMLAttributes: {
     class: cx("rounded-lg border border-muted"),
@@ -64,6 +78,7 @@ const taskList = TaskList.configure({
     class: cx("not-prose pl-2 "),
   },
 });
+
 const taskItem = TaskItem.configure({
   HTMLAttributes: {
     class: cx("flex gap-2 items-start my-4"),
@@ -77,6 +92,8 @@ const horizontalRule = HorizontalRule.configure({
   },
 });
 
+// StarterKit 是 Tiptap 常用基础能力集合：paragraph、heading、list、blockquote、codeBlock 等。
+// 这里通过 configure 给不同节点补充 Tailwind 样式，并关闭默认 horizontalRule，改用下面自定义版本。
 const starterKit = StarterKit.configure({
   bulletList: {
     HTMLAttributes: {
@@ -118,8 +135,7 @@ const starterKit = StarterKit.configure({
 });
 
 const codeBlockLowlight = CodeBlockLowlight.configure({
-  // configure lowlight: common /  all / use highlightJS in case there is a need to specify certain language grammars only
-  // common: covers 37 language grammars which should be good enough in most cases
+  // lowlight 负责代码块语法高亮；common 包含常见语言，体积和覆盖面比较平衡。
   lowlight: createLowlight(common),
 });
 
@@ -148,6 +164,8 @@ const mathematics = Mathematics.configure({
 
 const characterCount = CharacterCount.configure();
 
+// MarkdownExtension 让编辑器可以导出/处理 Markdown。
+// 当前项目在 advanced-editor.tsx 中通过 editor.storage.markdown.getMarkdown() 保存 Markdown 副本。
 const markdownExtension = MarkdownExtension.configure({
   html: true,
   tightLists: true,
@@ -159,6 +177,8 @@ const markdownExtension = MarkdownExtension.configure({
   transformCopiedText: false,
 });
 
+// defaultExtensions 最终传给 EditorContent。
+// 面试时可以把它理解为“编辑器功能清单”：基础排版、媒体、数学公式、AI 高亮、字数统计、Markdown、拖拽手柄等。
 export const defaultExtensions = [
   starterKit,
   placeholder,
